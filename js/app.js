@@ -21,10 +21,6 @@ function main() {
 function init() {
     bgPattern = ctx.createPattern(resources.get('img/bg.png'), 'repeat');
 
-    document.getElementById('play-again').addEventListener('click', function () {
-        reset();
-    });
-
     reset();
     lastTime = Date.now();
     main();
@@ -222,8 +218,6 @@ function renderEntity(entity) {
 
 // Reset game to original state
 function reset() {
-    document.getElementById('game-over').style.display = 'none';
-    document.getElementById('game-over-overlay').style.display = 'none';
     isGameOver = false;
     gameTime = 0;
     score = 0;
