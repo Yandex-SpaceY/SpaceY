@@ -65,6 +65,6 @@
     "prefer-const": "error",
     "default-case": "error",
     "no-unused-vars": ["error", { "args": "none" }],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "always-multiline"]
   }
 }
