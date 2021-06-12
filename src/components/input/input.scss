@@ -1,0 +1,47 @@
+.one_input_block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: #fff;
+
+  &--title {
+    font-size: 9px;
+    line-height: 9px;
+    margin-bottom: 5px;
+    height: 12px;
+  }
+
+  &--input {
+    height: 50px;
+    font-size: 18px;
+    background-color: inherit;
+    color: #fff;
+    border: 0;
+    border-bottom: 3px solid #fff;
+    outline: none;
+  }
+
+  &--error_message {
+    height: 8px;
+    color: #ff2f2f;
+    font-weight: normal;
+    font-size: 8px;
+    font-style: normal;
+    line-height: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &.error {
+    color: #ff2f2f;
+
+    .one_input_block--input {
+      color: #ff2f2f;
+    }
+
+    .one_input_block--error_message {
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+  }
+}
