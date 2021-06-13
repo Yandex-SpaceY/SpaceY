@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import './assets/styles/main.scss';
-import Login from './pages/login/Login';
+import 'style/main.scss';
+import Menu from './pages/menu/Menu';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Login />
+    <Menu />
   </BrowserRouter>,
   document.getElementById('root')
 );

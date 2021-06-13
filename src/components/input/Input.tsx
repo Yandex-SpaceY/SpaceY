@@ -3,13 +3,13 @@ import './input.scss';
 interface IInput {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   name: string;
-  type: string;
-  title: string;
+  title?: string;
+  type?: string;
   errorText?: string;
 }
 
 const Input = (props: IInput): React.ReactElement => {
-  const { onChange, name, type, title, errorText } = props;
+  const { onChange, name, type = 'text', title = name, errorText = '' } = props;
 
   return (
     <div className="one_input_block">

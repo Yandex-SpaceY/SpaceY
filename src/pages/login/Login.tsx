@@ -1,12 +1,11 @@
 import React from 'react';
-import './login.scss';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
+import { fakeOnChange, fakeOnClick } from 'utils';
 
-
-const Login: React.FC = (): React.ReactElement => {
+const Login = (): React.ReactElement => {
   return (
-    <div className="main-login">
+    <div className="main">
       <div className="content-wrapper">
         <h1>SpaceY</h1>
         <div className="content">
@@ -14,7 +13,7 @@ const Login: React.FC = (): React.ReactElement => {
           <div className="one-input-wrapper">
             <Input
               name="email"
-              onChange={(e: any) => console.log(e.target.value)}
+              onChange={fakeOnChange}
               title="e-mail"
               type="email"
             />
@@ -22,13 +21,12 @@ const Login: React.FC = (): React.ReactElement => {
           <div className="one-input-wrapper">
             <Input
               name="password"
-              onChange={(e: any) => console.log(e.target.value)}
-              title="password"
+              onChange={fakeOnChange}
               type="password"
             />
           </div>
 
-          <Button onClick={() => console.log('hello')} text="GET IN" />
+          <Button onClick={fakeOnClick} text="GET IN" />
           <a href="#" className="link">
             Has no Pilot ID?
           </a>
