@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
+import Input from 'components/input/Input';
+import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
+import { LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
 
 const Profile = (): React.ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">
-        <div className="content double">
+        <form className="content double">
           <img src="src/assets/images/cross.png" alt="close button" className="close-button" />
-          <h2>PROFILE</h2>
+          <h2>{PAGES_NAME.PROFILE}</h2>
           <div className="profile-image" />
           <div className="input-wrapper double">
             <Input name="name" onChange={fakeOnChange} />
@@ -29,9 +30,9 @@ const Profile = (): React.ReactElement => {
             <Button onClick={fakeOnClick} text="SAVE" />
           </div>
           <Link to="/dashboard" className="link">
-            Main page
+            {LINKS_TEXT.DASHBOARD}
           </Link>
-        </div>
+        </form>
       </div>
     </div>
   );

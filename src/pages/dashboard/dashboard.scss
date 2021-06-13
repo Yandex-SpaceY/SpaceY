@@ -1,3 +1,5 @@
+@import 'style/variables';
+
 .menu {
   display: flex;
   width: 100%;
@@ -12,14 +14,18 @@
     background: none;
   }
 
-  .menu-item {
+  &-item {
+    margin-bottom: 19px;
+    color: $text_main_color;
+    font-size: 24px;
+    text-decoration: none;
     text-transform: uppercase;
   }
 
   .footer-item {
     position: absolute;
     bottom: 70px;
-    color: #fff;
-    text-shadow: 3px 4px 0 #000;
+    color: $text_main_color;
+    text-shadow: 3px 4px 0 $shadow_main_color;
   }
 }

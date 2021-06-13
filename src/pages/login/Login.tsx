@@ -1,18 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
-import './login.scss';
+import Input from 'components/input/Input';
+import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
+import { GAME_NAME, LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
+import './login.scss';
 
 const Login = (): React.ReactElement => {
   return (
     <div className="main login">
       <div className="content-wrapper">
-        <h1>SpaceY</h1>
-        <div className="content">
-          <h2>BOARDING</h2>
+        <h1>{GAME_NAME}</h1>
+        <form className="content">
+          <h2>{PAGES_NAME.LOGIN}</h2>
           <div className="input-wrapper">
             <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
           </div>
@@ -22,9 +23,9 @@ const Login = (): React.ReactElement => {
 
           <Button onClick={fakeOnClick} text="GET IN" />
           <Link to="/signup" className="link">
-            Has no Pilot ID?
+            {LINKS_TEXT.NO_ACCOUNT}
           </Link>
-        </div>
+        </form>
       </div>
     </div>
   );

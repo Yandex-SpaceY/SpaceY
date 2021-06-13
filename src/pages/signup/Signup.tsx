@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Input from '../../components/input/Input';
-import Button from '../../components/button/Button';
+
+import Input from 'components/input/Input';
+import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
+import { GAME_NAME, LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
 
 const Signup = (): React.ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">
-        <h1>SpaceY</h1>
-        <div className="content double">
-          <h2>REGISTRATION</h2>
+        <h1>{GAME_NAME}</h1>
+        <form className="content double">
+          <h2>{PAGES_NAME.REGISTRATION}</h2>
           <div className="input-wrapper double">
             <Input name="name" onChange={fakeOnChange} />
             <Input name="surname" onChange={fakeOnChange} />
@@ -26,8 +28,8 @@ const Signup = (): React.ReactElement => {
           <div className="button-wrapper">
             <Button onClick={fakeOnClick} text="CHECK IN" />
           </div>
-          <Link to='/login' className="link">I have an account</Link>
-        </div>
+          <Link to='/login' className="link">{LINKS_TEXT.HAVE_ACCOUNT}</Link>
+        </form>
       </div>
     </div>
   );

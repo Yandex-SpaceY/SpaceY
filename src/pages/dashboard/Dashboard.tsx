@@ -1,13 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Dashboard: React.FC = (): React.ReactElement => (
-  <>
-    <Link to='/leaderboard'>Best players</Link>
-    <Link to='/game'>Start</Link>
-    <Link to='/profile'>My profile</Link>
-    <Link to='/forum'>Forum</Link>
-  </>
+import { GAME_NAME, MENU_ITEMS, PAGES_NAME } from 'constants/commonConstants';
+import './dashboard.scss';
+
+const Dashboard = (): React.ReactElement => (
+  <div className="menu">
+    <div className="content-wrapper">
+      <h1>{GAME_NAME}</h1>
+      <form className="content">
+        {MENU_ITEMS.map(item => (
+          <Link key={item.title} className="menu-item" to={item.route}>
+            {item.title}
+          </Link>
+        ))
+        }
+      </form>
+    </div>
+    <h2 className="footer-item">{PAGES_NAME.LEADERBOARD}</h2>
+  </div>
 );
 
 export default Dashboard;
+

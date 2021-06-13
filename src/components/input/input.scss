@@ -1,8 +1,10 @@
+@import 'style/variables';
+
 .one-input-block {
   display: flex;
   width: 100%;
   flex-direction: column;
-  color: #fff;
+  color: $text_main_color;
 
   .title {
     height: 12px;
@@ -14,16 +16,16 @@
   .input {
     height: 50px;
     border: 0;
-    border-bottom: 3px solid #fff;
+    border-bottom: 3px solid $text_main_color;
     background-color: inherit;
-    color: #fff;
+    color: $text_main_color;
     font-size: 18px;
     outline: none;
   }
 
   .error_message {
     height: 8px;
-    color: #ff2f2f;
+    color: $error_main_color;
     font-size: 8px;
     font-style: normal;
     font-weight: normal;
@@ -33,10 +35,10 @@
   }
 
   &.error {
-    color: #ff2f2f;
+    color: $error_main_color;
 
     .input {
-      color: #ff2f2f;
+      background-color: $error_main_color;
     }
 
     .error_message {

@@ -48,7 +48,7 @@ body,
   }
 
   h1 {
-    color: #8659ab;
+    color: $header_link_color;
     font-size: 48px;
     line-height: 100%;
     text-align: center;
@@ -60,7 +60,7 @@ body,
 
   .link {
     margin-top: 24px;
-    color: #8659ab;
+    color: $header_link_color;
     font-size: 12px;
   }
 
@@ -71,11 +71,11 @@ body,
     flex-direction: column;
     align-items: center;
     padding: 25px 19px 25px 18px;
-    border: 3px solid #769ea2;
+    border: 3px solid $secondary_color;
     margin-top: 76px;
-    background-color: #1c3640;
-    box-shadow: 10px 10px 0 0 #000;
-    color: #fff;
+    background-color: $third_color;
+    box-shadow: 10px 10px 0 0 $shadow_main_color;
+    color: $text_main_color;
 
     @media screen and (max-width: $max_content_width) {
       padding: 25px 18px;
@@ -108,10 +108,10 @@ body,
     .profile-image {
       width: 120px;
       height: 120px;
-      border: 3px solid #769ea2;
+      border: 3px solid $secondary_color;
       margin: 0 32px 32px;
-      background: #1d3540;
-      filter: drop-shadow(3px 4px 0 #000);
+      background: $third_color;
+      filter: drop-shadow(3px 4px 0 $shadow_main_color);
     }
 
     .input-wrapper {
