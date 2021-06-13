@@ -30,7 +30,7 @@ body,
 }
 
 .content-wrapper {
-  width: 315px;
+  width: 335px;
 
   @media screen and (max-width: 830px) {
     display: flex;
@@ -67,6 +67,7 @@ body,
   .content {
     position: relative;
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     padding: 25px 19px 25px 18px;
@@ -125,9 +126,13 @@ body,
         @media screen and (max-width: 830px) {
           flex-wrap: wrap;
           margin-bottom: 0;
+
+          .one-input-block {
+            margin-bottom: 22px;
+          }
         }
 
-        .one_input_block:nth-child(2) {
+        .one-input-block:nth-child(2) {
           margin-left: 29px;
 
           @media screen and (max-width: 830px) {

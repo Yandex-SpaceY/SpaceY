@@ -1,17 +1,17 @@
-.one_input_block {
+.one-input-block {
   display: flex;
   width: 100%;
   flex-direction: column;
   color: #fff;
 
-  &--title {
+  .title {
     height: 12px;
     margin-bottom: 5px;
     font-size: 9px;
     line-height: 9px;
   }
 
-  &--input {
+  .input {
     height: 50px;
     border: 0;
     border-bottom: 3px solid #fff;
@@ -21,7 +21,7 @@
     outline: none;
   }
 
-  &--error_message {
+  .error_message {
     height: 8px;
     color: #ff2f2f;
     font-size: 8px;
@@ -35,11 +35,11 @@
   &.error {
     color: #ff2f2f;
 
-    .one_input_block--input {
+    .input {
       color: #ff2f2f;
     }
 
-    .one_input_block--error_message {
+    .error_message {
       opacity: 1;
       transition: opacity 0.3s;
     }
