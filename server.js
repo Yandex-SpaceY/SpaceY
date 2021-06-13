@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express');
-const path = require('path');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const distFolder = `${__dirname}/dist`;
 
-app.use(express.static(distFolder))
+app
+  .use(express.static(__dirname))
   .use((req, res) => {
-    res.sendFile(path.resolve(`${distFolder}/index.html`));
+    res.sendFile('./index.html');
   });
 
 app.listen(PORT, () => {
