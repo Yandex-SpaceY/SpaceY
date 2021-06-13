@@ -16,7 +16,16 @@ module.exports = {
     filename: filename('js')
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.scss']
+    extensions: ['.tsx', '.ts', '.js', '.scss'],
+    alias: {
+      components: `${__dirname}/src/components`,
+      constants: `${__dirname}/src/constants`,
+      pages: `${__dirname}/src/pages`,
+      router: `${__dirname}/src/router`,
+      utils: `${__dirname}/src/utils`,
+      style: `${__dirname}/src/style`,
+      images: `${__dirname}/src/assets/images`
+    }
   },
   module: {
     rules: [
