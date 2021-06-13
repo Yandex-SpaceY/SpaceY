@@ -17,6 +17,13 @@ module.exports = {
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.scss' ],
+    alias: {
+      components: `${__dirname}/src/components`,
+      constants: `${__dirname}/src/constants`,
+      pages: `${__dirname}/src/pages`,
+      router: `${__dirname}/src/router`,
+      utils: `${__dirname}/src/utils`,
+    },
   },
   module: {
     rules: [
