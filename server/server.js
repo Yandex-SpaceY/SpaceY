@@ -6,10 +6,10 @@ const app = express();
 const { PORT = 3000 } = process.env;
 const distFolder = `${__dirname}/dist`;
 
-app.use(express.static(distFolder));
-app.use((req, res) => {
-  res.sendFile(path.resolve(`${distFolder}/index.html`));
-});
+app.use(express.static(distFolder))
+  .use((req, res) => {
+    res.sendFile(path.resolve(`${distFolder}/index.html`));
+  });
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

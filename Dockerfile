@@ -1,9 +1,16 @@
-FROM node:12-alpine
+FROM node:12-alpine as server-build
 WORKDIR /app
-COPY ./server.js ./package*.json ./webpack.config.js ./tsconfig.json ./
-COPY ./src ./src
-COPY ./public ./public
+COPY /server .
+RUN npm install
+
+FROM node:12-alpine as build
+WORKDIR /app
+COPY . .
 RUN npm install && npm run build
-RUN rm -rf ./src && rm -rf ./public
+
+FROM node:12-alpine
+COPY --from=build /app/dist /dist
+COPY --from=build /app/server/server.js /
+COPY --from=server-build /app/node_modules /node_modules
 EXPOSE 3000
-CMD node server.js 
+CMD node server.js
