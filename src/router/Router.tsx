@@ -1,7 +1,17 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
-import { Dashboard, Forum, Game, Leaderboard, Login, NotFound, Profile, ProfileEdit, Signup } from 'pages';
+import {
+  Dashboard,
+  Forum,
+  Game,
+  Leaderboard,
+  Login,
+  NotFound,
+  Profile,
+  ProfileEdit,
+  Signup
+} from 'pages';
 
 const Router: React.FC = () => (
   <Switch>
