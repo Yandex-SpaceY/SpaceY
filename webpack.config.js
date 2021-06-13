@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
-const filename = (ext) => (production ? `bundle.[fullhash].${ext}` : `bundle.${ext}`);
+const filename = ext => (production ? `bundle.[fullhash].${ext}` : `bundle.${ext}`);
 
 module.exports = {
   mode: production ? 'production' : 'development',
@@ -16,7 +16,7 @@ module.exports = {
     filename: filename('js')
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.scss'],
+    extensions: [ '.tsx', '.ts', '.js', '.scss' ],
     alias: {
       components: `${__dirname}/src/components`,
       constants: `${__dirname}/src/constants`,
@@ -36,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
       },
       {
         test: /\.(svg|png|jpg|gif)$/,

@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
 
-const Signup = (): React.ReactElement => {
+const Profile = (): React.ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">
@@ -26,13 +28,13 @@ const Signup = (): React.ReactElement => {
           <div className="button-wrapper">
             <Button onClick={fakeOnClick} text="SAVE" />
           </div>
-          <a href="#" className="link">
-            Unboarding
-          </a>
+          <Link to="/dashboard" className="link">
+            Main page
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Profile;

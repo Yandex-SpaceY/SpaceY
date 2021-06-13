@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
@@ -25,9 +26,7 @@ const Signup = (): React.ReactElement => {
           <div className="button-wrapper">
             <Button onClick={fakeOnClick} text="CHECK IN" />
           </div>
-          <a href="#" className="link">
-            Boarding
-          </a>
+          <Link to='/login' className="link">I have an account</Link>
         </div>
       </div>
     </div>

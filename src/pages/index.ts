@@ -1,0 +1,9 @@
+export { default as Dashboard } from 'pages/dashboard/Dashboard';
+export { default as Forum } from 'pages/forum/Forum';
+export { default as Game } from 'pages/game/Game';
+export { default as Leaderboard } from 'pages/leaderboard/Leaderboard';
+export { default as Login } from 'pages/login/Login';
+export { default as NotFound } from 'pages/notFound/NotFound';
+export { default as Profile } from 'pages/profile/Profile';
+export { default as ProfileEdit } from 'pages/profileEdit/ProfileEdit';
+export { default as Signup } from 'pages/signup/Signup';

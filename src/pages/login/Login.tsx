@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import './login.scss';
@@ -12,25 +14,16 @@ const Login = (): React.ReactElement => {
         <div className="content">
           <h2>BOARDING</h2>
           <div className="input-wrapper">
-            <Input
-              name="email"
-              onChange={fakeOnChange}
-              title="e-mail"
-              type="email"
-            />
+            <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
           </div>
           <div className="input-wrapper">
-            <Input
-              name="password"
-              onChange={fakeOnChange}
-              type="password"
-            />
+            <Input name="password" onChange={fakeOnChange} type="password" />
           </div>
 
           <Button onClick={fakeOnClick} text="GET IN" />
-          <a href="#" className="link">
+          <Link to="/signup" className="link">
             Has no Pilot ID?
-          </a>
+          </Link>
         </div>
       </div>
     </div>
