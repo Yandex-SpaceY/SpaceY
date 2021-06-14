@@ -22,6 +22,7 @@ module.exports = {
       constants: `${__dirname}/src/constants`,
       pages: `${__dirname}/src/pages`,
       router: `${__dirname}/src/router`,
+      sharedComponents: `${__dirname}/src/sharedComponents`,
       utils: `${__dirname}/src/utils`,
     },
   },

@@ -6,6 +6,7 @@
       "constants/*": ["./src/constants/*"],
       "pages/*": ["./src/pages/*"],
       "router/*": ["./src/router/*"],
+      "sharedComponents/*": ["./src/sharedComponents/*"],
       "utils/*": ["./src/utils/*"], 
     }
   },
