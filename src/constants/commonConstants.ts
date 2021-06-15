@@ -13,11 +13,14 @@ export const PAGES_NAME = {
   LEADERBOARD: 'LEADERBOARD',
   LOGIN: 'LOGIN',
   PROFILE: 'PROFILE',
+  PROFILE_EDIT: 'PROFILE EDIT',
   REGISTRATION: 'REGISTRATION'
 };
 
 export const LINKS_TEXT = {
   DASHBOARD: 'Main page',
   HAVE_ACCOUNT: 'I have an account',
-  NO_ACCOUNT: 'Has no account?'
+  NO_ACCOUNT: 'Has no account?',
+  PROFILE: 'See my profile',
+  PROFILE_EDIT: 'Edit my profile'
 };

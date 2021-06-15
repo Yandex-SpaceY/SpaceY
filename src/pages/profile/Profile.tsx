@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
-import Button from 'components/button/Button';
-import { fakeOnChange, fakeOnClick } from 'utils';
 import { LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
 
 const Profile = (): React.ReactElement => {
@@ -14,20 +12,20 @@ const Profile = (): React.ReactElement => {
           <h2>{PAGES_NAME.PROFILE}</h2>
           <div className="profile-image" />
           <div className="input-wrapper double">
-            <Input name="name" onChange={fakeOnChange} />
-            <Input name="surname" onChange={fakeOnChange} />
+            <Input name="name" title="name" />
+            <Input name="surname" title="surname" />
           </div>
           <div className="input-wrapper double">
-            <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
-            <Input name="codename" onChange={fakeOnChange} />
+            <Input name="email" title="e-mail" type="email" />
+            <Input name="codename" title="codename" />
           </div>
           <div className="input-wrapper double">
-            <Input name="phone" onChange={fakeOnChange} />
-            <Input name="password" onChange={fakeOnChange} type="password" />
+            <Input name="phone" title="phone" />
+            <Input name="password" title="password" type="password" />
           </div>
-          <div className="button-wrapper">
-            <Button onClick={fakeOnClick} text="SAVE" />
-          </div>
+          <Link to="/profile/edit" className="link">
+            {LINKS_TEXT.PROFILE_EDIT}
+          </Link>
           <Link to="/dashboard" className="link">
             {LINKS_TEXT.DASHBOARD}
           </Link>

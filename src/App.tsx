@@ -3,9 +3,7 @@ import React from 'react';
 import Router from 'router/Router';
 
 const App: React.FC = (): React.ReactElement => (
-  <>
-    <Router />
-  </>
+  <Router />
 );
 
 export default App;

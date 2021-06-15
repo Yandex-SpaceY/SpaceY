@@ -17,7 +17,11 @@ const Dashboard = (): React.ReactElement => (
         }
       </div>
     </div>
-    <h2 className="footer-item">{PAGES_NAME.LEADERBOARD}</h2>
+    <div className="footer-item">
+      <Link to="/leaderboard" className="menu-item">
+        {PAGES_NAME.LEADERBOARD}
+      </Link>
+    </div>
   </div>
 );
 
