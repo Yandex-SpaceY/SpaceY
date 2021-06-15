@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Router from 'router/Router';
-import { ErrorBoundary } from 'sharedComponents';
+import { ErrorBoundary } from 'components';
 
 const App: React.FC = (): React.ReactElement => (
   <ErrorBoundary>

@@ -9,7 +9,6 @@ import {
   Leaderboard,
   Login,
   NotFound,
-  Oops,
   Profile,
   ProfileEdit,
   Signup
@@ -27,7 +26,6 @@ const Router: React.FC = () => (
     <Route path={routeConstants.LEADERBOARD} component={Leaderboard} />
     <Route path={routeConstants.GAME} component={Game} />
     <Route path={routeConstants.NOT_FOUND} component={NotFound} />
-    <Route path={routeConstants.OOPS} component={Oops} />
     <Redirect to={routeConstants.NOT_FOUND} />
   </Switch>
 );
