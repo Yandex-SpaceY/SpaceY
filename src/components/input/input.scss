@@ -9,8 +9,7 @@
   .title {
     height: 12px;
     margin-bottom: 5px;
-    font-size: 9px;
-    line-height: 9px;
+    font-size: $small_font_size;
   }
 
   .input {
@@ -19,17 +18,14 @@
     border-bottom: 3px solid $text_main_color;
     background-color: inherit;
     color: $text_main_color;
-    font-size: 18px;
+    font-size: $base_font_size;
     outline: none;
   }
 
   .error_message {
-    height: 8px;
+    height: 9px;
     color: $error_main_color;
-    font-size: 8px;
-    font-style: normal;
-    font-weight: normal;
-    line-height: 8px;
+    font-size: $small_font_size;
     opacity: 0;
     transition: opacity 0.3s;
   }

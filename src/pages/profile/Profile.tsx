@@ -11,7 +11,6 @@ const Profile = (): React.ReactElement => {
     <div className="main">
       <div className="content-wrapper double">
         <form className="content double">
-          <img src="src/assets/images/cross.png" alt="close button" className="close-button" />
           <h2>{PAGES_NAME.PROFILE}</h2>
           <div className="profile-image" />
           <div className="input-wrapper double">

@@ -12,7 +12,7 @@ const Button = (props: IButton): React.ReactElement => {
   const { onClick, text, className, type = 'button' } = props;
 
   return (
-    <button type={type} className={`one-button ${className}`} onClick={onClick}>{text}</button>
+    <button type={type} className={`one-button${className ? ' ' + className : ''}`} onClick={onClick}>{text}</button>
   );
 };
 

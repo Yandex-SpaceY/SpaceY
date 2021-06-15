@@ -7,10 +7,10 @@
   background-color: $primary_color;
   box-shadow: 5px 7px 0 0 $shadow_main_color;
   color: $text_main_color;
-  font-size: 18px;
-  line-height: 100%;
+  font-size: $base_font_size;
 
-  &:hover {
+  &:hover,
+  :active {
     background-color: $secondary_color;
     box-shadow: 7px 9px 0 $shadow_main_color;
   }
@@ -19,11 +19,6 @@
     border-color: $primary_color;
     background-color: $third_color;
     color: $primary_color;
-  }
-
-  &:active {
-    background-color: $secondary_color;
-    box-shadow: 7px 9px 0 $shadow_main_color;
   }
 
   &:focus {

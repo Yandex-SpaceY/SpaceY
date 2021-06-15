@@ -49,8 +49,7 @@ body,
 
   h1 {
     color: $header_link_color;
-    font-size: 48px;
-    line-height: 100%;
+    font-size: $h1_font_size;
     text-align: center;
 
     @media screen and (max-width: $max_content_width) {
@@ -61,7 +60,7 @@ body,
   .link {
     margin-top: 24px;
     color: $header_link_color;
-    font-size: 12px;
+    font-size: $link_font_size;
   }
 
   .content {
@@ -97,12 +96,6 @@ body,
       h2 {
         margin-bottom: 49px;
       }
-    }
-
-    .close-button {
-      position: absolute;
-      top: 15px;
-      right: 15px;
     }
 
     .profile-image {

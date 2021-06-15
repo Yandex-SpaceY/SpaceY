@@ -8,14 +8,14 @@ const Dashboard = (): React.ReactElement => (
   <div className="menu">
     <div className="content-wrapper">
       <h1>{GAME_NAME}</h1>
-      <form className="content">
+      <div className="content">
         {MENU_ITEMS.map(item => (
           <Link key={item.title} className="menu-item" to={item.route}>
             {item.title}
           </Link>
         ))
         }
-      </form>
+      </div>
     </div>
     <h2 className="footer-item">{PAGES_NAME.LEADERBOARD}</h2>
   </div>

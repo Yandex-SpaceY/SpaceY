@@ -8,16 +8,16 @@ export const MENU_ITEMS = [
 export const GAME_NAME = 'SpaceY';
 
 export const PAGES_NAME = {
-  LOGIN: 'LOGIN',
-  REGISTRATION: 'REGISTRATION',
-  PROFILE: 'PROFILE',
   DASHBOARD: 'DASHBOARD',
   FORUM: 'FORUM',
-  LEADERBOARD: 'LEADERBOARD'
+  LEADERBOARD: 'LEADERBOARD',
+  LOGIN: 'LOGIN',
+  PROFILE: 'PROFILE',
+  REGISTRATION: 'REGISTRATION'
 };
 
 export const LINKS_TEXT = {
-  NO_ACCOUNT: 'Has no account?',
+  DASHBOARD: 'Main page',
   HAVE_ACCOUNT: 'I have an account',
-  DASHBOARD: 'Main page'
+  NO_ACCOUNT: 'Has no account?'
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './input.scss';
+
 interface IInput {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
   name: string;
