@@ -13,7 +13,7 @@ const Dashboard = (): React.ReactElement => (
           const { title, route } = item;
 
           return <Link key={title} className="menu-item" to={route}>
-            {item.title}
+            {title}
           </Link>;
         }
         )

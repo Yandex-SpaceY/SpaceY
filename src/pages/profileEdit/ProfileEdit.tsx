@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom';
 
 import Button from 'components/button/Button';
 import Input from 'components/input/Input';
-import { LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
+import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { fakeOnChange, fakeOnClick } from 'utils';
+import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const ProfileEdit = (): React.ReactElement => {
   return (<div className="main" >
     <div className="content-wrapper double">
       <form className="content double">
-        <h2>{PAGES_NAME.PROFILE_EDIT}</h2>
+        <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
         <div className="profile-image" />
         <div className="input-wrapper double">
           <Input name="name" title="name"  onChange={fakeOnChange} />
@@ -27,11 +28,11 @@ const ProfileEdit = (): React.ReactElement => {
         <div className="button-wrapper">
           <Button onClick={fakeOnClick} text="SAVE" />
         </div>
-        <Link to="/profile" className="link">
-          {LINKS_TEXT.PROFILE}
+        <Link to={ROUTE_CONSTANTS.PROFILE} className="link">
+          {LINK_TEXTS.PROFILE}
         </Link>
-        <Link to="/dashboard" className="link">
-          {LINKS_TEXT.DASHBOARD}
+        <Link to={ROUTE_CONSTANTS.DASHBOARD} className="link">
+          {LINK_TEXTS.DASHBOARD}
         </Link>
       </form>
     </div>

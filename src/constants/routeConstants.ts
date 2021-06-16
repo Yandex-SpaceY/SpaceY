@@ -1,4 +1,4 @@
-export const routeConstants = {
+export const ROUTE_CONSTANTS = {
   DASHBOARD: '/dashboard',
   FORUM: '/forum',
   GAME: '/game',
@@ -7,5 +7,5 @@ export const routeConstants = {
   NOT_FOUND: '/404',
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
-  SIGNUP: '/signup'
+  SIGNUP: '/signup',
 };
