@@ -1,8 +1,9 @@
+import { routeConstants } from './routeConstants';
 export const MENU_ITEMS = [
-  { title: 'start', route: '/game' },
-  { title: 'my profile', route: '/profile' },
-  { title: 'best players', route: '/leaderboard' },
-  { title: 'forum', route: '/forum' }
+  { title: 'start', route: routeConstants.GAME },
+  { title: 'my profile', route: routeConstants.PROFILE },
+  { title: 'best players', route: routeConstants.LEADERBOARD },
+  { title: 'forum', route: routeConstants.FORUM }
 ];
 
 export const GAME_NAME = 'SpaceY';
