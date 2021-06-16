@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { GAME_NAME, MENU_ITEMS, PAGES_NAME } from 'constants/commonConstants';
+import { GAME_NAME, MENU_ITEMS } from 'constants/commonConstants';
 import './dashboard.scss';
 
 const Dashboard = (): React.ReactElement => (
@@ -9,18 +9,16 @@ const Dashboard = (): React.ReactElement => (
     <div className="content-wrapper">
       <h1>{GAME_NAME}</h1>
       <div className="content">
-        {MENU_ITEMS.map(item => (
-          <Link key={item.title} className="menu-item" to={item.route}>
+        {MENU_ITEMS.map(item => {
+          const { title, route } = item;
+
+          return <Link key={title} className="menu-item" to={route}>
             {item.title}
-          </Link>
-        ))
+          </Link>;
+        }
+        )
         }
       </div>
-    </div>
-    <div className="footer-item">
-      <Link to="/leaderboard" className="menu-item">
-        {PAGES_NAME.LEADERBOARD}
-      </Link>
     </div>
   </div>
 );

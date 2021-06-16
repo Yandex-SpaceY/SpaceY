@@ -1,8 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 import Button from 'components/button/Button';
 import Input from 'components/input/Input';
 import { LINKS_TEXT, PAGES_NAME } from 'constants/commonConstants';
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { fakeOnChange, fakeOnClick } from 'utils';
 
 const ProfileEdit = (): React.ReactElement => {

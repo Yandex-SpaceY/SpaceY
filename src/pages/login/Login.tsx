@@ -18,7 +18,7 @@ const Login = (): React.ReactElement => {
             <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
           </div>
           <div className="input-wrapper">
-            <Input name="password" onChange={fakeOnChange} type="password" />
+            <Input name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>
 
           <Button onClick={fakeOnClick} text="GET IN" />

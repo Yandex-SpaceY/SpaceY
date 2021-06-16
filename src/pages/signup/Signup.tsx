@@ -14,16 +14,16 @@ const Signup = (): React.ReactElement => {
         <form className="content double">
           <h2>{PAGES_NAME.REGISTRATION}</h2>
           <div className="input-wrapper double">
-            <Input name="name" onChange={fakeOnChange} />
-            <Input name="surname" onChange={fakeOnChange} />
+            <Input name="name" title="name" onChange={fakeOnChange} />
+            <Input name="surname" title="surname" onChange={fakeOnChange} />
           </div>
           <div className="input-wrapper double">
             <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
-            <Input name="codename" onChange={fakeOnChange} />
+            <Input name="codename" title="codename" onChange={fakeOnChange} />
           </div>
           <div className="input-wrapper double">
-            <Input name="phone" onChange={fakeOnChange} />
-            <Input name="password" onChange={fakeOnChange} type="password" />
+            <Input name="phone" title="phone" onChange={fakeOnChange} />
+            <Input name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>
           <div className="button-wrapper">
             <Button onClick={fakeOnClick} text="CHECK IN" />

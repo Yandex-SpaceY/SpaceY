@@ -2,7 +2,11 @@
 
 .one-input-block {
   display: flex;
-  width: 100%;
+  width: 360px;
+
+  @media screen and (max-width: $max_content_width) {
+    width: 293px;
+  }
   flex-direction: column;
   color: $text_main_color;
 
@@ -20,6 +24,13 @@
     color: $text_main_color;
     font-size: $base_font_size;
     outline: none;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px $third_color inset;
+    -webkit-text-fill-color: $text_main_color;
   }
 
   .error_message {
