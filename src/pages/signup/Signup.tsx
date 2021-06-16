@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-const Signup: React.FC = (): React.ReactElement => (
+import { routeConstants } from 'constants/routeConstants';
+
+const Signup: FC = (): ReactElement => (
   <>
-    <Link to='/login'>I have an account</Link>
-    <Link to='/dashboard'>Create an account and enter the game</Link>
+    <Link to={routeConstants.LOGIN}>I have an account</Link>
+    <Link to={routeConstants.DASHBOARD}>Create an account and enter the game</Link>
   </>
 );
 

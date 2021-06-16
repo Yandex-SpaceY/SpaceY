@@ -1,12 +1,12 @@
 import React from 'react';
 
 import Router from 'router/Router';
+import { ErrorBoundary } from 'components';
 
 const App: React.FC = (): React.ReactElement => (
-  <>
+  <ErrorBoundary>
     <Router />
-    <h1>The Space Y game will be here</h1>
-  </>
+  </ErrorBoundary>
 );
 
 export default App;

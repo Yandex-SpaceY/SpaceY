@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-const Dashboard: React.FC = (): React.ReactElement => (
+import { routeConstants } from 'constants/routeConstants';
+
+const Dashboard: FC = (): ReactElement => (
   <>
-    <Link to='/leaderboard'>Best players</Link>
-    <Link to='/game'>Start</Link>
-    <Link to='/profile'>My profile</Link>
-    <Link to='/forum'>Forum</Link>
+    <Link to={routeConstants.LEADERBOARD}>Best players</Link>
+    <Link to={routeConstants.GAME}>Start</Link>
+    <Link to={routeConstants.PROFILE}>My profile</Link>
+    <Link to={routeConstants.FORUM}>Forum</Link>
   </>
 );
 
