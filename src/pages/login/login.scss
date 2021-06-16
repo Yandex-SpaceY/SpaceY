@@ -1,5 +1,15 @@
+@import 'style/variables';
+
 .login {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: $max_content_width) {
+    height: 100%;
+  }
+
+  .one-input-block {
+    width: 295px;
+  }
 }
