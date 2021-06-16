@@ -9,11 +9,10 @@ interface IInput {
   title?: string;
   type?: string;
   errorText?: string;
-  disabled?: boolean;
 }
 
 const Input = (props: IInput): React.ReactElement => {
-  const { onChange, name, type = 'text', title, errorText, placeholder, disabled } = props;
+  const { onChange, name, type = 'text', title, errorText, placeholder } = props;
 
   return (
     <div className="one-input-block">
@@ -22,7 +21,7 @@ const Input = (props: IInput): React.ReactElement => {
         id={name}
         className="input"
         onChange={onChange}
-        disabled={disabled || !onChange}
+        disabled={!onChange}
         placeholder={placeholder}
         name={name}
         type={type} />
