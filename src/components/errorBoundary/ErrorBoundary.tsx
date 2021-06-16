@@ -1,31 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 import { Oops } from 'components';
 
-type ErrorState = { error: Error | null, errorInfo: React.ErrorInfo | null }
+type ErrorState = { isError: boolean }
 
 class ErrorBoundary extends Component {
   state: ErrorState = {
-    error: null,
-    errorInfo: null,
+    isError: false,
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    this.setState({
-      error,
-      errorInfo,
-    });
+  static getDerivedStateFromError(): ErrorState {
+    return { isError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error(`Pay attention to the error. ${error}: ${errorInfo}`);
   }
 
   clearState = (): void => {
     this.setState({
-      error: null,
-      errorInfo: null,
+      isError: false,
     });
   }
 
-  render(): React.ReactNode {
-    return this.state.errorInfo ? <Oops clearState={this.clearState} /> : this.props.children;
+  render(): ReactNode {
+    return this.state.isError ? <Oops clearState={this.clearState} /> : this.props.children;
   }
 }
 

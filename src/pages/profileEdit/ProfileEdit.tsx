@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProfileEdit: React.FC = (): React.ReactElement => (
+import { routeConstants } from 'constants/routeConstants';
+
+const ProfileEdit: FC = (): ReactElement => (
   <>
-    <Link to='/profile'>See my profile</Link>
-    <Link to='/dashboard'>Main page</Link>
+    <Link to={routeConstants.PROFILE}>See my profile</Link>
+    <Link to={routeConstants.DASHBOARD}>Main page</Link>
   </>
 );
 
