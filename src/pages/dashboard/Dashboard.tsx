@@ -9,9 +9,7 @@ const Dashboard = (): React.ReactElement => (
     <div className="content-wrapper">
       <h1>{GAME_NAME}</h1>
       <div className="content">
-        {MENU_ITEMS.map(item => {
-          const { title, route } = item;
-
+        {MENU_ITEMS.map(({ title, route }) => {
           return <Link key={title} className="menu-item" to={route}>
             {title}
           </Link>;
