@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { GAME_NAME, MENU_ITEMS } from 'constants/commonConstants';
+
 import './dashboard.scss';
 
 const Dashboard = (): React.ReactElement => (

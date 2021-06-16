@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
 import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
 import { GAME_NAME, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
-import './login.scss';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+
+import './login.scss';
 
 const Login = (): React.ReactElement => {
   return (

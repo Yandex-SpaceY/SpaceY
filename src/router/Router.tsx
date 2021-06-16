@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
+import { routeConstants } from 'constants/routeConstants';
 import {
   Dashboard,
   Forum,
@@ -15,17 +16,17 @@ import {
 
 const Router: React.FC = () => (
   <Switch>
-    <Redirect from='/' exact to='/login' />
-    <Route path='/login' component={Login} />
-    <Route path='/signup' component={Signup} />
-    <Route path='/dashboard' component={Dashboard} />
-    <Route exact path='/profile' component={Profile} />
-    <Route path='/profile/edit' component={ProfileEdit} />
-    <Route path='/forum' component={Forum} />
-    <Route path='/leaderboard' component={Leaderboard} />
-    <Route path='/game' component={Game} />
-    <Route path='/404' component={NotFound} />
-    <Redirect to='/404' />
+    <Redirect from='/' exact to={routeConstants.LOGIN} />
+    <Route path={routeConstants.LOGIN} component={Login} />
+    <Route path={routeConstants.SIGNUP} component={Signup} />
+    <Route path={routeConstants.DASHBOARD} component={Dashboard} />
+    <Route exact path={routeConstants.PROFILE} component={Profile} />
+    <Route path={routeConstants.PROFILE_EDIT} component={ProfileEdit} />
+    <Route path={routeConstants.FORUM} component={Forum} />
+    <Route path={routeConstants.LEADERBOARD} component={Leaderboard} />
+    <Route path={routeConstants.GAME} component={Game} />
+    <Route path={routeConstants.NOT_FOUND} component={NotFound} />
+    <Redirect to={routeConstants.NOT_FOUND} />
   </Switch>
 );
 
