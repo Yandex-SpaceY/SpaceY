@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/button/Button';
