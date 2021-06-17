@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 
 import './input.scss';
 
@@ -11,8 +11,7 @@ interface IInput {
   errorText?: string;
 }
 
-const Input = (props: IInput): React.ReactElement => {
-  const { onChange, name, type = 'text', title, errorText, placeholder } = props;
+const Input: FC<IInput> = ({ onChange, name, type = 'text', title, errorText, placeholder }): ReactElement => {
 
   return (
     <div className="one-input-block">

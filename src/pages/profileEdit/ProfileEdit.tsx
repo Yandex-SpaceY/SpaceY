@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/button/Button';
@@ -7,14 +7,14 @@ import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { fakeOnChange, fakeOnClick } from 'utils';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
-const ProfileEdit = (): React.ReactElement => {
+const ProfileEdit: FC = (): ReactElement => {
   return (<div className="main" >
     <div className="content-wrapper double">
       <form className="content double">
         <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
         <div className="profile-image" />
         <div className="input-wrapper double">
-          <Input name="name" title="name"  onChange={fakeOnChange} />
+          <Input name="name" title="name" onChange={fakeOnChange} />
           <Input name="surname" title="surname" onChange={fakeOnChange} />
         </div>
         <div className="input-wrapper double">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
@@ -7,7 +7,7 @@ import { fakeOnChange, fakeOnClick } from 'utils';
 import { GAME_NAME, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
-const Signup = (): React.ReactElement => {
+const Signup: FC = (): ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">

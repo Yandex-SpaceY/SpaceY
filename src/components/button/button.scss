@@ -7,10 +7,11 @@
   background-color: $primary_color;
   box-shadow: 5px 7px 0 0 $shadow_main_color;
   color: $text_main_color;
+  cursor: pointer;
   font-size: $base_font_size;
 
   &:hover,
-  :active {
+  &:active {
     background-color: $secondary_color;
     box-shadow: 7px 9px 0 $shadow_main_color;
   }

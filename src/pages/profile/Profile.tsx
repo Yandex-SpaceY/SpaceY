@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
 import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
-const Profile = (): React.ReactElement => {
+const Profile: FC = (): ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">

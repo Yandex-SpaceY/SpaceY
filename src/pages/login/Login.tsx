@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
@@ -9,7 +9,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 import './login.scss';
 
-const Login = (): React.ReactElement => {
+const Login: FC = (): ReactElement => {
   return (
     <div className="main login">
       <div className="content-wrapper">

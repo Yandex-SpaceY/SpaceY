@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
+import classNames from 'classnames';
 
 import './button.scss';
+
 interface IButton {
   onClick(e: React.MouseEvent<HTMLButtonElement>): void;
   text: string;
@@ -8,11 +10,11 @@ interface IButton {
   type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = (props: IButton): React.ReactElement => {
-  const { onClick, text, className, type = 'button' } = props;
+const Button: FC<IButton> = ({ onClick, text, className, type = 'button' }): ReactElement => {
 
   return (
-    <button type={type} className={`one-button${className ? ' ' + className : ''}`} onClick={onClick}>{text}</button>
+    // <button type={type} className={`one-button${className ? ' ' + className : ''}`} onClick={onClick}>{text}</button>
+    <button type={type} className={classNames('one-button', className)} onClick={onClick}>{text}</button>
   );
 };
 

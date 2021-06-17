@@ -33,7 +33,7 @@
     -webkit-text-fill-color: $text_main_color;
   }
 
-  .error_message {
+  .error-message {
     height: 9px;
     color: $error_main_color;
     font-size: $small_font_size;
@@ -48,7 +48,7 @@
       background-color: $error_main_color;
     }
 
-    .error_message {
+    .error-message {
       opacity: 1;
       transition: opacity 0.3s;
     }
