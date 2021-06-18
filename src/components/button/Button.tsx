@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 import './button.scss';
 
@@ -13,8 +13,7 @@ interface IButton {
 const Button: FC<IButton> = ({ onClick, text, className, type = 'button' }): ReactElement => {
 
   return (
-    // <button type={type} className={`one-button${className ? ' ' + className : ''}`} onClick={onClick}>{text}</button>
-    <button type={type} className={classNames('one-button', className)} onClick={onClick}>{text}</button>
+    <button type={type} className={cn('one-button', className)} onClick={onClick}>{text}</button>
   );
 };
 

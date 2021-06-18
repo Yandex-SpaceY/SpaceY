@@ -12,17 +12,17 @@ const Signup: FC = (): ReactElement => {
     <div className="main">
       <div className="content-wrapper double">
         <h1>{GAME_NAME}</h1>
-        <form className="content double">
+        <form className="content">
           <h2>{PAGE_NAMES.REGISTRATION}</h2>
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="name" title="name" onChange={fakeOnChange} />
             <Input name="surname" title="surname" onChange={fakeOnChange} />
           </div>
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
             <Input name="codename" title="codename" onChange={fakeOnChange} />
           </div>
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="phone" title="phone" onChange={fakeOnChange} />
             <Input name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>

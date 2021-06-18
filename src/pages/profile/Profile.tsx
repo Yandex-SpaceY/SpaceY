@@ -9,18 +9,18 @@ const Profile: FC = (): ReactElement => {
   return (
     <div className="main">
       <div className="content-wrapper double">
-        <form className="content double">
+        <form className="content">
           <h2>{PAGE_NAMES.PROFILE}</h2>
           <div className="profile-image" />
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="name" title="name" />
             <Input name="surname" title="surname" />
           </div>
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="email" title="e-mail" type="email" />
             <Input name="codename" title="codename" />
           </div>
-          <div className="input-wrapper double">
+          <div className="input-wrapper">
             <Input name="phone" title="phone" />
             <Input name="password" title="password" type="password" />
           </div>

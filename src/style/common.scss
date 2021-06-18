@@ -31,6 +31,47 @@ body,
   }
 }
 
+.content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 19px 25px 18px;
+  border: 3px solid $secondary_color;
+  margin-top: 25px;
+  background-color: $third_color;
+  box-shadow: 10px 10px 0 0 $shadow_main_color;
+  color: $text_main_color;
+
+  @media screen and (max-width: $max_content_width) {
+    padding: 25px 18px;
+    margin-top: 0;
+  }
+
+  h2 {
+    margin-bottom: 32px;
+  }
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border: 3px solid $secondary_color;
+    margin: 0 32px 32px;
+    background: $third_color;
+    filter: drop-shadow(3px 4px 0 $shadow_main_color);
+  }
+
+  .input-wrapper {
+    width: 100%;
+    margin-bottom: 22px;
+  }
+
+  .button-wrapper {
+    margin-top: 50px;
+  }
+}
+
 .content-wrapper {
   width: $content_width;
 
@@ -43,6 +84,42 @@ body,
 
   &.double {
     width: 828px;
+
+    .content {
+      padding: 39px 37px 34px;
+
+      @media screen and (max-width: $max_content_width) {
+        width: $content_width;
+        padding: 25px 18px;
+      }
+
+      h2 {
+        margin-bottom: 49px;
+      }
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      @media screen and (max-width: $max_content_width) {
+        flex-wrap: wrap;
+        margin-bottom: 0;
+
+        .one-input-block {
+          margin-bottom: 22px;
+        }
+      }
+
+      .one-input-block:nth-child(2) {
+        margin-left: 29px;
+
+        @media screen and (max-width: $max_content_width) {
+          margin-left: 0;
+        }
+      }
+    }
 
     @media screen and (max-width: $max_content_width) {
       width: 100%;
@@ -63,82 +140,5 @@ body,
     margin-top: 24px;
     color: $header_link_color;
     font-size: $link_font_size;
-  }
-
-  .content {
-    position: relative;
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px 19px 25px 18px;
-    border: 3px solid $secondary_color;
-    margin-top: 25px;
-    background-color: $third_color;
-    box-shadow: 10px 10px 0 0 $shadow_main_color;
-    color: $text_main_color;
-
-    @media screen and (max-width: $max_content_width) {
-      padding: 25px 18px;
-      margin-top: 0;
-    }
-
-    h2 {
-      margin-bottom: 32px;
-    }
-
-    &.double {
-      padding: 39px 37px 34px;
-
-      @media screen and (max-width: $max_content_width) {
-        width: $content_width;
-        padding: 25px 18px;
-      }
-
-      h2 {
-        margin-bottom: 49px;
-      }
-    }
-
-    .profile-image {
-      width: 120px;
-      height: 120px;
-      border: 3px solid $secondary_color;
-      margin: 0 32px 32px;
-      background: $third_color;
-      filter: drop-shadow(3px 4px 0 $shadow_main_color);
-    }
-
-    .input-wrapper {
-      width: 100%;
-      margin-bottom: 22px;
-
-      &.double {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-
-        @media screen and (max-width: $max_content_width) {
-          flex-wrap: wrap;
-          margin-bottom: 0;
-
-          .one-input-block {
-            margin-bottom: 22px;
-          }
-        }
-
-        .one-input-block:nth-child(2) {
-          margin-left: 29px;
-
-          @media screen and (max-width: $max_content_width) {
-            margin-left: 0;
-          }
-        }
-      }
-    }
-
-    .button-wrapper {
-      margin-top: 50px;
-    }
   }
 }

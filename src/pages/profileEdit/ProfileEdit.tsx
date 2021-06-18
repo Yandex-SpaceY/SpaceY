@@ -3,25 +3,25 @@ import { Link } from 'react-router-dom';
 
 import Button from 'components/button/Button';
 import Input from 'components/input/Input';
-import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { fakeOnChange, fakeOnClick } from 'utils';
+import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
   return (<div className="main" >
     <div className="content-wrapper double">
-      <form className="content double">
+      <form className="content">
         <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
         <div className="profile-image" />
-        <div className="input-wrapper double">
+        <div className="input-wrapper">
           <Input name="name" title="name" onChange={fakeOnChange} />
           <Input name="surname" title="surname" onChange={fakeOnChange} />
         </div>
-        <div className="input-wrapper double">
+        <div className="input-wrapper">
           <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
           <Input name="codename" title="codename" onChange={fakeOnChange} />
         </div>
-        <div className="input-wrapper double">
+        <div className="input-wrapper">
           <Input name="phone" title="phone" onChange={fakeOnChange} />
           <Input name="password" title="password" onChange={fakeOnChange} type="password" />
         </div>
