@@ -1,9 +1,9 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, ChangeEvent } from 'react';
 
 import './input.scss';
 
 interface IInput {
-  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
+  onChange?(e: ChangeEvent<HTMLInputElement>): void;
   name: string;
   placeholder?: string;
   title?: string;

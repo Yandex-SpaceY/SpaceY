@@ -3,12 +3,12 @@
 .one-input-block {
   display: flex;
   width: 360px;
+  flex-direction: column;
+  color: $text_main_color;
 
   @media screen and (max-width: $max_content_width) {
     width: 293px;
   }
-  flex-direction: column;
-  color: $text_main_color;
 
   .title {
     height: 12px;
@@ -38,7 +38,6 @@
     color: $error_main_color;
     font-size: $small_font_size;
     opacity: 0;
-    transition: opacity 0.3s;
   }
 
   &.error {

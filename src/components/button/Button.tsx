@@ -1,19 +1,19 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, MouseEvent } from 'react';
 import cn from 'classnames';
 
 import './button.scss';
 
 interface IButton {
-  onClick(e: React.MouseEvent<HTMLButtonElement>): void;
-  text: string;
+  onClick(e: MouseEvent<HTMLButtonElement>): void;
+  children: ReactElement | string;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
 }
 
-const Button: FC<IButton> = ({ onClick, text, className, type = 'button' }): ReactElement => {
+const Button: FC<IButton> = ({ onClick, children, className, type = 'button' }): ReactElement => {
 
   return (
-    <button type={type} className={cn('one-button', className)} onClick={onClick}>{text}</button>
+    <button type={type} className={cn('one-button', className)} onClick={onClick}>{children}</button>
   );
 };
 

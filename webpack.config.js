@@ -13,7 +13,7 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: filename('js')
+    filename: filename('js'),
   },
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.scss' ],
