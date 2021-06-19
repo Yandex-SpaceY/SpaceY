@@ -5,12 +5,11 @@ import './button.scss';
 
 interface IButton {
   onClick(e: MouseEvent<HTMLButtonElement>): void;
-  children: ReactElement | string;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
 }
 
-const Button: FC<IButton> = ({ onClick, children, className, type = 'button' }): ReactElement => {
+const Button: FC<IButton> = ({ onClick, className, children, type = 'button' }): ReactElement => {
 
   return (
     <button type={type} className={cn('one-button', className)} onClick={onClick}>{children}</button>

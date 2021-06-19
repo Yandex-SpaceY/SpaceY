@@ -27,7 +27,7 @@ const Signup: FC = (): ReactElement => {
             <Input name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>
           <div className="button-wrapper">
-            <Button onClick={fakeOnClick} text="CHECK IN" />
+            <Button onClick={fakeOnClick}>CHECK IN</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.LOGIN} className="link">{LINK_TEXTS.LOGIN}</Link>
           <Link to={ROUTE_CONSTANTS.DASHBOARD} className="link">{LINK_TEXTS.DASHBOARD}</Link>

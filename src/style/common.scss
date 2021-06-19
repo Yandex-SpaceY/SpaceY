@@ -24,9 +24,7 @@ body,
   background-size: cover;
 
   @media screen and (max-width: $max_content_width) {
-    display: block;
     width: auto;
-    height: auto;
     padding-top: 38px;
   }
 }

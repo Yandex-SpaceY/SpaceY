@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, ReactElement, useState } from 'react';
+import React, { FC, FormEvent, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from 'components/button/Button';
@@ -8,7 +8,6 @@ import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
-  const [state, changeState] = useState({});
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
