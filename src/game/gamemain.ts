@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import Resources from './resources';
 import Sprite from './sprite';
 
@@ -25,6 +26,7 @@ export default class GameMain {
   debris:TObject[];
 
   isGameOver: boolean;
+  isGamePaused: boolean;
   gameTime: number;
   bgPattern: CanvasPattern | null;
 
@@ -35,11 +37,19 @@ export default class GameMain {
   wallsSpeed: number;
   debrisSpeed: number;
 
-  constructor(canvas: HTMLCanvasElement) {
+  setCollisions: Dispatch<SetStateAction<number>>;
+  setGameOverStatus: Dispatch<SetStateAction<boolean>>;
+  setGamePauseStatus: Dispatch<SetStateAction<boolean>>;
+
+  constructor(canvas: HTMLCanvasElement,
+    setCollisions: Dispatch<SetStateAction<number>>,
+    setGameOverStatus: Dispatch<SetStateAction<boolean>>,
+    setGamePauseStatus: Dispatch<SetStateAction<boolean>>) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.lastTime = Date.now();
     this.isGameOver = false;
+    this.isGamePaused = false;
 
     this.resources = new Resources();
 
@@ -70,20 +80,34 @@ export default class GameMain {
     this.resources.onReady(this.init);
     this.setControls();
 
+    this.setCollisions = setCollisions;
+    this.setGameOverStatus = setGameOverStatus;
+    this.setGamePauseStatus = setGamePauseStatus;
+
   }
 
   setControls(): void {
-    document.addEventListener('keydown', event => {
-      if (event.keyCode === 32) {
-        if (this.player.side === 'right') {
-          this.player.side = 'left';
-          this.player.state = 'shift';
-        } else {
-          this.player.side = 'right';
-          this.player.state = 'shift';
-        }
+    document.addEventListener('keydown', this.controls);
+  }
+
+  unsetControlsandSubscriptions(): void {
+    document.removeEventListener('keydown', this.controls);
+    this.setCollisions(0);
+    this.setGameOverStatus(false);
+    this.setGamePauseStatus(false);
+  }
+
+  controls = (event: KeyboardEvent): void => {
+    if (event.keyCode === 32) {
+      if (this.player.side === 'right') {
+        this.player.side = 'left';
+        this.player.state = 'shift';
+      } else {
+        this.player.side = 'right';
+        this.player.state = 'shift';
       }
-    });
+    }
+
   }
 
   mainLoop = (): void => {
@@ -133,6 +157,9 @@ export default class GameMain {
     }
 
     this.checkCollisions();
+    this.setCollisions(this.col);
+    this.setGameOverStatus(this.isGameOver);
+    this.setGamePauseStatus(this.isGamePaused);
   }
 
   updateEntities(dt: number): void {
