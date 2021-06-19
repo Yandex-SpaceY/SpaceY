@@ -12,7 +12,7 @@ const checkPassword = (password: string): string => {
   return pattern.test(password) ? '' : ERROR_CONSTANTS.PASSWORD_INVALID;
 };
 
-const checkFieldNotEmpty = (value: string): string => value ? '' : ERROR_CONSTANTS.FILL_FIELD;
+const checkFieldNotEmpty = (value: string): string => value ? '' : ERROR_CONSTANTS.FIELD_EMPTY;
 
 const checkPhone = (phone = ''): string => {
   const pattern = /^((8|\+7)[- ]?)?((\?\d{3})?[- ]?)?[\d- ]{7,10}$/;

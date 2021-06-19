@@ -1,15 +1,11 @@
 export const ROUTE_CONSTANTS = {
-  AVATAR: '/profile/avatar',
   DASHBOARD: '/dashboard',
   FORUM: '/forum',
   GAME: '/game',
   LEADERBOARD: '/leaderboard',
   LOGIN: '/login',
-  LOGOUT: '/logout',
   NOT_FOUND: '/404',
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile/edit',
-  SIGNIN: '/signin',
   SIGNUP: '/signup',
-  USER: '/user',
 };

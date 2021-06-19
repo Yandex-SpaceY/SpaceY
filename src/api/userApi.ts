@@ -1,11 +1,10 @@
-import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { URL_CONSTANTS } from 'constants/urlConstants';
-import { api, METHODS, Result } from 'utils';
+import { AxiosResponse } from 'axios';
+import api from './api';
 
-export const changeProfile = (payload: Record<string, FormDataEntryValue>): Promise<Result> => (
-  api(`${URL_CONSTANTS.USER}${ROUTE_CONSTANTS.PROFILE}`, METHODS.POST, JSON.stringify(payload))
+export const changeProfile = (payload: Record<string, FormDataEntryValue>): Promise<AxiosResponse> => (
+  api.post('/user/profile', payload)
 );
 
-export const changeProfileAvatar = (payload: FormData): Promise<Result> => (
-  api(`${URL_CONSTANTS.USER}${ROUTE_CONSTANTS.AVATAR}`, METHODS.POST, payload, true)
+export const changeProfileAvatar = (payload: FormData): Promise<AxiosResponse> => (
+  api.post('/user/profile/avatar', payload, { headers: { 'Content-Type': 'multipart/form-data' } })
 );
