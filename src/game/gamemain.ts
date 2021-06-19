@@ -38,11 +38,13 @@ export default class GameMain {
   debrisSpeed: number;
 
   setCollisions: Dispatch<SetStateAction<number>>;
+  setScore: Dispatch<SetStateAction<number>>;
   setGameOverStatus: Dispatch<SetStateAction<boolean>>;
   setGamePauseStatus: Dispatch<SetStateAction<boolean>>;
 
   constructor(canvas: HTMLCanvasElement,
     setCollisions: Dispatch<SetStateAction<number>>,
+    setScore: Dispatch<SetStateAction<number>>,
     setGameOverStatus: Dispatch<SetStateAction<boolean>>,
     setGamePauseStatus: Dispatch<SetStateAction<boolean>>) {
     this.canvas = canvas;
@@ -81,6 +83,7 @@ export default class GameMain {
     this.setControls();
 
     this.setCollisions = setCollisions;
+    this.setScore = setScore;
     this.setGameOverStatus = setGameOverStatus;
     this.setGamePauseStatus = setGamePauseStatus;
 
@@ -93,6 +96,7 @@ export default class GameMain {
   unsetControlsandSubscriptions(): void {
     document.removeEventListener('keydown', this.controls);
     this.setCollisions(0);
+    this.setScore(0);
     this.setGameOverStatus(false);
     this.setGamePauseStatus(false);
   }
@@ -156,8 +160,15 @@ export default class GameMain {
       }
     }
 
+    this.score++;
+
+    if (this.col > 100) {
+      this.isGameOver = true;
+    }
+
     this.checkCollisions();
     this.setCollisions(this.col);
+    this.setScore(this.score);
     this.setGameOverStatus(this.isGameOver);
     this.setGamePauseStatus(this.isGamePaused);
   }
