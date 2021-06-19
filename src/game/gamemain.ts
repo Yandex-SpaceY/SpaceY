@@ -47,7 +47,7 @@ export default class GameMain {
       pos: [ 0, 0 ],
       side: 'left',
       state: 'flight',
-      sprite: new Sprite('img/sprites.png', [ 0, 0 ], [ 34, 34 ], 13, [ 0, 1 ])
+      sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 0 ], [ 34, 34 ], 13, [ 0, 1 ])
     };
 
     this.walls = [];
@@ -64,15 +64,30 @@ export default class GameMain {
     this.debrisSpeed = 100;
 
     this.resources.load([
-      'img/sprites.png',
-      'img/bg.png'
+      'https://sapcey.netlify.app/img/sprites.png',
+      'https://sapcey.netlify.app/img/bg.png'
     ]);
     this.resources.onReady(this.init);
+    this.setControls();
 
   }
 
-  mainLoop(): void {
-    const now = Date.now();
+  setControls(): void {
+    document.addEventListener('keydown', event => {
+      if (event.keyCode === 32) {
+        if (this.player.side === 'right') {
+          this.player.side = 'left';
+          this.player.state = 'shift';
+        } else {
+          this.player.side = 'right';
+          this.player.state = 'shift';
+        }
+      }
+    });
+  }
+
+  mainLoop = (): void => {
+    const now = performance.now();
     const dt = (now - this.lastTime) / 1000.0;
 
     this.update(dt);
@@ -82,11 +97,11 @@ export default class GameMain {
     window.requestAnimationFrame(this.mainLoop);
   }
 
-  init(): void {
-    this.bgPattern = this.ctx.createPattern(this.resources.get('img/bg.png') as CanvasImageSource, 'repeat');
+  init = (): void => {
+    this.bgPattern = this.ctx.createPattern(this.resources.get('https://sapcey.netlify.app/img/bg.png') as CanvasImageSource, 'repeat');
 
     this.reset();
-    this.lastTime = Date.now();
+    this.lastTime = performance.now();
     this.mainLoop();
   }
 
@@ -106,13 +121,13 @@ export default class GameMain {
         if (this.debris[this.debris.length-1].pos[1] > 84) {
           this.debris.push({
             pos: pos,
-            sprite: new Sprite('img/sprites.png', [ 0, 129 ], [ 187, 85 ])
+            sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
           });
         }
       } else {
         this.debris.push({
           pos: pos,
-          sprite: new Sprite('img/sprites.png', [ 0, 129 ], [ 187, 85 ])
+          sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
         });
       }
     }
@@ -239,11 +254,11 @@ export default class GameMain {
     for (let i = 1; i <= numberOfWalls; i++) {
       this.walls.push({
         pos: [ 0 - 42, this.canvas.height - i * 96 ],
-        sprite: new Sprite('img/sprites.png', [ 0, 34 ], [ 85, 96 ])
+        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ])
       });
       this.walls.push({
         pos: [ this.canvas.width - 85 + 42, this.canvas.height - i * 96 ],
-        sprite: new Sprite('img/sprites.png', [ 0, 34 ], [ 85, 96 ])
+        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ])
       });
     }
 
