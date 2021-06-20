@@ -1,0 +1,59 @@
+@import 'style/variables';
+
+.pagination {
+  margin: 40px auto 10px;
+
+  @media screen and (max-width: $max_content_width) {
+    position: relative;
+    max-width: 300px;
+    height: 60px;
+  }
+
+  .page {
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  .prev,
+  .next {
+    color: $header_link_color;
+    text-decoration: underline;
+
+    @media screen and (max-width: $max_content_width) {
+      position: absolute;
+      top: 70%;
+    }
+  }
+
+  .prev {
+    @media screen and (max-width: $max_content_width) {
+      left: 0%;
+    }
+  }
+
+  .next {
+    @media screen and (max-width: $max_content_width) {
+      right: 0%;
+    }
+  }
+
+  .active {
+    cursor: default;
+  }
+
+  .inactive {
+    color: $secondary_color;
+    text-decoration: underline;
+  }
+
+  .unclickable {
+    color: $secondary_color;
+    cursor: default;
+  }
+
+  .disabled {
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

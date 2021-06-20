@@ -1,8 +1,7 @@
 import React, { FC, FormEvent, ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Button from 'components/button/Button';
-import Input from 'components/input/Input';
+import { Button, Input } from 'components';
 import { fakeOnChange, fakeOnClick } from 'utils';
 import { defaultUserState, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
