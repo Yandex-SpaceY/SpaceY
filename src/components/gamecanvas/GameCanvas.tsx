@@ -9,19 +9,24 @@ interface IGameCanvas {
 
 const GameCanvas: FC<IGameCanvas> = ({ className }): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [ collisions, getCollisions ] = useState(0);
-  const [ score, getScore ] = useState(0);
-  const [ isGameOver, getGameOverStatus ] = useState(false);
-  const [ isGamePaused, getGamePauseStatus ] = useState(false);
+  const [ collisions, setCollisions ] = useState(0);
+  const [ score, setScore ] = useState(0);
+  const [ isGameOver, setIsGameOverStatus ] = useState(false);
+  const [ isGamePaused, setIsGamePauseStatus ] = useState(false);
   let gameMain: GameMain;
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    gameMain = new GameMain(canvas as HTMLCanvasElement,
-      getCollisions, getScore, getGameOverStatus, getGamePauseStatus);
+    gameMain = new GameMain(
+      canvas as HTMLCanvasElement,
+      setCollisions,
+      setScore,
+      setIsGameOverStatus,
+      setIsGamePauseStatus
+    );
 
     return () => {
-      gameMain.unsetControlsandSubscriptions();
+      gameMain.unsetControlsAndSubscriptions();
     };
   }, []);
 
@@ -42,23 +47,38 @@ const GameCanvas: FC<IGameCanvas> = ({ className }): ReactElement => {
       <div>Is Game Paused: {isGamePaused.toString()}</div>
       <div>Collisions: {collisions}</div>
       <div>Score: {score}</div>
-      <div style={{
-        display: isGameOver ? 'block' : 'none',
-        position: 'absolute',
-        color: '#fff' }}>Game Over</div>
-      <menu style={{
-        display: isGamePaused ? 'block' : 'none',
-        position: 'absolute',
-        color: '#fff' }}>
+      <div
+        style={{
+          display: isGameOver ? 'block' : 'none',
+          position: 'absolute',
+          color: '#fff',
+        }}
+      >
+        Game Over
+      </div>
+      <div
+        style={{
+          display: isGamePaused ? 'block' : 'none',
+          position: 'absolute',
+          color: '#fff',
+        }}
+      >
         <ul>
-          <li><a href="#" onClick={handleResumeClick} style={{ color: '#fff' }}>Resume</a></li>
-          <li><a href="#" onClick={handleRestartClick} style={{ color: '#fff' }}>Restart</a></li>
+          <li>
+            <a href="#" onClick={handleResumeClick} style={{ color: '#fff' }}>
+              Resume
+            </a>
+          </li>
+          <li>
+            <a href="#" onClick={handleRestartClick} style={{ color: '#fff' }}>
+              Restart
+            </a>
+          </li>
         </ul>
-      </menu>
-      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={375} height={667}/>
+      </div>
+      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={375} height={667} />
     </>
   );
-
 };
 
 export default GameCanvas;

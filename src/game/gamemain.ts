@@ -2,17 +2,37 @@ import { Dispatch, SetStateAction } from 'react';
 import Resources from './resources';
 import Sprite from './sprite';
 
-type TPlayer = {
-  pos: [ number, number ],
-  side: 'left' | 'right',
-  state: 'flight' | 'shift',
-  sprite: Sprite
+enum STATE {
+  FLIGHT = 'flight',
+  SHIFT = 'shift',
 }
 
-type TObject = {
-  pos: [ number, number ],
-  sprite: Sprite
+enum SIDE {
+  LEFT = 'left',
+  RIGHT = 'right',
 }
+
+enum KEYCODES {
+  ESC = 27,
+  SPACEBAR = 32,
+}
+
+enum CONTROLS {
+  PAUSE = KEYCODES.ESC,
+  SHIFT = KEYCODES.SPACEBAR
+}
+
+type TPlayer = {
+  pos: [number, number];
+  side: SIDE.LEFT | SIDE.RIGHT;
+  state: STATE.FLIGHT | STATE.SHIFT;
+  sprite: Sprite;
+};
+
+type TObject = {
+  pos: [number, number];
+  sprite: Sprite;
+};
 
 export default class GameMain {
   canvas: HTMLCanvasElement;
@@ -23,7 +43,7 @@ export default class GameMain {
   player: TPlayer;
 
   walls: TObject[];
-  debris:TObject[];
+  debris: TObject[];
 
   isGameOver: boolean;
   isGamePaused: boolean;
@@ -42,11 +62,13 @@ export default class GameMain {
   setGameOverStatus: Dispatch<SetStateAction<boolean>>;
   setGamePauseStatus: Dispatch<SetStateAction<boolean>>;
 
-  constructor(canvas: HTMLCanvasElement,
+  constructor(
+    canvas: HTMLCanvasElement,
     setCollisions: Dispatch<SetStateAction<number>>,
     setScore: Dispatch<SetStateAction<number>>,
     setGameOverStatus: Dispatch<SetStateAction<boolean>>,
-    setGamePauseStatus: Dispatch<SetStateAction<boolean>>) {
+    setGamePauseStatus: Dispatch<SetStateAction<boolean>>
+  ) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
     this.lastTime = Date.now();
@@ -57,9 +79,9 @@ export default class GameMain {
 
     this.player = {
       pos: [ 0, 0 ],
-      side: 'left',
-      state: 'flight',
-      sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 0 ], [ 34, 34 ], 13, [ 0, 1 ])
+      side: SIDE.LEFT,
+      state: STATE.FLIGHT,
+      sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 0 ], [ 34, 34 ], 13, [ 0, 1 ]),
     };
 
     this.walls = [];
@@ -75,10 +97,7 @@ export default class GameMain {
     this.wallsSpeed = 100;
     this.debrisSpeed = 100;
 
-    this.resources.load([
-      'https://sapcey.netlify.app/img/sprites.png',
-      'https://sapcey.netlify.app/img/bg.png'
-    ]);
+    this.resources.load([ 'https://sapcey.netlify.app/img/sprites.png', 'https://sapcey.netlify.app/img/bg.png' ]);
     this.resources.onReady(this.init);
     this.setControls();
 
@@ -86,7 +105,6 @@ export default class GameMain {
     this.setScore = setScore;
     this.setGameOverStatus = setGameOverStatus;
     this.setGamePauseStatus = setGamePauseStatus;
-
   }
 
   setControls(): void {
@@ -95,6 +113,7 @@ export default class GameMain {
 
   unsetControlsandSubscriptions(): void {
     document.removeEventListener('keydown', this.controls);
+
     this.setCollisions(0);
     this.setScore(0);
     this.setGameOverStatus(false);
@@ -102,22 +121,21 @@ export default class GameMain {
   }
 
   controls = (event: KeyboardEvent): void => {
-    if (event.keyCode === 32) {
+    if (event.keyCode === CONTROLS.SHIFT) {
       if (!this.isGamePaused) {
-        if (this.player.side === 'right') {
-          this.player.side = 'left';
-          this.player.state = 'shift';
+        if (this.player.side === SIDE.RIGHT) {
+          this.player.side = SIDE.LEFT;
+          this.player.state = STATE.SHIFT;
         } else {
-          this.player.side = 'right';
-          this.player.state = 'shift';
+          this.player.side = SIDE.RIGHT;
+          this.player.state = STATE.SHIFT;
         }
       }
-    } else if (event.keyCode === 27) {
+    } else if (event.keyCode === CONTROLS.PAUSE) {
       this.togglePauseStatus();
       this.setGamePauseStatus(this.isGamePaused);
     }
-
-  }
+  };
 
   togglePauseStatus(): void {
     this.isGamePaused = !this.isGamePaused;
@@ -132,15 +150,18 @@ export default class GameMain {
 
     this.lastTime = now;
     window.requestAnimationFrame(this.mainLoop);
-  }
+  };
 
   init = (): void => {
-    this.bgPattern = this.ctx.createPattern(this.resources.get('https://sapcey.netlify.app/img/bg.png') as CanvasImageSource, 'repeat');
+    this.bgPattern = this.ctx.createPattern(
+      this.resources.get('https://sapcey.netlify.app/img/bg.png') as CanvasImageSource,
+      'repeat'
+    );
 
     this.reset();
     this.lastTime = performance.now();
     this.mainLoop();
-  }
+  };
 
   update(dt: number): void {
     if (!this.isGamePaused) {
@@ -148,7 +169,7 @@ export default class GameMain {
 
       this.updateEntities(dt);
 
-      if (Math.random() < 1 - Math.pow(.993, this.gameTime)) {
+      if (Math.random() < 1 - Math.pow(0.993, this.gameTime)) {
         let pos: [number, number] = [ 0, 0 ];
         if (Math.random() < 0.5) {
           pos = [ 42, -85 ];
@@ -156,16 +177,16 @@ export default class GameMain {
           pos = [ this.canvas.width - 42 - 187, -85 ];
         }
         if (this.debris.length > 0) {
-          if (this.debris[this.debris.length-1].pos[1] > 84) {
+          if (this.debris[this.debris.length - 1].pos[1] > 84) {
             this.debris.push({
               pos: pos,
-              sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
+              sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ]),
             });
           }
         } else {
           this.debris.push({
             pos: pos,
-            sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
+            sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ]),
           });
         }
       }
@@ -186,17 +207,17 @@ export default class GameMain {
 
   updateEntities(dt: number): void {
     // Update the player sprite animation
-    if (this.player.side === 'right' && this.player.state === 'shift') {
+    if (this.player.side === SIDE.RIGHT && this.player.state === STATE.SHIFT) {
       if (this.player.pos[0] < this.canvas.width / 2 + 102 - 17) {
         this.player.pos[0] += this.playerSpeed * dt;
       } else {
-        this.player.state = 'flight';
+        this.player.state = STATE.FLIGHT;
       }
-    } else if (this.player.side === 'left' && this.player.state === 'shift') {
+    } else if (this.player.side === SIDE.LEFT && this.player.state === STATE.SHIFT) {
       if (this.player.pos[0] > this.canvas.width / 2 - 102 - 17) {
         this.player.pos[0] -= this.playerSpeed * dt;
       } else {
-        this.player.state = 'flight';
+        this.player.state = STATE.FLIGHT;
       }
     }
     this.player.sprite.update(dt);
@@ -208,7 +229,6 @@ export default class GameMain {
 
       // Remove if offscreen
       if (this.walls[i].pos[1] > this.canvas.height) {
-
         this.walls[i].pos[1] = 0 - 96;
       }
     }
@@ -227,15 +247,21 @@ export default class GameMain {
   }
 
   collides(x: number, y: number, r: number, b: number, x2: number, y2: number, r2: number, b2: number): boolean {
-    return !(r <= x2 || x > r2
-        || b <= y2 || y > b2);
+    return !(r <= x2 || x > r2 || b <= y2 || y > b2);
   }
 
-  boxCollides(pos: [number, number], size: [number, number], pos2: [number, number], size2: [number, number]): boolean {
-    return this.collides(pos[0], pos[1],
+  boxCollides(
+    pos: [number, number],
+    size: [number, number],
+    pos2: [number, number],
+    size2: [number, number]
+  ): boolean {
+    return this.collides(
+      pos[0], pos[1],
       pos[0] + size[0], pos[1] + size[1],
       pos2[0], pos2[1],
-      pos2[0] + size2[0], pos2[1] + size2[1]);
+      pos2[0] + size2[0], pos2[1] + size2[1]
+    );
   }
 
   checkPlayerBounds(): void {
@@ -249,7 +275,7 @@ export default class GameMain {
     if (this.player.pos[1] < 0) {
       this.player.pos[1] = 0;
     } else if (this.player.pos[1] > this.canvas.height - this.player.sprite.size[1]) {
-      this.player.pos[1] =this.canvas.height - this.player.sprite.size[1];
+      this.player.pos[1] = this.canvas.height - this.player.sprite.size[1];
     }
   }
 
@@ -303,16 +329,16 @@ export default class GameMain {
     this.player.pos = [ this.canvas.width / 2 - 102 - 17, this.canvas.height - 120 ];
 
     const numberOfWalls = Math.ceil(this.canvas.height / 96) + 1;
+
     for (let i = 1; i <= numberOfWalls; i++) {
       this.walls.push({
         pos: [ 0 - 42, this.canvas.height - i * 96 ],
-        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ])
+        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ]),
       });
       this.walls.push({
         pos: [ this.canvas.width - 85 + 42, this.canvas.height - i * 96 ],
-        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ])
+        sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 34 ], [ 85, 96 ]),
       });
     }
-
   }
 }
