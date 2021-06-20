@@ -111,7 +111,7 @@ export default class GameMain {
     document.addEventListener('keydown', this.controls);
   }
 
-  unsetControlsandSubscriptions(): void {
+  unsetControlsAndSubscriptions(): void {
     document.removeEventListener('keydown', this.controls);
 
     this.setCollisions(0);
