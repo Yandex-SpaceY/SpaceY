@@ -6,7 +6,6 @@
   width: $leaderbord_width;
 
   @media screen and (max-width: $max_content_width) {
-
     @include flex-center;
   }
 
@@ -33,7 +32,6 @@
         margin-right: 20px;
 
         .leader-info-place {
-
           @include ellipsis;
           width: 70px;
         }
@@ -51,7 +49,6 @@
         }
 
         .leader-data-name {
-
           @include ellipsis;
           color: $secondary_color;
           text-align: right;
