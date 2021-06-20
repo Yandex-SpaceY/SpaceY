@@ -6,13 +6,13 @@ import { GAME_NAME, MENU_ITEMS } from 'constants/commonConstants';
 import './dashboard.scss';
 
 const Dashboard: FC = (): ReactElement => (
-  <div className="menu">
-    <div className="content-wrapper">
+  <div className='menu'>
+    <div className='content-wrapper'>
       <h1>{GAME_NAME}</h1>
-      <div className="content">
+      <div className='content'>
         {MENU_ITEMS.map(({ title, route }) => {
           return (
-            <Link key={title} className="menu-item" to={route}>
+            <Link key={title} className='menu-item' to={route}>
               {title}
             </Link>
           );
