@@ -18,6 +18,7 @@ module.exports = {
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.scss' ],
     alias: {
+      api: `${__dirname}/src/api`,
       components: `${__dirname}/src/components`,
       constants: `${__dirname}/src/constants`,
       pages: `${__dirname}/src/pages`,

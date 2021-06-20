@@ -2,10 +2,10 @@ export const ROUTE_CONSTANTS = {
   DASHBOARD: '/dashboard',
   FORUM: '/forum',
   GAME: '/game',
-  LOGIN: '/login',
   LEADERBOARD: '/leaderboard',
+  LOGIN: '/login',
   NOT_FOUND: '/404',
   PROFILE: '/profile',
-  PROFILE_EDIT: '/profile/edit',
+  PROFILE_EDIT: '/profile-edit',
   SIGNUP: '/signup',
 };

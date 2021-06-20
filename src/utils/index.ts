@@ -4,3 +4,10 @@ export const fakeOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 };
 
 export const fakeOnClick = (): void => console.log('onClick');
+
+export {
+  checkEmail,
+  checkFieldNotEmpty,
+  checkPassword,
+  checkPhone,
+} from './validations';
