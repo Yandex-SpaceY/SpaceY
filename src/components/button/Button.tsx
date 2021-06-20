@@ -4,7 +4,7 @@ import cn from 'classnames';
 import './button.scss';
 
 interface IButton {
-  onClick(e: MouseEvent<HTMLButtonElement>): void;
+  onClick?(e: MouseEvent<HTMLButtonElement>): void;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
 }
