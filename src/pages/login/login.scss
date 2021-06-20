@@ -1,9 +1,10 @@
 @import 'style/variables';
 
+@import 'style/mixins';
+
 .login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  @include flex-center;
 
   .one-input-block {
     width: 295px;

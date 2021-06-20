@@ -3,3 +3,5 @@ export const fakeOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
   console.log(`${name} - ${value}`);
 };
 export const fakeOnClick = (): void => console.log('onClick');
+
+export const formatBigNumbers = (value: number): string => Intl.NumberFormat().format(value);
