@@ -26,3 +26,12 @@ export const LINK_TEXTS = {
   PROFILE_EDIT: 'Edit my profile',
   SIGNUP: 'Has no account?',
 };
+
+export const defaultUserState = {
+  name: '',
+  surname: '',
+  email: '',
+  codename: '',
+  phone: '',
+  password: '',
+};

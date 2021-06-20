@@ -6,16 +6,6 @@
   flex-direction: column;
   color: $text_main_color;
 
-  @media screen and (max-width: $max_content_width) {
-    width: 293px;
-  }
-
-  .title {
-    height: 12px;
-    margin-bottom: 5px;
-    font-size: $small_font_size;
-  }
-
   .input {
     height: 50px;
     border: 0;
@@ -26,18 +16,12 @@
     outline: none;
   }
 
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px $third_color inset;
-    -webkit-text-fill-color: $text_main_color;
-  }
-
   .error-message {
     height: 9px;
     color: $error_main_color;
     font-size: $small_font_size;
     opacity: 0;
+    transition: opacity 0.3s;
   }
 
   &.error {
@@ -49,7 +33,23 @@
 
     .error-message {
       opacity: 1;
-      transition: opacity 0.3s;
     }
+  }
+
+  @media screen and (max-width: $max_content_width) {
+    width: 293px;
+  }
+
+  .title {
+    height: 12px;
+    margin-bottom: 5px;
+    font-size: $small_font_size;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px $third_color inset;
+    -webkit-text-fill-color: $text_main_color;
   }
 }

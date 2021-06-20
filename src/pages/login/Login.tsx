@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
@@ -10,6 +10,11 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import './login.scss';
 
 const Login: FC = (): ReactElement => {
+  const [state] = useState({
+    email: 'email@email.com',
+    password: '123456'
+  });
+
   return (
     <div className="main login">
       <div className="content-wrapper">
@@ -17,10 +22,10 @@ const Login: FC = (): ReactElement => {
         <form className="content">
           <h2>{PAGE_NAMES.LOGIN}</h2>
           <div className="input-wrapper">
-            <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
+            <Input value={state.email} name="email" onChange={fakeOnChange} title="e-mail" type="email" />
           </div>
           <div className="input-wrapper">
-            <Input name="password" title="password" onChange={fakeOnChange} type="password" />
+            <Input value={state.password} name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>
 
           <Button onClick={fakeOnClick}>GET IN</Button>
