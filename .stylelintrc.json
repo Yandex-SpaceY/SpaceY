@@ -1,5 +1,6 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-idiomatic-order"],
+  "plugins": ["stylelint-scss"],
   "rules": {
     "string-quotes": "single",
     "declaration-no-important": true,
@@ -19,11 +20,13 @@
     "media-feature-colon-space-after": "always",
     "media-feature-range-operator-space-after": "always",
     "media-feature-range-operator-space-before": "always",
-    "at-rule-empty-line-before": "always",
+    "at-rule-empty-line-before": ["always", { "except": ["first-nested"] }],
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
     "at-rule-semicolon-newline-after": "always",
     "at-rule-semicolon-space-before": "never",
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
     "max-empty-lines": 1,
     "value-list-comma-space-before": "never",
     "value-list-comma-space-after": "always",
