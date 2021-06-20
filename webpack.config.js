@@ -33,19 +33,19 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: 'ts-loader'
+        use: 'ts-loader',
       },
       {
         test: /\.s[ac]ss$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ],
       },
       {
         test: /\.(svg|png|jpg|gif)$/,
-        use: ['file-loader?name=./images/[name].[ext]']
+        use: ['file-loader?name=./images/[name].[ext]'],
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/,
-        use: ['file-loader?name=./fonts/[name].[ext]']
+        use: ['file-loader?name=./fonts/[name].[ext]'],
       },
     ]
   },

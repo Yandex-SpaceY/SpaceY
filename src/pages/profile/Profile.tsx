@@ -1,12 +1,14 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
-import { defaultUserState, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, LINK_TEXTS, MOCK_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const Profile: FC = (): ReactElement => {
-  const [state] = useState(defaultUserState);
+  const [ state, setState ] = useState(DEFAULT_USER_STATE);
+
+  useEffect(() => setState(MOCK_USER_STATE));
 
   return (
     <div className="main">

@@ -27,11 +27,30 @@ export const LINK_TEXTS = {
   SIGNUP: 'Has no account?',
 };
 
-export const defaultUserState = {
+export const DEFAULT_USER_STATE = {
   name: '',
   surname: '',
   email: '',
   codename: '',
   phone: '',
   password: '',
+};
+
+export const MOCK_USER_STATE = {
+  name: 'Ivan',
+  surname: 'Petrov',
+  email: 'email@email.com',
+  codename: 'user1',
+  phone: '+79919927812',
+  password: '123456',
+};
+
+export const DEFAULT_LOGIN_STATE = {
+  email: '',
+  password: '',
+};
+
+export const MOCK_LOGIN_STATE = {
+  email: 'email@email.com',
+  password: '123456',
 };
