@@ -12,7 +12,7 @@ import './login.scss';
 const Login: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_LOGIN_STATE);
 
-  useEffect(() => setState(MOCK_LOGIN_STATE));
+  useEffect(() => setState(MOCK_LOGIN_STATE), []);
 
   return (
     <div className="main login">

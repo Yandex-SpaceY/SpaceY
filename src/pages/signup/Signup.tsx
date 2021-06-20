@@ -10,7 +10,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 const Signup: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_USER_STATE);
 
-  useEffect(() => setState(MOCK_USER_STATE));
+  useEffect(() => setState(MOCK_USER_STATE), []);
 
   return (
     <div className="main">
