@@ -17,9 +17,9 @@ const Profile: FC = (): ReactElement => {
   }, []);
 
   return (
-    <div className="main">
-      <div className="content-wrapper double">
-        <form className="content">
+    <div className='main'>
+      <div className='content-wrapper double'>
+        <form className='content'>
           <h2>{PAGE_NAMES.PROFILE}</h2>
           <div className="profile-image" />
           <div className="input-wrapper">
@@ -30,14 +30,14 @@ const Profile: FC = (): ReactElement => {
             <Input value={state.email} name="email" title="e-mail" type="email" />
             <Input value={state.login} name="login" title="login" />
           </div>
-          <div className="input-wrapper">
-            <Input value={state.phone} name="phone" title="phone" />
-            <Input value={state.password} name="password" title="password" type="password" />
+          <div className='input-wrapper'>
+            <Input value={state.phone} name='phone' title='phone' />
+            <Input value={state.password} name='password' title='password' type='password' />
           </div>
-          <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className="link">
+          <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className='link'>
             {LINK_TEXTS.PROFILE_EDIT}
           </Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className="link">
+          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
             {LINK_TEXTS.DASHBOARD}
           </Link>
         </form>

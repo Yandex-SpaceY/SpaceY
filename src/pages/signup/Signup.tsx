@@ -18,10 +18,10 @@ const Signup: FC = (): ReactElement => {
   };
 
   return (
-    <div className="main">
-      <div className="content-wrapper double">
+    <div className='main'>
+      <div className='content-wrapper double'>
         <h1>{GAME_NAME}</h1>
-        <form className="content">
+        <form className='content'>
           <h2>{PAGE_NAMES.REGISTRATION}</h2>
           <div className="input-wrapper">
             <Input value={state.first_name} name="first_name" title="first name" onChange={fakeOnChange} />
@@ -31,15 +31,15 @@ const Signup: FC = (): ReactElement => {
             <Input value={state.email} name="email" onChange={fakeOnChange} title="e-mail" type="email" />
             <Input value={state.login} name="login" title="login" onChange={fakeOnChange} />
           </div>
-          <div className="input-wrapper">
-            <Input value={state.phone} name="phone" title="phone" onChange={fakeOnChange} />
-            <Input value={state.password} name="password" title="password" onChange={fakeOnChange} type="password" />
+          <div className='input-wrapper'>
+            <Input value={state.phone} name='phone' title='phone' onChange={fakeOnChange} />
+            <Input value={state.password} name='password' title='password' onChange={fakeOnChange} type='password' />
           </div>
           <div className="button-wrapper">
             <Button onClick={signupHandler}>SIGN UP</Button>
           </div>
-          <Link to={ROUTE_CONSTANTS.LOGIN} className="link">{LINK_TEXTS.LOGIN}</Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className="link">{LINK_TEXTS.DASHBOARD}</Link>
+          <Link to={ROUTE_CONSTANTS.LOGIN} className='link'>{LINK_TEXTS.LOGIN}</Link>
+          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>{LINK_TEXTS.DASHBOARD}</Link>
         </form>
       </div>
     </div>

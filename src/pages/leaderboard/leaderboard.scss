@@ -1,0 +1,74 @@
+@import 'style/variables';
+
+@import 'style/mixins';
+
+.content-wrapper-leaderboard {
+  width: $leaderbord_width;
+
+  @media screen and (max-width: $max_content_width) {
+    @include flex-center;
+  }
+
+  .content {
+    padding: $content-padding-big;
+
+    @media screen and (max-width: $max_content_width) {
+      width: $content_width;
+      padding: $content-padding-small;
+    }
+
+    h2 {
+      margin-bottom: $big_margin_bottom;
+    }
+
+    .leader {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .leader-info {
+        display: flex;
+        margin-right: 20px;
+
+        .leader-info-place {
+          @include ellipsis;
+          width: 70px;
+        }
+      }
+
+      .leader-data {
+        display: flex;
+        overflow: hidden;
+        flex-direction: column;
+        align-items: flex-end;
+
+        span {
+          font-size: $base_font_size;
+          line-height: 26px;
+        }
+
+        .leader-data-name {
+          @include ellipsis;
+          color: $secondary_color;
+          text-align: right;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .content-links {
+      display: flex;
+      flex-direction: column;
+      margin: 30px auto 10px;
+
+      .content-links-game {
+        margin-bottom: 20px;
+        color: $text_main_color;
+        font-size: $base_font_size;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

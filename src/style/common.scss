@@ -43,7 +43,7 @@ body,
   color: $text_main_color;
 
   @media screen and (max-width: $max_content_width) {
-    padding: 25px 18px;
+    padding: $content-padding-small;
     margin-top: 0;
   }
 
@@ -58,6 +58,12 @@ body,
     margin: 0 32px 32px;
     background: $third_color;
     filter: drop-shadow(3px 4px 0 $shadow_main_color);
+  }
+
+  .profile-image-small {
+    width: 60px;
+    height: 60px;
+    margin: 0;
   }
 
   .input-wrapper {
@@ -84,15 +90,15 @@ body,
     width: 828px;
 
     .content {
-      padding: 39px 37px 34px;
+      padding: $content-padding-big;
 
       @media screen and (max-width: $max_content_width) {
         width: $content_width;
-        padding: 25px 18px;
+        padding: $content-padding-small;
       }
 
       h2 {
-        margin-bottom: 49px;
+        margin-bottom: $big_margin_bottom;
       }
     }
 
@@ -123,20 +129,20 @@ body,
       width: 100%;
     }
   }
+}
 
-  h1 {
-    color: $header_link_color;
-    font-size: $h1_font_size;
-    text-align: center;
+h1 {
+  color: $header_link_color;
+  font-size: $h1_font_size;
+  text-align: center;
 
-    @media screen and (max-width: $max_content_width) {
-      margin-bottom: 30px;
-    }
+  @media screen and (max-width: $max_content_width) {
+    margin-bottom: 30px;
   }
+}
 
-  .link {
-    margin-top: 24px;
-    color: $header_link_color;
-    font-size: $link_font_size;
-  }
+.link {
+  margin-top: 24px;
+  color: $header_link_color;
+  font-size: $link_font_size;
 }
