@@ -6,6 +6,6 @@ export const ROUTE_CONSTANTS = {
   LOGIN: '/login',
   NOT_FOUND: '/404',
   PROFILE: '/profile',
-  PROFILE_EDIT: '/profile/edit',
+  PROFILE_EDIT: '/profile-edit',
   SIGNUP: '/signup',
 };
