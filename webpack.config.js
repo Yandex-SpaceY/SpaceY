@@ -24,20 +24,30 @@ module.exports = {
       pages: `${__dirname}/src/pages`,
       router: `${__dirname}/src/router`,
       utils: `${__dirname}/src/utils`,
-    },
+      style: `${__dirname}/src/style`,
+      images: `${__dirname}/src/assets/images`,
+    }
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: 'ts-loader',
+        use: 'ts-loader'
       },
       {
         test: /\.s[ac]ss$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
       },
-    ],
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: ['file-loader?name=./images/[name].[ext]']
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        use: ['file-loader?name=./fonts/[name].[ext]']
+      },
+    ]
   },
   devtool: production ? false : 'source-map',
   devServer: {
@@ -46,8 +56,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: './public/index.html'
     }),
     new CleanWebpackPlugin(),
-  ],
+  ]
 };
