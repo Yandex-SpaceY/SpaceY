@@ -103,15 +103,24 @@ export default class GameMain {
 
   controls = (event: KeyboardEvent): void => {
     if (event.keyCode === 32) {
-      if (this.player.side === 'right') {
-        this.player.side = 'left';
-        this.player.state = 'shift';
-      } else {
-        this.player.side = 'right';
-        this.player.state = 'shift';
+      if (!this.isGamePaused) {
+        if (this.player.side === 'right') {
+          this.player.side = 'left';
+          this.player.state = 'shift';
+        } else {
+          this.player.side = 'right';
+          this.player.state = 'shift';
+        }
       }
+    } else if (event.keyCode === 27) {
+      this.togglePauseStatus();
+      this.setGamePauseStatus(this.isGamePaused);
     }
 
+  }
+
+  togglePauseStatus(): void {
+    this.isGamePaused = !this.isGamePaused;
   }
 
   mainLoop = (): void => {
@@ -134,43 +143,45 @@ export default class GameMain {
   }
 
   update(dt: number): void {
-    this.gameTime += dt;
+    if (!this.isGamePaused) {
+      this.gameTime += dt;
 
-    this.updateEntities(dt);
+      this.updateEntities(dt);
 
-    if (Math.random() < 1 - Math.pow(.993, this.gameTime)) {
-      let pos: [number, number] = [ 0, 0 ];
-      if (Math.random() < 0.5) {
-        pos = [ 42, -85 ];
-      } else {
-        pos = [ this.canvas.width - 42 - 187, -85 ];
-      }
-      if (this.debris.length > 0) {
-        if (this.debris[this.debris.length-1].pos[1] > 84) {
+      if (Math.random() < 1 - Math.pow(.993, this.gameTime)) {
+        let pos: [number, number] = [ 0, 0 ];
+        if (Math.random() < 0.5) {
+          pos = [ 42, -85 ];
+        } else {
+          pos = [ this.canvas.width - 42 - 187, -85 ];
+        }
+        if (this.debris.length > 0) {
+          if (this.debris[this.debris.length-1].pos[1] > 84) {
+            this.debris.push({
+              pos: pos,
+              sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
+            });
+          }
+        } else {
           this.debris.push({
             pos: pos,
             sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
           });
         }
-      } else {
-        this.debris.push({
-          pos: pos,
-          sprite: new Sprite('https://sapcey.netlify.app/img/sprites.png', [ 0, 129 ], [ 187, 85 ])
-        });
       }
+
+      this.score++;
+
+      if (this.col > 100) {
+        this.isGameOver = true;
+      }
+
+      this.checkCollisions();
+      this.setCollisions(this.col);
+      this.setScore(this.score);
+      this.setGameOverStatus(this.isGameOver);
+      this.setGamePauseStatus(this.isGamePaused);
     }
-
-    this.score++;
-
-    if (this.col > 100) {
-      this.isGameOver = true;
-    }
-
-    this.checkCollisions();
-    this.setCollisions(this.col);
-    this.setScore(this.score);
-    this.setGameOverStatus(this.isGameOver);
-    this.setGamePauseStatus(this.isGamePaused);
   }
 
   updateEntities(dt: number): void {
@@ -285,6 +296,9 @@ export default class GameMain {
     this.isGameOver = false;
     this.gameTime = 0;
     this.score = 0;
+
+    this.walls = [];
+    this.debris = [];
 
     this.player.pos = [ this.canvas.width / 2 - 102 - 17, this.canvas.height - 120 ];
 
