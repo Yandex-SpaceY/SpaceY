@@ -1,16 +1,16 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-import { routeConstants } from 'constants/routeConstants';
+import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
-interface Props {
+interface IProps {
   clearState: () => void
 }
 
-const Oops: FC<Props> = ({ clearState }): ReactElement => (
+const Oops: FC<IProps> = ({ clearState }): ReactElement => (
   <>
-    <Link to={routeConstants.DASHBOARD} onClick={clearState}>Go to dashboard</Link>
-    <Link to={routeConstants.SIGNUP} onClick={clearState}>I want to create an account</Link>
+    <Link to={ROUTE_CONSTANTS.DASHBOARD} onClick={clearState}>Go to dashboard</Link>
+    <Link to={ROUTE_CONSTANTS.SIGNUP} onClick={clearState}>I want to create an account</Link>
     some other links
   </>
 );
