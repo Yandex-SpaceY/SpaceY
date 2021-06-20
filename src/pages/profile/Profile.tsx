@@ -1,11 +1,13 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
-import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { defaultUserState, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const Profile: FC = (): ReactElement => {
+  const [state] = useState(defaultUserState);
+
   return (
     <div className="main">
       <div className="content-wrapper double">
@@ -13,16 +15,16 @@ const Profile: FC = (): ReactElement => {
           <h2>{PAGE_NAMES.PROFILE}</h2>
           <div className="profile-image" />
           <div className="input-wrapper">
-            <Input name="name" title="name" />
-            <Input name="surname" title="surname" />
+            <Input value={state.name} name="name" title="name" />
+            <Input value={state.surname} name="surname" title="surname" />
           </div>
           <div className="input-wrapper">
-            <Input name="email" title="e-mail" type="email" />
-            <Input name="codename" title="codename" />
+            <Input value={state.email} name="email" title="e-mail" type="email" />
+            <Input value={state.codename} name="codename" title="codename" />
           </div>
           <div className="input-wrapper">
-            <Input name="phone" title="phone" />
-            <Input name="password" title="password" type="password" />
+            <Input value={state.phone} name="phone" title="phone" />
+            <Input value={state.password} name="password" title="password" type="password" />
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className="link">
             {LINK_TEXTS.PROFILE_EDIT}

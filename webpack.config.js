@@ -18,13 +18,14 @@ module.exports = {
   resolve: {
     extensions: [ '.tsx', '.ts', '.js', '.scss' ],
     alias: {
+      api: `${__dirname}/src/api`,
       components: `${__dirname}/src/components`,
       constants: `${__dirname}/src/constants`,
       pages: `${__dirname}/src/pages`,
       router: `${__dirname}/src/router`,
       utils: `${__dirname}/src/utils`,
       style: `${__dirname}/src/style`,
-      images: `${__dirname}/src/assets/images`
+      images: `${__dirname}/src/assets/images`,
     }
   },
   module: {
@@ -45,18 +46,18 @@ module.exports = {
       {
         test: /\.(eot|ttf|woff|woff2)$/,
         use: ['file-loader?name=./fonts/[name].[ext]']
-      }
+      },
     ]
   },
   devtool: production ? false : 'source-map',
   devServer: {
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ]
 };

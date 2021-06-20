@@ -1,13 +1,15 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
 import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
-import { GAME_NAME, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { defaultUserState, GAME_NAME, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const Signup: FC = (): ReactElement => {
+  const [state] = useState(defaultUserState);
+
   return (
     <div className="main">
       <div className="content-wrapper double">
@@ -15,16 +17,16 @@ const Signup: FC = (): ReactElement => {
         <form className="content">
           <h2>{PAGE_NAMES.REGISTRATION}</h2>
           <div className="input-wrapper">
-            <Input name="name" title="name" onChange={fakeOnChange} />
-            <Input name="surname" title="surname" onChange={fakeOnChange} />
+            <Input value={state.name} name="name" title="name" onChange={fakeOnChange} />
+            <Input value={state.surname} name="surname" title="surname" onChange={fakeOnChange} />
           </div>
           <div className="input-wrapper">
-            <Input name="email" onChange={fakeOnChange} title="e-mail" type="email" />
-            <Input name="codename" title="codename" onChange={fakeOnChange} />
+            <Input value={state.email} name="email" onChange={fakeOnChange} title="e-mail" type="email" />
+            <Input value={state.codename} name="codename" title="codename" onChange={fakeOnChange} />
           </div>
           <div className="input-wrapper">
-            <Input name="phone" title="phone" onChange={fakeOnChange} />
-            <Input name="password" title="password" onChange={fakeOnChange} type="password" />
+            <Input value={state.phone} name="phone" title="phone" onChange={fakeOnChange} />
+            <Input value={state.password} name="password" title="password" onChange={fakeOnChange} type="password" />
           </div>
           <div className="button-wrapper">
             <Button onClick={fakeOnClick}>CHECK IN</Button>
