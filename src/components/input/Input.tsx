@@ -17,17 +17,17 @@ const Input: FC<IInput> = ({ onChange, name, value, type = 'text', title, errorT
 
   return (
     <div className={cn('one-input-block', { error: errorText })}>
-      {title && <label htmlFor={name} className="title">{title}</label>}
+      {title && <label htmlFor={name} className='title'>{title}</label>}
       <input
         id={name}
-        className="input"
+        className='input'
         onChange={onChange}
         disabled={!onChange}
         placeholder={placeholder}
         name={name}
         value={value}
         type={type} />
-      <span className="error-message">{errorText}</span>
+      <span className='error-message'>{errorText}</span>
     </div>
   );
 };

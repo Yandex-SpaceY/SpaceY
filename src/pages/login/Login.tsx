@@ -16,23 +16,23 @@ const Login: FC = (): ReactElement => {
   });
 
   return (
-    <div className="main login">
-      <div className="content-wrapper">
+    <div className='main login'>
+      <div className='content-wrapper'>
         <h1>{GAME_NAME}</h1>
-        <form className="content">
+        <form className='content'>
           <h2>{PAGE_NAMES.LOGIN}</h2>
-          <div className="input-wrapper">
-            <Input value={state.email} name="email" onChange={fakeOnChange} title="e-mail" type="email" />
+          <div className='input-wrapper'>
+            <Input value={state.email} name='email' onChange={fakeOnChange} title='e-mail' type='email' />
           </div>
-          <div className="input-wrapper">
-            <Input value={state.password} name="password" title="password" onChange={fakeOnChange} type="password" />
+          <div className='input-wrapper'>
+            <Input value={state.password} name='password' title='password' onChange={fakeOnChange} type='password' />
           </div>
 
           <Button onClick={fakeOnClick}>GET IN</Button>
-          <Link to={ROUTE_CONSTANTS.SIGNUP} className="link">
+          <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className="link">
+          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
             {LINK_TEXTS.DASHBOARD}
           </Link>
         </form>
