@@ -1,19 +1,18 @@
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Input from 'components/input/Input';
 import Button from 'components/button/Button';
 import { fakeOnChange, fakeOnClick } from 'utils';
-import { GAME_NAME, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_LOGIN_STATE, GAME_NAME, LINK_TEXTS, MOCK_LOGIN_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 import './login.scss';
 
 const Login: FC = (): ReactElement => {
-  const [state] = useState({
-    email: 'email@email.com',
-    password: '123456'
-  });
+  const [ state, setState ] = useState(DEFAULT_LOGIN_STATE);
+
+  useEffect(() => setState(MOCK_LOGIN_STATE), []);
 
   return (
     <div className='main login'>
