@@ -22,8 +22,8 @@ https://praktikum.yandex.ru/middle-frontend/
 ---
 Установка и использование:
 
-- `npm install` — установка стабильной версии;
-- `npm start` — запуск версии для разработчика, порт: 3000;
+- `npm install` — установка стабильной версии.
+- `npm start` — запуск версии для разработчика, порт: 3000.
 - `npm run build` — сборка стабильной версии.
 - `npm run lint` — проверка линтеров.
 
@@ -31,7 +31,7 @@ https://praktikum.yandex.ru/middle-frontend/
 
 ### Прогресс
 
-#### Сприн 5
+#### Спринт 5
 
 - Настроено окружение в первом боевом приближении (webpack, eslint, stylelint, typescript, server, huscky, heroku)
 - Созданы макеты ([проект в Figma](https://www.figma.com/file/uvThBv2cRZ8VvPoJb9CDWW/SpaceY?node-id=20%3A164&viewport=387%2C-1234%2C0.4691857099533081))
