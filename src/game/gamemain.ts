@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+
 import Resources from './resources';
 import Sprite from './sprite';
 
@@ -246,7 +247,12 @@ export default class GameMain {
     }
   }
 
-  collides(x: number, y: number, r: number, b: number, x2: number, y2: number, r2: number, b2: number): boolean {
+  collides(
+    x: number, y: number,
+    r: number, b: number,
+    x2: number, y2: number,
+    r2: number, b2: number
+  ): boolean {
     return !(r <= x2 || x > r2 || b <= y2 || y > b2);
   }
 

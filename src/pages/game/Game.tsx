@@ -7,7 +7,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 const Game: FC = (): ReactElement => {
   return (
     <div>
-      <GameCanvas></GameCanvas>
+      <GameCanvas />
       <Link to={ROUTE_CONSTANTS.DASHBOARD}>Go to dashboard</Link>
     </div>
   );
