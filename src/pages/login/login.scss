@@ -1,0 +1,11 @@
+@import 'style/variables';
+
+@import 'style/mixins';
+
+.login {
+  @include flex-center;
+
+  .one-input-block {
+    width: 295px;
+  }
+}

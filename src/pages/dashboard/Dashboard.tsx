@@ -1,15 +1,27 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-import { routeConstants } from 'constants/routeConstants';
+import { GAME_NAME, MENU_ITEMS } from 'constants/commonConstants';
+
+import './dashboard.scss';
 
 const Dashboard: FC = (): ReactElement => (
-  <>
-    <Link to={routeConstants.LEADERBOARD}>Best players</Link>
-    <Link to={routeConstants.GAME}>Start</Link>
-    <Link to={routeConstants.PROFILE}>My profile</Link>
-    <Link to={routeConstants.FORUM}>Forum</Link>
-  </>
+  <div className='menu'>
+    <div className='content-wrapper'>
+      <h1>{GAME_NAME}</h1>
+      <div className='content'>
+        {MENU_ITEMS.map(({ title, route }) => {
+          return (
+            <Link key={title} className='menu-item' to={route}>
+              {title}
+            </Link>
+          );
+        }
+        )}
+      </div>
+    </div>
+  </div>
 );
 
 export default Dashboard;
+
