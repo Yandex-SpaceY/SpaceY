@@ -2,14 +2,8 @@ import React, { FC, Fragment, ReactElement, MouseEvent } from 'react';
 import cn from 'classnames';
 
 import { GET_ERROR_MESSAGE } from 'constants/errorConstants';
+import { PAGINATION_CONSTANTS, STATUSES } from 'constants/paginationConstants';
 import './pagination.scss';
-
-enum STATUSES {
-  NAV_STATUS_ACTIVE = 'active',
-  NAV_STATUS_INACTIVE = 'inactive',
-  NAV_STATUS_DISABLED = 'disabled',
-  NAV_STATUS_UNCLICKABLE = 'unclickable',
-}
 
 interface IPagination {
   boundaryPagesRange?: number,
@@ -25,7 +19,7 @@ const Pagination: FC<IPagination> = ({
   siblingPagesRange = 1,
   totalPages,
   onPageChange,
-}) => {
+}): ReactElement => {
   const onChange = (event: MouseEvent<HTMLSpanElement>, page: number | null): void => {
     event.stopPropagation();
     onPageChange(page);
@@ -46,7 +40,7 @@ const Pagination: FC<IPagination> = ({
   );
 
   const showPreviousNav = (currentPage: number): ReactElement => {
-    const label = 'PREV';
+    const label = PAGINATION_CONSTANTS.PREV;
     const status = currentPage === 1 ? STATUSES.NAV_STATUS_DISABLED : '';
     const pageNumber = currentPage === 1 ? currentPage : currentPage - 1;
 
@@ -54,7 +48,7 @@ const Pagination: FC<IPagination> = ({
   };
 
   const showNextNav = (currentPage: number, totalPages: number): ReactElement => {
-    const label = 'NEXT';
+    const label = PAGINATION_CONSTANTS.NEXT;
     const status = currentPage === totalPages ? STATUSES.NAV_STATUS_DISABLED : '';
     const pageNumber = currentPage === totalPages ? totalPages : currentPage + 1;
 
@@ -83,7 +77,7 @@ const Pagination: FC<IPagination> = ({
   );
 
   const createEllipsis = (): ReactElement => {
-    const label = '...';
+    const label = PAGINATION_CONSTANTS.ELLIPSIS;
 
     return createPageNav(label, STATUSES.NAV_STATUS_UNCLICKABLE);
   };
@@ -98,27 +92,29 @@ const Pagination: FC<IPagination> = ({
 
     if (totalPages < 0)
       errorMessages.push(
-        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER('totalPages', totalPages)
+        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER(PAGINATION_CONSTANTS.TOTAL_PAGES, totalPages)
       );
 
     if (currentPage < 0)
       errorMessages.push(
-        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER('currentPage', currentPage)
+        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER(PAGINATION_CONSTANTS.CURRENT_PAGE, currentPage)
       );
 
     if (currentPage > totalPages)
       errorMessages.push(
-        GET_ERROR_MESSAGE.NOT_GREATER('currentPage', 'totalPages', currentPage, totalPages)
+        GET_ERROR_MESSAGE.NOT_GREATER(
+          PAGINATION_CONSTANTS.CURRENT_PAGE, PAGINATION_CONSTANTS.TOTAL_PAGES, currentPage, totalPages
+        )
       );
 
     if (boundaryPagesRange < 0)
       errorMessages.push(
-        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER('boundaryPagesRange', boundaryPagesRange)
+        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER(PAGINATION_CONSTANTS.BOUNDARY_PAGES_RANGE, boundaryPagesRange)
       );
 
     if (siblingPagesRange < 0)
       errorMessages.push(
-        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER('siblingPagesRange', siblingPagesRange)
+        GET_ERROR_MESSAGE.NOT_NEGATIVE_NUMBER(PAGINATION_CONSTANTS.SIBLING_PAGES_RANGE, siblingPagesRange)
       );
 
     return errorMessages;

@@ -65,12 +65,12 @@ const GameCanvas: FC<IGameCanvas> = ({ className }): ReactElement => {
       >
         <ul>
           <li>
-            <a href="#" onClick={handleResumeClick} style={{ color: '#fff' }}>
+            <a href='#' onClick={handleResumeClick} style={{ color: '#fff' }}>
               Resume
             </a>
           </li>
           <li>
-            <a href="#" onClick={handleRestartClick} style={{ color: '#fff' }}>
+            <a href='#' onClick={handleRestartClick} style={{ color: '#fff' }}>
               Restart
             </a>
           </li>
