@@ -1,13 +1,15 @@
-import React, { FC, FormEvent, ReactElement, useState } from 'react';
+import React, { FC, FormEvent, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Button, Input } from 'components';
 import { fakeOnChange, fakeOnClick } from 'utils';
-import { defaultUserState, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, LINK_TEXTS, MOCK_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
-  const [state] = useState(defaultUserState);
+  const [ state, setState ] = useState(DEFAULT_USER_STATE);
+
+  useEffect(() => setState(MOCK_USER_STATE), []);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
