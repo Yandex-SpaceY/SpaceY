@@ -11,9 +11,11 @@ const Profile: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_USER_STATE);
 
   useEffect(() => {
-    getUserInfo().then((res: AxiosResponse) => {
-      setState(res.data);
-    });
+    getUserInfo()
+      .then((res: AxiosResponse) => {
+        setState(res.data);
+      })
+      .catch(err => alert(err.response.data.reason || err.message));
   }, []);
 
   return (
@@ -21,14 +23,14 @@ const Profile: FC = (): ReactElement => {
       <div className='content-wrapper double'>
         <form className='content'>
           <h2>{PAGE_NAMES.PROFILE}</h2>
-          <div className="profile-image" />
-          <div className="input-wrapper">
-            <Input value={state.first_name} name="first_name" title="first name" />
-            <Input value={state.second_name} name="second_name" title="second name" />
+          <div className='profile-image' />
+          <div className='input-wrapper'>
+            <Input value={state.first_name} name='first_name' title='first name' />
+            <Input value={state.second_name} name='second_name' title='second name' />
           </div>
-          <div className="input-wrapper">
-            <Input value={state.email} name="email" title="e-mail" type="email" />
-            <Input value={state.login} name="login" title="login" />
+          <div className='input-wrapper'>
+            <Input value={state.email} name='email' title='e-mail' type='email' />
+            <Input value={state.login} name='login' title='login' />
           </div>
           <div className='input-wrapper'>
             <Input value={state.phone} name='phone' title='phone' />

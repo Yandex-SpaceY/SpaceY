@@ -4,24 +4,28 @@ import { AxiosResponse } from 'axios';
 
 import Button from 'components/button/Button';
 import Input from 'components/input/Input';
-import { fakeOnChange } from 'utils';
+import { fakeOnChange, fakeOnClick } from 'utils';
 import { getUserInfo } from 'api/authApi';
 import { changeProfile } from 'api/userApi';
 import { DEFAULT_USER_STATE, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { BUTTON_TEXTS } from 'constants/buttonConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_USER_STATE);
 
   useEffect(() => {
-    getUserInfo().then((res: AxiosResponse) => {
-      setState(res.data);
-    });
+    getUserInfo()
+      .then((res: AxiosResponse) => {
+        setState(res.data);
+      })
+      .catch(err => alert(err.response.data.reason || err.message));
   }, []);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    changeProfile(state);
+    changeProfile(state)
+      .catch(err => alert(err.response.data.reason || err.message));
   };
 
   return (
@@ -29,21 +33,21 @@ const ProfileEdit: FC = (): ReactElement => {
       <div className='content-wrapper double'>
         <form onSubmit={handleSubmit} className='content'>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
-          <div className="profile-image" />
-          <div className="input-wrapper">
-            <Input value={state.first_name} name="first_name" title="first name" onChange={fakeOnChange} />
-            <Input value={state.second_name} name="second_name" title="second name" onChange={fakeOnChange} />
+          <div className='profile-image' />
+          <div className='input-wrapper'>
+            <Input value={state.first_name} name='first_name' title='first name' onChange={fakeOnChange} />
+            <Input value={state.second_name} name='second_name' title='second name' onChange={fakeOnChange} />
           </div>
-          <div className="input-wrapper">
-            <Input value={state.email} name="email" onChange={fakeOnChange} title="e-mail" type="email" />
-            <Input value={state.login} name="login" title="login" onChange={fakeOnChange} />
+          <div className='input-wrapper'>
+            <Input value={state.email} name='email' onChange={fakeOnChange} title='e-mail' type='email' />
+            <Input value={state.login} name='login' title='login' onChange={fakeOnChange} />
           </div>
           <div className='input-wrapper'>
             <Input value={state.phone} name='phone' title='phone' onChange={fakeOnChange} />
             <Input value={state.password} name='password' title='password' onChange={fakeOnChange} type='password' />
           </div>
-          <div className="button-wrapper">
-            <Button type="submit" >SAVE</Button>
+          <div className='button-wrapper'>
+            <Button onClick={fakeOnClick} type='submit'>{BUTTON_TEXTS.PROFILE_EDIT}</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}
