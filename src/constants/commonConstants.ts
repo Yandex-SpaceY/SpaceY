@@ -29,29 +29,29 @@ export const LINK_TEXTS = {
 };
 
 export const DEFAULT_USER_STATE = {
-  first_name: '',
-  second_name: '',
+  name: '',
+  surname: '',
   email: '',
-  login: '',
+  codename: '',
   phone: '',
   password: '',
 };
 
 export const MOCK_USER_STATE = {
-  first_name: 'Ivan',
-  second_name: 'Petrov',
-  email: 'email1@email.com',
-  login: 'user1',
+  name: 'Ivan',
+  surname: 'Petrov',
+  email: 'email@email.com',
+  codename: 'user1',
   phone: '+79919927812',
   password: '123456',
 };
 
 export const DEFAULT_LOGIN_STATE = {
-  login: '',
+  email: '',
   password: '',
 };
 
 export const MOCK_LOGIN_STATE = {
-  login: 'email1@email.com',
+  email: 'email@email.com',
   password: '123456',
 };
