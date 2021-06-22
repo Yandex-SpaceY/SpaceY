@@ -1,8 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Input from 'components/input/Input';
-import Button from 'components/button/Button';
+import { Button, Input } from 'components';
 import { fakeOnChange } from 'utils';
 import { signup } from 'api/authApi';
 import { DEFAULT_USER_STATE, GAME_NAME, LINK_TEXTS, MOCK_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';

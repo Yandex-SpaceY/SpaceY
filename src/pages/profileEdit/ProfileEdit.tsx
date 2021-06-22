@@ -2,8 +2,7 @@ import React, { FC, FormEvent, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 
-import Button from 'components/button/Button';
-import Input from 'components/input/Input';
+import { Button, Input } from 'components';
 import { fakeOnChange, fakeOnClick } from 'utils';
 import { getUserInfo } from 'api/authApi';
 import { changeProfile } from 'api/userApi';

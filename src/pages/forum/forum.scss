@@ -1,0 +1,58 @@
+@import 'style/variables';
+
+@import 'style/mixins';
+
+.topic {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  span {
+    font-size: $base_font_size;
+    line-height: 26px;
+  }
+
+  .topic-info {
+    margin-right: 20px;
+
+    .topic-info-count {
+      margin-left: 10px;
+      color: $header_link_color;
+    }
+
+    @media screen and (max-width: $max_content_width) {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      .topic-info-count {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .topic-date {
+    color: $secondary_color;
+  }
+
+  .leader-data {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: flex-end;
+
+    span {
+      font-size: $base_font_size;
+      line-height: 26px;
+    }
+  }
+}
+
+.content-links {
+  @include content-link;
+
+  .link {
+    align-self: center;
+  }
+}
