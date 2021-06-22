@@ -47,7 +47,7 @@ const ProfileEdit: FC = (): ReactElement => {
             <Input value={state.password} name='password' title='password' onChange={fakeOnChange} type='password' />
           </div>
           <div className='button-wrapper'>
-            <Button onClick={fakeOnClick} type='submit'>{BUTTON_TEXTS.PROFILE_EDIT}</Button>
+            <Button onClick={fakeOnClick} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}

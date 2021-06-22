@@ -1,5 +1,5 @@
 export const BUTTON_TEXTS = {
-  PROFILE_EDIT: 'SAVE',
+  SAVE: 'SAVE',
   SIGNIN: 'SIGN IN',
   SIGNUP: 'SIGN UP',
 };
