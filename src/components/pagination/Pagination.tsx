@@ -25,7 +25,7 @@ const Pagination: FC<IPagination> = ({
     onPageChange(page);
   };
 
-  const createPageNav = (
+  const createNavElement = (
     label: string,
     status: STATUSES | '',
     pageNumber: number | null = null,
@@ -44,7 +44,7 @@ const Pagination: FC<IPagination> = ({
     const status = currentPage === 1 ? STATUSES.NAV_STATUS_DISABLED : '';
     const pageNumber = currentPage === 1 ? currentPage : currentPage - 1;
 
-    return createPageNav(label, status, pageNumber, 'prev');
+    return createNavElement(label, status, pageNumber, 'prev');
   };
 
   const showNextNav = (currentPage: number, totalPages: number): ReactElement => {
@@ -52,7 +52,7 @@ const Pagination: FC<IPagination> = ({
     const status = currentPage === totalPages ? STATUSES.NAV_STATUS_DISABLED : '';
     const pageNumber = currentPage === totalPages ? totalPages : currentPage + 1;
 
-    return createPageNav(label, status, pageNumber, 'next');
+    return createNavElement(label, status, pageNumber, 'next');
   };
 
   const createRange = (start: number, end: number): number[] => {
@@ -65,21 +65,21 @@ const Pagination: FC<IPagination> = ({
     return range;
   };
 
-  const createPageNavPagination = (range: number[]): ReactElement[] => (
+  const createPagesRange = (range: number[]): ReactElement[] => (
     range.map(pageNumber => {
       const label = pageNumber.toString();
       const status = currentPage === pageNumber
         ? STATUSES.NAV_STATUS_ACTIVE
-        : STATUSES.NAV_STATUS_INACTIVE;
+        : '';
 
-      return createPageNav(label, status, pageNumber);
+      return createNavElement(label, status, pageNumber);
     })
   );
 
   const createEllipsis = (): ReactElement => {
     const label = PAGINATION_CONSTANTS.ELLIPSIS;
 
-    return createPageNav(label, STATUSES.NAV_STATUS_UNCLICKABLE);
+    return createNavElement(label, STATUSES.NAV_STATUS_UNCLICKABLE);
   };
 
   const validatePagesOptions = (
@@ -88,7 +88,7 @@ const Pagination: FC<IPagination> = ({
     boundaryPagesRange: number,
     siblingPagesRange: number
   ): string[] => {
-    const errorMessages= [];
+    const errorMessages = [];
 
     if (totalPages < 0)
       errorMessages.push(
@@ -127,18 +127,18 @@ const Pagination: FC<IPagination> = ({
   const createPages = (pagesStart: number, pagesEnd: number): ReactElement[] => {
     const pages = createRange(pagesStart, pagesEnd);
 
-    return createPageNavPagination(pages);
+    return createPagesRange(pages);
   };
 
-  const defineEllipsis = (ellipsisPageNumber: number, pagesEnd: number) => {
+  const defineEllipsisOrPage = (ellipsisPageNumber: number, pagesEnd: number): ReactElement => {
     const showPageInsteadOfEllipsis = ellipsisPageNumber === pagesEnd;
 
     const status = currentPage === ellipsisPageNumber
       ? STATUSES.NAV_STATUS_ACTIVE
-      : STATUSES.NAV_STATUS_INACTIVE;
+      : '';
 
     return showPageInsteadOfEllipsis
-      ? createPageNav(
+      ? createNavElement(
         ellipsisPageNumber.toString(),
         status,
         ellipsisPageNumber
@@ -188,13 +188,13 @@ const Pagination: FC<IPagination> = ({
       const mainPagesEnd = mainPagesStart + 2 * siblingPagesRange;
       const mainPages = createPages(mainPagesStart, mainPagesEnd);
 
-      const firstEllipsis = defineEllipsis(mainPagesStart - 1, firstPagesEnd + 1);
-      const secondEllipsis = defineEllipsis(mainPagesEnd + 1, lastPagesStart - 1);
+      const firstEllipsisOrPage = defineEllipsisOrPage(mainPagesStart - 1, firstPagesEnd + 1);
+      const secondEllipsisOrPage = defineEllipsisOrPage(mainPagesEnd + 1, lastPagesStart - 1);
 
       paginationModel.push(...firstPages);
-      paginationModel.push(firstEllipsis);
+      paginationModel.push(firstEllipsisOrPage);
       paginationModel.push(...mainPages);
-      paginationModel.push(secondEllipsis);
+      paginationModel.push(secondEllipsisOrPage);
       paginationModel.push(...lastPages);
     }
 
@@ -203,7 +203,7 @@ const Pagination: FC<IPagination> = ({
     return paginationModel;
   };
 
-  const showPagination = () => {
+  const showPagination = (): ReactElement[] => {
     const pages = createPaginationModel();
 
     return pages.map((page, index) => <Fragment key={index}>{page}</Fragment>);

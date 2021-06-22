@@ -1,9 +1,8 @@
-export { formatDate } from './date';
-
 export {
   fakeOnChange,
   fakeOnClick,
-  formatBigNumbers
+  formatBigNumbers,
+  formatDate,
 } from './helpers';
 
 export {

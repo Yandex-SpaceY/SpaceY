@@ -42,7 +42,7 @@ const Forum: FC = (): ReactElement => {
 
   const getPagination = () => (
     <Pagination
-      totalPages={Math.max(totalRecords / PAGE_SIZE)}
+      totalPages={Math.ceil(totalRecords / PAGE_SIZE)}
       onPageChange={() => console.log('I was clicked')}
       currentPage={1}
     />
@@ -55,11 +55,12 @@ const Forum: FC = (): ReactElement => {
           <h2>{PAGE_NAMES.FORUM}</h2>
 
           {topics.length
-            ? <>
-              {showTopics()}
-              {getPagination()}
-            </>
-            : <h3>{FORUM_CONSTANTS.FIRST_TOPIC}</h3>
+            ? (
+              <>
+                {showTopics()}
+                {getPagination()}
+              </>
+            ) : <h3>{FORUM_CONSTANTS.FIRST_TOPIC}</h3>
           }
 
           <div className='content-links'>

@@ -10,7 +10,6 @@ export const PAGINATION_CONSTANTS = {
 
 export enum STATUSES {
   NAV_STATUS_ACTIVE = 'active',
-  NAV_STATUS_INACTIVE = 'inactive',
   NAV_STATUS_DISABLED = 'disabled',
   NAV_STATUS_UNCLICKABLE = 'unclickable',
 }
