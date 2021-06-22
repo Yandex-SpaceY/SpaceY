@@ -10,6 +10,7 @@ import { changeProfile } from 'api/userApi';
 import { DEFAULT_USER_STATE, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_USER_STATE);
@@ -19,17 +20,17 @@ const ProfileEdit: FC = (): ReactElement => {
       .then((res: AxiosResponse) => {
         setState(res.data);
       })
-      .catch(err => alert(err.response.data.reason || err.message));
+      .catch(err => console.error(err.response.data.reason || err.message));
   }, []);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     changeProfile(state)
-      .catch(err => alert(err.response.data.reason || err.message));
+      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
   };
 
   return (
-    <div className='main' >
+    <div className='main'>
       <div className='content-wrapper double'>
         <form onSubmit={handleSubmit} className='content'>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>

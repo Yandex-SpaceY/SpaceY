@@ -5,6 +5,7 @@ import { AxiosResponse } from 'axios';
 import Input from 'components/input/Input';
 import { DEFAULT_USER_STATE, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { getUserInfo } from 'api/authApi';
 
 const Profile: FC = (): ReactElement => {
@@ -15,7 +16,7 @@ const Profile: FC = (): ReactElement => {
       .then((res: AxiosResponse) => {
         setState(res.data);
       })
-      .catch(err => alert(err.response.data.reason || err.message));
+      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
   }, []);
 
   return (

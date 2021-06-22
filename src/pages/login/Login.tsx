@@ -10,6 +10,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 
 import './login.scss';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const Login: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_LOGIN_STATE);
@@ -17,7 +18,8 @@ const Login: FC = (): ReactElement => {
   useEffect(() => setState(MOCK_LOGIN_STATE), []);
 
   const loginHandler = () => {
-    signin(state).catch(err => alert(err.response.data.reason || err.message));
+    signin(state)
+      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
   };
 
   return (

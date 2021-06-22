@@ -8,6 +8,7 @@ import { signup } from 'api/authApi';
 import { DEFAULT_USER_STATE, GAME_NAME, LINK_TEXTS, MOCK_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const Signup: FC = (): ReactElement => {
   const [ state, setState ] = useState(DEFAULT_USER_STATE);
@@ -16,7 +17,7 @@ const Signup: FC = (): ReactElement => {
 
   const signupHandler = () => {
     signup(state)
-      .catch(err => alert(err.response.data.reason || err.message));
+      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
   };
 
   return (
