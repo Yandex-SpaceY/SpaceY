@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { BUTTON_TEXT } from 'constants/buttonConstants';
+import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
 import { FORUM_CONSTANTS } from 'constants/forumConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
@@ -65,7 +65,7 @@ const Forum: FC = (): ReactElement => {
 
           <div className='content-links'>
             <Button onClick={() => console.log('create topic')} className='uppercase'>
-              {BUTTON_TEXT.NEW_TOPIC}
+              {BUTTON_TEXTS.NEW_TOPIC}
             </Button>
             <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
               {LINK_TEXTS.DASHBOARD}
