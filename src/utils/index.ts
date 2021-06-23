@@ -10,4 +10,5 @@ export {
   checkFieldNotEmpty,
   checkPassword,
   checkPhone,
+  buttonDisabler,
 } from './validations';

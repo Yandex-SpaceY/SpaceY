@@ -20,7 +20,24 @@ const checkPhone = (phone = ''): string => {
   return pattern.test(phone.replace(' ', '')) ? '' : ERROR_CONSTANTS.PHONE_INVALID;
 };
 
+const buttonDisabler = (): void => {
+  const button = document.querySelector('button');
+  const inputs = document.querySelectorAll('.one-input-block');
+  let errors = 0;
+  inputs.forEach(input => {
+    if (input.classList.contains('error')) {
+      errors++;
+    }
+  });
+  if (errors && button?.disabled === false) {
+    button.disabled = true;
+  } else if (!errors && button?.disabled === true) {
+    button.disabled = false;
+  }
+};
+
 export {
+  buttonDisabler,
   checkEmail,
   checkFieldNotEmpty,
   checkPassword,

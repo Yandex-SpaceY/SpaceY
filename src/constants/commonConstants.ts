@@ -37,21 +37,13 @@ export const DEFAULT_USER_STATE = {
   password: '',
 };
 
-export const MOCK_USER_STATE = {
-  first_name: 'Ivan',
-  second_name: 'Petrov',
-  email: 'email1@email.com',
-  login: 'user1',
-  phone: '+79919927812',
-  password: '123456',
-};
+export type userType = typeof DEFAULT_USER_STATE;
+export type userKeys = keyof userType;
 
 export const DEFAULT_LOGIN_STATE = {
   login: '',
   password: '',
 };
 
-export const MOCK_LOGIN_STATE = {
-  login: 'email1@email.com',
-  password: '123456',
-};
+export type loginType = typeof DEFAULT_LOGIN_STATE;
+export type loginKeys = keyof loginType;
