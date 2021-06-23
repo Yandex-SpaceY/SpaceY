@@ -325,8 +325,9 @@ export default class GameMain {
   }
 
   reset(): void {
-    this.isGameOver = false;
+    this.isGameOver = false;    this.setGameOverStatus(this.isGameOver);
     this.gameTime = 0;
+    this.col = 0;
     this.score = 0;
 
     this.walls = [];
