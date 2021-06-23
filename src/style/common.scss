@@ -25,6 +25,7 @@ body,
 
   @media screen and (max-width: $max_content_width) {
     width: auto;
+    height: auto;
     padding-top: 38px;
   }
 }
@@ -145,4 +146,8 @@ h1 {
   margin-top: 24px;
   color: $header_link_color;
   font-size: $link_font_size;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

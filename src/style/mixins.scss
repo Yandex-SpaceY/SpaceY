@@ -11,3 +11,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin content-link {
+  display: flex;
+  flex-direction: column;
+  margin: 30px auto 10px;
+}
