@@ -44,42 +44,29 @@ const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetM
       return;
     }
 
-    if (toggleMenu) {
-      toggleMenu();
-    }
+    toggleMenu && toggleMenu();
 
   }, [isGamePaused]);
 
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-
-      return;
-    }
-
     switch (menuAction) {
-    case MENU_ACTIONS.GAME_RESUME:
-      resumeGame();
-      if (resetMenuAction) {
-        resetMenuAction();
-      }
-      break;
-    case MENU_ACTIONS.GAME_RESTART:
-      restartGame();
-      if (resetMenuAction) {
-        resetMenuAction();
-      }
-      break;
-    case MENU_ACTIONS.GAME_START:
-      restartGame();
-      if (resetMenuAction) {
-        resetMenuAction();
-      }
-      break;
-    default:
-      break;
+      case MENU_ACTIONS.GAME_RESUME:
+        resumeGame();
+        if (resetMenuAction) {
+          resetMenuAction();
+        }
+        break;
+      case MENU_ACTIONS.GAME_RESTART:
+      case MENU_ACTIONS.GAME_START:
+        restartGame();
+        break;
+      default:
+        break;
 
     }
+
+    resetMenuAction && resetMenuAction();
+
   }, [menuAction]);
 
   const resumeGame = useCallback(() => {
