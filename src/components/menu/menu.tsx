@@ -20,7 +20,7 @@ interface IMenu {
 
 export const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
   return (
-    <div className='menu' style={{ display: isShown ? 'flex' : 'none' }}>
+    <div className={`menu${isShown ? '' : ' hidden'}`}>
       <h1>{GAME_NAME}</h1>
       <div className='menu-items'>
         {
