@@ -2,7 +2,7 @@ import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } fro
 import cn from 'classnames';
 
 import GameMain from '../../game/gamemain';
-import { MENU_ACTIONS } from 'constants/commonConstants';
+import { MENU_ACTIONS } from 'constants/menuConstants';
 
 interface IGameCanvas {
   className?: string;
@@ -12,12 +12,12 @@ interface IGameCanvas {
 }
 
 const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetMenuAction }): ReactElement => {
-  const isFirstRun = useRef(true);
+  const isFirstRun = useRef<boolean>(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [ collisions, setCollisions ] = useState(0);
-  const [ score, setScore ] = useState(0);
-  const [ isGameOver, setIsGameOverStatus ] = useState(false);
-  const [ isGamePaused, setIsGamePauseStatus ] = useState(true);
+  const [ collisions, setCollisions ] = useState<number>(0);
+  const [ score, setScore ] = useState<number>(0);
+  const [ isGameOver, setIsGameOverStatus ] = useState<boolean>(false);
+  const [ isGamePaused, setIsGamePauseStatus ] = useState<boolean>(true);
   let gameMain: GameMain;
 
   useEffect(() => {

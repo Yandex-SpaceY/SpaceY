@@ -1,11 +1,8 @@
 @import 'style/variables';
 
-.menu {
+.dashboard {
 
-  .footer-item {
-    position: absolute;
-    bottom: 70px;
-    color: $text_main_color;
-    text-shadow: 3px 4px 0 $shadow_main_color;
+  .menu {
+    background: none;
   }
 }

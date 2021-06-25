@@ -1,22 +1,22 @@
 import React, { FC, ReactElement, useState } from 'react';
 
 import GameCanvas from 'components/gameCanvas/GameCanvas';
-import Menu from 'components/menu/Menu';
-import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ACTIONS } from 'constants/commonConstants';
+import { Menu, TMenuItem } from 'components/menu/Menu';
+import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ACTIONS } from 'constants/menuConstants';
 
 import './game.scss';
 
 const Game: FC = (): ReactElement => {
-  const [ isMenuShown, setIsMenuShown ] = useState(true);
-  const [ menuItems, setMenuItems ] = useState(MENU_ITEMS);
+  const [ isMenuShown, setIsMenuShown ] = useState<boolean>(true);
+  const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
 
   const toggleMenu = () => {
-    setIsMenuShown(!isMenuShown);
+    setIsMenuShown(prevValue => !prevValue);
   };
 
   const handleMenuAction = (action: string) => {
-    if (action !== null) {
+    if (action) {
       setMenuAction(action);
       if (action === MENU_ACTIONS.GAME_START) {
         setMenuItems(MENU_ITEMS_PAUSE);
@@ -25,7 +25,7 @@ const Game: FC = (): ReactElement => {
   };
 
   const resetMenuAction = () => {
-    if (menuAction !== null) {
+    if (!menuAction) {
       setMenuAction(null);
     }
   };
