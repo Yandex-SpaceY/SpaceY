@@ -15,9 +15,7 @@
     "@typescript-eslint/no-unused-vars": 2,
     "indent": ["error",
       2,
-      {
-				"SwitchCase": 1
-			}],
+      { "SwitchCase": 1 }],
     "quotes": ["error", "single"],
     "jsx-quotes": ["error", "prefer-single"],
     "linebreak-style": ["error", "unix"],
