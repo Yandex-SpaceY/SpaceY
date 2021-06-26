@@ -52,9 +52,6 @@ const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetM
     switch (menuAction) {
       case MENU_ACTIONS.GAME_RESUME:
         resumeGame();
-        if (resetMenuAction) {
-          resetMenuAction();
-        }
         break;
       case MENU_ACTIONS.GAME_RESTART:
       case MENU_ACTIONS.GAME_START:
@@ -62,11 +59,9 @@ const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetM
         break;
       default:
         break;
-
     }
 
     resetMenuAction && resetMenuAction();
-
   }, [menuAction]);
 
   const resumeGame = useCallback(() => {

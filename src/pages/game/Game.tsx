@@ -25,9 +25,7 @@ const Game: FC = (): ReactElement => {
   };
 
   const resetMenuAction = () => {
-    if (!menuAction) {
-      setMenuAction(null);
-    }
+    setMenuAction(null);
   };
 
   return (

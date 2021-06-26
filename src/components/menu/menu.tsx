@@ -1,5 +1,6 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import { GAME_NAME } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
@@ -20,7 +21,7 @@ interface IMenu {
 
 export const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
   return (
-    <div className={`menu${isShown ? '' : ' hidden'}`}>
+    <div className={cn('menu', (isShown ? '' : ' hidden'))}>
       <h1>{GAME_NAME}</h1>
       <div className='menu-items'>
         {
