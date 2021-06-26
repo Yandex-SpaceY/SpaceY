@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useState } from 'react';
 
 import GameCanvas from 'components/gameCanvas/GameCanvas';
-import { Menu, TMenuItem } from 'components/menu/Menu';
+import { Menu, TMenuItem } from 'components';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ACTIONS } from 'constants/menuConstants';
 
 import './game.scss';
@@ -16,12 +16,8 @@ const Game: FC = (): ReactElement => {
   };
 
   const handleMenuAction = (action: string) => {
-    if (action) {
-      setMenuAction(action);
-      if (action === MENU_ACTIONS.GAME_START) {
-        setMenuItems(MENU_ITEMS_PAUSE);
-      }
-    }
+    action && setMenuAction(action);
+    action === MENU_ACTIONS.GAME_START && setMenuItems(MENU_ITEMS_PAUSE);
   };
 
   const resetMenuAction = () => {

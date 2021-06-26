@@ -3,3 +3,6 @@ export { default as Input } from 'components/input/Input';
 export { default as ErrorBoundary } from 'components/errorBoundary/ErrorBoundary';
 export { default as Oops } from 'components/oops/Oops';
 export { default as Pagination } from 'components/pagination/Pagination';
+export { default as GameCanvas } from 'components/gameCanvas/GameCanvas';
+export { default as Menu } from 'components/menu/Menu';
+export { TMenuItem } from 'components/menu/Menu';

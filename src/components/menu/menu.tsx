@@ -19,7 +19,7 @@ interface IMenu {
   handleAction?: (action: string) => void;
 }
 
-export const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
+const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
   return (
     <div className={cn('menu', (isShown ? '' : ' hidden'))}>
       <h1>{GAME_NAME}</h1>
@@ -48,3 +48,5 @@ export const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handle
 
   );
 };
+
+export default Menu;
