@@ -26,6 +26,7 @@ module.exports = {
       utils: `${__dirname}/src/utils`,
       style: `${__dirname}/src/style`,
       images: `${__dirname}/src/assets/images`,
+      store: `${__dirname}/src/store`,
     }
   },
   module: {
