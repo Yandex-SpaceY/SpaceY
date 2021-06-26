@@ -13,14 +13,14 @@ enum SIDE {
   RIGHT = 'right',
 }
 
-enum KEYCODES {
-  ESC = 27,
-  SPACEBAR = 32,
+enum KEYS {
+  ESC = 'Escape',
+  SPACEBAR = ' ',
 }
 
 enum CONTROLS {
-  PAUSE = KEYCODES.ESC,
-  SHIFT = KEYCODES.SPACEBAR
+  PAUSE = KEYS.ESC,
+  SHIFT = KEYS.SPACEBAR
 }
 
 type TPlayer = {
@@ -122,7 +122,7 @@ export default class GameMain {
   }
 
   controls = (event: KeyboardEvent): void => {
-    if (event.keyCode === CONTROLS.SHIFT) {
+    if (event.key === CONTROLS.SHIFT as unknown as string) {
       if (!this.isGamePaused) {
         if (this.player.side === SIDE.RIGHT) {
           this.player.side = SIDE.LEFT;
@@ -132,7 +132,7 @@ export default class GameMain {
           this.player.state = STATE.SHIFT;
         }
       }
-    } else if (event.keyCode === CONTROLS.PAUSE) {
+    } else if (event.key === CONTROLS.PAUSE as unknown as string) {
       this.togglePauseStatus();
       this.setGamePauseStatus(this.isGamePaused);
     }
