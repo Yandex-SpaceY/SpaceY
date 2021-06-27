@@ -17,6 +17,3 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-store.dispatch({ type: 'TEST' });
-
-console.log(store.getState().user);

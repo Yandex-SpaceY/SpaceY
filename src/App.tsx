@@ -1,15 +1,19 @@
 import React, { FC, ReactElement } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Router from 'router/Router';
 import { ErrorBoundary } from 'components';
-import { AppState } from 'store/types.d';
+import { userUserDataSelector } from 'store/user/selectors';
+import { getUserDataFromServer } from 'store/user/actions';
 
 const App: FC = (): ReactElement => {
-  const user = useSelector((state: AppState) => state);
+  const userDataState = useSelector(userUserDataSelector);
+  const dispatch = useDispatch();
 
   return (
-    <div>{user.toString()}
+    <div onClick={() => (dispatch(getUserDataFromServer()))}>
+      Test
+      {userDataState?.id.toString()}
       <ErrorBoundary>
         <Router />
       </ErrorBoundary>

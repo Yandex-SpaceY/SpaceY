@@ -1,10 +1,11 @@
 import { Action as ReduxAction, compose } from 'redux';
 
-export type AppState = {
-  user: UserState;
+export type TAppState = {
+  user: TUserState;
+  game: TGameState;
 };
 
-export type UserType = {
+export type TUserData = {
   id: number;
   login: string;
   avatar: string | null;
@@ -15,14 +16,21 @@ export type UserType = {
   phone: string;
 };
 
-export type UserState = {
+export type TUserState = {
   isAuth: boolean;
   pending: boolean;
-  error?: boolean;
-  user: UserType | null;
+  error?: Error;
+  userData: UserType;
 };
 
-export type ActionProps<T extends string = string, P = void> = P extends void
+export type TGameState = {
+  isGameStarted: boolean;
+  isGameOver: boolean;
+  isGamePaused: boolean;
+  lastScore: number;
+};
+
+export type TActionProps<T extends string = string, P = void> = P extends void
   ? ReduxAction<T>
   : ReduxAction<T> & Readonly<{ payload: P }>;
 
