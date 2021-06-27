@@ -18,6 +18,7 @@ const Game: FC = (): ReactElement => {
   const handleMenuAction = (action: string) => {
     if (action) {
       setMenuAction(action);
+
       if (action === MENU_ACTIONS.GAME_START) {
         setMenuItems(MENU_ITEMS_PAUSE);
       }

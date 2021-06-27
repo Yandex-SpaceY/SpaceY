@@ -26,13 +26,17 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
       <div className='menu-items'>
         {
           menuItems.map(({ title, route, action }) => {
-            if (route) {
+            if (action && route) {
               return (
-                <Link key={title} className='menu-item' to={route}>
+                <Link key={title} className='menu-item' to={route} onClick={() => {
+                  if (handleAction) handleAction(action);
+                }}>
                   {title}
                 </Link>
               );
-            } else if (action) {
+            }
+
+            if (action) {
               return (
                 <span key={title} className='menu-item' onClick={() => {
                   if (handleAction) handleAction(action);
@@ -41,6 +45,15 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
                 </span>
               );
             }
+
+            if (route) {
+              return (
+                <Link key={title} className='menu-item' to={route}>
+                  {title}
+                </Link>
+              );
+            }
+
           })
         }
       </div>

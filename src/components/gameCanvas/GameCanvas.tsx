@@ -45,7 +45,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, toggleMenu, resetM
       return;
     }
 
-    toggleMenu && toggleMenu();
+    if (toggleMenu) toggleMenu();
 
   }, [isGamePaused]);
 
