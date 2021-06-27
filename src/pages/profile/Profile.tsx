@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 
 import { getUserInfo } from 'api/authApi';
 import Input from 'components/input/Input';
-import { DEFAULT_USER_STATE, LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 

@@ -1,7 +1,8 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-import { GAME_NAME, MENU_ITEMS } from 'constants/commonConstants';
+import { GAME_NAME } from 'constants/commonConstants';
+import { MENU_ITEMS } from 'constants/menuConstants';
 
 import './dashboard.scss';
 

@@ -9,24 +9,18 @@ import {
   checkFieldNotEmpty,
   checkPassword,
   checkPhone,
-  buttonDisabler,
+  checkButtonDisable,
   fakeOnClick,
 } from 'utils';
-import { DEFAULT_USER_STATE, LINK_TEXTS, PAGE_NAMES, userKeys, userType } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, PAGE_NAMES, userKeys, userType } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
   const [ state, setState ] = useState<userType>(DEFAULT_USER_STATE);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
-    const name = e.target.name as userKeys;
-    const newState = Object.assign({}, state);
-    newState[name] = value;
-    setState(newState);
-  };
+  const [ disabled, setDisabled ] = useState<boolean>(true);
 
   const getUserData = async () => {
     try {
@@ -42,19 +36,28 @@ const ProfileEdit: FC = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    buttonDisabler();
+    const newDisable = checkButtonDisable();
+    setDisabled(newDisable);
   }, [state]);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
+  const onSubmitHandler = (e: FormEvent) => {
+    e.preventDefault();
     changeProfile(state)
       .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
+  };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target;
+    const name = e.target.name as userKeys;
+    const newState = Object.assign({}, state);
+    newState[name] = value;
+    setState(newState);
   };
 
   return (
     <div className='main'>
       <div className='content-wrapper double'>
-        <form onSubmit={handleSubmit} className='content'>
+        <form onSubmit={onSubmitHandler} className='content'>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
           <div className='profile-image' />
           <div className='input-wrapper'>
@@ -69,8 +72,9 @@ const ProfileEdit: FC = (): ReactElement => {
             <Input value={state.phone} name='phone' title='phone' onChange={onChange} errorText={checkPhone(state.phone)} />
             <Input value={state.password} name='password' title='password' onChange={onChange} type='password' errorText={checkPassword(state.password)} />
           </div>
+          <input type='submit' className='hidden' />
           <div className='button-wrapper'>
-            <Button onClick={fakeOnClick} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
+            <Button disabled={disabled} onClick={fakeOnClick} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}

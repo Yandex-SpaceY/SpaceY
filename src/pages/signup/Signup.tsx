@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { signup } from 'api/authApi';
@@ -8,15 +8,17 @@ import {
   checkFieldNotEmpty,
   checkPassword,
   checkPhone,
-  buttonDisabler,
+  checkButtonDisable,
 } from 'utils';
-import { DEFAULT_USER_STATE, GAME_NAME, LINK_TEXTS, PAGE_NAMES, userKeys, userType } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, GAME_NAME, PAGE_NAMES, userKeys, userType } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const Signup: FC = (): ReactElement => {
   const [ state, setState ] = useState<userType>(DEFAULT_USER_STATE);
+  const [ disabled, setDisabled ] = useState<boolean>(true);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
@@ -27,7 +29,8 @@ const Signup: FC = (): ReactElement => {
   };
 
   useEffect(() => {
-    buttonDisabler();
+    const newDisable = checkButtonDisable();
+    setDisabled(newDisable);
   }, [state]);
 
   const signupHandler = async () => {
@@ -38,11 +41,16 @@ const Signup: FC = (): ReactElement => {
     }
   };
 
+  const onSubmitHandler = (e: FormEvent) => {
+    e.preventDefault();
+    signupHandler();
+  };
+
   return (
     <div className='main'>
       <div className='content-wrapper double'>
         <h1>{GAME_NAME}</h1>
-        <form className='content'>
+        <form className='content' onSubmit={onSubmitHandler} >
           <h2>{PAGE_NAMES.REGISTRATION}</h2>
           <div className='input-wrapper'>
             <Input value={state.first_name} name='first_name' title='first name' onChange={onChange} errorText={checkFieldNotEmpty(state.first_name)} />
@@ -56,8 +64,9 @@ const Signup: FC = (): ReactElement => {
             <Input value={state.phone} name='phone' title='phone' onChange={onChange} errorText={checkPhone(state.phone)} />
             <Input value={state.password} name='password' title='password' onChange={onChange} type='password' errorText={checkPassword(state.password)} />
           </div>
+          <input type='submit' className='hidden' />
           <div className='button-wrapper'>
-            <Button onClick={signupHandler}>{BUTTON_TEXTS.SIGNUP}</Button>
+            <Button disabled={disabled} onClick={signupHandler}>{BUTTON_TEXTS.SIGNUP}</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.LOGIN} className='link'>{LINK_TEXTS.LOGIN}</Link>
           <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>{LINK_TEXTS.DASHBOARD}</Link>
