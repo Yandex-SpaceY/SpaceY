@@ -3,15 +3,16 @@ import cn from 'classnames';
 
 import GameMain from '../../game/gamemain';
 import { MENU_ACTIONS } from 'constants/menuConstants';
+import { GAME_OPTIONS } from 'constants/gameConstants';
 
 interface IGameCanvas {
   className?: string;
-  toggleMenu?: () => void;
   menuAction?: string | null;
+  toggleMenu?: () => void;
   resetMenuAction?: () => void;
 }
 
-const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetMenuAction }): ReactElement => {
+const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, toggleMenu, resetMenuAction }): ReactElement => {
   const isFirstRun = useRef<boolean>(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [ collisions, setCollisions ] = useState<number>(0);
@@ -96,7 +97,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, toggleMenu, menuAction, resetM
         Game Over
       </div>
 
-      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={375} height={667}/>
+      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT}/>
     </>
   );
 };

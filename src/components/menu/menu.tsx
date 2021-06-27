@@ -9,8 +9,8 @@ import './menu.scss';
 
 export type TMenuItem = {
   title: string;
-  route?: string;
-  action?: string;
+  route: string | null;
+  action: string | null;
 }
 
 interface IMenu {
@@ -21,7 +21,7 @@ interface IMenu {
 
 const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
   return (
-    <div className={cn('menu', (isShown ? '' : ' hidden'))}>
+    <div className={cn('menu', (!isShown && 'hidden'))}>
       <h1>{GAME_NAME}</h1>
       <div className='menu-items'>
         {
@@ -35,7 +35,7 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
             } else if (action) {
               return (
                 <span key={title} className='menu-item' onClick={() => {
-                  handleAction && handleAction(action);
+                  if (handleAction) handleAction(action);
                 }}>
                   {title}
                 </span>

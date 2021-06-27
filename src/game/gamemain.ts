@@ -15,13 +15,13 @@ enum SIDE {
 
 enum KEYS {
   ESC = 'Escape',
-  SPACEBAR = ' ',
+  SPACEBAR = 'Space',
 }
 
-enum CONTROLS {
-  PAUSE = KEYS.ESC,
-  SHIFT = KEYS.SPACEBAR
-}
+const CONTROLS = {
+  PAUSE: KEYS.ESC,
+  SHIFT: KEYS.SPACEBAR
+};
 
 type TPlayer = {
   pos: [number, number];
@@ -122,7 +122,7 @@ export default class GameMain {
   }
 
   controls = (event: KeyboardEvent): void => {
-    if (event.key === CONTROLS.SHIFT as unknown as string) {
+    if (event.code === CONTROLS.SHIFT) {
       if (!this.isGamePaused) {
         if (this.player.side === SIDE.RIGHT) {
           this.player.side = SIDE.LEFT;
