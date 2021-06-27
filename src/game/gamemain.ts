@@ -132,7 +132,7 @@ export default class GameMain {
           this.player.state = STATE.SHIFT;
         }
       }
-    } else if (event.key === CONTROLS.PAUSE) {
+    } else if (event.code === CONTROLS.PAUSE) {
       this.togglePauseStatus();
       this.setGamePauseStatus(this.isGamePaused);
     }

@@ -26,11 +26,13 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
       <div className='menu-items'>
         {
           menuItems.map(({ title, route, action }) => {
-            if (action && route) {
+            const callback = () => {
+              if (action && handleAction) handleAction(action);
+            };
+
+            if (route) {
               return (
-                <Link key={title} className='menu-item' to={route} onClick={() => {
-                  if (handleAction) handleAction(action);
-                }}>
+                <Link key={title} className='menu-item' to={route} onClick={action ? callback : undefined}>
                   {title}
                 </Link>
               );
@@ -38,19 +40,9 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
 
             if (action) {
               return (
-                <span key={title} className='menu-item' onClick={() => {
-                  if (handleAction) handleAction(action);
-                }}>
+                <span key={title} className='menu-item' onClick={callback}>
                   {title}
                 </span>
-              );
-            }
-
-            if (route) {
-              return (
-                <Link key={title} className='menu-item' to={route}>
-                  {title}
-                </Link>
               );
             }
 
