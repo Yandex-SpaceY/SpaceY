@@ -19,8 +19,8 @@ enum KEYS {
 }
 
 const CONTROLS = {
-  PAUSE: KEYS.ESC,
-  SHIFT: KEYS.SPACEBAR
+  PAUSE: KEYS.ESC as string,
+  SHIFT: KEYS.SPACEBAR as string
 };
 
 type TPlayer = {
