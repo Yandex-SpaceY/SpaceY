@@ -6,19 +6,22 @@ import { ThunkAction } from 'redux-thunk';
 export const setUserError = (error: Error): TActionProps<string, Error> => {
   return {
     type: USER_ACTIONS.ERROR,
-    payload: error };
+    payload: error,
+  };
 };
 
 export const setUserPending = (pending: boolean): TActionProps<string, boolean> => {
   return {
     type: USER_ACTIONS.PENDING,
-    payload: pending };
+    payload: pending,
+  };
 };
 
 export const setUserData = (userData: TUserData): TActionProps<string, TUserData> => {
   return {
     type: USER_ACTIONS.SET_USER_DATA,
-    payload: userData };
+    payload: userData,
+  };
 };
 
 export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
