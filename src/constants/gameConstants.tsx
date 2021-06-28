@@ -1,0 +1,4 @@
+export const GAME_OPTIONS = {
+  CANVAS_WIDTH: 375,
+  CANVAS_HEIGHT: 667
+};
