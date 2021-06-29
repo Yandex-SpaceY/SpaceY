@@ -8,8 +8,10 @@ const initialState = {
   lastScore: 0
 };
 
-export const gameReducer
-= (state = initialState, action: TActionProps<string, TGameState>): Record<string, unknown> => {
+export const gameReducer = (
+  state = initialState,
+  action: TActionProps<string, TGameState>
+): Record<string, unknown> => {
   switch (action.type) {
     case GAME_ACTIONS.SET_IS_GAME_STARTED: {
       return { ...state, isGameStarted: action.payload };

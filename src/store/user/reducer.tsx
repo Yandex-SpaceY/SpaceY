@@ -7,8 +7,10 @@ const initialState = {
   userData: null
 };
 
-export const userReducer
-= (state = initialState, action: TActionProps<string, TUserState>): Record<string, unknown> => {
+export const userReducer = (
+  state = initialState,
+  action: TActionProps<string, TUserState>
+): Record<string, unknown> => {
   switch (action.type) {
     case USER_ACTIONS.SET_USER_DATA: {
       return { ...state, userData: action.payload };
