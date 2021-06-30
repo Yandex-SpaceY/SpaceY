@@ -19,7 +19,7 @@ const ProfileEdit: FC = (): ReactElement => {
       .then((res: AxiosResponse) => {
         setState(res.data);
       })
-      .catch(err => console.error(err?.response?.data?.reason || err.message));
+      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
   }, []);
 
   const handleSubmit = (event: FormEvent) => {
