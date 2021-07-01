@@ -60,15 +60,15 @@ export default class GameMain {
 
   setCollisions: Dispatch<SetStateAction<number>>;
   setScore: Dispatch<SetStateAction<number>>;
-  setGameOverStatus: Dispatch<SetStateAction<boolean>>;
-  setGamePauseStatus: Dispatch<SetStateAction<boolean>>;
+  setGameOverStatus: (isGameOver: boolean) => void;
+  setGamePauseStatus: (isGamePaused: boolean) => void;
 
   constructor(
     canvas: HTMLCanvasElement,
     setCollisions: Dispatch<SetStateAction<number>>,
     setScore: Dispatch<SetStateAction<number>>,
-    setGameOverStatus: Dispatch<SetStateAction<boolean>>,
-    setGamePauseStatus: Dispatch<SetStateAction<boolean>>
+    setGameOverStatus: (isGameOver: boolean) => void,
+    setGamePauseStatus: (isGamePaused: boolean) => void
   ) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
@@ -195,14 +195,15 @@ export default class GameMain {
       this.score++;
 
       if (this.col > 100) {
-        this.isGameOver = true;
+        if (!this.isGameOver) {
+          this.isGameOver = true;
+          this.setGameOverStatus(this.isGameOver);
+        }
       }
 
       this.checkCollisions();
       this.setCollisions(this.col);
       this.setScore(this.score);
-      this.setGameOverStatus(this.isGameOver);
-      this.setGamePauseStatus(this.isGamePaused);
     }
   }
 
@@ -326,6 +327,8 @@ export default class GameMain {
 
   reset(): void {
     this.isGameOver = false;
+    this.setGameOverStatus(this.isGameOver);
+
     this.gameTime = 0;
     this.col = 0;
     this.score = 0;
