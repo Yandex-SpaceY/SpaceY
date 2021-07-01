@@ -82,8 +82,16 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     }
   }, [isGameOver]);
 
+  useEffect(() => {
+    setPauseStatus(isGamePaused);
+  }, [isGamePaused]);
+
   const resumeGame = useCallback(() => {
-    gameMain.togglePauseStatus();
+    gameMain.setPauseStatus(true);
+  }, []);
+
+  const setPauseStatus = useCallback((status: boolean) => {
+    gameMain.setPauseStatus(status);
   }, []);
 
   const restartGame = useCallback(() => {
