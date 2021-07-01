@@ -1,5 +1,5 @@
 import { TActionProps } from 'store/types.d';
-import { GAME_ACTIONS } from 'store/constants';
+import { GAME_ACTIONS } from 'constants/storeConstants';
 
 export const setIsGameStarted = (isGameStarted: boolean): TActionProps<string, boolean> => (
   {

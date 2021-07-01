@@ -1,5 +1,5 @@
 import { TActionProps, TGameState } from 'store/types.d';
-import { GAME_ACTIONS } from 'store/constants';
+import { GAME_ACTIONS } from 'constants/storeConstants';
 
 const initialState = {
   isGameStarted: false,
@@ -29,5 +29,4 @@ export const gameReducer = (
       return state;
     }
   }
-
 };

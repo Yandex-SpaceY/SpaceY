@@ -1,10 +1,5 @@
 import { Action as ReduxAction, compose } from 'redux';
 
-export type TAppState = {
-  user: TUserState;
-  game: TGameState;
-};
-
 export type TUserData = {
   id: number;
   login: string;
@@ -19,8 +14,8 @@ export type TUserData = {
 export type TUserState = {
   isAuth: boolean;
   pending: boolean;
-  error?: Error;
-  userData: UserType;
+  error: Error | null;
+  userData: TUserData;
 };
 
 export type TGameState = {
@@ -30,9 +25,12 @@ export type TGameState = {
   lastScore: number;
 };
 
-export type TActionProps<T extends string = string, P = void> = P extends void
-  ? ReduxAction<T>
-  : ReduxAction<T> & Readonly<{ payload: P }>;
+export type TAppState = {
+  user: TUserState;
+  game: TGameState;
+};
+
+export type TActionProps<T = string, P = unknown> = ReduxAction<T> & Readonly<{ payload: P }>;
 
 declare global {
   interface Window {

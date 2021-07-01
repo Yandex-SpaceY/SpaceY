@@ -1,10 +1,11 @@
 import { TActionProps, TUserState } from 'store/types.d';
-import { USER_ACTIONS } from 'store/constants';
+import { USER_ACTIONS } from 'constants/storeConstants';
 
 const initialState = {
   isAuth: false,
   pending: false,
-  userData: null
+  userData: null,
+  error: null,
 };
 
 export const userReducer = (

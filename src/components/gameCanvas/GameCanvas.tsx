@@ -20,8 +20,8 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
 
-  const setIsGameStartedStatus = (isGameSatrted: boolean) => {
-    dispatch(setIsGameStarted(isGameSatrted));
+  const setIsGameStartedStatus = (isGameStarted: boolean) => {
+    dispatch(setIsGameStarted(isGameStarted));
   };
   const setIsGamePauseStatus = (isGamePaused: boolean) => {
     dispatch(setIsGamePaused(isGamePaused));

@@ -1,9 +1,9 @@
 import { TAppState, TActionProps, TUserData } from 'store/types.d';
-import { USER_ACTIONS } from 'store/constants';
+import { USER_ACTIONS } from 'constants/storeConstants';
 import { getUserInfo } from 'api/authApi';
 import { ThunkAction } from 'redux-thunk';
 
-export const setUserError = (error: Error): TActionProps<string, Error> => (
+export const setUserError = (error: Error| null): TActionProps<string, Error | null> => (
   {
     type: USER_ACTIONS.ERROR,
     payload: error,
@@ -27,6 +27,7 @@ export const setUserData = (userData: TUserData): TActionProps<string, TUserData
 export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
   return async dispatch => {
     try {
+      dispatch(setUserError(null));
       dispatch(setUserPending(true));
 
       const data = await getUserInfo();
