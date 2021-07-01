@@ -1,7 +1,8 @@
+import { ThunkAction } from 'redux-thunk';
+
+import { getUserInfo } from 'api/authApi';
 import { TAppState, TActionProps, TUserData } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
-import { getUserInfo } from 'api/authApi';
-import { ThunkAction } from 'redux-thunk';
 
 export const setUserError = (error: Error| null): TActionProps<string, Error | null> => (
   {

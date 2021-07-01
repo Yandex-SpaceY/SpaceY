@@ -1,5 +1,5 @@
-import { TActionProps, TGameState } from 'store/types.d';
 import { GAME_ACTIONS } from 'constants/storeConstants';
+import { TActionProps, TGameState } from 'store/types.d';
 
 const initialState = {
   isGameStarted: false,
