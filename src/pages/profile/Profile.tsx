@@ -9,12 +9,12 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const Profile: FC = (): ReactElement => {
-  const [ state, setState ] = useState(DEFAULT_USER_STATE);
+  const [ userState, setUserState ] = useState(DEFAULT_USER_STATE);
 
   const getUserData = async () => {
     try {
       const res = await getUserInfo();
-      setState(res.data);
+      setUserState(res.data);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -31,16 +31,16 @@ const Profile: FC = (): ReactElement => {
           <h2>{PAGE_NAMES.PROFILE}</h2>
           <div className='profile-image' />
           <div className='input-wrapper'>
-            <Input value={state.first_name} name='first_name' title='first name' />
-            <Input value={state.second_name} name='second_name' title='second name' />
+            <Input value={userState.first_name} name='first_name' title='first name' />
+            <Input value={userState.second_name} name='second_name' title='second name' />
           </div>
           <div className='input-wrapper'>
-            <Input value={state.email} name='email' title='e-mail' type='email' />
-            <Input value={state.login} name='login' title='login' />
+            <Input value={userState.email} name='email' title='e-mail' type='email' />
+            <Input value={userState.login} name='login' title='login' />
           </div>
           <div className='input-wrapper'>
-            <Input value={state.phone} name='phone' title='phone' />
-            <Input value={state.password} name='password' title='password' type='password' />
+            <Input value={userState.phone} name='phone' title='phone' />
+            <Input value={userState.password} name='password' title='password' type='password' />
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className='link'>
             {LINK_TEXTS.PROFILE_EDIT}
