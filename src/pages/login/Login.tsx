@@ -13,8 +13,8 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import './login.scss';
 
 const Login: FC = (): ReactElement => {
-  const [loginState, setLoginState] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
+  const [ disabled, setDisabled ] = useState<boolean>(true);
 
   useEffect(() => {
     const newDisable = checkButtonDisable();

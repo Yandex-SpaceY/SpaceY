@@ -18,8 +18,8 @@ import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
 const ProfileEdit: FC = (): ReactElement => {
-  const [userState, setUserState] = useState<USER_TYPE>(DEFAULT_USER_STATE);
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [ userState, setUserState ] = useState<USER_TYPE>(DEFAULT_USER_STATE);
+  const [ disabled, setDisabled ] = useState<boolean>(true);
 
   const getUserData = async () => {
     try {
