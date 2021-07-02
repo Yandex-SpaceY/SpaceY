@@ -24,22 +24,16 @@ const Login: FC = (): ReactElement => {
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     const name = e.target.name as LOGIN_KEYS;
-    const newState = Object.assign({}, loginState);
-    newState[name] = value;
-    setLoginState(newState);
+    setLoginState(Object.assign(loginState, { [name]: value }));
   };
 
-  const loginHandler = async () => {
+  const onSubmitHandler = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       await signin(loginState);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
-  };
-
-  const onSubmitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    loginHandler();
   };
 
   return (
@@ -67,7 +61,6 @@ const Login: FC = (): ReactElement => {
               type='password'
             />
           </div>
-          <input type='submit' className='hidden' />
           <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SIGNIN}</Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}

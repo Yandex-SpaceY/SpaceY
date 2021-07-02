@@ -39,18 +39,19 @@ const ProfileEdit: FC = (): ReactElement => {
     setDisabled(newDisable);
   }, [userState]);
 
-  const onSubmitHandler = (e: FormEvent) => {
+  const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    changeProfile(userState)
-      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
+    try {
+      await changeProfile(userState);
+    } catch (err) {
+      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+    }
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     const name = e.target.name as USER_KEYS;
-    const newState = Object.assign({}, userState);
-    newState[name] = value;
-    setUserState(newState);
+    setUserState(Object.assign(userState, { [name]: value }));
   };
 
   return (
@@ -109,7 +110,6 @@ const ProfileEdit: FC = (): ReactElement => {
               errorText={checkPassword(userState.password)}
             />
           </div>
-          <input type='submit' className='hidden' />
           <div className='button-wrapper'>
             <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
           </div>

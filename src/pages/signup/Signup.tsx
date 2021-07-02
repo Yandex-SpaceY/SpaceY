@@ -23,9 +23,7 @@ const Signup: FC = (): ReactElement => {
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     const name = e.target.name as USER_KEYS;
-    const newState = Object.assign({}, userState);
-    newState[name] = value;
-    setUserState(newState);
+    setUserState(Object.assign(userState, { [name]: value }));
   };
 
   useEffect(() => {
@@ -33,17 +31,13 @@ const Signup: FC = (): ReactElement => {
     setDisabled(newDisable);
   }, [userState]);
 
-  const signupHandler = async () => {
+  const onSubmitHandler = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       await signup(userState);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
-  };
-
-  const onSubmitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    signupHandler();
   };
 
   return (
@@ -102,7 +96,6 @@ const Signup: FC = (): ReactElement => {
               errorText={checkPassword(userState.password)}
             />
           </div>
-          <input type='submit' className='hidden' />
           <div className='button-wrapper'>
             <Button type='submit' disabled={disabled}>{BUTTON_TEXTS.SIGNUP}</Button>
           </div>
