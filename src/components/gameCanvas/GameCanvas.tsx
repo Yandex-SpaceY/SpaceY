@@ -1,24 +1,43 @@
 import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
 import GameMain from '../../game/gamemain';
+import { setIsGameStarted, setIsGamePaused, setIsGameOver, setLastScore } from 'store/game/actions';
+import { gameIsGamePausedSelector, gameIsGameOverSelector } from 'store/game/selectors';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
 interface IGameCanvas {
   className?: string;
   menuAction?: string | null;
-  toggleMenu?: () => void;
   resetMenuAction?: () => void;
 }
 
-const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, toggleMenu, resetMenuAction }): ReactElement => {
-  const isFirstRun = useRef<boolean>(true);
+const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction }): ReactElement => {
+  const dispatch = useDispatch();
+
+  const isGamePaused = useSelector(gameIsGamePausedSelector);
+  const isGameOver = useSelector(gameIsGameOverSelector);
+
+  const setIsGameStartedStatus = (isGameStarted: boolean) => {
+    dispatch(setIsGameStarted(isGameStarted));
+  };
+  const setIsGamePauseStatus = (isGamePaused: boolean) => {
+    dispatch(setIsGamePaused(isGamePaused));
+  };
+  const setIsGameOverStatus = (isGameOver: boolean) => {
+    dispatch(setIsGameOver(isGameOver));
+  };
+  const setLastScoreState = (lastScore: number) => {
+    dispatch(setLastScore(lastScore));
+  };
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
   const [ collisions, setCollisions ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
-  const [ isGameOver, setIsGameOverStatus ] = useState<boolean>(false);
-  const [ isGamePaused, setIsGamePauseStatus ] = useState<boolean>(true);
+
   let gameMain: GameMain;
 
   useEffect(() => {
@@ -39,24 +58,16 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, toggleMenu, resetM
   }, []);
 
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-
-      return;
-    }
-
-    if (toggleMenu) toggleMenu();
-
-  }, [isGamePaused]);
-
-  useEffect(() => {
     switch (menuAction) {
       case MENU_ACTIONS.GAME_RESUME:
         resumeGame();
+        setIsGamePauseStatus(false);
         break;
       case MENU_ACTIONS.GAME_RESTART:
       case MENU_ACTIONS.GAME_START:
         restartGame();
+        setIsGamePauseStatus(false);
+        setIsGameStartedStatus(true);
         break;
       default:
         break;
@@ -64,6 +75,12 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, toggleMenu, resetM
 
     resetMenuAction && resetMenuAction();
   }, [menuAction]);
+
+  useEffect(() => {
+    if (isGameOver) {
+      setLastScoreState(score);
+    }
+  }, [isGameOver]);
 
   const resumeGame = useCallback(() => {
     gameMain.togglePauseStatus();
