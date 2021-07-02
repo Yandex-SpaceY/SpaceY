@@ -1,9 +1,5 @@
 const CACHE_NAME = 'space-y-cache-v1';
 
-this.addEventListener('install', event => event.waitUntil(caches.open(CACHE_NAME)));
-this.addEventListener('fetch', event => event.respondWith(getCachedResource(event.request)));
-this.addEventListener('activate', event => event.waitUntil(clearCache()));
-
 const getCachedResource = async req => {
   try {
     const result = await caches.match(req);
@@ -44,3 +40,7 @@ const clearCache = async () => {
     console.error(`Can't clear cache: ${err}`);
   }
 };
+
+this.addEventListener('install', event => event.waitUntil(caches.open(CACHE_NAME)));
+this.addEventListener('fetch', event => event.respondWith(getCachedResource(event.request)));
+this.addEventListener('activate', event => event.waitUntil(clearCache()));
