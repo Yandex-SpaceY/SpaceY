@@ -2,7 +2,8 @@ import React, { FC, ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
-import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { PAGE_NAMES } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { FORUM_CONSTANTS } from 'constants/forumConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';

@@ -30,6 +30,10 @@ body,
   }
 }
 
+.hidden {
+  display: none;
+}
+
 .content {
   position: relative;
   display: flex;
@@ -150,8 +154,4 @@ h1 {
 
 .uppercase {
   text-transform: uppercase;
-}
-
-.hidden {
-  display: none;
 }

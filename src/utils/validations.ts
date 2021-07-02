@@ -12,7 +12,7 @@ const checkPassword = (password: string): string => {
   return pattern.test(password) ? '' : ERROR_CONSTANTS.PASSWORD_INVALID;
 };
 
-const checkFieldNotEmpty = (value: string): string => value ? '' : ERROR_CONSTANTS.FIELD_EMPTY;
+const checkFieldNotEmpty = (value: string): string => (value ? '' : ERROR_CONSTANTS.FIELD_EMPTY);
 
 const checkPhone = (phone = ''): string => {
   const pattern = /^((8|\+7)[- ]?)?((\?\d{3})?[- ]?)?[\d- ]{7,10}$/;
@@ -20,9 +20,19 @@ const checkPhone = (phone = ''): string => {
   return pattern.test(phone.replace(' ', '')) ? '' : ERROR_CONSTANTS.PHONE_INVALID;
 };
 
-export {
-  checkEmail,
-  checkFieldNotEmpty,
-  checkPassword,
-  checkPhone,
+const checkButtonDisable = (): boolean => {
+  const inputs = document.querySelectorAll('.one-input-block');
+  let errors = 0;
+  inputs.forEach(input => {
+    if (input.classList.contains('error')) {
+      errors++;
+    }
+  });
+  if (errors) {
+    return true;
+  }
+
+  return false;
 };
+
+export { checkButtonDisable, checkEmail, checkFieldNotEmpty, checkPassword, checkPhone };

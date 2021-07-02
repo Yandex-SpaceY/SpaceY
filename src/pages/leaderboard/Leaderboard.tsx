@@ -1,7 +1,8 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { LINK_TEXTS, PAGE_NAMES } from 'constants/commonConstants';
+import { PAGE_NAMES } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { formatBigNumbers } from 'utils';

@@ -10,15 +10,6 @@ export const PAGE_NAMES = {
   REGISTRATION: 'REGISTRATION',
 };
 
-export const LINK_TEXTS = {
-  DASHBOARD: 'Main page',
-  LOGIN: 'I have an account',
-  NEW_GAME: 'New game',
-  PROFILE: 'See my profile',
-  PROFILE_EDIT: 'Edit my profile',
-  SIGNUP: 'Has no account?',
-};
-
 export const DEFAULT_USER_STATE = {
   first_name: '',
   second_name: '',
@@ -28,21 +19,15 @@ export const DEFAULT_USER_STATE = {
   password: '',
 };
 
-export const MOCK_USER_STATE = {
-  first_name: 'Ivan',
-  second_name: 'Petrov',
-  email: 'email1@email.com',
-  login: 'user1',
-  phone: '+79919927812',
-  password: '123456',
-};
+export type USER_TYPE = typeof DEFAULT_USER_STATE;
+
+export type USER_KEYS = keyof USER_TYPE;
 
 export const DEFAULT_LOGIN_STATE = {
   login: '',
   password: '',
 };
 
-export const MOCK_LOGIN_STATE = {
-  login: 'email1@email.com',
-  password: '123456',
-};
+export type LOGIN_TYPE = typeof DEFAULT_LOGIN_STATE;
+
+export type LOGIN_KEYS = keyof LOGIN_TYPE;
