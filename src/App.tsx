@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import Router from 'router/Router';
 import { setIsGamePaused } from 'store/game/actions';
-import { useIsWindowActive } from 'hooks';
+import { useWindowActive } from 'hooks';
 import { ErrorBoundary } from 'components';
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
-  const isWindowActive = useIsWindowActive();
+  const isWindowActive = useWindowActive();
 
   useEffect(() => {
     if (!isWindowActive) {

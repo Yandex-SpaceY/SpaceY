@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-const hasFocus = () => typeof document !== 'undefined' && document.hasFocus();
+const hasFocus = document && document.hasFocus();
 
-const useIsWindowActive = (): boolean => {
+const useWindowActive = (): boolean => {
   const [ isWindowActive, setIsWindowActive ] = useState(hasFocus);
 
   useEffect(() => {
-    setIsWindowActive(hasFocus());
+    setIsWindowActive(hasFocus);
 
     const onFocus = () => setIsWindowActive(true);
     const onBlur = () => setIsWindowActive(false);
@@ -23,4 +23,4 @@ const useIsWindowActive = (): boolean => {
   return isWindowActive;
 };
 
-export default useIsWindowActive;
+export default useWindowActive;

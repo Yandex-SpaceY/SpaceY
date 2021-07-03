@@ -1,1 +1,1 @@
-export { default as useIsWindowActive } from 'hooks/useIsWindowActive';
+export { default as useWindowActive } from 'hooks/useWindowActive';
