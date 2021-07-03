@@ -3,10 +3,12 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
 const filename = ext => (production ? `bundle.[fullhash].${ext}` : `bundle.${ext}`);
+console.log( path.resolve(__dirname, 'src/game/assets'));
 
 module.exports = {
   mode: production ? 'production' : 'development',
@@ -61,5 +63,13 @@ module.exports = {
       template: './public/index.html'
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: `${__dirname}/src/game/assets`,
+          to: `${__dirname}/dist/assets`
+        }
+      ]
+    }),
   ]
 };
