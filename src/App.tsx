@@ -8,12 +8,13 @@ import { ErrorBoundary } from 'components';
 
 const App: FC = (): ReactElement => {
   const dispatch = useDispatch();
-
-  const IsWindowActive = useIsWindowActive();
+  const isWindowActive = useIsWindowActive();
 
   useEffect(() => {
-    if (!IsWindowActive) dispatch(setIsGamePaused(!IsWindowActive));
-  }, [IsWindowActive]);
+    if (!isWindowActive) {
+      dispatch(setIsGamePaused(!isWindowActive));
+    }
+  }, [isWindowActive]);
 
   return (
     <ErrorBoundary>
