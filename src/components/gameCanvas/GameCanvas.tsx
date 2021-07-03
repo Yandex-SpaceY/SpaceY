@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import GameMain from '../../game/gamemain';
 import { setIsGameStarted, setIsGamePaused, setIsGameOver, setLastScore } from 'store/game/actions';
-import { gameIsGamePausedSelector, gameIsGameOverSelector } from 'store/game/selectors';
+import { gameIsGameStartedSelector, gameIsGamePausedSelector, gameIsGameOverSelector } from 'store/game/selectors';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
@@ -17,6 +17,7 @@ interface IGameCanvas {
 const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction }): ReactElement => {
   const dispatch = useDispatch();
 
+  const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
 
@@ -83,7 +84,9 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   }, [isGameOver]);
 
   useEffect(() => {
-    setPauseStatus(isGamePaused);
+    if (isGameStarted) {
+      setPauseStatus(isGamePaused);
+    }
   }, [isGamePaused]);
 
   const resumeGame = useCallback(() => {
