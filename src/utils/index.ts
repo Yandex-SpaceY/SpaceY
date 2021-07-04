@@ -1,4 +1,10 @@
-export { fakeOnChange, fakeOnClick, formatBigNumbers, formatDate } from './helpers';
+export {
+  fakeOnChange,
+  fakeOnClick,
+  formatBigNumbers,
+  formatDate,
+  getImageUrl,
+} from './helpers';
 
 export {
   checkEmail,

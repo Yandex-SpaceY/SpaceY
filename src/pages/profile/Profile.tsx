@@ -1,50 +1,67 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, ReactElement } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { getUserInfo } from 'api/authApi';
-import Input from 'components/input/Input';
-import { DEFAULT_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
+import { logout } from 'api/authApi';
+import { Avatar, Button, Input } from 'components';
+import { BUTTON_TEXTS } from 'constants/buttonConstants';
+import { PAGE_NAMES } from 'constants/commonConstants';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { clearUserData } from 'store/user/actions';
+import { userUserDataSelector } from 'store/user/selectors';
+import { getImageUrl } from 'utils';
 
-const Profile: FC = (): ReactElement => {
-  const [ userState, setUserState ] = useState(DEFAULT_USER_STATE);
+import './profile.scss';
 
-  const getUserData = async () => {
+const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const dispatch = useDispatch();
+  const userData = useSelector(userUserDataSelector);
+
+  const logoutAndRedirect = async () => {
     try {
-      const res = await getUserInfo();
-      setUserState(res.data);
+      await logout();
+      dispatch(clearUserData());
+
+      history.push(ROUTE_CONSTANTS.LOGIN);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
   };
-
-  useEffect(() => {
-    getUserData();
-  }, []);
 
   return (
     <div className='main'>
       <div className='content-wrapper double'>
         <form className='content'>
           <h2>{PAGE_NAMES.PROFILE}</h2>
-          <div className='profile-image' />
+          <Avatar src={getImageUrl(userData.avatar)} />
+
           <div className='input-wrapper'>
-            <Input value={userState.first_name} name='first_name' title='first name' />
-            <Input value={userState.second_name} name='second_name' title='second name' />
+            <Input value={userData.first_name} name='first_name' title='first name' />
+            <Input value={userData.second_name} name='second_name' title='second name' />
           </div>
           <div className='input-wrapper'>
-            <Input value={userState.email} name='email' title='e-mail' type='email' />
-            <Input value={userState.login} name='login' title='login' />
+            <Input value={userData.email} name='email' title='e-mail' type='email' />
+            <Input value={userData.login} name='login' title='login' />
           </div>
           <div className='input-wrapper'>
-            <Input value={userState.phone} name='phone' title='phone' />
-            <Input value={userState.password} name='password' title='password' type='password' />
+            <Input value={userData.display_name || ''} name='display_name' title='display name' />
+            <Input value={userData.phone} name='phone' title='phone' />
           </div>
-          <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className='link'>
-            {LINK_TEXTS.PROFILE_EDIT}
-          </Link>
+
+          <Button onClick={logoutAndRedirect}>{BUTTON_TEXTS.LOGOUT}</Button>
+
+          <div className='links-together'>
+            <Link to={ROUTE_CONSTANTS.PROFILE_EDIT} className='link'>
+              {LINK_TEXTS.PROFILE_EDIT}
+            </Link>
+            <span className='link link-disabled'>&nbsp;/&nbsp;</span>
+            <Link to={ROUTE_CONSTANTS.CHANGE_PASSWORD} className='link'>
+              {LINK_TEXTS.CHANGE_PASSWORD}
+            </Link>
+          </div>
+
           <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
             {LINK_TEXTS.DASHBOARD}
           </Link>
@@ -54,4 +71,4 @@ const Profile: FC = (): ReactElement => {
   );
 };
 
-export default Profile;
+export default withRouter(Profile);

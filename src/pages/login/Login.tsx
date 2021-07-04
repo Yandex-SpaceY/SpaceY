@@ -1,36 +1,49 @@
 import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { signin } from 'api/authApi';
+import { userUserDataSelector } from 'store/user/selectors';
 import { checkButtonDisable, checkFieldNotEmpty, checkPassword } from 'utils';
 import { Button, Input } from 'components';
-import { DEFAULT_LOGIN_STATE, GAME_NAME, LOGIN_KEYS, LOGIN_TYPE, PAGE_NAMES } from 'constants/commonConstants';
+import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_LOGIN_STATE, LOGIN_KEYS, LOGIN_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
-import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 import './login.scss';
 
-const Login: FC = (): ReactElement => {
+const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const userData = useSelector(userUserDataSelector);
+
+  if (Object.keys(userData).length) {
+    history.replace(ROUTE_CONSTANTS.DASHBOARD);
+  }
+
   const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
   const [ disabled, setDisabled ] = useState<boolean>(true);
 
   useEffect(() => {
     const newDisable = checkButtonDisable();
+
     setDisabled(newDisable);
   }, [loginState]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     const name = e.target.name as LOGIN_KEYS;
-    setLoginState(Object.assign(loginState, { [name]: value }));
+
+    setLoginState({ ...loginState, [name]: value });
   };
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
       await signin(loginState);
+
+      history.push(ROUTE_CONSTANTS.DASHBOARD);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -61,7 +74,7 @@ const Login: FC = (): ReactElement => {
               type='password'
             />
           </div>
-          <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SIGNIN}</Button>
+          <Button disabled={disabled} type='submit' className='button-submit'>{BUTTON_TEXTS.SIGNIN}</Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>
@@ -74,4 +87,4 @@ const Login: FC = (): ReactElement => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

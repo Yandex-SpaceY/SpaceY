@@ -4,7 +4,7 @@ import { USER_ACTIONS } from 'constants/storeConstants';
 const initialState = {
   isAuth: false,
   pending: false,
-  userData: null,
+  userData: {},
   error: null,
 };
 
@@ -21,6 +21,9 @@ export const userReducer = (
     }
     case USER_ACTIONS.PENDING: {
       return { ...state, pending: action.payload };
+    }
+    case USER_ACTIONS.CLEAR_USER_DATA: {
+      return { ...state, userData: {} };
     }
     default: {
       return state;

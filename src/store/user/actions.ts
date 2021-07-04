@@ -25,6 +25,13 @@ export const setUserData = (userData: TUserData): TActionProps<string, TUserData
   }
 );
 
+export const clearUserData = (): TActionProps => (
+  {
+    type: USER_ACTIONS.CLEAR_USER_DATA,
+    payload: {},
+  }
+);
+
 export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
   return async dispatch => {
     try {

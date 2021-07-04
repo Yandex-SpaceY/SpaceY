@@ -1,4 +1,5 @@
 export const BUTTON_TEXTS = {
+  LOGOUT: 'Logout',
   NEW_TOPIC: 'New topic',
   SAVE: 'SAVE',
   SIGNIN: 'SIGN IN',

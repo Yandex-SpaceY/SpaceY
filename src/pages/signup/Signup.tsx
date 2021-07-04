@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { signup } from 'api/authApi';
 import { Button, Input } from 'components';
@@ -10,31 +10,37 @@ import {
   checkPhone,
   checkButtonDisable,
 } from 'utils';
-import { DEFAULT_USER_STATE, GAME_NAME, PAGE_NAMES, USER_KEYS, USER_TYPE } from 'constants/commonConstants';
+import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_SIGNUP_STATE, SIGNUP_KEYS, SIGNUP_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
-const Signup: FC = (): ReactElement => {
-  const [ userState, setUserState ] = useState<USER_TYPE>(DEFAULT_USER_STATE);
+const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const [ userState, setUserState ] = useState<SIGNUP_TYPE>(DEFAULT_SIGNUP_STATE);
   const [ disabled, setDisabled ] = useState<boolean>(true);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
-    const name = e.target.name as USER_KEYS;
-    setUserState(Object.assign(userState, { [name]: value }));
+    const name = e.target.name as SIGNUP_KEYS;
+
+    setUserState({ ...userState, [name]: value });
   };
 
   useEffect(() => {
     const newDisable = checkButtonDisable();
+
     setDisabled(newDisable);
   }, [userState]);
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
+
     try {
       await signup(userState);
+
+      history.push(ROUTE_CONSTANTS.LOGIN);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -107,4 +113,4 @@ const Signup: FC = (): ReactElement => {
   );
 };
 
-export default Signup;
+export default withRouter(Signup);
