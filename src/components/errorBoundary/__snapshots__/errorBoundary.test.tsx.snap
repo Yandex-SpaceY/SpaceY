@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check render component ErrorBoundary 1`] = `"no error children text"`;

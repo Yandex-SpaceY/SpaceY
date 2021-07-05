@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check render component Input 1`] = `
+<div
+  className="one-input-block"
+>
+  <label
+    className="title"
+    htmlFor="testName"
+  >
+    testTitle
+  </label>
+  <input
+    className="input"
+    disabled={true}
+    id="testName"
+    name="testName"
+    type="text"
+    value="testValue"
+  />
+  <span
+    className="error-message"
+  />
+</div>
+`;

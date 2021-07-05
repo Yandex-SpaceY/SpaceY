@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom';
 import { signin } from 'api/authApi';
 import { checkButtonDisable, checkFieldNotEmpty, checkPassword } from 'utils';
 import { Button, Input } from 'components';
-import { DEFAULT_LOGIN_STATE, GAME_NAME, LOGIN_KEYS, LOGIN_TYPE, PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_LOGIN_STATE, GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { TLogin, TLoginKeys } from 'types';
 
 import './login.scss';
 
 const Login: FC = (): ReactElement => {
-  const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
+  const [ loginState, setLoginState ] = useState<TLogin>(DEFAULT_LOGIN_STATE);
   const [ disabled, setDisabled ] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Login: FC = (): ReactElement => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
-    const name = e.target.name as LOGIN_KEYS;
+    const name = e.target.name as TLoginKeys;
     setLoginState(Object.assign(loginState, { [name]: value }));
   };
 

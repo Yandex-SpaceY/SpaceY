@@ -19,15 +19,7 @@ export const DEFAULT_USER_STATE = {
   password: '',
 };
 
-export type USER_TYPE = typeof DEFAULT_USER_STATE;
-
-export type USER_KEYS = keyof USER_TYPE;
-
 export const DEFAULT_LOGIN_STATE = {
   login: '',
   password: '',
 };
-
-export type LOGIN_TYPE = typeof DEFAULT_LOGIN_STATE;
-
-export type LOGIN_KEYS = keyof LOGIN_TYPE;

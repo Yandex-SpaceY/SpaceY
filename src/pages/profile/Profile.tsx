@@ -7,9 +7,10 @@ import { DEFAULT_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { TUser } from 'types';
 
 const Profile: FC = (): ReactElement => {
-  const [ userState, setUserState ] = useState(DEFAULT_USER_STATE);
+  const [ userState, setUserState ] = useState<TUser>(DEFAULT_USER_STATE);
 
   const getUserData = async () => {
     try {

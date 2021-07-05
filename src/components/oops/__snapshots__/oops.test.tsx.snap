@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check render page Oops 1`] = `
+<Fragment>
+  <Link
+    onClick={[Function]}
+    to="/dashboard"
+  >
+    Go to dashboard
+  </Link>
+  <Link
+    onClick={[Function]}
+    to="/signup"
+  >
+    I want to create an account
+  </Link>
+  some other links
+</Fragment>
+`;

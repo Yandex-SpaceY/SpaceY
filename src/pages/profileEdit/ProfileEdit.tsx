@@ -11,14 +11,15 @@ import {
   checkPhone,
   checkButtonDisable,
 } from 'utils';
-import { DEFAULT_USER_STATE, PAGE_NAMES, USER_KEYS, USER_TYPE } from 'constants/commonConstants';
+import { DEFAULT_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { TUser, TUserKeys } from 'types';
 
 const ProfileEdit: FC = (): ReactElement => {
-  const [ userState, setUserState ] = useState<USER_TYPE>(DEFAULT_USER_STATE);
+  const [ userState, setUserState ] = useState<TUser>(DEFAULT_USER_STATE);
   const [ disabled, setDisabled ] = useState<boolean>(true);
 
   const getUserData = async () => {
@@ -50,7 +51,7 @@ const ProfileEdit: FC = (): ReactElement => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
-    const name = e.target.name as USER_KEYS;
+    const name = e.target.name as TUserKeys;
     setUserState(Object.assign(userState, { [name]: value }));
   };
 
