@@ -2,11 +2,11 @@
   "compilerOptions": {
     "lib": [
       "dom",
-      "ES2020",
+      "es2020",
     ],
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "ES2020",
+    "target": "es2020",
     "jsx": "react",
     "importHelpers": true,
     "noUnusedLocals": true,
