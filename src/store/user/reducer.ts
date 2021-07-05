@@ -2,7 +2,7 @@ import { TActionProps, TUserState } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
 
 const initialState = {
-  isAuth: false,
+  isAuth: null,
   pending: false,
   userData: {},
   error: null,
@@ -23,7 +23,10 @@ export const userReducer = (
       return { ...state, pending: action.payload };
     }
     case USER_ACTIONS.CLEAR_USER_DATA: {
-      return { ...state, userData: {} };
+      return { ...state, userData: {}, isAuth: null };
+    }
+    case USER_ACTIONS.SET_IS_AUTH: {
+      return { ...state, isAuth: action.payload };
     }
     default: {
       return state;

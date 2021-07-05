@@ -27,6 +27,7 @@ module.exports = {
       style: `${__dirname}/src/style`,
       images: `${__dirname}/src/assets/images`,
       store: `${__dirname}/src/store`,
+      hocs: `${__dirname}/src/hocs`,
       hooks: `${__dirname}/src/hooks`,
     }
   },

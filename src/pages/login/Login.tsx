@@ -1,9 +1,10 @@
 import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { signin } from 'api/authApi';
-import { userUserDataSelector } from 'store/user/selectors';
+import { getUserDataFromServer } from 'store/user/actions';
+import { userAuthSelector } from 'store/user/selectors';
 import { checkButtonDisable, checkFieldNotEmpty, checkPassword } from 'utils';
 import { Button, Input } from 'components';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
@@ -16,10 +17,11 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import './login.scss';
 
 const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
-  const userData = useSelector(userUserDataSelector);
+  const dispatch = useDispatch();
+  const isAuth = useSelector(userAuthSelector);
 
-  if (Object.keys(userData).length) {
-    history.replace(ROUTE_CONSTANTS.DASHBOARD);
+  if (isAuth === null) {
+    dispatch(getUserDataFromServer());
   }
 
   const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
@@ -30,6 +32,12 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
     setDisabled(newDisable);
   }, [loginState]);
+
+  useEffect(() => {
+    if (isAuth) {
+      history.replace(ROUTE_CONSTANTS.DASHBOARD);
+    }
+  }, [isAuth]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;

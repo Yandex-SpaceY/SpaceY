@@ -14,19 +14,20 @@ import {
   ProfileEdit,
   Signup
 } from 'pages';
+import { WithAuthPrivateRoute } from 'hocs';
 
 const Router: React.FC = () => (
   <Switch>
     <Redirect from='/' exact to={ROUTE_CONSTANTS.LOGIN} />
-    <Route path={ROUTE_CONSTANTS.CHANGE_PASSWORD} component={ChangePassword} />
-    <Route path={ROUTE_CONSTANTS.DASHBOARD} component={Dashboard} />
-    <Route path={ROUTE_CONSTANTS.FORUM} component={Forum} />
-    <Route path={ROUTE_CONSTANTS.GAME} component={Game} />
-    <Route path={ROUTE_CONSTANTS.LEADERBOARD} component={Leaderboard} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.CHANGE_PASSWORD} component={ChangePassword} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.DASHBOARD} component={Dashboard} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.FORUM} component={Forum} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.GAME} component={Game} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.LEADERBOARD} component={Leaderboard} />
     <Route path={ROUTE_CONSTANTS.LOGIN} component={Login} />
     <Route path={ROUTE_CONSTANTS.NOT_FOUND} component={NotFound} />
-    <Route path={ROUTE_CONSTANTS.PROFILE_EDIT} component={ProfileEdit} />
-    <Route exact path={ROUTE_CONSTANTS.PROFILE} component={Profile} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.PROFILE_EDIT} component={ProfileEdit} />
+    <WithAuthPrivateRoute exact path={ROUTE_CONSTANTS.PROFILE} component={Profile} />
     <Route path={ROUTE_CONSTANTS.SIGNUP} component={Signup} />
     <Redirect to={ROUTE_CONSTANTS.NOT_FOUND} />
   </Switch>
