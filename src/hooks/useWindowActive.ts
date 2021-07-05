@@ -6,8 +6,6 @@ const useWindowActive = (): boolean => {
   const [ isWindowActive, setIsWindowActive ] = useState(hasFocus);
 
   useEffect(() => {
-    setIsWindowActive(hasFocus);
-
     const onFocus = () => setIsWindowActive(true);
     const onBlur = () => setIsWindowActive(false);
 
