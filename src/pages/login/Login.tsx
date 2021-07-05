@@ -1,39 +1,67 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, Input } from 'components';
-import { fakeOnChange } from 'utils';
 import { signin } from 'api/authApi';
-import { DEFAULT_LOGIN_STATE, GAME_NAME, LINK_TEXTS, MOCK_LOGIN_STATE, PAGE_NAMES } from 'constants/commonConstants';
+import { checkButtonDisable, checkFieldNotEmpty, checkPassword } from 'utils';
+import { Button, Input } from 'components';
+import { DEFAULT_LOGIN_STATE, GAME_NAME, LOGIN_KEYS, LOGIN_TYPE, PAGE_NAMES } from 'constants/commonConstants';
+import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
-
-import './login.scss';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 
+import './login.scss';
+
 const Login: FC = (): ReactElement => {
-  const [ state, setState ] = useState(DEFAULT_LOGIN_STATE);
+  const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
+  const [ disabled, setDisabled ] = useState<boolean>(true);
 
-  useEffect(() => setState(MOCK_LOGIN_STATE), []);
+  useEffect(() => {
+    const newDisable = checkButtonDisable();
+    setDisabled(newDisable);
+  }, [loginState]);
 
-  const loginHandler = () => {
-    signin(state)
-      .catch(err => console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR));
+  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value } = e.target;
+    const name = e.target.name as LOGIN_KEYS;
+    setLoginState(Object.assign(loginState, { [name]: value }));
+  };
+
+  const onSubmitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await signin(loginState);
+    } catch (err) {
+      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+    }
   };
 
   return (
     <div className='main login'>
       <div className='content-wrapper'>
         <h1>{GAME_NAME}</h1>
-        <form className='content'>
+        <form className='content' onSubmit={onSubmitHandler}>
           <h2>{PAGE_NAMES.LOGIN}</h2>
           <div className='input-wrapper'>
-            <Input value={state.login} name='login' onChange={fakeOnChange} title='login' />
+            <Input
+              value={loginState.login}
+              name='login'
+              onChange={onChange}
+              title='login'
+              errorText={checkFieldNotEmpty(loginState.login)}
+            />
           </div>
           <div className='input-wrapper'>
-            <Input value={state.password} name='password' title='password' onChange={fakeOnChange} type='password' />
+            <Input
+              value={loginState.password}
+              name='password'
+              title='password'
+              onChange={onChange}
+              errorText={checkPassword(loginState.password)}
+              type='password'
+            />
           </div>
-          <Button onClick={loginHandler}>{BUTTON_TEXTS.SIGNIN}</Button>
+          <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SIGNIN}</Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>
