@@ -22,6 +22,10 @@ export default class Resources {
             });
           }
         };
+        img.onerror = () => {
+          // TODO: ERROR HANDLING
+          console.log('TO DO ERROR HANDLING');
+        };
         this.resourceCache[url] = false;
         img.src = url;
       }

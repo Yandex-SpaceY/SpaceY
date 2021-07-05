@@ -43,15 +43,15 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    gameMain = new GameMain(
-      canvas as HTMLCanvasElement,
-      setCollisions,
-      setScore,
-      setIsGameOverStatus,
-      setIsGamePauseStatus
-    );
+    gameMain = new GameMain({
+      canvas: canvas as HTMLCanvasElement,
+      setCollisions: setCollisions,
+      setScore: setScore,
+      setGameOverStatus: setIsGameOverStatus,
+      setGamePauseStatus: setIsGamePauseStatus
+    });
 
-    //gameMain.togglePauseStatus();
+    gameMain.togglePauseStatus();
 
     return () => {
       //gameMain.unsetControlsAndSubscriptions();
@@ -90,17 +90,16 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   }, [isGamePaused]);
 
   const resumeGame = useCallback(() => {
-    //gameMain.setPauseStatus(true);
+    gameMain.setPauseStatus(true);
   }, []);
 
   const setPauseStatus = useCallback((status: boolean) => {
-    //gameMain.setPauseStatus(status);
-    console.log(status);
+    gameMain.setPauseStatus(status);
   }, []);
 
   const restartGame = useCallback(() => {
     gameMain.init();
-    //gameMain.togglePauseStatus();
+    gameMain.togglePauseStatus();
   }, []);
 
   return (

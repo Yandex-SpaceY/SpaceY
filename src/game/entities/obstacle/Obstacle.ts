@@ -8,10 +8,15 @@ export default class Obstacle extends Entity {
       initialPosition,
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES,
-        startСoordinates: { x: 0, y: 129 },
+        startСoordinates: { x: 0, y: 130 },
         size: { width: 187, height: 85 }
       }),
       GAME_SETTINGS.OBSTACLE_BASE_SPEED,
     );
+  }
+
+  update(dt: number): void {
+    this.position.y += this.speed! * dt;
+    this.updateSpriteAnimation(dt);
   }
 }

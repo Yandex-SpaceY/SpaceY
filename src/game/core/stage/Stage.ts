@@ -13,6 +13,9 @@ export default class Stage {
   }
 
   addEntitiesToKey(key: string, entities: Entity[]): void {
+    if (!this._entities[key]) {
+      this._entities[key] = [];
+    }
     this._entities[key].push(...entities);
   }
 
@@ -37,9 +40,6 @@ export default class Stage {
   }
 
   setBackgroundPattern(patternURL: string): void {
-    console.log(this._resources.resourceCache);
-    console.log(patternURL);
-    console.log(this._resources.get(patternURL));
     this._backgroundPattern = this._context.createPattern(
       this._resources.get(patternURL) as CanvasImageSource,
       'repeat'

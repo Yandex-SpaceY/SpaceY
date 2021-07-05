@@ -14,4 +14,14 @@ export default class Wall extends Entity {
       GAME_SETTINGS.WALL_BASE_SPEED,
     );
   }
+
+  update(dt: number, canvasHeight: number): void {
+    this.position.y += this.speed! * dt;
+    this.updateSpriteAnimation(dt);
+
+    // Trnsfer to start if offscreen for loop
+    if (this.position.y > canvasHeight) {
+      this.position.y = 0 - 96;
+    }
+  }
 }

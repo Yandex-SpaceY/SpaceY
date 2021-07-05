@@ -23,4 +23,8 @@ export default class Entity {
   render(stage: Stage): void {
     this._sprite.render(stage.getContext(), stage.getResources());
   }
+
+  updateSpriteAnimation(dt: number): void {
+    this._sprite.update(dt);
+  }
 }
