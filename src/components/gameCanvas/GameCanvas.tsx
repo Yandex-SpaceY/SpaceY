@@ -2,7 +2,9 @@ import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } fro
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import GameMain from '../../game/GameMain';
+import './gameCanvas.scss';
+
+import GameMain from 'game/GameMain';
 import {
   setIsGameStarted,
   setIsGamePaused,
@@ -14,6 +16,7 @@ import {
   gameIsGamePausedSelector,
   gameIsGameOverSelector
 } from 'store/game/selectors';
+import { GameHUD } from 'components';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
@@ -45,7 +48,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [ collisions, setCollisions ] = useState<number>(0);
+  const [ hull, setHull ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
 
   let gameMain: GameMain;
@@ -54,7 +57,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     const canvas = canvasRef.current;
     gameMain = new GameMain({
       canvas: canvas as HTMLCanvasElement,
-      setCollisions: setCollisions,
+      setHull: setHull,
       setScore: setScore,
       setGameOverStatus: setIsGameOverStatus,
       setGamePauseStatus: setIsGamePauseStatus
@@ -112,30 +115,11 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   }, []);
 
   return (
-    <>
-      <div style={{
-        position: 'absolute',
-        color: '#fff',
-        top: 0,
-        left: 0
-      }}>
-        <div>Is Game Over: {isGameOver.toString()}</div>
-        <div>Is Game Paused: {isGamePaused.toString()}</div>
-        <div>Collisions: {collisions}</div>
-        <div>Score: {score}</div>
-      </div>
-      <div
-        style={{
-          display: isGameOver ? 'block' : 'none',
-          position: 'absolute',
-          color: '#fff',
-        }}
-      >
-        Game Over
-      </div>
-
+    <div className='game-canvas-wrapper'>
       <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT}/>
-    </>
+      <GameHUD hullStrength={hull} distance={score} />
+    </div>
+
   );
 };
 

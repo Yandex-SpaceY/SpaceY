@@ -23,14 +23,14 @@ export default class GameMain {
 
   stage: Stage | null;
 
-  setCollisions: Dispatch<SetStateAction<number>>;
+  setHull: Dispatch<SetStateAction<number>>;
   setScore: Dispatch<SetStateAction<number>>;
   setGameOverStatus: (isGameOver: boolean) => void;
   setGamePauseStatus: (isGamePaused: boolean) => void;
 
   constructor(props: {
     canvas: HTMLCanvasElement,
-    setCollisions: Dispatch<SetStateAction<number>>,
+    setHull: Dispatch<SetStateAction<number>>;
     setScore: Dispatch<SetStateAction<number>>,
     setGameOverStatus: (isGameOver: boolean) => void,
     setGamePauseStatus: (isGamePaused: boolean) => void
@@ -55,7 +55,7 @@ export default class GameMain {
 
     this.stage = null;
 
-    this.setCollisions = props.setCollisions;
+    this.setHull = props.setHull;
     this.setScore = props.setScore;
     this.setGameOverStatus = props.setGameOverStatus;
     this.setGamePauseStatus = props.setGamePauseStatus;
@@ -68,7 +68,7 @@ export default class GameMain {
   unsetControlsAndSubscriptions(): void {
     document.removeEventListener('keydown', this.controls);
 
-    this.setCollisions(0);
+    this.setHull(0);
     this.setScore(0);
     this.setGameOverStatus(false);
     this.setGamePauseStatus(false);
@@ -140,6 +140,8 @@ export default class GameMain {
     this.col = 0;
     this.score = 0;
 
+    this.setHull(this.ship!.hullStrength);
+
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
@@ -201,17 +203,17 @@ export default class GameMain {
 
       this.score++;
 
-      if (this.col > this.ship!.hullStrength) {
+      if (this.col >= this.ship!.hullStrength) {
         if (!this.isGameOver) {
           this.isGameOver = true;
           this.setGameOverStatus(this.isGameOver);
         }
       }
-
-      this.checkCollisions();
-
-      this.setCollisions(this.col);
-      this.setScore(this.score);
+      if (!this.isGameOver) {
+        this.checkCollisions();
+        this.setHull(this.ship!.hullStrength - this.col);
+        this.setScore(this.score);
+      }
     }
   }
 

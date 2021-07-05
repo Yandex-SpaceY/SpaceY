@@ -1,8 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import GameCanvas from 'components/gameCanvas/GameCanvas';
-import { Menu, TMenuItem } from 'components';
+import { GameCanvas, Menu, TMenuItem } from 'components';
 import { gameIsGameStartedSelector, gameIsGamePausedSelector } from 'store/game/selectors';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ACTIONS } from 'constants/menuConstants';
 import { setIsGamePaused } from 'store/game/actions';
