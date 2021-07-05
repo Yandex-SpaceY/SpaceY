@@ -1,0 +1,10 @@
+export const GAME_SETTINGS = {
+  OBJECT_SPRITES: './assets/sprites.png',
+  MAIN_STAGE_BACKGROUND: './assets/bg.png',
+  SPACESHIP_BASE_SPEED: 300,
+  SPACESHIP_ENTITY_KEY: 'ship',
+  OBSTACLE_BASE_SPEED: 100,
+  OBSTACLES_ENTITIES_KEY: 'obstacles',
+  WALL_BASE_SPEED: 100,
+  WALLS_ENTITIES_KEY: 'walls',
+};

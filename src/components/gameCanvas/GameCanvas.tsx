@@ -51,10 +51,10 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
       setIsGamePauseStatus
     );
 
-    gameMain.togglePauseStatus();
+    //gameMain.togglePauseStatus();
 
     return () => {
-      gameMain.unsetControlsAndSubscriptions();
+      //gameMain.unsetControlsAndSubscriptions();
     };
   }, []);
 
@@ -90,16 +90,17 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   }, [isGamePaused]);
 
   const resumeGame = useCallback(() => {
-    gameMain.setPauseStatus(true);
+    //gameMain.setPauseStatus(true);
   }, []);
 
   const setPauseStatus = useCallback((status: boolean) => {
-    gameMain.setPauseStatus(status);
+    //gameMain.setPauseStatus(status);
+    console.log(status);
   }, []);
 
   const restartGame = useCallback(() => {
     gameMain.init();
-    gameMain.togglePauseStatus();
+    //gameMain.togglePauseStatus();
   }, []);
 
   return (

@@ -30,6 +30,7 @@ module.exports = {
       images: `${__dirname}/src/assets/images`,
       store: `${__dirname}/src/store`,
       hooks: `${__dirname}/src/hooks`,
+      game: `${__dirname}/src/game`,
     }
   },
   module: {
