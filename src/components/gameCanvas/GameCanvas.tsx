@@ -2,7 +2,7 @@ import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } fro
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import GameMain from '../../game/gamemain';
+import GameMain from '../../game/game';
 import {
   setIsGameStarted,
   setIsGamePaused,
