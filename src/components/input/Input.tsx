@@ -5,20 +5,23 @@ import './input.scss';
 
 interface IInput {
   onChange?(e: ChangeEvent<HTMLInputElement>): void;
-  name: string;
-  value: string;
-  placeholder?: string;
-  title?: string;
-  type?: string;
+  accept?: string;
+  className?: string,
   errorText?: string;
+  name?: string;
+  placeholder?: string;
+  title?: string | ReactElement;
+  type?: string;
+  value?: string;
 }
 
-const Input: FC<IInput> = ({ onChange, name, value, type = 'text', title, errorText, placeholder }): ReactElement => {
+const Input: FC<IInput> = ({ accept, className, name, value, type = 'text', title, errorText, placeholder, onChange }): ReactElement => {
 
   return (
-    <div className={cn('one-input-block', { error: errorText })}>
+    <div className={cn('one-input-block', className, { error: errorText })}>
       {title && <label htmlFor={name} className='title'>{title}</label>}
       <input
+        accept={accept}
         id={name}
         className='input'
         onChange={onChange}
