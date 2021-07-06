@@ -8,7 +8,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const production = process.env.NODE_ENV === 'production';
 
 const filename = ext => (production ? `bundle.[fullhash].${ext}` : `bundle.${ext}`);
-console.log( path.resolve(__dirname, 'src/game/assets'));
 
 module.exports = {
   mode: production ? 'production' : 'development',
