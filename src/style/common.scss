@@ -7,6 +7,7 @@ body,
 
 body {
   background: url('images/main_bg.jpg') no-repeat;
+  background-size: cover;
 }
 
 @font-face {
@@ -21,9 +22,9 @@ body {
 .main {
   display: flex;
   width: 100%;
+  min-height: 100%;
   align-items: center;
   justify-content: center;
-  background-size: cover;
 
   @media screen and (max-width: $max_content_width) {
     width: auto;
