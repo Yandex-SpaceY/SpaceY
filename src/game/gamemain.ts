@@ -142,6 +142,10 @@ export default class GameMain {
     this.isGamePaused = !this.isGamePaused;
   }
 
+  setPauseStatus(status: boolean): void {
+    this.isGamePaused = status;
+  }
+
   mainLoop = (): void => {
     const now = performance.now();
     const dt = (now - this.lastTime) / 1000.0;
