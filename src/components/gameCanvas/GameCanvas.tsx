@@ -56,8 +56,8 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     const canvas = canvasRef.current;
     gameMain = new GameMain({
       canvas: canvas as HTMLCanvasElement,
-      setHull: setHull,
-      setScore: setScore,
+      setHull,
+      setScore,
       setGameOverStatus: setIsGameOverStatus,
       setGamePauseStatus: setIsGamePauseStatus
     });
