@@ -25,6 +25,20 @@ export const setUserData = (userData: TUserData): TActionProps<string, TUserData
   }
 );
 
+export const clearUserData = (): TActionProps => (
+  {
+    type: USER_ACTIONS.CLEAR_USER_DATA,
+    payload: {},
+  }
+);
+
+export const setisAuthorized = (isAuthorized: boolean | null): TActionProps => (
+  {
+    type: USER_ACTIONS.SET_IS_AUTH,
+    payload: isAuthorized,
+  }
+);
+
 export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
   return async dispatch => {
     try {
@@ -32,9 +46,12 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
       dispatch(setUserPending(true));
 
       const data = await getUserInfo();
+
       dispatch(setUserData(data.data));
+      dispatch(setisAuthorized(true));
     } catch (error) {
       dispatch(setUserError(error));
+      dispatch(setisAuthorized(false));
     }
 
     dispatch(setUserPending(false));

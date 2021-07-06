@@ -1,0 +1,19 @@
+@import 'style/variables';
+
+@import 'style/mixins';
+
+.links-together {
+  @include flex-center;
+
+  .link-disabled:hover {
+    color: $header_link_color;
+  }
+
+  @media screen and (max-width: $max_content_width) {
+    flex-direction: column;
+
+    .link-disabled {
+      display: none;
+    }
+  }
+}

@@ -1,3 +1,4 @@
+export { default as ChangePassword } from 'pages/changePassword/ChangePassword';
 export { default as Dashboard } from 'pages/dashboard/Dashboard';
 export { default as Forum } from 'pages/forum/Forum';
 export { default as Game } from 'pages/game/Game';

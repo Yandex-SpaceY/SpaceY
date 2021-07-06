@@ -16,20 +16,7 @@
     outline: none;
   }
 
-  .error-message {
-    height: 10px;
-    color: $error_main_color;
-    font-size: $small_font_size;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
   &.error {
-    color: $error_main_color;
-
-    .input {
-      background-color: $error_main_color;
-    }
 
     .error-message {
       opacity: 1;
@@ -50,6 +37,7 @@
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 1000px $third_color inset;
+    box-shadow: 0 0 0 1000px $third_color inset;
     -webkit-text-fill-color: $text_main_color;
   }
 }

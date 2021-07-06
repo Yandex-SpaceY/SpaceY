@@ -12,7 +12,7 @@ export type TUserData = {
 };
 
 export type TUserState = {
-  isAuth: boolean;
+  isAuthorized: boolean;
   pending: boolean;
   error: Error | null;
   userData: TUserData;

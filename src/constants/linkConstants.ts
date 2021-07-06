@@ -1,4 +1,5 @@
 export const LINK_TEXTS = {
+  CHANGE_PASSWORD: 'Change password',
   DASHBOARD: 'Main page',
   LOGIN: 'I have an account',
   NEW_GAME: 'New game',
