@@ -18,9 +18,9 @@ import './login.scss';
 
 const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
-  const isAuth = useSelector(userAuthSelector);
+  const isAuthorized = useSelector(userAuthSelector);
 
-  if (isAuth === null) {
+  if (isAuthorized === null) {
     dispatch(getUserDataFromServer());
   }
 
@@ -34,10 +34,10 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   }, [loginState]);
 
   useEffect(() => {
-    if (isAuth) {
+    if (isAuthorized) {
       history.replace(ROUTE_CONSTANTS.DASHBOARD);
     }
-  }, [isAuth]);
+  }, [isAuthorized]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;

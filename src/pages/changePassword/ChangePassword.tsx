@@ -53,6 +53,7 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <div className='input-wrapper'>
             <Input
               value={passwordsState.oldPassword}
+              type='password'
               name='oldPassword'
               title='current password'
               onChange={onChange}
@@ -63,6 +64,7 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <div className='input-wrapper'>
             <Input
               value={passwordsState.newPassword}
+              type='password'
               name='newPassword'
               title='new password'
               onChange={onChange}

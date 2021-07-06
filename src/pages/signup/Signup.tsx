@@ -40,7 +40,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
     try {
       await signup(userState);
 
-      history.push(ROUTE_CONSTANTS.LOGIN);
+      history.push(ROUTE_CONSTANTS.DASHBOARD);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }

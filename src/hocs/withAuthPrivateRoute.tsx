@@ -14,21 +14,21 @@ interface IRoute {
 
 const WithAuthPrivateRoute: FC<IRoute> = ({ component: ChildComponent, ...rest }): ReactElement => {
   const dispatch = useDispatch();
-  const isAuth = useSelector(userAuthSelector);
+  const isAuthorized = useSelector(userAuthSelector);
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!isAuthorized) {
       dispatch(getUserDataFromServer());
     }
   }, []);
 
-  if (isAuth === null) {
+  if (isAuthorized === null) {
     return <></>;
   }
 
   return (
     <Route {...rest} render={props =>
-      !isAuth ? (
+      !isAuthorized ? (
         <Redirect to={ROUTE_CONSTANTS.LOGIN} />
       ) : (
         <ChildComponent {...props} />
