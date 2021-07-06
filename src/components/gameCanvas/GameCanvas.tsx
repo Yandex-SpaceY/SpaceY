@@ -19,6 +19,7 @@ import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
 import './gameCanvas.scss';
+
 interface IGameCanvas {
   className?: string;
   menuAction?: string | null;
