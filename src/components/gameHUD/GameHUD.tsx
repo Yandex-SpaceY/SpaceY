@@ -11,22 +11,19 @@ interface IGameHUD {
   className?: string;
 }
 
-const Button: FC<IGameHUD> = ({ hullStrength, distance, className }): ReactElement => {
-
-  return (
-    <div className={cn('game-hud', className)}>
-      <ul>
-        <li className='game-hud-line'>
-          <span className='game-hud-label'>{GAME_OPTIONS.HULL_STRENGTH_LABLE}</span>
-          {hullStrength}
-        </li>
-        <li className='game-hud-line'>
-          <span className='game-hud-label'>{GAME_OPTIONS.DISTANCE_LABLE}</span>
-          {distance}
-        </li>
-      </ul>
-    </div>
-  );
-};
+const Button: FC<IGameHUD> = ({ hullStrength, distance, className }): ReactElement => (
+  <div className={cn('game-hud', className)}>
+    <ul>
+      <li className='game-hud-line'>
+        <span className='game-hud-label'>{GAME_OPTIONS.HULL_STRENGTH_LABLE}</span>
+        {hullStrength}
+      </li>
+      <li className='game-hud-line'>
+        <span className='game-hud-label'>{GAME_OPTIONS.DISTANCE_LABLE}</span>
+        {distance}
+      </li>
+    </ul>
+  </div>
+);
 
 export default Button;

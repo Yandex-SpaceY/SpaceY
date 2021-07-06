@@ -6,6 +6,7 @@ import { MainStage } from 'game/stages';
 import { Resources, Stage } from 'game/core';
 import { Obstacle, SpaceShip, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
+
 export default class GameMain {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;

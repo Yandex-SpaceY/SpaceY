@@ -2,8 +2,6 @@ import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } fro
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import './gameCanvas.scss';
-
 import GameMain from 'game/GameMain';
 import {
   setIsGameStarted,
@@ -20,6 +18,7 @@ import { GameHUD } from 'components';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
+import './gameCanvas.scss';
 interface IGameCanvas {
   className?: string;
   menuAction?: string | null;
@@ -66,7 +65,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     gameMain.togglePauseStatus();
 
     return () => {
-      //gameMain.unsetControlsAndSubscriptions();
+      gameMain.unsetControlsAndSubscriptions();
     };
   }, []);
 
