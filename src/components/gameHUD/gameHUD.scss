@@ -1,0 +1,21 @@
+@import 'style/variables';
+
+.game-hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: $text_main_color;
+  line-height: 1.5;
+
+  ul {
+    list-style: none;
+  }
+
+  .game-hud-label {
+    color: $secondary_color;
+  }
+
+  .game-hud-label::after {
+    content: ': ';
+  }
+}
