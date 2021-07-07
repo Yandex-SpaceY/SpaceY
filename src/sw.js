@@ -1,4 +1,7 @@
-const CACHE_NAME = 'space-y-cache-v1';
+import packageJson from './package.json';
+
+const { version } = packageJson;
+const CACHE_NAME = `space-y-cache-${version}`;
 
 const getCachedResource = async req => {
   try {

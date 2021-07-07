@@ -1,6 +1,6 @@
 {
   "name": "space-y",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Space Y game",
   "main": "index.js",
   "scripts": {
