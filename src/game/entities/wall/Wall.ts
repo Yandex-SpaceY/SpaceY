@@ -7,7 +7,7 @@ export default class Wall extends Entity {
     super(
       initialPosition,
       new Sprite({
-        resourceURL: GAME_SETTINGS.OBJECT_SPRITES,
+        resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startСoordinates: { x: 0, y: 34 },
         size: { width: 85, height: 96 }
       }),
@@ -19,7 +19,7 @@ export default class Wall extends Entity {
     this.position.y += this.speed! * dt;
     this.updateSpriteAnimation(dt);
 
-    // Trnsfer to start if offscreen for loop
+    // Transfer to start if offscreen for loop
     if (this.position.y > canvasHeight) {
       this.position.y = 0 - 96;
     }

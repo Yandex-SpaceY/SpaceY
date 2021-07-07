@@ -12,10 +12,18 @@ export default class Stage {
     this._entities = {};
   }
 
+  private _renderEntity(entity: Entity): void {
+    this._context.save();
+    this._context.translate(entity.position.x, entity.position.y);
+    entity.render(this);
+    this._context.restore();
+  }
+
   addEntitiesToKey(key: string, entities: Entity[]): void {
     if (!this._entities[key]) {
       this._entities[key] = [];
     }
+
     this._entities[key].push(...entities);
   }
 
@@ -49,13 +57,6 @@ export default class Stage {
   renderBackgroundPattern(width: number, height: number): void {
     this._context.fillStyle = this._backgroundPattern as CanvasPattern;
     this._context.fillRect(0, 0, width, height);
-  }
-
-  private _renderEntity(entity: Entity): void {
-    this._context.save();
-    this._context.translate(entity.position.x, entity.position.y);
-    entity.render(this);
-    this._context.restore();
   }
 
   renderEntities(key?: string): void {

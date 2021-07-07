@@ -7,8 +7,9 @@ export default class Entity {
   speed: number | null
 
   constructor(initialPosition: TCoordinates, sprite: Sprite, speed?: number) {
-    this.position = initialPosition;
     this._sprite = sprite;
+
+    this.position = initialPosition;
     this.speed = speed || null;
   }
 

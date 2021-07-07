@@ -46,6 +46,7 @@ export default class Sprite {
 
   render(ctx: CanvasRenderingContext2D, resources: Resources): void {
     let  frame = 0;
+
     if (this.animationSpeed !== undefined && this.animationFrames !== undefined ) {
       if (this.animationSpeed > 0) {
         const  max = this.animationFrames.length;
