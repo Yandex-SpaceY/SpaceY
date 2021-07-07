@@ -3,8 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
 import GameMain from '../../game/gamemain';
-import { setIsGameStarted, setIsGamePaused, setIsGameOver, setLastScore } from 'store/game/actions';
-import { gameIsGamePausedSelector, gameIsGameOverSelector } from 'store/game/selectors';
+import {
+  setIsGameStarted,
+  setIsGamePaused,
+  setIsGameOver,
+  setLastScore
+} from 'store/game/actions';
+import {
+  gameIsGameStartedSelector,
+  gameIsGamePausedSelector,
+  gameIsGameOverSelector
+} from 'store/game/selectors';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 
@@ -17,6 +26,7 @@ interface IGameCanvas {
 const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction }): ReactElement => {
   const dispatch = useDispatch();
 
+  const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
 
@@ -82,8 +92,18 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     }
   }, [isGameOver]);
 
+  useEffect(() => {
+    if (isGameStarted) {
+      setPauseStatus(isGamePaused);
+    }
+  }, [isGamePaused]);
+
   const resumeGame = useCallback(() => {
-    gameMain.togglePauseStatus();
+    gameMain.setPauseStatus(true);
+  }, []);
+
+  const setPauseStatus = useCallback((status: boolean) => {
+    gameMain.setPauseStatus(status);
   }, []);
 
   const restartGame = useCallback(() => {

@@ -1,49 +1,54 @@
 import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { getUserInfo } from 'api/authApi';
-import { changeProfile } from 'api/userApi';
-import { Button, Input } from 'components';
+import { changeProfile, changeProfileAvatar } from 'api/userApi';
+import { Avatar, Button, Input } from 'components';
 import {
   checkEmail,
   checkFieldNotEmpty,
-  checkPassword,
   checkPhone,
   checkButtonDisable,
+  getImageUrl,
 } from 'utils';
-import { DEFAULT_USER_STATE, PAGE_NAMES } from 'constants/commonConstants';
+import { BUTTON_TEXTS } from 'constants/buttonConstants';
+import { PAGE_NAMES } from 'constants/commonConstants';
+import { DEFAULT_PROFILE_STATE, PROFILE_KEYS, PROFILE_TYPE } from 'constants/defaultStates';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { BUTTON_TEXTS } from 'constants/buttonConstants';
-import { ERROR_CONSTANTS } from 'constants/errorConstants';
-import { TUser, TUserKeys } from 'types';
+import { setUserData } from 'store/user/actions';
+import { userUserDataSelector } from 'store/user/selectors';
 
-const ProfileEdit: FC = (): ReactElement => {
-  const [ userState, setUserState ] = useState<TUser>(DEFAULT_USER_STATE);
+const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const dispatch = useDispatch();
+  const userData = useSelector(userUserDataSelector) as PROFILE_TYPE;
+
+  const [ userState, setUserState ] = useState<PROFILE_TYPE>(DEFAULT_PROFILE_STATE);
   const [ disabled, setDisabled ] = useState<boolean>(true);
-
-  const getUserData = async () => {
-    try {
-      const res = await getUserInfo();
-      setUserState(res.data);
-    } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
-    }
-  };
+  const [ avatar, setAvatar ] = useState<string>('');
+  const [ avatarError, setAvatarError ] = useState<string>('');
 
   useEffect(() => {
-    getUserData();
-  }, []);
+    if (Object.keys(userData)) {
+      setUserState(userData);
+      setAvatar(getImageUrl(userData.avatar));
+    }
+  }, [userData]);
 
   useEffect(() => {
     const newDisable = checkButtonDisable();
+
     setDisabled(newDisable);
   }, [userState]);
 
   const onSubmitHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await changeProfile(userState);
+      const response = await changeProfile(userState);
+      response && dispatch(setUserData(response.data));
+
+      history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -51,8 +56,29 @@ const ProfileEdit: FC = (): ReactElement => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
-    const name = e.target.name as TUserKeys;
-    setUserState(Object.assign(userState, { [name]: value }));
+    const name = e.target.name as PROFILE_KEYS;
+
+    setUserState({ ...userState, [name]: value });
+  };
+
+  const changeAvatar = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('avatar', event.currentTarget!.files![0]);
+
+    try {
+      const response = await changeProfileAvatar(formData);
+
+      if (response) {
+        const newAvatar = response.data?.avatar;
+        setAvatar(getImageUrl(newAvatar));
+        dispatch(setUserData(response.data));
+        setAvatarError('');
+      }
+    } catch (err) {
+      setAvatarError(ERROR_CONSTANTS.CHOOSE_ANOTHER_FILE);
+    }
   };
 
   return (
@@ -60,7 +86,7 @@ const ProfileEdit: FC = (): ReactElement => {
       <div className='content-wrapper double'>
         <form onSubmit={onSubmitHandler} className='content'>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
-          <div className='profile-image' />
+          <Avatar errorText={avatarError} src={avatar} onChange={changeAvatar}/>
           <div className='input-wrapper'>
             <Input
               value={userState.first_name}
@@ -96,19 +122,18 @@ const ProfileEdit: FC = (): ReactElement => {
           </div>
           <div className='input-wrapper'>
             <Input
+              value={userState.display_name || ''}
+              name='display_name'
+              title='display name'
+              onChange={onChange}
+              errorText={checkFieldNotEmpty(userState.display_name)}
+            />
+            <Input
               value={userState.phone}
               name='phone'
               title='phone'
               onChange={onChange}
               errorText={checkPhone(userState.phone)}
-            />
-            <Input
-              value={userState.password}
-              name='password'
-              title='password'
-              onChange={onChange}
-              type='password'
-              errorText={checkPassword(userState.password)}
             />
           </div>
           <div className='button-wrapper'>
@@ -126,4 +151,4 @@ const ProfileEdit: FC = (): ReactElement => {
   );
 };
 
-export default ProfileEdit;
+export default withRouter(ProfileEdit);

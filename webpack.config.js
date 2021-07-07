@@ -28,6 +28,8 @@ module.exports = {
       images: `${__dirname}/src/assets/images`,
       store: `${__dirname}/src/store`,
       types: `${__dirname}/src/types`,
+      hocs: `${__dirname}/src/hocs`,
+      hooks: `${__dirname}/src/hooks`,
     }
   },
   module: {

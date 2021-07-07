@@ -10,20 +10,20 @@ const initialState = {
 
 export const gameReducer = (
   state = initialState,
-  action: TActionProps<string, TGameState>
+  { type, payload }: TActionProps<string, TGameState>
 ): Record<string, unknown> => {
-  switch (action.type) {
+  switch (type) {
     case GAME_ACTIONS.SET_IS_GAME_STARTED: {
-      return { ...state, isGameStarted: action.payload };
+      return { ...state, isGameStarted: payload };
     }
     case GAME_ACTIONS.SET_IS_GAME_PAUSED: {
-      return { ...state, isGamePaused: action.payload };
+      return { ...state, isGamePaused: payload };
     }
     case GAME_ACTIONS.SET_IS_GAME_OVER: {
-      return { ...state, isGameOver: action.payload };
+      return { ...state, isGameOver: payload };
     }
     case GAME_ACTIONS.SET_LAST_SCORE: {
-      return { ...state, lastScore: action.payload };
+      return { ...state, lastScore: payload };
     }
     default: {
       return state;

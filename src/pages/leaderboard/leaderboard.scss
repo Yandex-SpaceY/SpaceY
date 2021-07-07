@@ -60,6 +60,10 @@
     .content-links {
       @include content-link;
 
+      a {
+        margin-top: 0;
+      }
+
       .content-links-game {
         margin-bottom: 20px;
         color: $text_main_color;
