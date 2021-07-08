@@ -22,7 +22,7 @@ export default class SpaceShip extends Entity {
       initialPosition,
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
-        startСoordinates: { x: 0, y: 0 },
+        startCoordinates: { x: 0, y: 0 },
         size: { width: 34, height: 34 },
         animationSpeed: 13,
         animationFrames: [ 0, 1 ]
