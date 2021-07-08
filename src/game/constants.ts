@@ -1,6 +1,6 @@
 export const GAME_SETTINGS = {
-  OBJECT_SPRITES: './assets/sprites.png',
-  MAIN_STAGE_BACKGROUND: './assets/bg.png',
+  OBJECT_SPRITES_PATH: './assets/sprites.png',
+  MAIN_STAGE_BACKGROUND_PATH: './assets/bg.png',
   SPACESHIP_BASE_SPEED: 300,
   SPACESHIP_ENTITY_KEY: 'ship',
   OBSTACLE_BASE_SPEED: 100,

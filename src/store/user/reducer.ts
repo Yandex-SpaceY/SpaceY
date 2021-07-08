@@ -2,25 +2,31 @@ import { TActionProps, TUserState } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
 
 const initialState = {
-  isAuth: false,
+  isAuthorized: null,
   pending: false,
-  userData: null,
+  userData: {},
   error: null,
 };
 
 export const userReducer = (
   state = initialState,
-  action: TActionProps<string, TUserState>
+  { type, payload }: TActionProps<string, TUserState>
 ): Record<string, unknown> => {
-  switch (action.type) {
+  switch (type) {
     case USER_ACTIONS.SET_USER_DATA: {
-      return { ...state, userData: action.payload };
+      return { ...state, userData: payload };
     }
     case USER_ACTIONS.ERROR: {
-      return { ...state, error: action.payload };
+      return { ...state, error: payload };
     }
     case USER_ACTIONS.PENDING: {
-      return { ...state, pending: action.payload };
+      return { ...state, pending: payload };
+    }
+    case USER_ACTIONS.CLEAR_USER_DATA: {
+      return { ...state, userData: {}, isAuthorized: null };
+    }
+    case USER_ACTIONS.SET_IS_AUTH: {
+      return { ...state, isAuthorized: payload };
     }
     default: {
       return state;

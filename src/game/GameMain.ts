@@ -44,7 +44,7 @@ export default class GameMain {
     this.isGamePaused = false;
 
     this.resources = new Resources();
-    this.resources.load([ GAME_SETTINGS.OBJECT_SPRITES, GAME_SETTINGS.MAIN_STAGE_BACKGROUND ]);
+    this.resources.load([ GAME_SETTINGS.OBJECT_SPRITES_PATH, GAME_SETTINGS.MAIN_STAGE_BACKGROUND_PATH ]);
     this.resources.onReady(this.init);
 
     this.gameTime = 0;
@@ -108,6 +108,7 @@ export default class GameMain {
 
   generateObstacles(obstaclesEntitiesKey: string): void {
     const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
+
     if (Math.random() < 1 - Math.pow(0.993, this.gameTime)) {
       const position: TCoordinates = { x: 0, y: 0 };
       if (Math.random() < 0.5) {
@@ -210,6 +211,7 @@ export default class GameMain {
           this.setGameOverStatus(this.isGameOver);
         }
       }
+
       if (!this.isGameOver) {
         this.checkCollisions();
         this.setHull(this.ship!.hullStrength - this.col);

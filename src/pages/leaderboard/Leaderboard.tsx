@@ -5,6 +5,7 @@ import { PAGE_NAMES } from 'constants/commonConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { Avatar } from 'components';
 import { formatBigNumbers } from 'utils';
 import { leadersInfo, ILeaders } from './mock';
 
@@ -26,7 +27,7 @@ const Leaderboard: FC = (): ReactElement => {
         <div key={place} className='leader'>
           <div className='leader-info'>
             <span className='leader-info-place' title={formattedPlace}>{formattedPlace}</span>
-            <div className='profile-image profile-image-small'>{avatar}</div>
+            <Avatar src={avatar || ''} className='avatar-small' />
           </div>
           <div className='leader-data'>
             <span className='leader-data-name' title={codename}>{codename}</span>
@@ -52,7 +53,7 @@ const Leaderboard: FC = (): ReactElement => {
             <Link to={ROUTE_CONSTANTS.GAME} className='content-links-game'>
               {LINK_TEXTS.NEW_GAME}
             </Link>
-            <Link to={ROUTE_CONSTANTS.DASHBOARD}>
+            <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
               {LINK_TEXTS.DASHBOARD}
             </Link>
           </div>

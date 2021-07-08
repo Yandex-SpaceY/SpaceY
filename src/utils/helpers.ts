@@ -1,5 +1,7 @@
 import moment, { Moment } from 'moment';
 
+import { BASE_URL } from 'constants/commonConstants';
+
 enum DATE_FORMAT {
   TODAY = 'HH:mm',
   MONTH = 'DD/MM',
@@ -37,3 +39,11 @@ export const fakeOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
 export const fakeOnClick = (): void => console.log('onClick');
 
 export const formatBigNumbers = (value: number): string => Intl.NumberFormat().format(value);
+
+export const getImageUrl = (payload: string | null): string => {
+  if (payload) {
+    return `${BASE_URL}/resources${payload}`;
+  }
+
+  return '';
+};
