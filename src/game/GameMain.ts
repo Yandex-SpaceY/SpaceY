@@ -63,11 +63,11 @@ export default class GameMain {
   }
 
   setControls(): void {
-    document.addEventListener('keydown', this.controls);
+    document.addEventListener('keydown', this.handleKeyControls);
   }
 
   unsetControlsAndSubscriptions(): void {
-    document.removeEventListener('keydown', this.controls);
+    document.removeEventListener('keydown', this.handleKeyControls);
 
     this.setHull(0);
     this.setScore(0);
@@ -75,7 +75,7 @@ export default class GameMain {
     this.setGamePauseStatus(false);
   }
 
-  controls = (event: KeyboardEvent): void => {
+  handleKeyControls = (event: KeyboardEvent): void => {
     if (event.code === GAME_CONTROLS.SHIFT) {
       if (!this.isGamePaused) {
         this.ship!.actionShift();
