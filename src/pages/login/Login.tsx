@@ -1,14 +1,15 @@
-import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
+import React, { useEffect, FC, ReactElement } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import { signin } from 'api/authApi';
+import { loginSchema } from 'schemas';
 import { getUserDataFromServer } from 'store/user/actions';
 import { userAuthSelector } from 'store/user/selectors';
-import { checkButtonDisable, checkFieldNotEmpty, checkPassword } from 'utils';
 import { Button, Input } from 'components';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
-import { DEFAULT_LOGIN_STATE, LOGIN_KEYS, LOGIN_TYPE } from 'constants/defaultStates';
+import { DEFAULT_LOGIN_STATE, LOGIN_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
@@ -24,32 +25,15 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
     dispatch(getUserDataFromServer());
   }
 
-  const [ loginState, setLoginState ] = useState<LOGIN_TYPE>(DEFAULT_LOGIN_STATE);
-  const [ disabled, setDisabled ] = useState<boolean>(true);
-
-  useEffect(() => {
-    const newDisable = checkButtonDisable();
-
-    setDisabled(newDisable);
-  }, [loginState]);
-
   useEffect(() => {
     if (isAuthorized) {
       history.replace(ROUTE_CONSTANTS.DASHBOARD);
     }
   }, [isAuthorized]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
-    const name = e.target.name as LOGIN_KEYS;
-
-    setLoginState({ ...loginState, [name]: value });
-  };
-
-  const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmitHandler = async (values: LOGIN_TYPE) => {
     try {
-      await signin(loginState);
+      await signin(values);
 
       history.push(ROUTE_CONSTANTS.DASHBOARD);
     } catch (err) {
@@ -57,32 +41,45 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: DEFAULT_LOGIN_STATE,
+    validationSchema: loginSchema,
+    onSubmit: onSubmitHandler
+  });
+
+  const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
+
   return (
     <div className='main login'>
       <div className='content-wrapper'>
         <h1>{GAME_NAME}</h1>
-        <form className='content' onSubmit={onSubmitHandler}>
+        <form className='content' onSubmit={handleSubmit}>
           <h2>{PAGE_NAMES.LOGIN}</h2>
           <div className='input-wrapper'>
             <Input
-              value={loginState.login}
+              value={values.login}
               name='login'
-              onChange={onChange}
+              onChange={handleChange}
               title='login'
-              errorText={checkFieldNotEmpty(loginState.login)}
+              onBlur={handleBlur}
+              errorText={errors.login && touched.login ? errors.login : ''}
             />
           </div>
           <div className='input-wrapper'>
             <Input
-              value={loginState.password}
+              value={values.password}
               name='password'
               title='password'
-              onChange={onChange}
-              errorText={checkPassword(loginState.password)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.password && touched.password ? errors.password : ''}
               type='password'
             />
           </div>
-          <Button disabled={disabled} type='submit' className='button-submit'>{BUTTON_TEXTS.SIGNIN}</Button>
+
+          <Button type='submit' className='button-submit' >
+            {BUTTON_TEXTS.SIGNIN}
+          </Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>

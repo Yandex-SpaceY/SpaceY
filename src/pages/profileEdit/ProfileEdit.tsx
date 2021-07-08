@@ -1,22 +1,18 @@
-import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import { changeProfile, changeProfileAvatar } from 'api/userApi';
 import { Avatar, Button, Input } from 'components';
-import {
-  checkEmail,
-  checkFieldNotEmpty,
-  checkPhone,
-  checkButtonDisable,
-  getImageUrl,
-} from 'utils';
+import { getImageUrl } from 'utils';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
-import { DEFAULT_PROFILE_STATE, PROFILE_KEYS, PROFILE_TYPE } from 'constants/defaultStates';
+import { PROFILE_TYPE } from 'constants/defaultStates';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { profileSchema } from 'schemas';
 import { setUserData } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 
@@ -24,41 +20,24 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector) as PROFILE_TYPE;
 
-  const [ userState, setUserState ] = useState<PROFILE_TYPE>(DEFAULT_PROFILE_STATE);
-  const [ disabled, setDisabled ] = useState<boolean>(true);
   const [ avatar, setAvatar ] = useState<string>('');
   const [ avatarError, setAvatarError ] = useState<string>('');
 
   useEffect(() => {
     if (Object.keys(userData)) {
-      setUserState(userData);
       setAvatar(getImageUrl(userData.avatar));
     }
   }, [userData]);
 
-  useEffect(() => {
-    const newDisable = checkButtonDisable();
-
-    setDisabled(newDisable);
-  }, [userState]);
-
-  const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmitHandler = async (values: PROFILE_TYPE) => {
     try {
-      const response = await changeProfile(userState);
+      const response = await changeProfile(values);
       response && dispatch(setUserData(response.data));
 
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
-  };
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
-    const name = e.target.name as PROFILE_KEYS;
-
-    setUserState({ ...userState, [name]: value });
   };
 
   const changeAvatar = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -81,63 +60,80 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: userData,
+    validationSchema: profileSchema,
+    onSubmit: onSubmitHandler
+  });
+
+  const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
+
   return (
     <div className='main'>
       <div className='content-wrapper double'>
-        <form onSubmit={onSubmitHandler} className='content'>
+        <form className='content' onSubmit={handleSubmit}>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>
           <Avatar errorText={avatarError} src={avatar} onChange={changeAvatar}/>
           <div className='input-wrapper'>
             <Input
-              value={userState.first_name}
+              value={values.first_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
               name='first_name'
               title='first name'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.first_name)}
+              errorText={errors.first_name && touched.first_name ? errors.first_name : ''}
             />
             <Input
-              value={userState.second_name}
+              value={values.second_name}
               name='second_name'
               title='second name'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.second_name)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.second_name && touched.second_name ? errors.second_name : ''}
             />
           </div>
+
           <div className='input-wrapper'>
             <Input
-              value={userState.email}
+              value={values.email}
               name='email'
-              onChange={onChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               title='e-mail'
               type='email'
-              errorText={checkEmail(userState.email)}
+              errorText={errors.email && touched.email ? errors.email : ''}
             />
             <Input
-              value={userState.login}
+              value={values.login}
               name='login'
+              onChange={handleChange}
               title='login'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.login)}
+              onBlur={handleBlur}
+              errorText={errors.login && touched.login ? errors.login : ''}
             />
           </div>
+
           <div className='input-wrapper'>
             <Input
-              value={userState.display_name || ''}
+              value={values.display_name || ''}
               name='display_name'
               title='display name'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.display_name)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.display_name && touched.display_name ? errors.display_name : ''}
             />
             <Input
-              value={userState.phone}
+              value={values.phone}
               name='phone'
               title='phone'
-              onChange={onChange}
-              errorText={checkPhone(userState.phone)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.phone && touched.phone ? errors.phone : ''}
             />
           </div>
+
           <div className='button-wrapper'>
-            <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
+            <Button type='submit'>{BUTTON_TEXTS.SAVE}</Button>
           </div>
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}

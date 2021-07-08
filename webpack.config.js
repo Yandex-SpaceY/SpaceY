@@ -31,6 +31,7 @@ module.exports = {
       hocs: `${__dirname}/src/hocs`,
       hooks: `${__dirname}/src/hooks`,
       game: `${__dirname}/src/game`,
+      schemas: `${__dirname}/src/schemas`,
     }
   },
   module: {
