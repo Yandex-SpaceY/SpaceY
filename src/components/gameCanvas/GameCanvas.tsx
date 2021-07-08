@@ -83,7 +83,8 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
         setIsGameStartedStatus(true);
         break;
       case MENU_ACTIONS.SHOW_MAIN_MENU:
-        setIsGamePauseStatus(false);
+        setIsGamePauseStatus(true);
+        setPauseStatus(true);
         setIsGameOverStatus(false);
         setIsGameStartedStatus(false);
         break;
