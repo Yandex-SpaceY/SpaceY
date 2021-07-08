@@ -63,8 +63,8 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
             </Link>
           </div>
 
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
-            {LINK_TEXTS.DASHBOARD}
+          <Link to={ROUTE_CONSTANTS.GAME} className='link'>
+            {LINK_TEXTS.GAME}
           </Link>
         </form>
       </div>
