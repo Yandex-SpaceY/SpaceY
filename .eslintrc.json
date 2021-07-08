@@ -68,6 +68,7 @@
     "prefer-const": "error",
     "default-case": "error",
     "no-unused-vars": ["error", { "args": "none" }],
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    "id-match": ["error", "^((?![а-яА-Я,ёЁ]).)*$"]
   }
 }
