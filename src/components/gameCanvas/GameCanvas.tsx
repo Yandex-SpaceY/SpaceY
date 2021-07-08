@@ -82,6 +82,11 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
         setIsGamePauseStatus(false);
         setIsGameStartedStatus(true);
         break;
+      case MENU_ACTIONS.SHOW_MAIN_MENU:
+        setIsGamePauseStatus(false);
+        setIsGameOverStatus(false);
+        setIsGameStartedStatus(false);
+        break;
       default:
         break;
     }
@@ -111,7 +116,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
 
   const restartGame = useCallback(() => {
     gameMain.init();
-    gameMain.togglePauseStatus();
+    gameMain.setPauseStatus(false);
   }, []);
 
   return (

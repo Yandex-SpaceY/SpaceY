@@ -16,13 +16,23 @@ export type TMenuItem = {
 interface IMenu {
   menuItems?: TMenuItem[];
   isShown?: boolean;
+  withTitle?: boolean;
+  className?: string;
   handleAction?: (action: string) => void;
 }
 
-const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
+const Menu: FC<IMenu> = ({
+  menuItems = MENU_ITEMS,
+  isShown = true,
+  withTitle = true,
+  className,
+  handleAction
+}): ReactElement => {
   return (
-    <div className={cn('menu', (!isShown && 'hidden'))}>
-      <h1>{GAME_NAME}</h1>
+    <div className={cn('menu', className, (!isShown && 'hidden'))}>
+      {withTitle
+      && <h1>{GAME_NAME}</h1>
+      }
       <div className='menu-items'>
         {
           menuItems.map(({ title, route, action }) => {

@@ -1,6 +1,40 @@
-.game-over {
+@import 'style/variables';
 
-  h1 {
-    color: $error_main_color;
-  }
+.game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $overlay_color;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.game-over__title {
+  color: $error_main_color;
+  text-transform: uppercase;
+}
+
+.game-over__score-title {
+  margin-top: 30px;
+  color: $secondary_color;
+  font-size: 24px;
+}
+
+.game-over__score {
+  margin-top: 15px;
+  color: $text_main_color;
+  font-size: 32px;
+}
+
+.menu.game-over__menu {
+  top: auto;
+  bottom: 0;
+  height: auto;
+  background: none;
 }
