@@ -11,6 +11,8 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
+  modifierTrue?: string;
+  modifierFalse?: string;
 }
 
 interface IMenu {
@@ -18,6 +20,7 @@ interface IMenu {
   isShown?: boolean;
   isWithTitle?: boolean;
   className?: string;
+  modifier?: boolean;
   handleAction?: (action: string) => void;
 }
 
@@ -25,6 +28,7 @@ const Menu: FC<IMenu> = ({
   menuItems = MENU_ITEMS,
   isShown = true,
   isWithTitle = true,
+  modifier = true,
   className,
   handleAction
 }): ReactElement => {
@@ -35,7 +39,7 @@ const Menu: FC<IMenu> = ({
       }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action }) => {
+          menuItems.map(({ title, route, action, modifierTrue, modifierFalse }) => {
             const callback = () => {
               if (action && handleAction) handleAction(action);
             };
@@ -51,7 +55,7 @@ const Menu: FC<IMenu> = ({
             if (action) {
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title}
+                  {title} {modifier?modifierTrue:modifierFalse}
                 </span>
               );
             }

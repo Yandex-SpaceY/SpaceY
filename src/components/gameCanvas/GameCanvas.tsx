@@ -7,12 +7,14 @@ import {
   setIsGameStarted,
   setIsGamePaused,
   setIsGameOver,
-  setLastScore
+  setLastScore,
+  setIsSoundOn
 } from 'store/game/actions';
 import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
-  gameIsGameOverSelector
+  gameIsGameOverSelector,
+  gameIsSoundOnSelector
 } from 'store/game/selectors';
 import { GameHUD } from 'components';
 import { MENU_ACTIONS } from 'constants/menuConstants';
@@ -32,6 +34,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
+  const isSoundOn = useSelector(gameIsSoundOnSelector);
 
   const setIsGameStartedStatus = (isGameStarted: boolean) => {
     dispatch(setIsGameStarted(isGameStarted));
@@ -88,6 +91,10 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
         setIsGameOverStatus(false);
         setIsGameStartedStatus(false);
         break;
+      case MENU_ACTIONS.GAME_SOUND_SWITCH:
+        dispatch(setIsSoundOn(!isSoundOn));
+        setGameSoundStatus(!isSoundOn);
+        break;
       default:
         break;
     }
@@ -100,6 +107,10 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
       setLastScoreState(score);
     }
   }, [isGameOver]);
+
+  useEffect(() => {
+    setGameSoundStatus(isSoundOn);
+  }, [isSoundOn]);
 
   useEffect(() => {
     if (isGameStarted) {
@@ -118,6 +129,10 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   const restartGame = useCallback(() => {
     gameMain.init();
     gameMain.setPauseStatus(false);
+  }, []);
+
+  const setGameSoundStatus = useCallback((status: boolean) => {
+    gameMain.setSoundStatus(status);
   }, []);
 
   return (
