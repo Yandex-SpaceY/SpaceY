@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check render component Pagination 1`] = `
+<div
+  className="pagination"
+>
+  <span
+    className="page prev disabled"
+    onClick={[Function]}
+  >
+    PREV
+  </span>
+  <span
+    className="page active"
+    onClick={[Function]}
+  >
+    1
+  </span>
+  <span
+    className="page"
+    onClick={[Function]}
+  >
+    2
+  </span>
+  <span
+    className="page"
+    onClick={[Function]}
+  >
+    3
+  </span>
+  <span
+    className="page next"
+    onClick={[Function]}
+  >
+    NEXT
+  </span>
+</div>
+`;
