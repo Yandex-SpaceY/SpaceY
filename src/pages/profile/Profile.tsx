@@ -9,7 +9,7 @@ import { PAGE_NAMES } from 'constants/commonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { clearUserData } from 'store/user/actions';
+import { clearUserData, getUserDataFromServer } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { getImageUrl } from 'utils';
 
@@ -22,6 +22,7 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const logoutAndRedirect = async () => {
     try {
       await logout();
+      dispatch(getUserDataFromServer());
       dispatch(clearUserData());
 
       history.push(ROUTE_CONSTANTS.LOGIN);
@@ -62,8 +63,8 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
             </Link>
           </div>
 
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
-            {LINK_TEXTS.DASHBOARD}
+          <Link to={ROUTE_CONSTANTS.GAME} className='link'>
+            {LINK_TEXTS.GAME}
           </Link>
         </form>
       </div>

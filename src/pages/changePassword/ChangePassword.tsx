@@ -78,8 +78,8 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}
           </Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
-            {LINK_TEXTS.DASHBOARD}
+          <Link to={ROUTE_CONSTANTS.GAME} className='link'>
+            {LINK_TEXTS.GAME}
           </Link>
         </form>
       </div>

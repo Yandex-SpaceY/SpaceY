@@ -4,9 +4,9 @@ exports[`check render page Oops 1`] = `
 <Fragment>
   <Link
     onClick={[Function]}
-    to="/dashboard"
+    to="/game"
   >
-    Go to dashboard
+    Go to game
   </Link>
   <Link
     onClick={[Function]}

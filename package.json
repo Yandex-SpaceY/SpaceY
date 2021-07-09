@@ -1,6 +1,6 @@
 {
   "name": "space-y",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Space Y game",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.2",
     "classnames": "2.3.1",
     "clean-webpack-plugin": "4.0.0-alpha.0",
+    "copy-webpack-plugin": "9.0.1",
     "cross-env": "7.0.3",
     "css-loader": "5.2.6",
     "enzyme": "3.11.0",

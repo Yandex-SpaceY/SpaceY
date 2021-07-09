@@ -1,6 +1,5 @@
 export const ROUTE_CONSTANTS = {
   CHANGE_PASSWORD: '/change-password',
-  DASHBOARD: '/dashboard',
   FORUM: '/forum',
   GAME: '/game',
   LEADERBOARD: '/leaderboard',

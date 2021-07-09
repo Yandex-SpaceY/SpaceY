@@ -3,6 +3,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -30,6 +31,7 @@ module.exports = {
       types: `${__dirname}/src/types`,
       hocs: `${__dirname}/src/hocs`,
       hooks: `${__dirname}/src/hooks`,
+      game: `${__dirname}/src/game`,
     }
   },
   module: {
@@ -63,5 +65,13 @@ module.exports = {
       template: './public/index.html'
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: `${__dirname}/src/game/assets`,
+          to: `${__dirname}/dist/assets`
+        }
+      ]
+    }),
   ]
 };
