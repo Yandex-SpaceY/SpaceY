@@ -30,19 +30,7 @@ exports[`test Input check render component with onChange 1`] = `
     disabled={false}
     id="testName"
     name="testName"
-    onChange={
-      [MockFunction] {
-        "calls": Array [
-          Array [],
-        ],
-        "results": Array [
-          Object {
-            "type": "return",
-            "value": undefined,
-          },
-        ],
-      }
-    }
+    onChange={[MockFunction]}
     type="text"
     value="testValue"
   />

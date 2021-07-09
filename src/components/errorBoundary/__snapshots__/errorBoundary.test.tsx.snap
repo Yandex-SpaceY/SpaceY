@@ -2,4 +2,4 @@
 
 exports[`test ErrorBoundary check render w/o error 1`] = `"no error children text"`;
 
-exports[`test ErrorBoundary check render with error 1`] = `<Component />`;
+exports[`test ErrorBoundary check render with error 1`] = `<Throwable />`;

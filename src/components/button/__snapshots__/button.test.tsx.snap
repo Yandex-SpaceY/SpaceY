@@ -22,19 +22,7 @@ exports[`test Button check render component with onClick 1`] = `
 <button
   className="one-button"
   disabled={false}
-  onClick={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onClick={[MockFunction]}
   type="button"
 />
 `;
