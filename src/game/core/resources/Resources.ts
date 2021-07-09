@@ -1,7 +1,4 @@
-enum FILE_EXTENSIONS {
-  IMAGES = 'png',
-  SOUNDS = 'mp3|mp4'
-}
+import { RESOURCES_FILE_EXTENSIONS } from 'game/constants';
 
 export default class Resources {
   resourceCache: Record<string, HTMLImageElement | HTMLAudioElement | boolean>;
@@ -17,7 +14,7 @@ export default class Resources {
       if (this.resourceCache[url]) {
         return this.resourceCache[url];
       } else {
-        if (new RegExp(`.(${FILE_EXTENSIONS.IMAGES})$`, 'g').test(url)) {
+        if (new RegExp(`.(${RESOURCES_FILE_EXTENSIONS.IMAGES})$`, 'g').test(url)) {
           const  img = new Image();
           img.onload = () => {
             this.resourceCache[url] = img;
@@ -34,7 +31,7 @@ export default class Resources {
           };
           this.resourceCache[url] = false;
           img.src = url;
-        } else if (new RegExp(`.(${FILE_EXTENSIONS.SOUNDS})$`, 'g').test(url)) {
+        } else if (new RegExp(`.(${RESOURCES_FILE_EXTENSIONS.SOUNDS})$`, 'g').test(url)) {
           const sound = new Audio();
           sound.oncanplaythrough = () => {
             this.resourceCache[url] = sound;

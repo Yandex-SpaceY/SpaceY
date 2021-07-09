@@ -21,3 +21,8 @@ export const GAME_CONTROLS = {
   PAUSE: GAME_KEYS.ESC as string,
   SHIFT: GAME_KEYS.SPACEBAR as string
 };
+
+export enum RESOURCES_FILE_EXTENSIONS {
+  IMAGES = 'png',
+  SOUNDS = 'mp3|mp4'
+}

@@ -11,8 +11,8 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
-  modifierTrue?: string;
-  modifierFalse?: string;
+  titleAdditionIfModifierTrue?: string;
+  titleAdditionIfModifierFalse?: string;
 }
 
 interface IMenu {
@@ -39,7 +39,7 @@ const Menu: FC<IMenu> = ({
       }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action, modifierTrue, modifierFalse }) => {
+          menuItems.map(({ title, route, action, titleAdditionIfModifierTrue, titleAdditionIfModifierFalse }) => {
             const callback = () => {
               if (action && handleAction) handleAction(action);
             };
@@ -55,7 +55,7 @@ const Menu: FC<IMenu> = ({
             if (action) {
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title} {modifier?modifierTrue:modifierFalse}
+                  {title} {modifier ? titleAdditionIfModifierTrue : titleAdditionIfModifierFalse}
                 </span>
               );
             }
