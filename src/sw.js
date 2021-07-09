@@ -1,6 +1,7 @@
-import packageJson from './package.json';
+const now = Date.now();
+const today = new Date(now).toLocaleDateString();
+const version = Date.parse(today);
 
-const { version } = packageJson;
 const CACHE_NAME = `space-y-cache-${version}`;
 
 const getCachedResource = async req => {
