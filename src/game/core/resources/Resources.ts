@@ -1,5 +1,10 @@
+enum FILE_EXTENSIONS {
+  IMAGES = 'png',
+  SOUNDS = 'mp3|mp4'
+}
+
 export default class Resources {
-  resourceCache: Record<string, HTMLImageElement | boolean>;
+  resourceCache: Record<string, HTMLImageElement | HTMLAudioElement | boolean>;
   readyCallbacks: (() => void)[];
 
   constructor() {
@@ -12,27 +17,46 @@ export default class Resources {
       if (this.resourceCache[url]) {
         return this.resourceCache[url];
       } else {
-        const  img = new Image();
-        img.onload = () => {
-          this.resourceCache[url] = img;
+        if (new RegExp(`.(${FILE_EXTENSIONS.IMAGES})$`, 'g').test(url)) {
+          const  img = new Image();
+          img.onload = () => {
+            this.resourceCache[url] = img;
 
-          if (this.isReady()) {
-            this.readyCallbacks.forEach(function(func) {
-              func();
-            });
-          }
-        };
-        img.onerror = () => {
+            if (this.isReady()) {
+              this.readyCallbacks.forEach(function(func) {
+                func();
+              });
+            }
+          };
+          img.onerror = () => {
           // TODO: ERROR HANDLING
-          console.log('TO DO ERROR HANDLING');
-        };
-        this.resourceCache[url] = false;
-        img.src = url;
+            console.log('TO DO ERROR HANDLING');
+          };
+          this.resourceCache[url] = false;
+          img.src = url;
+        } else if (new RegExp(`.(${FILE_EXTENSIONS.SOUNDS})$`, 'g').test(url)) {
+          const sound = new Audio();
+          sound.oncanplaythrough = () => {
+            this.resourceCache[url] = sound;
+
+            if (this.isReady()) {
+              this.readyCallbacks.forEach(function(func) {
+                func();
+              });
+            }
+          };
+          sound.onerror = () => {
+            // TODO: ERROR HANDLING
+            console.log('TO DO ERROR HANDLING');
+          };
+          this.resourceCache[url] = false;
+          sound.src = url;
+        }
       }
     });
   }
 
-  get(url: string): HTMLImageElement | boolean {
+  get(url: string): HTMLImageElement | HTMLAudioElement | boolean {
     return this.resourceCache[url];
   }
 

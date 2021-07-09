@@ -1,28 +1,32 @@
 import { ROUTE_CONSTANTS } from './routeConstants';
+import { TMenuItem } from '../components/menu/Menu';
 
 export const enum MENU_ACTIONS {
   GAME_START = 'GAME_START',
   GAME_RESTART = 'GAME_RESTART',
   GAME_RESUME = 'GAME_RESUME',
+  GAME_SOUND_SWITCH = 'GAME_SOUND_SWITCH',
   SHOW_MAIN_MENU = 'SHOW_MAIN_MENU',
 }
 
-export const MENU_ITEMS = [
+export const MENU_ITEMS: TMenuItem[] = [
   { title: 'start', route: null, action: MENU_ACTIONS.GAME_START },
+  { title: 'sound',  route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH, modifierTrue: 'on', modifierFalse: 'off' },
   { title: 'my profile', route: ROUTE_CONSTANTS.PROFILE, action: null },
   { title: 'best players', route: ROUTE_CONSTANTS.LEADERBOARD, action: null },
   { title: 'forum', route: ROUTE_CONSTANTS.FORUM, action: null },
 ];
 
-export const MENU_ITEMS_PAUSE = [
+export const MENU_ITEMS_PAUSE: TMenuItem[] = [
   { title: 'resume', route: null, action: MENU_ACTIONS.GAME_RESUME },
   { title: 'restart',  route: null, action: MENU_ACTIONS.GAME_RESTART },
+  { title: 'sound',  route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH, modifierTrue: 'on', modifierFalse: 'off' },
   { title: 'my profile', route: ROUTE_CONSTANTS.PROFILE, action: null },
   { title: 'best players', route: ROUTE_CONSTANTS.LEADERBOARD, action: null },
   { title: 'forum', route: ROUTE_CONSTANTS.FORUM, action: null },
 ];
 
-export const MENU_ITEMS_GAME_OVER = [
+export const MENU_ITEMS_GAME_OVER: TMenuItem[] = [
   { title: 'retry',  route: null, action: MENU_ACTIONS.GAME_RESTART },
   { title: 'main menu',  route: null, action: MENU_ACTIONS.SHOW_MAIN_MENU }
 ];

@@ -49,4 +49,8 @@ export default class Sound {
     this._sound.addEventListener('timeupdate', handleStop, false);
   }
 
+  setVolume(volume: number): void {
+    this._sound.volume = volume;
+  }
+
 }

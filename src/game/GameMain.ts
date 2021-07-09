@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { boxCollides } from 'game/core/utils';
 import { GAME_CONTROLS, GAME_SETTINGS } from 'game/constants';
 import { MainStage } from 'game/stages';
-import { Resources, Stage } from 'game/core';
+import { Resources, Sound, Stage } from 'game/core';
 import { Obstacle, SpaceShip, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
 
@@ -15,7 +15,10 @@ export default class GameMain {
 
   isGameOver: boolean;
   isGamePaused: boolean;
+  isSoundOn: boolean;
   gameTime: number;
+
+  bgMusic: Sound;
 
   ship: SpaceShip | null;
 
@@ -42,9 +45,14 @@ export default class GameMain {
     this.lastTime = Date.now();
     this.isGameOver = false;
     this.isGamePaused = false;
+    this.isSoundOn = true;
 
     this.resources = new Resources();
-    this.resources.load([ GAME_SETTINGS.OBJECT_SPRITES_PATH, GAME_SETTINGS.MAIN_STAGE_BACKGROUND_PATH ]);
+    this.resources.load([
+      GAME_SETTINGS.OBJECT_SPRITES_PATH,
+      GAME_SETTINGS.MAIN_STAGE_BACKGROUND_PATH,
+      GAME_SETTINGS.MAIN_MUSIC_PATH,
+    ]);
     this.resources.onReady(this.init);
 
     this.gameTime = 0;
@@ -55,6 +63,9 @@ export default class GameMain {
     this.col = 0;
 
     this.stage = null;
+    this.bgMusic = new Sound(GAME_SETTINGS.MAIN_MUSIC_PATH);
+    this.bgMusic.setIsLopped(true);
+    this.bgMusic.setVolume(GAME_SETTINGS.MAIN_MUSIC_VOLUME);
 
     this.setHull = props.setHull;
     this.setScore = props.setScore;
@@ -86,12 +97,22 @@ export default class GameMain {
     }
   };
 
-  togglePauseStatus(): void {
-    this.isGamePaused = !this.isGamePaused;
+  setSoundStatus(status: boolean): void {
+    this.isSoundOn = status;
+    status ? this.bgMusic.play(): this.bgMusic.stop();
   }
 
   setPauseStatus(status: boolean): void {
     this.isGamePaused = status;
+  }
+
+  togglePauseStatus(): void {
+    this.setPauseStatus(!this.isGamePaused);
+
+  }
+
+  toggleSoundStatus(): void {
+    this.setSoundStatus(!this.isSoundOn);
   }
 
   initWalls(wallsEntitiesKey: string): void {
@@ -233,6 +254,9 @@ export default class GameMain {
 
   init = (): void => {
     this.stage = new MainStage(this.context, this.resources);
+    if (this.isSoundOn) {
+      this.bgMusic.play();
+    }
 
     this.stage.addEntitiesToKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY, [new SpaceShip({ x: 0, y: 0 })]);
     this.ship = this.stage.getEntitiesByKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY)[0] as SpaceShip;

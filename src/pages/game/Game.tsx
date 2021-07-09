@@ -6,10 +6,11 @@ import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
+  gameIsSoundOnSelector,
   gameLastScoreSelector
 } from 'store/game/selectors';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ITEMS_GAME_OVER, MENU_ACTIONS } from 'constants/menuConstants';
-import { setIsGamePaused } from 'store/game/actions';
+import { setIsGamePaused, setIsSoundOn } from 'store/game/actions';
 import { useWindowActive } from 'hooks';
 
 import './game.scss';
@@ -20,6 +21,7 @@ const Game: FC = (): ReactElement => {
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
+  const isSoundOn = useSelector(gameIsSoundOnSelector);
   const lastScore = useSelector(gameLastScoreSelector);
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
@@ -30,6 +32,7 @@ const Game: FC = (): ReactElement => {
   useEffect(() => {
     if (!isWindowActive) {
       dispatch(setIsGamePaused(!isWindowActive));
+      dispatch(setIsSoundOn(!isWindowActive));
     }
   }, [isWindowActive]);
 
@@ -70,7 +73,7 @@ const Game: FC = (): ReactElement => {
         <GameOver isShown={isGameOver} score={lastScore}/>
         <Menu menuItems={menuItems} isShown={
           !isGameStarted || isGamePaused || isGameOver
-        } handleAction={handleMenuAction} className={menuClassName} withTitle={menuWithTitle}/>
+        } handleAction={handleMenuAction} className={menuClassName} withTitle={menuWithTitle} modifier={isSoundOn}/>
       </div>
     </div>
   );

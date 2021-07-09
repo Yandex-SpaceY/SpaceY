@@ -22,6 +22,13 @@ export const setIsGameOver = (isGameOver: boolean): TActionProps<string, boolean
   }
 );
 
+export const setIsSoundOn = (isSoundOn: boolean): TActionProps<string, boolean> => (
+  {
+    type: GAME_ACTIONS.SET_IS_SOUND_ON,
+    payload: isSoundOn,
+  }
+);
+
 export const setLastScore = (lastScore: number): TActionProps<string, number> => (
   {
     type: GAME_ACTIONS.SET_LAST_SCORE,
