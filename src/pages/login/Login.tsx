@@ -86,9 +86,6 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>
-          <Link to={ROUTE_CONSTANTS.GAME} className='link'>
-            {LINK_TEXTS.GAME}
-          </Link>
         </form>
       </div>
     </div>
