@@ -27,11 +27,17 @@ const Game: FC = (): ReactElement => {
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
   const [ isMenuWithTitle, setIsMenuWithTitle ] = useState<boolean>(true);
+  const [ isSoundOnPrev, setIsSoundOnPrev ] = useState<boolean>(isSoundOn);
 
   useEffect(() => {
     if (!isWindowActive) {
       dispatch(setIsGamePaused(!isWindowActive));
-      dispatch(setIsSoundOn(!isWindowActive));
+      setIsSoundOnPrev(isSoundOn);
+      dispatch(setIsSoundOn(isWindowActive));
+    } else {
+      if (isSoundOnPrev) {
+        dispatch(setIsSoundOn(isSoundOnPrev));
+      }
     }
   }, [isWindowActive]);
 
