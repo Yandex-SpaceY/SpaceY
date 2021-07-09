@@ -8,7 +8,7 @@ enum ANIMATION_DIRECTION {
 
 type TSprite = {
   resourceURL: string,
-  startСoordinates: TCoordinates,
+  startCoordinates: TCoordinates,
   size: TSize,
   animationSpeed?: number,
   animationFrames?: number[],
@@ -19,7 +19,7 @@ type TSprite = {
 export default class Sprite {
   private _index: number;
   resourceURL: string;
-  startСoordinates: TCoordinates;
+  startCoordinates: TCoordinates;
   size: TSize;
   animationSpeed?: number;
   animationFrames?: number[];
@@ -30,7 +30,7 @@ export default class Sprite {
   constructor(props: TSprite) {
     this._index = 0;
     this.resourceURL = props.resourceURL;
-    this.startСoordinates = props.startСoordinates;
+    this.startCoordinates = props.startCoordinates;
     this.size = props.size;
     this.animationSpeed = props.animationSpeed || 0;
     this.animationFrames = props.animationFrames;
@@ -61,8 +61,8 @@ export default class Sprite {
       }
     }
 
-    let  x = this.startСoordinates.x;
-    let  y = this.startСoordinates.y;
+    let  x = this.startCoordinates.x;
+    let  y = this.startCoordinates.y;
 
     if (this.animationDirection === ANIMATION_DIRECTION.VERTICAL) {
       y += frame * this.size.height;

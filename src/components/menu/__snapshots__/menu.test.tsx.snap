@@ -16,6 +16,23 @@ exports[`check render component Menu 1`] = `
       onClick={[Function]}
     >
       start
+       
+      <span
+        className="true"
+      />
+    </span>
+    <span
+      className="menu-item"
+      key="sound:"
+      onClick={[Function]}
+    >
+      sound:
+       
+      <span
+        className="true"
+      >
+        on
+      </span>
     </span>
     <Link
       className="menu-item"

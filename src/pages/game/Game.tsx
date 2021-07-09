@@ -1,10 +1,16 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GameCanvas, Menu, TMenuItem } from 'components';
-import { gameIsGameStartedSelector, gameIsGamePausedSelector } from 'store/game/selectors';
-import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ACTIONS } from 'constants/menuConstants';
-import { setIsGamePaused } from 'store/game/actions';
+import { GameCanvas, GameOver, Menu, TMenuItem } from 'components';
+import {
+  gameIsGameStartedSelector,
+  gameIsGamePausedSelector,
+  gameIsGameOverSelector,
+  gameIsSoundOnSelector,
+  gameLastScoreSelector
+} from 'store/game/selectors';
+import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ITEMS_GAME_OVER, MENU_ACTIONS } from 'constants/menuConstants';
+import { setIsGamePaused, setIsSoundOn } from 'store/game/actions';
 import { useWindowActive } from 'hooks';
 
 import './game.scss';
@@ -14,22 +20,46 @@ const Game: FC = (): ReactElement => {
   const isWindowActive = useWindowActive();
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
+  const isGameOver = useSelector(gameIsGameOverSelector);
+  const isSoundOn = useSelector(gameIsSoundOnSelector);
+  const lastScore = useSelector(gameLastScoreSelector);
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
+  const [ isMenuWithTitle, setIsMenuWithTitle ] = useState<boolean>(true);
+  const [ isSoundOnPrev, setIsSoundOnPrev ] = useState<boolean>(isSoundOn);
 
   useEffect(() => {
     if (!isWindowActive) {
       dispatch(setIsGamePaused(!isWindowActive));
+      setIsSoundOnPrev(isSoundOn);
+      dispatch(setIsSoundOn(isWindowActive));
+    } else {
+      if (isSoundOnPrev) {
+        dispatch(setIsSoundOn(isSoundOnPrev));
+      }
     }
   }, [isWindowActive]);
+
+  useEffect(() => {
+    if (isGameStarted && isGameOver) {
+      setMenuItems(MENU_ITEMS_GAME_OVER);
+      setIsMenuWithTitle(false);
+    }
+  }, [isGameOver]);
 
   const handleMenuAction = (action: string) => {
     if (action) {
       setMenuAction(action);
 
-      if (action === MENU_ACTIONS.GAME_START) {
+      if (action === MENU_ACTIONS.GAME_START || action === MENU_ACTIONS.GAME_RESTART) {
         setMenuItems(MENU_ITEMS_PAUSE);
+        setIsMenuWithTitle(true);
+      }
+
+      if (action === MENU_ACTIONS.SHOW_MAIN_MENU) {
+        setMenuItems(MENU_ITEMS);
+        setIsMenuWithTitle(true);
       }
     }
   };
@@ -42,7 +72,10 @@ const Game: FC = (): ReactElement => {
     <div className='main game'>
       <div className='content-wrapper'>
         <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction}/>
-        <Menu menuItems={menuItems} isShown={!isGameStarted || isGamePaused} handleAction={handleMenuAction}/>
+        <GameOver isShown={isGameOver} score={lastScore}/>
+        <Menu menuItems={menuItems} isShown={
+          !isGameStarted || isGamePaused || isGameOver
+        } handleAction={handleMenuAction} className={isMenuWithTitle?'':'game-over-menu'} isWithTitle={isMenuWithTitle} modifier={isSoundOn}/>
       </div>
     </div>
   );
