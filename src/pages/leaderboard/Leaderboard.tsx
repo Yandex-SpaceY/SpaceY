@@ -53,8 +53,8 @@ const Leaderboard: FC = (): ReactElement => {
             <Link to={ROUTE_CONSTANTS.GAME} className='content-links-game'>
               {LINK_TEXTS.NEW_GAME}
             </Link>
-            <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
-              {LINK_TEXTS.DASHBOARD}
+            <Link to={ROUTE_CONSTANTS.GAME} className='link'>
+              {LINK_TEXTS.GAME}
             </Link>
           </div>
         </div>

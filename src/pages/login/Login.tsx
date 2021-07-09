@@ -27,7 +27,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   useEffect(() => {
     if (isAuthorized) {
-      history.replace(ROUTE_CONSTANTS.DASHBOARD);
+      history.replace(ROUTE_CONSTANTS.GAME);
     }
   }, [isAuthorized]);
 
@@ -35,7 +35,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
     try {
       await signin(values);
 
-      history.push(ROUTE_CONSTANTS.DASHBOARD);
+      history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -82,9 +82,6 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
           </Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
-          </Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>
-            {LINK_TEXTS.DASHBOARD}
           </Link>
         </form>
       </div>

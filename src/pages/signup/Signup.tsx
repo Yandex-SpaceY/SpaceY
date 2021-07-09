@@ -17,7 +17,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
     try {
       await signup(values);
 
-      history.push(ROUTE_CONSTANTS.DASHBOARD);
+      history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -101,7 +101,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
           </div>
 
           <Link to={ROUTE_CONSTANTS.LOGIN} className='link'>{LINK_TEXTS.LOGIN}</Link>
-          <Link to={ROUTE_CONSTANTS.DASHBOARD} className='link'>{LINK_TEXTS.DASHBOARD}</Link>
+          <Link to={ROUTE_CONSTANTS.GAME} className='link'>{LINK_TEXTS.GAME}</Link>
         </form>
       </div>
     </div>
