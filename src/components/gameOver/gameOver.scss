@@ -12,27 +12,26 @@
   justify-content: center;
   background-color: $overlay_color;
   line-height: 1.3;
-  text-align: center;
 }
 
-.game-over__title {
+.game-over-title {
   color: $error_main_color;
   text-transform: uppercase;
 }
 
-.game-over__score-title {
+.game-over-score-title {
   margin-top: 30px;
   color: $secondary_color;
   font-size: 24px;
 }
 
-.game-over__score {
+.game-over-score {
   margin-top: 15px;
   color: $text_main_color;
   font-size: 32px;
 }
 
-.menu.game-over__menu {
+.menu.game-over-menu {
   top: auto;
   bottom: 0;
   height: auto;

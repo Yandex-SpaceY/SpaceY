@@ -24,8 +24,7 @@ const Game: FC = (): ReactElement => {
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
-  const [ menuClassName, setMenuClassName ] = useState<string>('');
-  const [ menuWithTitle, setMenuWithTitle ] = useState<boolean>(true);
+  const [ isMenuWithTitle, setIsMenuWithTitle ] = useState<boolean>(true);
 
   useEffect(() => {
     if (!isWindowActive) {
@@ -36,8 +35,7 @@ const Game: FC = (): ReactElement => {
   useEffect(() => {
     if (isGameStarted && isGameOver) {
       setMenuItems(MENU_ITEMS_GAME_OVER);
-      setMenuClassName('game-over__menu');
-      setMenuWithTitle(false);
+      setIsMenuWithTitle(false);
     }
   }, [isGameOver]);
 
@@ -47,14 +45,12 @@ const Game: FC = (): ReactElement => {
 
       if (action === MENU_ACTIONS.GAME_START || action === MENU_ACTIONS.GAME_RESTART) {
         setMenuItems(MENU_ITEMS_PAUSE);
-        setMenuClassName('');
-        setMenuWithTitle(true);
+        setIsMenuWithTitle(true);
       }
 
       if (action === MENU_ACTIONS.SHOW_MAIN_MENU) {
         setMenuItems(MENU_ITEMS);
-        setMenuClassName('');
-        setMenuWithTitle(true);
+        setIsMenuWithTitle(true);
       }
     }
   };
@@ -70,7 +66,7 @@ const Game: FC = (): ReactElement => {
         <GameOver isShown={isGameOver} score={lastScore}/>
         <Menu menuItems={menuItems} isShown={
           !isGameStarted || isGamePaused || isGameOver
-        } handleAction={handleMenuAction} className={menuClassName} withTitle={menuWithTitle}/>
+        } handleAction={handleMenuAction} className={isMenuWithTitle?'':'game-over-menu'} isWithTitle={isMenuWithTitle}/>
       </div>
     </div>
   );
