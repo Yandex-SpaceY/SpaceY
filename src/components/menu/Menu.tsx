@@ -11,21 +11,35 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
+  titleAdditionIfModifierTrue?: string;
+  titleAdditionIfModifierFalse?: string;
 }
 
 interface IMenu {
   menuItems?: TMenuItem[];
   isShown?: boolean;
+  isWithTitle?: boolean;
+  className?: string;
+  modifier?: boolean;
   handleAction?: (action: string) => void;
 }
 
-const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction }): ReactElement => {
+const Menu: FC<IMenu> = ({
+  menuItems = MENU_ITEMS,
+  isShown = true,
+  isWithTitle = true,
+  modifier = true,
+  className,
+  handleAction
+}): ReactElement => {
   return (
-    <div className={cn('menu', (!isShown && 'hidden'))}>
-      <h1>{GAME_NAME}</h1>
+    <div className={cn('menu', className, (!isShown && 'hidden'))}>
+      {isWithTitle
+      && <h1>{GAME_NAME}</h1>
+      }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action }) => {
+          menuItems.map(({ title, route, action, titleAdditionIfModifierTrue, titleAdditionIfModifierFalse }) => {
             const callback = () => {
               if (action && handleAction) handleAction(action);
             };
@@ -41,7 +55,11 @@ const Menu: FC<IMenu> = ({ menuItems = MENU_ITEMS, isShown = true, handleAction 
             if (action) {
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title}
+                  {title} {
+                    modifier
+                      ? <span className='true'>{titleAdditionIfModifierTrue}</span>
+                      : <span className='false'>{titleAdditionIfModifierFalse}</span>
+                  }
                 </span>
               );
             }

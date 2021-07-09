@@ -22,6 +22,7 @@ export type TGameState = {
   isGameStarted: boolean;
   isGameOver: boolean;
   isGamePaused: boolean;
+  isSoundOn: boolean;
   lastScore: number;
 };
 

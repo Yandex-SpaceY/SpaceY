@@ -3,6 +3,7 @@ export { default as Button } from 'components/button/Button';
 export { default as ErrorBoundary } from 'components/errorBoundary/ErrorBoundary';
 export { default as GameCanvas } from 'components/gameCanvas/GameCanvas';
 export { default as GameHUD } from 'components/gameHUD/GameHUD';
+export { default as GameOver } from 'components/gameOver/GameOver';
 export { default as Input } from 'components/input/Input';
 export { default as Menu, TMenuItem } from 'components/menu/Menu';
 export { default as Oops } from 'components/oops/Oops';

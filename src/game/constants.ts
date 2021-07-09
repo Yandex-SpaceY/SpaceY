@@ -1,6 +1,8 @@
 export const GAME_SETTINGS = {
   OBJECT_SPRITES_PATH: './assets/sprites.png',
   MAIN_STAGE_BACKGROUND_PATH: './assets/bg.png',
+  MAIN_MUSIC_PATH: './assets/music.mp3',
+  MAIN_MUSIC_VOLUME: 0.2,
   SPACESHIP_BASE_SPEED: 300,
   SPACESHIP_ENTITY_KEY: 'ship',
   OBSTACLE_BASE_SPEED: 100,
@@ -19,3 +21,8 @@ export const GAME_CONTROLS = {
   PAUSE: GAME_KEYS.ESC as string,
   SHIFT: GAME_KEYS.SPACEBAR as string
 };
+
+export enum RESOURCES_FILE_EXTENSIONS {
+  IMAGES = 'png',
+  SOUNDS = 'mp3|mp4'
+}
