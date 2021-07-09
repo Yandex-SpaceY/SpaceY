@@ -15,7 +15,10 @@ export default class Sound {
   }
 
   play(): void {
-    this._sound.play();
+    this._sound.play().catch(() => {
+      // Avoid DOMException: play() failed because the user didn’t interact with the document first in console
+      return;
+    });
   }
 
   stop(): void {
@@ -29,7 +32,7 @@ export default class Sound {
 
   playFrom(startTime: number): void {
     this._sound.currentTime = startTime;
-    this._sound.play();
+    this.play();
   }
 
   playFragment(startTime: number, stopTime: number): void {
@@ -52,5 +55,4 @@ export default class Sound {
   setVolume(volume: number): void {
     this._sound.volume = volume;
   }
-
 }

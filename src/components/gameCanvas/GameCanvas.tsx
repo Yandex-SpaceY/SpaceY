@@ -93,7 +93,6 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
         break;
       case MENU_ACTIONS.GAME_SOUND_SWITCH:
         dispatch(setIsSoundOn(!isSoundOn));
-        setGameSoundStatus(!isSoundOn);
         break;
       default:
         break;

@@ -26,6 +26,14 @@
     font-size: $menu_font_size;
     text-decoration: none;
     text-transform: uppercase;
+
+    .true {
+      color: $secondary_color;
+    }
+
+    .false {
+      color: $third_color;
+    }
   }
 
   .footer-item {

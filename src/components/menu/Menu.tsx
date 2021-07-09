@@ -55,7 +55,11 @@ const Menu: FC<IMenu> = ({
             if (action) {
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title} {modifier ? titleAdditionIfModifierTrue : titleAdditionIfModifierFalse}
+                  {title} {
+                    modifier
+                      ? <span className='true'>{titleAdditionIfModifierTrue}</span>
+                      : <span className='false'>{titleAdditionIfModifierFalse}</span>
+                  }
                 </span>
               );
             }

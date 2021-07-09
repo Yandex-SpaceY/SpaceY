@@ -108,11 +108,6 @@ export default class GameMain {
 
   togglePauseStatus(): void {
     this.setPauseStatus(!this.isGamePaused);
-
-  }
-
-  toggleSoundStatus(): void {
-    this.setSoundStatus(!this.isSoundOn);
   }
 
   initWalls(wallsEntitiesKey: string): void {
@@ -254,6 +249,7 @@ export default class GameMain {
 
   init = (): void => {
     this.stage = new MainStage(this.context, this.resources);
+
     if (this.isSoundOn) {
       this.bgMusic.play();
     }
