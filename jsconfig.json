@@ -9,6 +9,7 @@
       "router/*": ["./src/router/*"],
       "utils/*": ["./src/utils/*"],
       "hocs/*": ["./src/hocs/*"],
+      "schemas/*": ["./src/schemas/*"],
     }
   },
   "exclude": ["node_modules", "dist"]

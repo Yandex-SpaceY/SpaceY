@@ -15,13 +15,13 @@ interface IAvatar {
 const Avatar: FC<IAvatar> = ({ className, errorText, src, onChange }): ReactElement => (
   <div className={cn('avatar-wrapper', className)} >
     <Input
+      accept='image/*'
       className={cn('avatar', !onChange && 'disabled')}
       errorText={errorText}
-      onChange={onChange}
       name='upload-file'
-      type='file'
-      accept='image/*'
       title={src ? <img src={src} alt='avatar' /> : <span className='no-image-text'>{AVATAR_CONSTANTS.NO_IMAGE}</span>}
+      type='file'
+      onChange={onChange}
     />
   </div>
 );

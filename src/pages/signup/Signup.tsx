@@ -1,44 +1,21 @@
-import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import { signup } from 'api/authApi';
 import { Button, Input } from 'components';
-import {
-  checkEmail,
-  checkFieldNotEmpty,
-  checkPassword,
-  checkPhone,
-  checkButtonDisable,
-} from 'utils';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
-import { DEFAULT_SIGNUP_STATE, SIGNUP_KEYS, SIGNUP_TYPE } from 'constants/defaultStates';
+import { DEFAULT_SIGNUP_STATE, SIGNUP_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { signupSchema } from 'schemas';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
-  const [ userState, setUserState ] = useState<SIGNUP_TYPE>(DEFAULT_SIGNUP_STATE);
-  const [ disabled, setDisabled ] = useState<boolean>(true);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
-    const name = e.target.name as SIGNUP_KEYS;
-
-    setUserState({ ...userState, [name]: value });
-  };
-
-  useEffect(() => {
-    const newDisable = checkButtonDisable();
-
-    setDisabled(newDisable);
-  }, [userState]);
-
-  const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
-
+  const saveData = async (values: SIGNUP_TYPE) => {
     try {
-      await signup(userState);
+      await signup(values);
 
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
@@ -46,65 +23,83 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: DEFAULT_SIGNUP_STATE,
+    validationSchema: signupSchema,
+    onSubmit: saveData
+  });
+
+  const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
+
   return (
     <div className='main'>
       <div className='content-wrapper double'>
         <h1>{GAME_NAME}</h1>
-        <form className='content' onSubmit={onSubmitHandler} >
+        <form className='content' onSubmit={handleSubmit}>
           <h2>{PAGE_NAMES.REGISTRATION}</h2>
           <div className='input-wrapper'>
             <Input
-              value={userState.first_name}
+              value={values.first_name}
+              onChange={handleChange}
+              onBlur={handleBlur}
               name='first_name'
               title='first name'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.first_name)}
+              errorText={errors.first_name && touched.first_name ? errors.first_name : ''}
             />
             <Input
-              value={userState.second_name}
+              value={values.second_name}
               name='second_name'
               title='second name'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.second_name)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.second_name && touched.second_name ? errors.second_name : ''}
             />
           </div>
+
           <div className='input-wrapper'>
             <Input
-              value={userState.email}
+              value={values.email}
               name='email'
-              onChange={onChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               title='e-mail'
               type='email'
-              errorText={checkEmail(userState.email)}
+              errorText={errors.email && touched.email ? errors.email : ''}
             />
             <Input
-              value={userState.login}
+              value={values.login}
               name='login'
+              onChange={handleChange}
               title='login'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(userState.login)}
+              onBlur={handleBlur}
+              errorText={errors.login && touched.login ? errors.login : ''}
             />
           </div>
+
           <div className='input-wrapper'>
             <Input
-              value={userState.phone}
+              value={values.phone}
               name='phone'
               title='phone'
-              onChange={onChange}
-              errorText={checkPhone(userState.phone)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              errorText={errors.phone && touched.phone ? errors.phone : ''}
             />
             <Input
-              value={userState.password}
+              value={values.password}
               name='password'
               title='password'
-              onChange={onChange}
+              onChange={handleChange}
+              onBlur={handleBlur}
               type='password'
-              errorText={checkPassword(userState.password)}
+              errorText={errors.password && touched.password ? errors.password : ''}
             />
           </div>
+
           <div className='button-wrapper'>
-            <Button type='submit' disabled={disabled}>{BUTTON_TEXTS.SIGNUP}</Button>
+            <Button type='submit'>{BUTTON_TEXTS.SIGNUP}</Button>
           </div>
+
           <Link to={ROUTE_CONSTANTS.LOGIN} className='link'>{LINK_TEXTS.LOGIN}</Link>
           <Link to={ROUTE_CONSTANTS.GAME} className='link'>{LINK_TEXTS.GAME}</Link>
         </form>

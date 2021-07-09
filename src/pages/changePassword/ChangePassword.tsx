@@ -1,36 +1,23 @@
-import React, { ChangeEvent, FC, FormEvent, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { useFormik } from 'formik';
 
 import { changePassword } from 'api/userApi';
 import { Button, Input } from 'components';
-import {
-  checkFieldNotEmpty,
-  checkPassword,
-  checkButtonDisable,
-} from 'utils';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
-import { DEFAULT_PASSWORD_STATE, PASSWORD_KEYS, PASSWORD_TYPE } from 'constants/defaultStates';
+import { DEFAULT_PASSWORD_STATE, PASSWORD_TYPE } from 'constants/defaultStates';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { passwordSchema } from 'schemas';
 
 import './changePassword.scss';
 
 const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
-  const [ passwordsState, setPasswordsState ] = useState<PASSWORD_TYPE>(DEFAULT_PASSWORD_STATE);
-  const [ disabled, setDisabled ] = useState<boolean>(true);
-
-  useEffect(() => {
-    const newDisable = checkButtonDisable();
-
-    setDisabled(newDisable);
-  }, [passwordsState]);
-
-  const onSubmitHandler = async (e: FormEvent) => {
-    e.preventDefault();
+  const saveData = async (values: PASSWORD_TYPE) => {
     try {
-      await changePassword(passwordsState);
+      await changePassword(values);
 
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
@@ -38,43 +25,47 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   };
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { value } = e.target;
-    const name = e.target.name as PASSWORD_KEYS;
+  const formik = useFormik({
+    initialValues: DEFAULT_PASSWORD_STATE,
+    validationSchema: passwordSchema,
+    onSubmit: saveData
+  });
 
-    setPasswordsState({ ...passwordsState, [name]: value });
-  };
+  const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
 
   return (
     <div className='main passwords'>
       <div className='content-wrapper'>
-        <form onSubmit={onSubmitHandler} className='content'>
+        <form onSubmit={handleSubmit} className='content'>
           <h2>{PAGE_NAMES.CHANGE_PASSWORD}</h2>
           <div className='input-wrapper'>
             <Input
-              value={passwordsState.oldPassword}
-              type='password'
+              value={values.oldPassword}
               name='oldPassword'
               title='current password'
-              onChange={onChange}
-              errorText={checkFieldNotEmpty(passwordsState.oldPassword)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type='password'
+              errorText={errors.oldPassword && touched.oldPassword ? errors.oldPassword : ''}
             />
           </div>
 
           <div className='input-wrapper'>
             <Input
-              value={passwordsState.newPassword}
-              type='password'
+              value={values.newPassword}
               name='newPassword'
               title='new password'
-              onChange={onChange}
-              errorText={checkPassword(passwordsState.newPassword)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              type='password'
+              errorText={errors.newPassword && touched.newPassword ? errors.newPassword : ''}
             />
           </div>
 
           <div className='button-wrapper'>
-            <Button disabled={disabled} type='submit'>{BUTTON_TEXTS.SAVE}</Button>
+            <Button type='submit'>{BUTTON_TEXTS.SAVE}</Button>
           </div>
+
           <Link to={ROUTE_CONSTANTS.PROFILE} className='link'>
             {LINK_TEXTS.PROFILE}
           </Link>
