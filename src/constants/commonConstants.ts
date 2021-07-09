@@ -1,8 +1,7 @@
 export const GAME_NAME = 'SpaceY';
 
 export const PAGE_NAMES = {
-  CHANGE_PASSWORD: 'PASSWORD EDIT',
-  DASHBOARD: 'DASHBOARD',
+  CHANGE_PASSWORD: 'CHANGE PASSWORD',
   FORUM: 'FORUM',
   LEADERBOARD: 'LEADERBOARD',
   LOGIN: 'LOGIN',
@@ -12,4 +11,3 @@ export const PAGE_NAMES = {
 };
 
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
-

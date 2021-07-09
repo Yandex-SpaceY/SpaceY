@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test Button check render component w/o children 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  type="button"
+/>
+`;
+
+exports[`test Button check render component with children 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  type="button"
+>
+  some text
+</button>
+`;
+
+exports[`test Button check render component with onClick 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  onClick={[MockFunction]}
+  type="button"
+/>
+`;
+
+exports[`test Button check render component with type 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  type="submit"
+/>
+`;

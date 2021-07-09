@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import {
   ChangePassword,
-  Dashboard,
   Forum,
   Game,
   Leaderboard,
@@ -20,7 +19,6 @@ const Router: React.FC = () => (
   <Switch>
     <Redirect from='/' exact to={ROUTE_CONSTANTS.LOGIN} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.CHANGE_PASSWORD} component={ChangePassword} />
-    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.DASHBOARD} component={Dashboard} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.FORUM} component={Forum} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.GAME} component={Game} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.LEADERBOARD} component={Leaderboard} />

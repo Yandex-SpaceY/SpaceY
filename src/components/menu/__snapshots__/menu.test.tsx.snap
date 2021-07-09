@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`check render component Menu 1`] = `
+<div
+  className="menu"
+>
+  <h1>
+    SpaceY
+  </h1>
+  <div
+    className="menu-items"
+  >
+    <span
+      className="menu-item"
+      key="start"
+      onClick={[Function]}
+    >
+      start
+    </span>
+    <Link
+      className="menu-item"
+      key="my profile"
+      to="/profile"
+    >
+      my profile
+    </Link>
+    <Link
+      className="menu-item"
+      key="best players"
+      to="/leaderboard"
+    >
+      best players
+    </Link>
+    <Link
+      className="menu-item"
+      key="forum"
+      to="/forum"
+    >
+      forum
+    </Link>
+  </div>
+</div>
+`;
