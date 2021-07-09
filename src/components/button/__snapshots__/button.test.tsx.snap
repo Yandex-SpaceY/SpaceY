@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`check render component Button 1`] = `
+exports[`test Button check render component w/o children 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  type="button"
+/>
+`;
+
+exports[`test Button check render component with children 1`] = `
 <button
   className="one-button"
   disabled={false}
@@ -8,4 +16,33 @@ exports[`check render component Button 1`] = `
 >
   some text
 </button>
+`;
+
+exports[`test Button check render component with onClick 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  onClick={
+    [MockFunction] {
+      "calls": Array [
+        Array [],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
+  type="button"
+/>
+`;
+
+exports[`test Button check render component with type 1`] = `
+<button
+  className="one-button"
+  disabled={false}
+  type="submit"
+/>
 `;

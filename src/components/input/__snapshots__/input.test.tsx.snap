@@ -1,6 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`check render component Input 1`] = `
+exports[`test Input check render component w/o value 1`] = `
+<div
+  className="one-input-block"
+>
+  <input
+    className="input"
+    disabled={true}
+    type="text"
+  />
+  <span
+    className="error-message"
+  />
+</div>
+`;
+
+exports[`test Input check render component with onChange 1`] = `
+<div
+  className="one-input-block"
+>
+  <label
+    className="title"
+    htmlFor="testName"
+  >
+    testTitle
+  </label>
+  <input
+    className="input"
+    disabled={false}
+    id="testName"
+    name="testName"
+    onChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    type="text"
+    value="testValue"
+  />
+  <span
+    className="error-message"
+  />
+</div>
+`;
+
+exports[`test Input check render component with title 1`] = `
 <div
   className="one-input-block"
 >
@@ -17,6 +69,21 @@ exports[`check render component Input 1`] = `
     name="testName"
     type="text"
     value="testValue"
+  />
+  <span
+    className="error-message"
+  />
+</div>
+`;
+
+exports[`test Input check render component with type 1`] = `
+<div
+  className="one-input-block"
+>
+  <input
+    className="input"
+    disabled={true}
+    type="password"
   />
   <span
     className="error-message"

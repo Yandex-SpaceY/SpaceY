@@ -3,7 +3,29 @@ import { shallow } from 'enzyme';
 
 import Button from './Button';
 
-it('check render component Button', () => {
-  const component = shallow(<Button>some text</Button>);
-  expect(component).toMatchSnapshot();
+describe('test Button', () => {
+
+  it('check render component with children', () => {
+    const component = shallow(<Button>some text</Button>);
+    expect(component).toMatchSnapshot();
+  });
+
+  it('check render component w/o children', () => {
+    const component = shallow(<Button></Button>);
+    expect(component).toMatchSnapshot();
+  });
+
+  it('check render component with type', () => {
+    const component = shallow(<Button type='submit'></Button>);
+    expect(component).toMatchSnapshot();
+  });
+
+  it('check render component with onClick', () => {
+    const mockCallBack = jest.fn();
+    const component = shallow(<Button onClick={mockCallBack}></Button>);
+    component.find('button').simulate('click');
+    expect(mockCallBack.mock.calls.length).toEqual(1);
+    expect(component).toMatchSnapshot();
+  });
+
 });
