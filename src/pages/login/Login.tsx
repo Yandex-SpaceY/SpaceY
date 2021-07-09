@@ -31,7 +31,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   }, [isAuthorized]);
 
-  const onSubmitHandler = async (values: LOGIN_TYPE) => {
+  const saveData = async (values: LOGIN_TYPE) => {
     try {
       await signin(values);
 
@@ -44,7 +44,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const formik = useFormik({
     initialValues: DEFAULT_LOGIN_STATE,
     validationSchema: loginSchema,
-    onSubmit: onSubmitHandler
+    onSubmit: saveData
   });
 
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;

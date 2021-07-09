@@ -13,7 +13,7 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { signupSchema } from 'schemas';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
-  const onSubmitHandler = async (values: SIGNUP_TYPE) => {
+  const saveData = async (values: SIGNUP_TYPE) => {
     try {
       await signup(values);
 
@@ -26,7 +26,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const formik = useFormik({
     initialValues: DEFAULT_SIGNUP_STATE,
     validationSchema: signupSchema,
-    onSubmit: onSubmitHandler
+    onSubmit: saveData
   });
 
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;

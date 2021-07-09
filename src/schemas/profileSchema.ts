@@ -13,6 +13,7 @@ export const profileSchema = yup.object().shape({
     .required(ERROR_CONSTANTS.FIELD_EMPTY),
 
   display_name: yup.string()
+    .typeError(ERROR_CONSTANTS.FIELD_EMPTY)
     .required(ERROR_CONSTANTS.FIELD_EMPTY),
 
   email: yup.string()

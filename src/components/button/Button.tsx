@@ -6,8 +6,8 @@ import './button.scss';
 interface IButton {
   onClick?(e: MouseEvent<HTMLButtonElement>): void;
   className?: string;
-  type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const Button: FC<IButton> = ({ onClick, className, disabled = false, children, type = 'button' }): ReactElement => {

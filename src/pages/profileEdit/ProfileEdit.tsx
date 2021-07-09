@@ -29,7 +29,7 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
     }
   }, [userData]);
 
-  const onSubmitHandler = async (values: PROFILE_TYPE) => {
+  const saveData = async (values: PROFILE_TYPE) => {
     try {
       const response = await changeProfile(values);
       response && dispatch(setUserData(response.data));
@@ -63,7 +63,7 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const formik = useFormik({
     initialValues: userData,
     validationSchema: profileSchema,
-    onSubmit: onSubmitHandler
+    onSubmit: saveData
   });
 
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;

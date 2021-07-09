@@ -15,7 +15,7 @@ import { passwordSchema } from 'schemas';
 import './changePassword.scss';
 
 const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
-  const onSubmitHandler = async (values: PASSWORD_TYPE) => {
+  const saveData = async (values: PASSWORD_TYPE) => {
     try {
       await changePassword(values);
 
@@ -28,7 +28,7 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const formik = useFormik({
     initialValues: DEFAULT_PASSWORD_STATE,
     validationSchema: passwordSchema,
-    onSubmit: onSubmitHandler
+    onSubmit: saveData
   });
 
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
