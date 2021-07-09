@@ -17,7 +17,7 @@ module.exports = {
     filename: filename('js'),
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js', '.scss' ],
+    extensions: ['.tsx', '.ts', '.js', '.scss'],
     alias: {
       api: `${__dirname}/src/api`,
       components: `${__dirname}/src/components`,
@@ -28,6 +28,7 @@ module.exports = {
       style: `${__dirname}/src/style`,
       images: `${__dirname}/src/assets/images`,
       store: `${__dirname}/src/store`,
+      types: `${__dirname}/src/types`,
       hocs: `${__dirname}/src/hocs`,
       hooks: `${__dirname}/src/hooks`,
       game: `${__dirname}/src/game`,
@@ -42,7 +43,7 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(svg|png|jpg|gif)$/,
