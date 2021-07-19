@@ -2,6 +2,7 @@ import React, { FC, useEffect, useCallback, useRef, useState, ReactElement } fro
 import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
 
+import { addToLeaderboard } from 'api/leaderboardApi';
 import GameMain from 'game/GameMain';
 import {
   setIsGameStarted,
@@ -16,9 +17,11 @@ import {
   gameIsGameOverSelector,
   gameIsSoundOnSelector
 } from 'store/game/selectors';
+import { userUserDataSelector } from 'store/user/selectors';
 import { GameHUD } from 'components';
-import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
+import { REQUEST_DATA } from 'constants/leaderConstants';
+import { MENU_ACTIONS } from 'constants/menuConstants';
 
 import './gameCanvas.scss';
 
@@ -30,6 +33,7 @@ interface IGameCanvas {
 
 const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction }): ReactElement => {
   const dispatch = useDispatch();
+  const { id, avatar, login } = useSelector(userUserDataSelector);
 
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
@@ -104,6 +108,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   useEffect(() => {
     if (isGameOver) {
       setLastScoreState(score);
+      addToLeaderboard({ data: { id, avatar, login, spaceScore: score }, ratingFieldName: REQUEST_DATA.SCORE_FIELD });
     }
   }, [isGameOver]);
 

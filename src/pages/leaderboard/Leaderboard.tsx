@@ -1,36 +1,84 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
+import { getAllLeaderboard } from 'api/leaderboardApi';
 import { PAGE_NAMES } from 'constants/commonConstants';
+import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
-import { LEADER_CONSTANTS } from 'constants/leaderConstants';
+import { LEADER_CONSTANTS, REQUEST_DATA } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Avatar } from 'components';
+import { Avatar, Spinner } from 'components';
+import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
-import { leadersInfo, ILeaders } from './mock';
 
 import './leaderboard.scss';
 
+interface ILeaders {
+  id: number,
+  avatar: string | null,
+  login: string,
+  spaceScore: number,
+  place?: number,
+}
 type LeaderState = ILeaders[] | []
 
 const Leaderboard: FC = (): ReactElement => {
-  const [ leaders, setLeaders ] = useState<LeaderState>([]);
+  const { id: userId } = useSelector(userUserDataSelector);
 
-  useEffect(() => setLeaders(leadersInfo), []);
+  const [ leaders, setLeaders ] = useState<LeaderState>([]);
+  const [ isLoading, setIsLoading ] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getLeaders = async (): Promise<void> => {
+      try {
+        setIsLoading(true);
+
+        let { data } = await getAllLeaderboard({
+          ratingFieldName: REQUEST_DATA.SCORE_FIELD,
+          cursor: 0,
+          limit: REQUEST_DATA.LIMIT,
+        });
+        data = data.map((item: Record<string, ILeaders[]>) => item.data);
+
+        if (data.length) {
+          let dataToRender = [];
+          let usersPlace = data.findIndex((item: ILeaders) => userId === item.id);
+          const usersMaxScore = data[usersPlace];
+
+          if (usersPlace >= REQUEST_DATA.LIMIT_PER_PAGE) {
+            dataToRender = data.slice(0, REQUEST_DATA.LIMIT_PER_PAGE - 1);
+            dataToRender.push({ ...usersMaxScore, place: ++usersPlace });
+          } else {
+            dataToRender = data.slice(0, REQUEST_DATA.LIMIT_PER_PAGE);
+          }
+
+          setLeaders(dataToRender);
+        }
+      } catch (err) {
+        console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getLeaders();
+  }, []);
 
   const showLeaders = () => (
-    leaders.map(({ place, avatar, codename, score }) => {
-      const formattedPlace = formatBigNumbers(place);
-      const formattedScore = formatBigNumbers(score);
+    leaders.map(({ id, place, avatar, login, spaceScore }, index ) => {
+      const formattedPlace = formatBigNumbers(place || ++index);
+      const formattedScore = formatBigNumbers(spaceScore);
 
       return (
-        <div key={place} className='leader'>
+        <div key={`${place}:${login}`} className={cn('leader', id === userId && 'current-user')}>
           <div className='leader-info'>
             <span className='leader-info-place' title={formattedPlace}>{formattedPlace}</span>
             <Avatar src={avatar || ''} className='avatar-small' />
           </div>
           <div className='leader-data'>
-            <span className='leader-data-name' title={codename}>{codename}</span>
+            <span className='leader-data-name' title={login}>{login}</span>
             <span title={formattedScore}>{formattedScore}</span>
           </div>
         </div>
@@ -44,9 +92,11 @@ const Leaderboard: FC = (): ReactElement => {
         <div className='content'>
           <h2>{PAGE_NAMES.LEADERBOARD}</h2>
 
+          {isLoading && <Spinner />}
+
           {leaders.length
             ? showLeaders()
-            : <h3>{LEADER_CONSTANTS.BE_LEADER}</h3>
+            : <h3 className='info-message'>{LEADER_CONSTANTS.BE_LEADER}</h3>
           }
 
           <div className='content-links'>

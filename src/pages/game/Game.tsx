@@ -71,11 +71,16 @@ const Game: FC = (): ReactElement => {
   return (
     <div className='main game'>
       <div className='content-wrapper'>
-        <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction}/>
-        <GameOver isShown={isGameOver} score={lastScore}/>
-        <Menu menuItems={menuItems} isShown={
-          !isGameStarted || isGamePaused || isGameOver
-        } handleAction={handleMenuAction} className={isMenuWithTitle?'':'game-over-menu'} isWithTitle={isMenuWithTitle} modifier={isSoundOn}/>
+        <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction} />
+        <GameOver isShown={isGameOver} score={lastScore} />
+        <Menu
+          menuItems={menuItems}
+          isShown={!isGameStarted || isGamePaused || isGameOver}
+          handleAction={handleMenuAction}
+          className={isMenuWithTitle ? '' : 'game-over-menu'}
+          isWithTitle={isMenuWithTitle}
+          modifier={isSoundOn}
+        />
       </div>
     </div>
   );

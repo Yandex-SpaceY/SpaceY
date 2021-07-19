@@ -21,6 +21,11 @@
       margin-bottom: $big_margin_bottom;
     }
 
+    .info-message {
+      margin-bottom: 50px;
+      line-height: 1.5;
+    }
+
     .leader {
       display: flex;
       width: 100%;
@@ -55,6 +60,10 @@
           text-transform: uppercase;
         }
       }
+    }
+
+    .current-user {
+      color: $yellow-color;
     }
 
     .content-links {
