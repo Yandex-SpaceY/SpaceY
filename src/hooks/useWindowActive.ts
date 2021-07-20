@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const hasFocus = document && document.hasFocus();
+import { isServer } from 'utils';
+
+const hasFocus = () => !isServer && document.hasFocus();
 
 const useWindowActive = (): boolean => {
   const [ isWindowActive, setIsWindowActive ] = useState(hasFocus);
