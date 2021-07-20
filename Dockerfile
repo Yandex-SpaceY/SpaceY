@@ -7,5 +7,7 @@ RUN npx webpack --config webpack.server.config.js
 FROM node:12-alpine
 COPY --from=build /app/dist /dist
 COPY --from=build /app/src/sw.js /dist
-COPY --from=build /app/index.js /
-CMD node index.js 
+
+EXPOSE 80
+
+CMD node server.js
