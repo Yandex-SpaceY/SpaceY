@@ -20,6 +20,7 @@ const filename = (ext: string): string =>
   (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.${ext}`);
 
 const clientConfig: Configuration = {
+  name: 'client',
   target: 'web',
   entry,
   plugins: [
