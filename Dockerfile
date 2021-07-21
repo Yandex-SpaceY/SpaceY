@@ -5,4 +5,4 @@ RUN npm install -f && npm run build
 
 EXPOSE 80
 
-CMD node dist/server.js
+CMD node --max-old-space-size=6144 dist/server.js
