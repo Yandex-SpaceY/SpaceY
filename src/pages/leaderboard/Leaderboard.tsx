@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -9,7 +9,8 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS, REQUEST_DATA } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Avatar, Spinner } from 'components';
+import { Avatar } from 'components';
+import { setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
 
@@ -25,15 +26,15 @@ interface ILeaders {
 type LeaderState = ILeaders[] | []
 
 const Leaderboard: FC = (): ReactElement => {
+  const dispatch = useDispatch();
   const { id: userId } = useSelector(userUserDataSelector);
 
   const [ leaders, setLeaders ] = useState<LeaderState>([]);
-  const [ isLoading, setIsLoading ] = useState<boolean>(false);
 
   useEffect(() => {
     const getLeaders = async (): Promise<void> => {
       try {
-        setIsLoading(true);
+        dispatch(setUserPending(true));
 
         let { data } = await getAllLeaderboard({
           ratingFieldName: REQUEST_DATA.SCORE_FIELD,
@@ -59,7 +60,7 @@ const Leaderboard: FC = (): ReactElement => {
       } catch (err) {
         console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
       } finally {
-        setIsLoading(false);
+        dispatch(setUserPending(false));
       }
     };
 
@@ -91,8 +92,6 @@ const Leaderboard: FC = (): ReactElement => {
       <div className='content-wrapper-leaderboard'>
         <div className='content'>
           <h2>{PAGE_NAMES.LEADERBOARD}</h2>
-
-          {isLoading && <Spinner />}
 
           {leaders.length
             ? showLeaders()
