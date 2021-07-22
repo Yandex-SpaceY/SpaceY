@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { GAME_NAME } from 'constants/commonConstants';
+import { GAME_NAME, ON_OFF_ITEMS } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
 
 import './menu.scss';
@@ -20,7 +20,8 @@ interface IMenu {
   isShown?: boolean;
   isWithTitle?: boolean;
   className?: string;
-  modifier?: boolean;
+  soundModifier?: boolean;
+  vibrationModifier?: boolean;
   handleAction?: (action: string) => void;
 }
 
@@ -28,20 +29,42 @@ const Menu: FC<IMenu> = ({
   menuItems = MENU_ITEMS,
   isShown = true,
   isWithTitle = true,
-  modifier = true,
+  soundModifier = true,
+  vibrationModifier = true,
   className,
   handleAction
 }): ReactElement => {
+  const getMenuItem = (title: string): ReactElement | null => {
+    let result;
+    switch (title) {
+      case 'sound:': {
+        result = soundModifier ? <span className='true'>{ON_OFF_ITEMS.ON}</span>
+          : <span className='false'>{ON_OFF_ITEMS.OFF}</span>;
+        break;
+      }
+      case 'vibration:': {
+        result = vibrationModifier ? <span className='true'>{ON_OFF_ITEMS.ON}</span>
+          : <span className='false'>{ON_OFF_ITEMS.OFF}</span>;
+        break;
+      }
+      default: result = null;
+    }
+
+    return result;
+  };
+
   return (
     <div className={cn('menu', className, (!isShown && 'hidden'))}>
       {isWithTitle
-      && <h1>{GAME_NAME}</h1>
+        && <h1>{GAME_NAME}</h1>
       }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action, titleAdditionIfModifierTrue, titleAdditionIfModifierFalse }) => {
+          menuItems.map(({ title, route, action }) => {
             const callback = () => {
-              if (action && handleAction) handleAction(action);
+              if (action && handleAction) {
+                handleAction(action);
+              }
             };
 
             if (route) {
@@ -55,11 +78,7 @@ const Menu: FC<IMenu> = ({
             if (action) {
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title} {
-                    modifier
-                      ? <span className='true'>{titleAdditionIfModifierTrue}</span>
-                      : <span className='false'>{titleAdditionIfModifierFalse}</span>
-                  }
+                  {title} {getMenuItem(title)}
                 </span>
               );
             }

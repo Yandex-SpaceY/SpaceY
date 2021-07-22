@@ -16,11 +16,14 @@ export default class GameMain {
   isGameOver: boolean;
   isGamePaused: boolean;
   isSoundOn: boolean;
+  isVibrationOn: boolean;
   gameTime: number;
 
   bgMusic: Sound;
 
   ship: SpaceShip | null;
+
+  vibrateInterval: null | ReturnType<typeof setTimeout>;
 
   score: number;
   col: number;
@@ -46,6 +49,7 @@ export default class GameMain {
     this.isGameOver = false;
     this.isGamePaused = false;
     this.isSoundOn = true;
+    this.isVibrationOn = true;
 
     this.resources = new Resources();
     this.resources.load([
@@ -58,6 +62,8 @@ export default class GameMain {
     this.gameTime = 0;
 
     this.ship = null;
+
+    this.vibrateInterval = null;
 
     this.score = 0;
     this.col = 0;
@@ -100,6 +106,10 @@ export default class GameMain {
   setSoundStatus(status: boolean): void {
     this.isSoundOn = status;
     status ? this.bgMusic.play(): this.bgMusic.stop();
+  }
+
+  setVibrationStatus(status: boolean): void {
+    this.isVibrationOn = status;
   }
 
   setPauseStatus(status: boolean): void {
@@ -150,6 +160,24 @@ export default class GameMain {
     }
   }
 
+  startVibrate(duration: number[]): void {
+    navigator.vibrate(duration);
+  }
+
+  stopVibrate(): void {
+    if (this.vibrateInterval) {
+      clearInterval(this.vibrateInterval);
+      this.vibrateInterval = null;
+    }
+    navigator.vibrate(0);
+  }
+
+  startPersistentVibrate(duration: number[], interval: number): void {
+    this.vibrateInterval = setInterval(() => {
+      this.startVibrate(duration);
+    }, interval);
+  }
+
   reset(): void {
     this.isGameOver = false;
     this.setGameOverStatus(this.isGameOver);
@@ -159,6 +187,8 @@ export default class GameMain {
     this.score = 0;
 
     this.setHull(this.ship!.hullStrength);
+
+    this.stopVibrate();
 
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
@@ -208,6 +238,16 @@ export default class GameMain {
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
         this.col++;
+        if (!this.vibrateInterval && this.isVibrationOn) {
+          this.startPersistentVibrate([200], 100);
+        }
+      } else if (this.vibrateInterval) {
+        const current = this.col;
+        setTimeout(() => {
+          if (current === this.col) {
+            this.stopVibrate();
+          }
+        }, 500);
       }
     });
   }

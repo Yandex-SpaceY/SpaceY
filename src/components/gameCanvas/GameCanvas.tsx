@@ -8,13 +8,15 @@ import {
   setIsGamePaused,
   setIsGameOver,
   setLastScore,
-  setIsSoundOn
+  setIsSoundOn,
+  setIsVibrationOn
 } from 'store/game/actions';
 import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
-  gameIsSoundOnSelector
+  gameIsSoundOnSelector,
+  gameIsVibrationOnSelector
 } from 'store/game/selectors';
 import { GameHUD } from 'components';
 import { GAME_OPTIONS } from 'constants/gameConstants';
@@ -35,6 +37,7 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
   const isSoundOn = useSelector(gameIsSoundOnSelector);
+  const isVibrationOn = useSelector(gameIsVibrationOnSelector);
 
   const setIsGameStartedStatus = (isGameStarted: boolean) => {
     dispatch(setIsGameStarted(isGameStarted));
@@ -94,6 +97,9 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
       case MENU_ACTIONS.GAME_SOUND_SWITCH:
         dispatch(setIsSoundOn(!isSoundOn));
         break;
+      case MENU_ACTIONS.GAME_VIBRATION_SWITCH:
+        dispatch(setIsVibrationOn(!isVibrationOn));
+        break;
       default:
         break;
     }
@@ -110,6 +116,10 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
   useEffect(() => {
     setGameSoundStatus(isSoundOn);
   }, [isSoundOn]);
+
+  useEffect(() => {
+    setGameVibrationStatus(isVibrationOn);
+  }, [isVibrationOn]);
 
   useEffect(() => {
     if (isGameStarted) {
@@ -134,9 +144,13 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
     gameMain.setSoundStatus(status);
   }, []);
 
+  const setGameVibrationStatus = useCallback((status: boolean) => {
+    gameMain.setVibrationStatus(status);
+  }, []);
+
   return (
     <div className='game-canvas-wrapper'>
-      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT}/>
+      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT} />
       <GameHUD hullStrength={hull} distance={score} />
     </div>
 

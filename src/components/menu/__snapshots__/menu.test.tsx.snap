@@ -17,9 +17,6 @@ exports[`check render component Menu 1`] = `
     >
       start
        
-      <span
-        className="true"
-      />
     </span>
     <span
       className="menu-item"
@@ -31,7 +28,20 @@ exports[`check render component Menu 1`] = `
       <span
         className="true"
       >
-        on
+        ON
+      </span>
+    </span>
+    <span
+      className="menu-item"
+      key="vibration:"
+      onClick={[Function]}
+    >
+      vibration:
+       
+      <span
+        className="true"
+      >
+        ON
       </span>
     </span>
     <Link

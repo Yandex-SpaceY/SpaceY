@@ -4,7 +4,7 @@
   "description": "Space Y game",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack serve --mode development --open --hot",
+    "start": "cross-env NODE_ENV=development webpack serve --mode development --open --hot --host 0.0.0.0",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "lint": "eslint . --fix --ext .ts,.tsx,.js && stylelint --fix **/*.scss",
     "prepare": "husky install",

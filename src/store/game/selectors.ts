@@ -4,4 +4,5 @@ export const gameIsGameStartedSelector = (state: TAppState): TGameState['isGameS
 export const gameIsGamePausedSelector = (state: TAppState): TGameState['isGamePaused'] => state.game.isGamePaused;
 export const gameIsGameOverSelector = (state: TAppState): TGameState['isGameOver'] => state.game.isGameOver;
 export const gameIsSoundOnSelector = (state: TAppState): TGameState['isSoundOn'] => state.game.isSoundOn;
+export const gameIsVibrationOnSelector = (state: TAppState): TGameState['isVibrationOn'] => state.game.isVibrationOn;
 export const gameLastScoreSelector = (state: TAppState): TGameState['lastScore'] => state.game.lastScore;
