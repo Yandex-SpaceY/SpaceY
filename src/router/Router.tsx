@@ -17,10 +17,9 @@ import { WithAuthPrivateRoute } from 'hocs';
 
 const Router: React.FC = () => (
   <Switch>
-    <Redirect from='/' exact to={ROUTE_CONSTANTS.LOGIN} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.GAME} exact component={Game} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.CHANGE_PASSWORD} component={ChangePassword} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.FORUM} component={Forum} />
-    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.GAME} component={Game} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.LEADERBOARD} component={Leaderboard} />
     <Route path={ROUTE_CONSTANTS.LOGIN} component={Login} />
     <Route path={ROUTE_CONSTANTS.NOT_FOUND} component={NotFound} />
