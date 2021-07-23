@@ -27,16 +27,17 @@
     text-decoration: none;
     text-transform: uppercase;
 
-    .true {
+    span {
       display: inline-block;
       width: 74px;
-      color: $secondary_color;
-    }
 
-    .false {
-      display: inline-block;
-      width: 74px;
-      color: $third_color;
+      &.true {
+        color: $secondary_color;
+      }
+
+      &.false {
+        color: $third_color;
+      }
     }
   }
 
