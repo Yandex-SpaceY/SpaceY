@@ -28,10 +28,14 @@
     text-transform: uppercase;
 
     .true {
+      display: inline-block;
+      width: 74px;
       color: $secondary_color;
     }
 
     .false {
+      display: inline-block;
+      width: 74px;
       color: $third_color;
     }
   }
