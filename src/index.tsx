@@ -4,12 +4,15 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-//import { startServiceWorker } from './serviceWorker';
+import { startServiceWorker } from './serviceWorker';
 import { store } from 'store/store';
 
 import 'style/main.scss';
 
-//startServiceWorker();
+// Почему при импорте IS_DEV с webpack/constans происходит
+if (String(process.env.NODE_ENV).trim() !== 'development') {
+  startServiceWorker();
+}
 
 ReactDOM.hydrate(
   <Provider store={store}>

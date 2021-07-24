@@ -13,10 +13,11 @@ app.use(compression());
 app.use(express.static(path.resolve(DIST_DIR)));
 
 if (IS_DEV) {
+  app.get('/*', [...hotReload()]);
+} else {
   app.get('/sw.js', (req, res) => {
     res.sendFile(path.join(SRC_DIR, 'sw.js'));
   });
-  app.get('/*', [...hotReload()]);
 }
 
 app.get('/*', serverRenderer);
