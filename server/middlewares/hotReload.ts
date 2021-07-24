@@ -8,7 +8,6 @@ import config from '../../webpack/client.config';
 const compiler = webpack({ ...config, mode: 'development' });
 
 export function hotReload(): RequestHandler[] {
-  const compiler = webpack({ ...config, mode: 'development' });
 
   return [
     devMiddleware(compiler, {
@@ -21,16 +20,5 @@ export function hotReload(): RequestHandler[] {
     hotMiddleware(compiler),
   ];
 }
-
-export const hotReloadY = [
-  devMiddleware(compiler, {
-    serverSideRender: true,
-    publicPath:
-    config.output && config.output.publicPath
-      ? String(config.output.publicPath)
-      : '/'
-  }),
-  hotMiddleware(compiler),
-];
 
 export default hotReload;

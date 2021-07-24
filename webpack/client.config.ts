@@ -14,6 +14,7 @@ const entry: string[] = [path.resolve(SRC_DIR, 'index.tsx')];
 
 if (IS_DEV) {
   entry.push('webpack-hot-middleware/client');
+  entry.push('css-hot-loader/hotModuleReplacement');
 }
 
 const filename = (ext: string): string =>
