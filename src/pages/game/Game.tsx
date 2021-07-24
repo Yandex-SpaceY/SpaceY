@@ -1,7 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GameCanvas, GameOver, Menu, TMenuItem } from 'components';
+import { GameCanvas, GameOver, Menu, PageMeta, TMenuItem } from 'components';
 import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
@@ -70,6 +70,7 @@ const Game: FC = (): ReactElement => {
 
   return (
     <div className='main game'>
+      <PageMeta />
       <div className='content-wrapper'>
         <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction}/>
         <GameOver isShown={isGameOver} score={lastScore}/>

@@ -7,7 +7,7 @@ import { signin } from 'api/authApi';
 import { loginSchema } from 'schemas';
 import { getUserDataFromServer } from 'store/user/actions';
 import { userAuthSelector } from 'store/user/selectors';
-import { Button, Input } from 'components';
+import { Button, Input, PageMeta } from 'components';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
 import { DEFAULT_LOGIN_STATE, LOGIN_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
@@ -51,6 +51,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   return (
     <div className='main login'>
+      <PageMeta title={PAGE_NAMES.LOGIN} />
       <div className='content-wrapper'>
         <h1>{GAME_NAME}</h1>
         <form className='content' onSubmit={handleSubmit}>

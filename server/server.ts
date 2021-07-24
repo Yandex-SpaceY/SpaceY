@@ -12,11 +12,10 @@ app.use(express.json());
 app.use(compression());
 app.use(express.static(path.resolve(DIST_DIR)));
 
-app.get('/sw.js', (req, res) => {
-  res.sendFile(path.join(SRC_DIR, 'sw.js'));
-});
-
 if (IS_DEV) {
+  app.get('/sw.js', (req, res) => {
+    res.sendFile(path.join(SRC_DIR, 'sw.js'));
+  });
   app.get('/*', [...hotReload()]);
 }
 

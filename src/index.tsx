@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import { startServiceWorker } from './serviceWorker';
+//import { startServiceWorker } from './serviceWorker';
 import { store } from 'store/store';
 
 import 'style/main.scss';
 
-startServiceWorker();
+//startServiceWorker();
 
 ReactDOM.hydrate(
   <Provider store={store}>

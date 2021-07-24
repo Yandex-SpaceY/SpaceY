@@ -5,7 +5,7 @@ import { PAGE_NAMES } from 'constants/commonConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Avatar } from 'components';
+import { Avatar, PageMeta } from 'components';
 import { formatBigNumbers } from 'utils';
 import { leadersInfo, ILeaders } from './mock';
 
@@ -40,6 +40,7 @@ const Leaderboard: FC = (): ReactElement => {
 
   return (
     <div className='main'>
+      <PageMeta title={PAGE_NAMES.LEADERBOARD} />
       <div className='content-wrapper-leaderboard'>
         <div className='content'>
           <h2>{PAGE_NAMES.LEADERBOARD}</h2>
