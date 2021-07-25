@@ -17,8 +17,8 @@ import {
   gameIsSoundOnSelector
 } from 'store/game/selectors';
 import { GameHUD } from 'components';
-import { MENU_ACTIONS } from 'constants/menuConstants';
 import { GAME_OPTIONS } from 'constants/gameConstants';
+import { MENU_ACTIONS } from 'constants/menuConstants';
 
 import './gameCanvas.scss';
 

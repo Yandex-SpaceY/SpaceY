@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { addToLeaderboard } from 'api/leaderboardApi';
 import { GameCanvas, GameOver, Menu, PageMeta, TMenuItem } from 'components';
 import {
   gameIsGameStartedSelector,
@@ -9,8 +10,10 @@ import {
   gameIsSoundOnSelector,
   gameLastScoreSelector
 } from 'store/game/selectors';
+import { REQUEST_DATA } from 'constants/leaderConstants';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ITEMS_GAME_OVER, MENU_ACTIONS } from 'constants/menuConstants';
 import { setIsGamePaused, setIsSoundOn } from 'store/game/actions';
+import { userUserDataSelector } from 'store/user/selectors';
 import { useWindowActive } from 'hooks';
 
 import './game.scss';
@@ -23,6 +26,7 @@ const Game: FC = (): ReactElement => {
   const isGameOver = useSelector(gameIsGameOverSelector);
   const isSoundOn = useSelector(gameIsSoundOnSelector);
   const lastScore = useSelector(gameLastScoreSelector);
+  const { id, avatar, login } = useSelector(userUserDataSelector);
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
@@ -40,6 +44,13 @@ const Game: FC = (): ReactElement => {
       }
     }
   }, [isWindowActive]);
+
+  useEffect(() => {
+    addToLeaderboard({
+      data: { id, avatar, login, spaceScore: lastScore },
+      ratingFieldName: REQUEST_DATA.SCORE_FIELD
+    });
+  }, [lastScore]);
 
   useEffect(() => {
     if (isGameStarted && isGameOver) {
@@ -72,11 +83,16 @@ const Game: FC = (): ReactElement => {
     <div className='main game'>
       <PageMeta />
       <div className='content-wrapper'>
-        <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction}/>
-        <GameOver isShown={isGameOver} score={lastScore}/>
-        <Menu menuItems={menuItems} isShown={
-          !isGameStarted || isGamePaused || isGameOver
-        } handleAction={handleMenuAction} className={isMenuWithTitle?'':'game-over-menu'} isWithTitle={isMenuWithTitle} modifier={isSoundOn}/>
+        <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction} />
+        <GameOver isShown={isGameOver} score={lastScore} />
+        <Menu
+          menuItems={menuItems}
+          isShown={!isGameStarted || isGamePaused || isGameOver}
+          handleAction={handleMenuAction}
+          className={isMenuWithTitle ? '' : 'game-over-menu'}
+          isWithTitle={isMenuWithTitle}
+          modifier={isSoundOn}
+        />
       </div>
     </div>
   );
