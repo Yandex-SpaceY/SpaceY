@@ -6,6 +6,7 @@ import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
 import { Obstacle, SpaceShip, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
+import  VibrationController from 'game/core/vibrationController/VibrationController';
 
 export default class GameMain {
   canvas: HTMLCanvasElement;
@@ -17,13 +18,12 @@ export default class GameMain {
   isGamePaused: boolean;
   isSoundOn: boolean;
   isVibrationOn: boolean;
+  vibration: VibrationController;
   gameTime: number;
 
   bgMusic: Sound;
 
   ship: SpaceShip | null;
-
-  vibrateInterval: null | ReturnType<typeof setTimeout>;
 
   score: number;
   col: number;
@@ -50,7 +50,7 @@ export default class GameMain {
     this.isGamePaused = false;
     this.isSoundOn = true;
     this.isVibrationOn = true;
-
+    this.vibration = new VibrationController();
     this.resources = new Resources();
     this.resources.load([
       GAME_SETTINGS.OBJECT_SPRITES_PATH,
@@ -62,8 +62,6 @@ export default class GameMain {
     this.gameTime = 0;
 
     this.ship = null;
-
-    this.vibrateInterval = null;
 
     this.score = 0;
     this.col = 0;
@@ -160,24 +158,6 @@ export default class GameMain {
     }
   }
 
-  startVibrate(duration: number[]): void {
-    navigator.vibrate(duration);
-  }
-
-  stopVibrate(): void {
-    if (this.vibrateInterval) {
-      clearInterval(this.vibrateInterval);
-      this.vibrateInterval = null;
-    }
-    navigator.vibrate(0);
-  }
-
-  startPersistentVibrate(duration: number[], interval: number): void {
-    this.vibrateInterval = setInterval(() => {
-      this.startVibrate(duration);
-    }, interval);
-  }
-
   reset(): void {
     this.isGameOver = false;
     this.setGameOverStatus(this.isGameOver);
@@ -188,7 +168,7 @@ export default class GameMain {
 
     this.setHull(this.ship!.hullStrength);
 
-    this.stopVibrate();
+    this.vibration.stopVibrate();
 
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
@@ -238,14 +218,14 @@ export default class GameMain {
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
         this.col++;
-        if (!this.vibrateInterval && this.isVibrationOn) {
-          this.startPersistentVibrate([200], 100);
+        if (!this.vibration.checkInterval() && this.isVibrationOn) {
+          this.vibration.startPersistentVibrate([200], 100);
         }
-      } else if (this.vibrateInterval) {
+      } else if (this.vibration.checkInterval()) {
         const current = this.col;
         setTimeout(() => {
           if (current === this.col) {
-            this.stopVibrate();
+            this.vibration.stopVibrate();
           }
         }, 500);
       }
