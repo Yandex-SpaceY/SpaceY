@@ -15,8 +15,6 @@ import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
-  gameIsSoundOnSelector,
-  gameIsVibrationOnSelector
 } from 'store/game/selectors';
 import { GameHUD } from 'components';
 import { GAME_OPTIONS } from 'constants/gameConstants';
@@ -28,16 +26,18 @@ interface IGameCanvas {
   className?: string;
   menuAction?: string | null;
   resetMenuAction?: () => void;
+  isSoundOn: boolean;
+  isVibrationOn: boolean;
 }
 
-const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction }): ReactElement => {
+const GameCanvas: FC<IGameCanvas> = (
+  { className, isSoundOn, isVibrationOn, menuAction, resetMenuAction }
+): ReactElement => {
   const dispatch = useDispatch();
 
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
-  const isSoundOn = useSelector(gameIsSoundOnSelector);
-  const isVibrationOn = useSelector(gameIsVibrationOnSelector);
 
   const setIsGameStartedStatus = (isGameStarted: boolean) => {
     dispatch(setIsGameStarted(isGameStarted));
@@ -54,8 +54,8 @@ const GameCanvas: FC<IGameCanvas> = ({ className, menuAction, resetMenuAction })
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [ hull, setHull ] = useState<number>(0);
-  const [ score, setScore ] = useState<number>(0);
+  const [hull, setHull] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
 
   let gameMain: GameMain;
 

@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { GAME_NAME, ON_OFF_ITEMS } from 'constants/commonConstants';
+import { GAME_NAME, TOGGLE_ITEMS } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
 
 import './menu.scss';
@@ -11,8 +11,8 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
-  titleAdditionIfModifierTrue?: string;
-  titleAdditionIfModifierFalse?: string;
+  isWithModifier?: boolean;
+  isMobileOnly?: boolean;
 }
 
 interface IMenu {
@@ -20,8 +20,8 @@ interface IMenu {
   isShown?: boolean;
   isWithTitle?: boolean;
   className?: string;
-  soundModifier?: boolean;
-  vibrationModifier?: boolean;
+  modifier: { [key: string]: boolean }
+  isTest?: boolean;
   handleAction?: (action: string) => void;
 }
 
@@ -29,29 +29,15 @@ const Menu: FC<IMenu> = ({
   menuItems = MENU_ITEMS,
   isShown = true,
   isWithTitle = true,
-  soundModifier = true,
-  vibrationModifier = true,
+  isTest = false,
+  modifier,
   className,
   handleAction
 }): ReactElement => {
-  const getMenuItem = (title: string): ReactElement | null => {
-    let result;
-    switch (title) {
-      case 'sound:': {
-        result = soundModifier ? <span className='true'>{ON_OFF_ITEMS.ON}</span>
-          : <span className='false'>{ON_OFF_ITEMS.OFF}</span>;
-        break;
-      }
-      case 'vibration:': {
-        result = vibrationModifier ? <span className='true'>{ON_OFF_ITEMS.ON}</span>
-          : <span className='false'>{ON_OFF_ITEMS.OFF}</span>;
-        break;
-      }
-      default: result = null;
-    }
-
-    return result;
-  };
+  let isMobile = false;
+  if (!isTest && window) {
+    isMobile = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(window.navigator.userAgent);
+  }
 
   return (
     <div className={cn('menu', className, (!isShown && 'hidden'))}>
@@ -60,7 +46,10 @@ const Menu: FC<IMenu> = ({
       }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action }) => {
+          menuItems.map(({ title, route, action, isMobileOnly, isWithModifier }) => {
+            if (isMobileOnly && !isMobile) {
+              return;
+            }
             const callback = () => {
               if (action && handleAction) {
                 handleAction(action);
@@ -76,9 +65,14 @@ const Menu: FC<IMenu> = ({
             }
 
             if (action) {
+              const mode = modifier[title] ? 'ON' : 'OFF';
+
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {title} {getMenuItem(title)}
+                  {`${title}${isWithModifier ? ':' : ''}`}
+                  {isWithModifier
+                    && <span className={`menu-item_mode_${mode.toLowerCase()}`}>{TOGGLE_ITEMS[mode]}</span>
+                  }
                 </span>
               );
             }

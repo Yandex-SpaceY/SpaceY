@@ -1,6 +1,6 @@
 export const GAME_NAME = 'SpaceY';
 
-export const ON_OFF_ITEMS = {
+export const TOGGLE_ITEMS = {
   ON: 'ON',
   OFF: 'OFF',
 };

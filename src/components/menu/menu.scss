@@ -31,11 +31,11 @@
       display: inline-block;
       width: 74px;
 
-      &.true {
+      &.menu-item_mode_on {
         color: $secondary_color;
       }
 
-      &.false {
+      &.menu-item_mode_off {
         color: $third_color;
       }
     }
