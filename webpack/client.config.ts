@@ -17,8 +17,7 @@ if (IS_DEV) {
   entry.push('css-hot-loader/hotModuleReplacement');
 }
 
-const filename = (ext: string): string =>
-  (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.${ext}`);
+const filename = (ext: string): string => (`${CLIENT_BUNDLE_NAME}.${ext}`);
 
 const clientConfig: Configuration = {
   name: 'client',

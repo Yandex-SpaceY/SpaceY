@@ -5,10 +5,10 @@ import { renderToString } from 'react-dom/server';
 import { Request, Response } from 'express';
 import { StaticRouter } from 'react-router-dom';
 
-import App from '../../src/App';
+import App from 'app';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { store } from '../../src/store/store';
-import { TAppState } from '../../src/store/types';
+import { store } from 'store/store';
+import { TAppState } from 'store/types';
 import { CLIENT_BUNDLE_NAME } from '../../webpack/constants';
 
 const getHtml = (
