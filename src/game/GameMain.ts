@@ -6,6 +6,7 @@ import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
 import { Obstacle, SpaceShip, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
+import { VibrationController } from 'game/core/';
 
 export default class GameMain {
   canvas: HTMLCanvasElement;
@@ -16,6 +17,8 @@ export default class GameMain {
   isGameOver: boolean;
   isGamePaused: boolean;
   isSoundOn: boolean;
+  isVibrationOn: boolean;
+  vibrationController: VibrationController;
   gameTime: number;
 
   bgMusic: Sound;
@@ -46,7 +49,8 @@ export default class GameMain {
     this.isGameOver = false;
     this.isGamePaused = false;
     this.isSoundOn = true;
-
+    this.isVibrationOn = true;
+    this.vibrationController = new VibrationController();
     this.resources = new Resources();
     this.resources.load([
       GAME_SETTINGS.OBJECT_SPRITES_PATH,
@@ -100,6 +104,10 @@ export default class GameMain {
   setSoundStatus(status: boolean): void {
     this.isSoundOn = status;
     status ? this.bgMusic.play(): this.bgMusic.stop();
+  }
+
+  setVibrationStatus(status: boolean): void {
+    this.isVibrationOn = status;
   }
 
   setPauseStatus(status: boolean): void {
@@ -160,6 +168,8 @@ export default class GameMain {
 
     this.setHull(this.ship!.hullStrength);
 
+    this.vibrationController.stopVibration();
+
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
@@ -208,6 +218,16 @@ export default class GameMain {
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
         this.col++;
+        if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
+          this.vibrationController.startPersistentVibrate([200], 100);
+        }
+      } else if (this.vibrationController.checkInterval()) {
+        const current = this.col;
+        setTimeout(() => {
+          if (current === this.col) {
+            this.vibrationController.stopVibration();
+          }
+        }, 500);
       }
     });
   }

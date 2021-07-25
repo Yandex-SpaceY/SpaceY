@@ -23,6 +23,7 @@ export type TGameState = {
   isGameOver: boolean;
   isGamePaused: boolean;
   isSoundOn: boolean;
+  isVibrationOn: boolean;
   lastScore: number;
 };
 

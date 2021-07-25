@@ -27,12 +27,17 @@
     text-decoration: none;
     text-transform: uppercase;
 
-    .true {
-      color: $secondary_color;
-    }
+    span {
+      display: inline-block;
+      width: 74px;
 
-    .false {
-      color: $third_color;
+      &.menu-item_mode_on {
+        color: $secondary_color;
+      }
+
+      &.menu-item_mode_off {
+        color: $third_color;
+      }
     }
   }
 

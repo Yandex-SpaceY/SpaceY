@@ -1,5 +1,10 @@
 export const GAME_NAME = 'SpaceY';
 
+export const TOGGLE_ITEMS = {
+  ON: 'ON',
+  OFF: 'OFF',
+};
+
 export const PAGE_NAMES = {
   CHANGE_PASSWORD: 'CHANGE PASSWORD',
   FORUM: 'FORUM',
