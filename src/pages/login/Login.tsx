@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { signin } from 'api/authApi';
+import { signIn } from 'api/authApi';
+import { getServiceId } from 'api/oAuthApi';
 import { loginSchema } from 'schemas';
 import { getUserDataFromServer } from 'store/user/actions';
 import { userAuthSelector } from 'store/user/selectors';
 import { Button, Input } from 'components';
-import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
+import { GAME_NAME, GAME_URL, PAGE_NAMES } from 'constants/commonConstants';
 import { DEFAULT_LOGIN_STATE, LOGIN_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
@@ -33,9 +34,21 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   const saveData = async (values: LOGIN_TYPE) => {
     try {
-      await signin(values);
+      await signIn(values);
 
       history.push(ROUTE_CONSTANTS.GAME);
+    } catch (err) {
+      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+    }
+  };
+
+  const authYandex = async () => {
+    try {
+      const { data } = await getServiceId(GAME_URL);
+
+      if (data?.service_id) {
+        location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${GAME_URL}`;
+      }
     } catch (err) {
       console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
     }
@@ -80,6 +93,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <Button type='submit' className='button-submit' >
             {BUTTON_TEXTS.SIGNIN}
           </Button>
+          <Button onClick={authYandex} className='yandex-button'>{BUTTON_TEXTS.USE_YANDEX}</Button>
           <Link to={ROUTE_CONSTANTS.SIGNUP} className='link'>
             {LINK_TEXTS.SIGNUP}
           </Link>
