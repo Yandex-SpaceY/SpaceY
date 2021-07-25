@@ -6,12 +6,13 @@ const initialState = {
   isGameOver: false,
   isGamePaused: false,
   isSoundOn: true,
-  lastScore: 0
+  isVibrationOn: true,
+  lastScore: 0,
 };
 
 export const gameReducer = (
   state = initialState,
-  { type, payload }: TActionProps<string, TGameState>
+  { type, payload }: TActionProps<string, TGameState>,
 ): Record<string, unknown> => {
   switch (type) {
     case GAME_ACTIONS.SET_IS_GAME_STARTED: {
@@ -25,6 +26,9 @@ export const gameReducer = (
     }
     case GAME_ACTIONS.SET_IS_SOUND_ON: {
       return { ...state, isSoundOn: payload };
+    }
+    case GAME_ACTIONS.SET_IS_VIBRATION_ON: {
+      return { ...state, isVibrationOn: payload };
     }
     case GAME_ACTIONS.SET_LAST_SCORE: {
       return { ...state, lastScore: payload };

@@ -8,6 +8,7 @@ import {
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
   gameIsSoundOnSelector,
+  gameIsVibrationOnSelector,
   gameLastScoreSelector
 } from 'store/game/selectors';
 import { REQUEST_DATA } from 'constants/leaderConstants';
@@ -25,6 +26,7 @@ const Game: FC = (): ReactElement => {
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
   const isSoundOn = useSelector(gameIsSoundOnSelector);
+  const isVibrationOn = useSelector(gameIsVibrationOnSelector);
   const lastScore = useSelector(gameLastScoreSelector);
   const { id, avatar, login } = useSelector(userUserDataSelector);
 
@@ -82,7 +84,12 @@ const Game: FC = (): ReactElement => {
   return (
     <div className='main game'>
       <div className='content-wrapper'>
-        <GameCanvas menuAction={menuAction} resetMenuAction={resetMenuAction} />
+        <GameCanvas
+          isSoundOn={isSoundOn}
+          isVibrationOn={isVibrationOn}
+          menuAction={menuAction}
+          resetMenuAction={resetMenuAction}
+        />
         <GameOver isShown={isGameOver} score={lastScore} />
         <Menu
           menuItems={menuItems}
@@ -90,7 +97,7 @@ const Game: FC = (): ReactElement => {
           handleAction={handleMenuAction}
           className={isMenuWithTitle ? '' : 'game-over-menu'}
           isWithTitle={isMenuWithTitle}
-          modifier={isSoundOn}
+          modifier={{ sound: isSoundOn, vibration: isVibrationOn }}
         />
       </div>
     </div>
