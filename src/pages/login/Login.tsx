@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { signin } from 'api/authApi';
+import { signIn } from 'api/authApi';
 import { getServiceId } from 'api/oAuthApi';
 import { loginSchema } from 'schemas';
 import { getUserDataFromServer } from 'store/user/actions';
@@ -34,7 +34,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   const saveData = async (values: LOGIN_TYPE) => {
     try {
-      await signin(values);
+      await signIn(values);
 
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {

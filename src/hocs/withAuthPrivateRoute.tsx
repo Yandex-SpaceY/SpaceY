@@ -2,7 +2,7 @@ import React, { FC, useEffect, ReactElement, ElementType } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { signinYandex } from 'api/oAuthApi';
+import { signInYandex } from 'api/oAuthApi';
 import { GAME_URL } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { getUserDataFromServer } from 'store/user/actions';
@@ -23,7 +23,7 @@ const WithAuthPrivateRoute: FC<IRoute> = ({ component: ChildComponent, ...rest }
       const code = new URL(location.href).searchParams.get('code');
 
       if (code) {
-        await signinYandex({ code, redirect_uri: GAME_URL });
+        await signInYandex({ code, redirect_uri: GAME_URL });
       }
 
       if (!isAuthorized) {

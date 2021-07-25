@@ -5,6 +5,6 @@ export const getServiceId = (payload: string): Promise<AxiosResponse> => (
   api.get(`/oauth/yandex/service-id?redirect_uri=${payload}`)
 );
 
-export const signinYandex = (payload: Record<string, string>): Promise<AxiosResponse> => (
+export const signInYandex = (payload: Record<string, string>): Promise<AxiosResponse> => (
   api.post('/oauth/yandex', payload)
 );
