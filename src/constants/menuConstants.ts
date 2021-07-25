@@ -12,8 +12,8 @@ export const enum MENU_ACTIONS {
 
 export const MENU_ITEMS: TMenuItem[] = [
   { title: 'start', route: null, action: MENU_ACTIONS.GAME_START },
-  { title: 'sound',  isWithModifier: true, route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH },
-  { title: 'vibration', isWithModifier: true, isMobileOnly: true, route: null, action: MENU_ACTIONS.GAME_VIBRATION_SWITCH },
+  { title: 'sound',  withModifier: true, route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH },
+  { title: 'vibration', withModifier: true, mobileOnly: true, route: null, action: MENU_ACTIONS.GAME_VIBRATION_SWITCH },
   { title: 'my profile', route: ROUTE_CONSTANTS.PROFILE, action: null },
   { title: 'best players', route: ROUTE_CONSTANTS.LEADERBOARD, action: null },
   { title: 'forum', route: ROUTE_CONSTANTS.FORUM, action: null },
@@ -22,8 +22,8 @@ export const MENU_ITEMS: TMenuItem[] = [
 export const MENU_ITEMS_PAUSE: TMenuItem[] = [
   { title: 'resume', route: null, action: MENU_ACTIONS.GAME_RESUME },
   { title: 'restart',  route: null, action: MENU_ACTIONS.GAME_RESTART },
-  { title: 'sound',  isWithModifier: true,  route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH },
-  { title: 'vibration', isWithModifier: true, isMobileOnly: true, route: null, action: MENU_ACTIONS.GAME_VIBRATION_SWITCH },
+  { title: 'sound',  withModifier: true,  route: null, action: MENU_ACTIONS.GAME_SOUND_SWITCH },
+  { title: 'vibration', withModifier: true, mobileOnly: true, route: null, action: MENU_ACTIONS.GAME_VIBRATION_SWITCH },
   { title: 'my profile', route: ROUTE_CONSTANTS.PROFILE, action: null },
   { title: 'best players', route: ROUTE_CONSTANTS.LEADERBOARD, action: null },
   { title: 'forum', route: ROUTE_CONSTANTS.FORUM, action: null },

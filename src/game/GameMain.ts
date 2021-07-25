@@ -6,7 +6,7 @@ import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
 import { Obstacle, SpaceShip, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
-import  VibrationController from 'game/core/vibrationController/VibrationController';
+import { VibrationController } from 'game/core/';
 
 export default class GameMain {
   canvas: HTMLCanvasElement;
@@ -18,7 +18,7 @@ export default class GameMain {
   isGamePaused: boolean;
   isSoundOn: boolean;
   isVibrationOn: boolean;
-  vibration: VibrationController;
+  vibrationController: VibrationController;
   gameTime: number;
 
   bgMusic: Sound;
@@ -50,7 +50,7 @@ export default class GameMain {
     this.isGamePaused = false;
     this.isSoundOn = true;
     this.isVibrationOn = true;
-    this.vibration = new VibrationController();
+    this.vibrationController = new VibrationController();
     this.resources = new Resources();
     this.resources.load([
       GAME_SETTINGS.OBJECT_SPRITES_PATH,
@@ -168,7 +168,7 @@ export default class GameMain {
 
     this.setHull(this.ship!.hullStrength);
 
-    this.vibration.stopVibrate();
+    this.vibrationController.stopVibration();
 
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
@@ -218,14 +218,14 @@ export default class GameMain {
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
         this.col++;
-        if (!this.vibration.checkInterval() && this.isVibrationOn) {
-          this.vibration.startPersistentVibrate([200], 100);
+        if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
+          this.vibrationController.startPersistentVibrate([200], 100);
         }
-      } else if (this.vibration.checkInterval()) {
+      } else if (this.vibrationController.checkInterval()) {
         const current = this.col;
         setTimeout(() => {
           if (current === this.col) {
-            this.vibration.stopVibrate();
+            this.vibrationController.stopVibration();
           }
         }, 500);
       }

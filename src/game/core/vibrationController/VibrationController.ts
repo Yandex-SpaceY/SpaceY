@@ -5,11 +5,11 @@ export default class VibrationController {
     this.vibrateInterval = null;
   }
 
-  startVibrate(duration: number[]): void {
+  startVibration(duration: number[]): void {
     navigator.vibrate(duration);
   }
 
-  stopVibrate(): void {
+  stopVibration(): void {
     if (this.vibrateInterval) {
       clearInterval(this.vibrateInterval);
       this.vibrateInterval = null;
@@ -19,7 +19,7 @@ export default class VibrationController {
 
   startPersistentVibrate(duration: number[], interval: number): void {
     this.vibrateInterval = setInterval(() => {
-      this.startVibrate(duration);
+      this.startVibration(duration);
     }, interval);
   }
 

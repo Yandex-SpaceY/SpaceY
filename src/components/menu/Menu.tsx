@@ -11,8 +11,8 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
-  isWithModifier?: boolean;
-  isMobileOnly?: boolean;
+  withModifier?: boolean;
+  mobileOnly?: boolean;
 }
 
 interface IMenu {
@@ -35,6 +35,7 @@ const Menu: FC<IMenu> = ({
   handleAction
 }): ReactElement => {
   let isMobile = false;
+
   if (!isTest && window) {
     isMobile = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(window.navigator.userAgent);
   }
@@ -46,10 +47,11 @@ const Menu: FC<IMenu> = ({
       }
       <div className='menu-items'>
         {
-          menuItems.map(({ title, route, action, isMobileOnly, isWithModifier }) => {
-            if (isMobileOnly && !isMobile) {
+          menuItems.map(({ title, route, action, mobileOnly, withModifier }) => {
+            if (mobileOnly && !isMobile) {
               return;
             }
+
             const callback = () => {
               if (action && handleAction) {
                 handleAction(action);
@@ -69,8 +71,8 @@ const Menu: FC<IMenu> = ({
 
               return (
                 <span key={title} className='menu-item' onClick={callback}>
-                  {`${title}${isWithModifier ? ':' : ''}`}
-                  {isWithModifier
+                  {`${title}${withModifier ? ':' : ''}`}
+                  {withModifier
                     && <span className={`menu-item_mode_${mode.toLowerCase()}`}>{TOGGLE_ITEMS[mode]}</span>
                   }
                 </span>
