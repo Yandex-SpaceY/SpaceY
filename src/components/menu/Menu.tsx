@@ -42,9 +42,7 @@ const Menu: FC<IMenu> = ({
 
   return (
     <div className={cn('menu', className, (!isShown && 'hidden'))}>
-      {isWithTitle
-        && <h1>{GAME_NAME}</h1>
-      }
+      {isWithTitle && <h1>{GAME_NAME}</h1>}
       <div className='menu-items'>
         {
           menuItems.map(({ title, route, action, mobileOnly, withModifier }) => {
