@@ -4,13 +4,11 @@ const IS_DEV = String(process.env.NODE_ENV).trim() === 'development';
 const SRC_DIR = path.join(__dirname, '../src');
 const DIST_DIR = path.join(__dirname, '../dist');
 const SERVER_DIR = path.join(__dirname, '../server');
-const WEBPACK_DIR = path.join(__dirname, '../src');
 const CLIENT_BUNDLE_NAME = 'main';
 const SERVER_BUNDLE_NAME = 'server';
 
 const ALIAS = {
   api: `${SRC_DIR}/api`,
-  app: `${SRC_DIR}/App`,
   components: `${SRC_DIR}/components`,
   constants: `${SRC_DIR}/constants`,
   pages: `${SRC_DIR}/pages`,
@@ -34,5 +32,4 @@ export {
   SERVER_BUNDLE_NAME,
   SERVER_DIR,
   SRC_DIR,
-  WEBPACK_DIR,
 };

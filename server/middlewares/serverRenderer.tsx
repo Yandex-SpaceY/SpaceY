@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { Request, Response } from 'express';
 import { StaticRouter } from 'react-router-dom';
 
-import App from 'app';
+import App from '../../src/App';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { store } from 'store/store';
 import { TAppState } from 'store/types';
