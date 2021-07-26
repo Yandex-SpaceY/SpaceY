@@ -3,7 +3,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { signup } from 'api/authApi';
-import { Button, Input } from 'components';
+import { Button, Input, PageMeta } from 'components';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
 import { DEFAULT_SIGNUP_STATE, SIGNUP_TYPE } from 'constants/defaultStates';
 import { LINK_TEXTS } from 'constants/linkConstants';
@@ -33,6 +33,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   return (
     <div className='main'>
+      <PageMeta title={PAGE_NAMES.REGISTRATION} />
       <div className='content-wrapper double'>
         <h1>{GAME_NAME}</h1>
         <form className='content' onSubmit={handleSubmit}>

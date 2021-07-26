@@ -7,7 +7,7 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { FORUM_CONSTANTS } from 'constants/forumConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Button, Pagination } from 'components';
+import { Button, PageMeta, Pagination } from 'components';
 import { formatBigNumbers, formatDate } from 'utils';
 import { topicsInfo, ITopic } from './mock';
 
@@ -51,6 +51,7 @@ const Forum: FC = (): ReactElement => {
 
   return (
     <div className='main'>
+      <PageMeta title={PAGE_NAMES.FORUM} />
       <div className='content-wrapper double'>
         <div className='content'>
           <h2>{PAGE_NAMES.FORUM}</h2>

@@ -8,4 +8,5 @@ export { default as Input } from 'components/input/Input';
 export { default as Menu, TMenuItem } from 'components/menu/Menu';
 export { default as Oops } from 'components/oops/Oops';
 export { default as Pagination } from 'components/pagination/Pagination';
+export { default as PageMeta } from 'components/pageMeta/PageMeta';
 export { default as Spinner } from 'components/spinner/Spinner';
