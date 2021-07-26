@@ -9,7 +9,11 @@ import { store } from 'store/store';
 
 import 'style/main.scss';
 
-ReactDOM.render(
+if (String(process.env.NODE_ENV).trim() !== 'development') {
+  startServiceWorker();
+}
+
+ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
       <App />
@@ -17,4 +21,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-startServiceWorker();

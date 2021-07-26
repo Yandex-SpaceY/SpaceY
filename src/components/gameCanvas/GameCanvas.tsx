@@ -54,8 +54,8 @@ const GameCanvas: FC<IGameCanvas> = (
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  const [hull, setHull] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
+  const [ hull, setHull ] = useState<number>(0);
+  const [ score, setScore ] = useState<number>(0);
 
   let gameMain: GameMain;
 
