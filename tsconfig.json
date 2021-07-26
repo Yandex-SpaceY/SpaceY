@@ -2,14 +2,11 @@
   "compilerOptions": {
     "lib": [
       "dom",
-      "es2019",
-      "es2020.promise",
-      "es2020.bigint",
-      "es2020.string"
+      "es2020",
     ],
-    "module": "commonjs",
-    "target": "es2019",
+    "module": "esnext",
     "moduleResolution": "node",
+    "target": "es2020",
     "jsx": "react",
     "importHelpers": true,
     "noUnusedLocals": true,
@@ -29,14 +26,10 @@
   },
   "include": [
     "src",
-    "webpack.config.ts",
-    "webpack/**/*.ts",
-    "server",
     "typings/**/*.d.ts",
     "./node_modules/@types"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.js",
+    "**/*.js"
   ]
 }

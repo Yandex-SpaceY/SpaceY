@@ -9,7 +9,7 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS, REQUEST_DATA } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Avatar, PageMeta } from 'components';
+import { Avatar } from 'components';
 import { setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
@@ -89,7 +89,6 @@ const Leaderboard: FC = (): ReactElement => {
 
   return (
     <div className='main'>
-      <PageMeta title={PAGE_NAMES.LEADERBOARD} />
       <div className='content-wrapper-leaderboard'>
         <div className='content'>
           <h2>{PAGE_NAMES.LEADERBOARD}</h2>
