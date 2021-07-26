@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import { isServer } from 'utils';
-import reducer from './reduсersCombined';
+import reducer from './reducersCombined';
 
 export const store = createStore(
   reducer,
