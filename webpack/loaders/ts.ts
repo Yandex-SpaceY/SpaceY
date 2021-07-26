@@ -7,6 +7,6 @@ export default {
   },
   server: {
     test: tsRegex,
-    use: { loader: 'ts-loader' }
+    use: ['ts-loader'],
   }
 };

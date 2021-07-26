@@ -9,7 +9,6 @@ import { store } from 'store/store';
 
 import 'style/main.scss';
 
-// Почему при импорте IS_DEV с webpack/constans происходит
 if (String(process.env.NODE_ENV).trim() !== 'development') {
   startServiceWorker();
 }

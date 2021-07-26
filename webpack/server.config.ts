@@ -28,7 +28,6 @@ const serverConfig: Configuration = {
     alias: ALIAS,
     extensions: [ '.ts', '.tsx', '.js' ]
   },
-  devtool: 'source-map',
   externals: [nodeExternals()],
 };
 

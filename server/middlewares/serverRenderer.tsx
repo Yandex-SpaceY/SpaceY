@@ -36,10 +36,16 @@ const getHtml = (
     `;
 
 const serverRender = (
-  request: Request,
-  response: Response
+  req: Request,
+  res: Response
 ): void => {
-  const location: string = request.url;
+  const isPageAvailable = (Object.values(ROUTE_CONSTANTS) as string[]).includes(
+    req.path
+  );
+
+  if (!isPageAvailable) req.url = ROUTE_CONSTANTS.NOT_FOUND;
+
+  const location: string = req.url;
 
   const jsx = (
     <ReduxProvider store={store}>
@@ -52,12 +58,12 @@ const serverRender = (
   const reactHtml = renderToString(jsx);
   const helmetData = Helmet.renderStatic();
   const pageIsAvailable = (Object.values(ROUTE_CONSTANTS) as string[]).includes(
-    request.path
+    req.path
   );
 
   const state = store.getState();
 
-  response
+  res
     .status(pageIsAvailable ? 200 : 404)
     .send(getHtml(reactHtml, state, helmetData));
 };
