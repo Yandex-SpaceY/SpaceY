@@ -4,7 +4,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { changeProfile, changeProfileAvatar } from 'api/userApi';
-import { Avatar, Button, Input, PageMeta } from 'components';
+import { Avatar, Button, Input } from 'components';
 import { getImageUrl } from 'utils';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
@@ -70,7 +70,6 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   return (
     <div className='main'>
-      <PageMeta title={PAGE_NAMES.PROFILE_EDIT} />
       <div className='content-wrapper double'>
         <form className='content' onSubmit={handleSubmit}>
           <h2>{PAGE_NAMES.PROFILE_EDIT}</h2>

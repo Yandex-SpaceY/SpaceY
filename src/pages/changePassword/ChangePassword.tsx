@@ -3,7 +3,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 import { changePassword } from 'api/userApi';
-import { Button, Input, PageMeta } from 'components';
+import { Button, Input } from 'components';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
 import { DEFAULT_PASSWORD_STATE, PASSWORD_TYPE } from 'constants/defaultStates';
@@ -35,7 +35,6 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   return (
     <div className='main passwords'>
-      <PageMeta title={PAGE_NAMES.CHANGE_PASSWORD} />
       <div className='content-wrapper'>
         <form onSubmit={handleSubmit} className='content'>
           <h2>{PAGE_NAMES.CHANGE_PASSWORD}</h2>

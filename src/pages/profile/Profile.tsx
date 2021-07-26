@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { logout } from 'api/authApi';
-import { Avatar, Button, Input, PageMeta } from 'components';
+import { Avatar, Button, Input } from 'components';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
@@ -33,7 +33,6 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   return (
     <div className='main'>
-      <PageMeta title={PAGE_NAMES.PROFILE} />
       <div className='content-wrapper double'>
         <form className='content'>
           <h2>{PAGE_NAMES.PROFILE}</h2>
