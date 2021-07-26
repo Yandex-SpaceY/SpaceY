@@ -5,7 +5,7 @@ export const signup = (payload: Record<string, FormDataEntryValue>): Promise<Axi
   api.post('/auth/signup', payload)
 );
 
-export const signin = (payload: Record<string, FormDataEntryValue>): Promise<AxiosResponse> => (
+export const signIn = (payload: Record<string, FormDataEntryValue>): Promise<AxiosResponse> => (
   api.post('/auth/signin', payload)
 );
 

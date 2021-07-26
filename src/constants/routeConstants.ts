@@ -1,7 +1,7 @@
 export const ROUTE_CONSTANTS = {
   CHANGE_PASSWORD: '/change-password',
   FORUM: '/forum',
-  GAME: '/game',
+  GAME: '/',
   LEADERBOARD: '/leaderboard',
   LOGIN: '/login',
   NOT_FOUND: '/404',

@@ -4,7 +4,7 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { REG_EXPS } from 'constants/regExp';
 
 export const profileSchema = yup.object().shape({
-  avatar: yup.string(),
+  avatar: yup.string().nullable(),
 
   first_name: yup.string()
     .required(ERROR_CONSTANTS.FIELD_EMPTY),
