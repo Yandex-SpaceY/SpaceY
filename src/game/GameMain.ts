@@ -81,13 +81,15 @@ export default class GameMain {
     document.addEventListener('keydown', this.handleKeyControls);
   }
 
-  unsetControlsAndSubscriptions(): void {
+  clear(): void {
     document.removeEventListener('keydown', this.handleKeyControls);
 
     this.setHull(0);
     this.setScore(0);
     this.setGameOverStatus(false);
     this.setGamePauseStatus(false);
+
+    this.bgMusic.remove();
   }
 
   handleKeyControls = (event: KeyboardEvent): void => {

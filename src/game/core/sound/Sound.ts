@@ -55,4 +55,8 @@ export default class Sound {
   setVolume(volume: number): void {
     this._sound.volume = volume;
   }
+
+  remove(): void {
+    document?.body.removeChild(this._sound);
+  }
 }

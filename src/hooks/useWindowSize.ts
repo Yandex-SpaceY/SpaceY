@@ -7,21 +7,20 @@ type TWindowSize = {
   height: number | undefined,
 };
 
-function useWindowSize(): TWindowSize {
+const useWindowSize = ():TWindowSize => {
   const [ windowSize, setWindowSize ] = useState<TWindowSize> ({
-    width: undefined,
-    height: undefined,
+    width: !isServer ? window.innerWidth : undefined,
+    height: !isServer ? window.innerHeight : undefined,
   });
   useEffect(() => {
-    function handleResize() {
+    const handleResize = () => {
 
       setWindowSize(prevState => ({
         ...prevState,
         width: window.innerWidth,
         height: window.innerHeight,
       }));
-      console.log(windowSize);
-    }
+    };
 
     if (!isServer) {
       window.addEventListener('resize', handleResize);
@@ -36,6 +35,6 @@ function useWindowSize(): TWindowSize {
   }, []);
 
   return windowSize;
-}
+};
 
 export default useWindowSize;

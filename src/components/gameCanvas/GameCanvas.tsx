@@ -74,12 +74,15 @@ const GameCanvas: FC<IGameCanvas> = (
 
     gameMain.togglePauseStatus();
 
-    setCanvasHeight(windowSize.height);
-
     return () => {
-      gameMain.unsetControlsAndSubscriptions();
+      gameMain.clear();
     };
   }, []);
+
+  useEffect(() => {
+    console.log('bbb', windowSize);
+    setCanvasHeight(windowSize.height);
+  }, [windowSize]);
 
   useEffect(() => {
     switch (menuAction) {
