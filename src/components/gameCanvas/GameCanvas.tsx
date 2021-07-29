@@ -19,6 +19,7 @@ import {
 import { GameHUD } from 'components';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 import { MENU_ACTIONS } from 'constants/menuConstants';
+import { useWindowSize } from 'hooks';
 
 import './gameCanvas.scss';
 
@@ -54,6 +55,8 @@ const GameCanvas: FC<IGameCanvas> = (
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const windowSize = useWindowSize();
+  const [ canvasHeight, setCanvasHeight ] = useState<number|undefined>(GAME_OPTIONS.GAME_AREA_HEIGHT);
   const [ hull, setHull ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
 
@@ -70,6 +73,8 @@ const GameCanvas: FC<IGameCanvas> = (
     });
 
     gameMain.togglePauseStatus();
+
+    setCanvasHeight(windowSize.height);
 
     return () => {
       gameMain.unsetControlsAndSubscriptions();
@@ -150,7 +155,7 @@ const GameCanvas: FC<IGameCanvas> = (
 
   return (
     <div className='game-canvas-wrapper'>
-      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT} />
+      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.GAME_AREA_WIDTH} height={canvasHeight} />
       <GameHUD hullStrength={hull} distance={score} />
     </div>
 

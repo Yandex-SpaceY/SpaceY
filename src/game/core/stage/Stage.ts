@@ -31,6 +31,10 @@ export default class Stage {
     return this._entities[key];
   }
 
+  clearStage(): void {
+    this._context.clearRect(0, 0, this._context.canvas.clientWidth, this._context.canvas.clientHeight);
+  }
+
   clearEntities(): void {
     this._entities = {};
   }
@@ -55,8 +59,13 @@ export default class Stage {
   }
 
   renderBackgroundPattern(width: number, height: number): void {
-    this._context.fillStyle = this._backgroundPattern as CanvasPattern;
-    this._context.fillRect(0, 0, width, height);
+    if (this._backgroundPattern) {
+      this._context.fillStyle = this._backgroundPattern as CanvasPattern;
+      this._context.fillRect(0, 0, width, height);
+    } else {
+      this.clearStage();
+      this._context.fillStyle = 'rgba(0, 0, 0, 0)';
+    }
   }
 
   renderEntities(key?: string): void {

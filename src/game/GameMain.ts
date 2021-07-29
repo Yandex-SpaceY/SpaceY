@@ -119,14 +119,14 @@ export default class GameMain {
   }
 
   initWalls(wallsEntitiesKey: string): void {
-    const numberOfWalls = Math.ceil(this.canvas.height / 96) + 1;
+    const numberOfWalls = Math.ceil(this.canvas.height / 95) + 1;
     for (let i = 1; i <= numberOfWalls; i++) {
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: 0 - 42, y: this.canvas.height - i * 96 })]);
+        [new Wall({ x: 0 - 42, y: this.canvas.height - i * 95 })]);
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: this.canvas.width - 85 + 42, y: this.canvas.height - i * 96 })]);
+        [new Wall({ x: this.canvas.width - 85 + 42, y: this.canvas.height - i * 95 })]);
     }
   }
 

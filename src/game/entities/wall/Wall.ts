@@ -9,7 +9,7 @@ export default class Wall extends Entity {
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 34 },
-        size: { width: 85, height: 96 }
+        size: { width: 85, height: 95 }
       }),
       GAME_SETTINGS.WALL_BASE_SPEED,
     );
@@ -21,7 +21,7 @@ export default class Wall extends Entity {
 
     // Transfer to start if offscreen for loop
     if (this.position.y > canvasHeight) {
-      this.position.y = 0 - 96;
+      this.position.y = 0 - 95;
     }
   }
 }
