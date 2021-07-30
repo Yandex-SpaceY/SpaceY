@@ -21,7 +21,7 @@ export default class Wall extends Entity {
 
     // Transfer to start if offscreen for loop
     if (this.position.y > canvasHeight) {
-      this.position.y = 0 - 95;
+      this.position.y = 0 - this.getSize().height;
     }
   }
 }

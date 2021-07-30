@@ -64,8 +64,11 @@ export default class Stage {
       this._context.fillRect(0, 0, width, height);
     } else {
       this.clearStage();
-      this._context.fillStyle = 'rgba(0, 0, 0, 0)';
     }
+
+    // Uncomment for sprite debugging
+    /* this._context.fillStyle = 'rgba(255, 255, 255, 1)';
+    this._context.fillRect(0, 0, width, height); */
   }
 
   renderEntities(key?: string): void {

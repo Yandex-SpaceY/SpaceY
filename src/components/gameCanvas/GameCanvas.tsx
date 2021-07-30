@@ -56,7 +56,7 @@ const GameCanvas: FC<IGameCanvas> = (
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const windowSize = useWindowSize();
-  const [ canvasHeight, setCanvasHeight ] = useState<number|undefined>(GAME_OPTIONS.GAME_AREA_HEIGHT);
+  const [ canvasHeight, setCanvasHeight ] = useState<number|undefined>(windowSize.height);
   const [ hull, setHull ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
 
@@ -80,8 +80,10 @@ const GameCanvas: FC<IGameCanvas> = (
   }, []);
 
   useEffect(() => {
-    console.log('bbb', windowSize);
-    setCanvasHeight(windowSize.height);
+    if (canvasHeight !== windowSize.height) {
+      setCanvasHeight(windowSize.height);
+      reinitGame();
+    }
   }, [windowSize]);
 
   useEffect(() => {
@@ -146,6 +148,10 @@ const GameCanvas: FC<IGameCanvas> = (
   const restartGame = useCallback(() => {
     gameMain.init();
     gameMain.setPauseStatus(false);
+  }, []);
+
+  const reinitGame = useCallback(() => {
+    gameMain.init();
   }, []);
 
   const setGameSoundStatus = useCallback((status: boolean) => {

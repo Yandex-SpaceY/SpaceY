@@ -121,31 +121,45 @@ export default class GameMain {
   }
 
   initWalls(wallsEntitiesKey: string): void {
-    const numberOfWalls = Math.ceil(this.canvas.height / 95) + 1;
+    const wallSpriteWidth = 85;
+    const wallSpriteHeight = 95;
+
+    const numberOfWalls = Math.ceil(this.canvas.height / wallSpriteHeight) + 1;
     for (let i = 1; i <= numberOfWalls; i++) {
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: 0 - 42, y: this.canvas.height - i * 95 })]);
+        [
+          new Wall({
+            x: 0 - GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
+            y: this.canvas.height - i * wallSpriteHeight })
+        ]);
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: this.canvas.width - 85 + 42, y: this.canvas.height - i * 95 })]);
+        [
+          new Wall({
+            x: this.canvas.width - wallSpriteWidth + GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
+            y: this.canvas.height - i * wallSpriteHeight
+          })
+        ]);
     }
   }
 
   generateObstacles(obstaclesEntitiesKey: string): void {
     const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
+    const obstacleSpriteWidth = 187;
+    const obstacleSpriteHeight = 85;
 
     if (Math.random() < 1 - Math.pow(0.993, this.gameTime)) {
       const position: TCoordinates = { x: 0, y: 0 };
       if (Math.random() < 0.5) {
-        position.x = 42;
-        position.y = -85;
+        position.x = GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE;
+        position.y = -obstacleSpriteHeight;
       } else {
-        position.x = this.canvas.width - 42 - 187;
-        position.y = -85;
+        position.x = this.canvas.width - GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE - obstacleSpriteWidth;
+        position.y = -obstacleSpriteHeight;
       }
       if (obstacles.length > 0) {
-        if (obstacles[obstacles.length - 1].position.y > 84) {
+        if (obstacles[obstacles.length - 1].position.y > obstacleSpriteHeight) {
           this.stage!.addEntitiesToKey(
             obstaclesEntitiesKey,
             [new Obstacle(position)]
@@ -175,7 +189,9 @@ export default class GameMain {
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
-    this.ship!.position = { x: this.canvas.width / 2 - 102 - 17, y: this.canvas.height - 120 };
+    this.ship!.position = {
+      x: GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE,
+      y: (this.canvas.height / 2) + (GAME_SETTINGS.GAME_AREA_HEIGHT / 2) - GAME_SETTINGS.SPACESHIP_MARGIN_FROM_BOTTOM };
 
     this.initWalls(GAME_SETTINGS.WALLS_ENTITIES_KEY);
   }

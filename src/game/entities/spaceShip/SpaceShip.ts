@@ -37,13 +37,15 @@ export default class SpaceShip extends Entity {
 
   update(dt: number, canvasWidth: number): void {
     if (this.side === SHIP_SIDE.RIGHT && this.state === SHIP_STATE.SHIFT) {
-      if (this.position.x < canvasWidth / 2 + 102 - 17) {
+      if (this.position.x
+        < (canvasWidth - GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE - this.getSize().width)
+      ) {
         this.position.x += this.speed! * dt;
       } else {
         this.state = SHIP_STATE.FLIGHT;
       }
     } else if (this.side === SHIP_SIDE.LEFT && this.state === SHIP_STATE.SHIFT) {
-      if (this.position.x > canvasWidth / 2 - 102 - 17) {
+      if (this.position.x > GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE) {
         this.position.x -= this.speed! * dt;
       } else {
         this.state = SHIP_STATE.FLIGHT;
