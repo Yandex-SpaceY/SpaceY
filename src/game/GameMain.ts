@@ -4,7 +4,7 @@ import { boxCollides } from 'game/core/utils';
 import { GAME_CONTROLS, GAME_SETTINGS } from 'game/constants';
 import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
-import { Obstacle, SpaceShip, Wall } from 'game/entities';
+import { Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
 import { VibrationController } from 'game/core/';
 
@@ -25,6 +25,7 @@ export default class GameMain {
 
   ship: SpaceShip | null;
 
+  pixelCount: number;
   score: number;
   col: number;
 
@@ -63,6 +64,7 @@ export default class GameMain {
 
     this.ship = null;
 
+    this.pixelCount = 0;
     this.score = 0;
     this.col = 0;
 
@@ -236,6 +238,12 @@ export default class GameMain {
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
         this.col++;
+        if (this.ship!.status === SHIP_STATUS.NORMAL) {
+          this.ship!.setStatusToDamage();
+          setTimeout(() => {
+            this.ship!.setStatusToNormal();
+          }, 500);
+        }
         if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
           this.vibrationController.startPersistentVibrate([200], 100);
         }
@@ -253,11 +261,14 @@ export default class GameMain {
   update(dt: number): void {
     if (!this.isGamePaused) {
       this.gameTime += dt;
+      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * dt;
 
       this.updateEntities(dt);
       this.generateObstacles(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
-
-      this.score++;
+      if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT) {
+        this.score++;
+        this.pixelCount = 0;
+      }
 
       if (this.col >= this.ship!.hullStrength) {
         if (!this.isGameOver) {

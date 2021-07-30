@@ -8,7 +8,7 @@ export default class Obstacle extends Entity {
       initialPosition,
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
-        startCoordinates: { x: 0, y: 131 },
+        startCoordinates: { x: 0, y: 133 },
         size: { width: 187, height: 84 }
       }),
       GAME_SETTINGS.OBSTACLE_BASE_SPEED,

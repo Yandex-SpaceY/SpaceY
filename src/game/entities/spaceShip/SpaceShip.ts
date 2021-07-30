@@ -12,9 +12,15 @@ export enum SHIP_SIDE {
   RIGHT = 'right',
 }
 
+export enum SHIP_STATUS {
+  NORMAL = 'normal',
+  DAMAGE = 'damage',
+}
+
 export default class SpaceShip extends Entity {
-  state: SHIP_STATE;
   side: SHIP_SIDE;
+  state: SHIP_STATE;
+  status: SHIP_STATUS;
   hullStrength: number;
 
   constructor(initialPosition: TCoordinates) {
@@ -23,15 +29,16 @@ export default class SpaceShip extends Entity {
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 0 },
-        size: { width: 34, height: 34 },
+        size: { width: 36, height: 35 },
         animationSpeed: 13,
         animationFrames: [ 0, 1 ]
       }),
       GAME_SETTINGS.SPACESHIP_BASE_SPEED,
     );
 
-    this.state = SHIP_STATE.FLIGHT;
     this.side = SHIP_SIDE.LEFT;
+    this.state = SHIP_STATE.FLIGHT;
+    this.status = SHIP_STATUS.NORMAL;
     this.hullStrength = GAME_SETTINGS.SHIP_HULL_STRENGTH;
   }
 
@@ -62,5 +69,38 @@ export default class SpaceShip extends Entity {
       this.side = SHIP_SIDE.RIGHT;
       this.state = SHIP_STATE.SHIFT;
     }
+  }
+
+  changeStatus(status: SHIP_STATUS): void {
+    switch (status) {
+      case SHIP_STATUS.NORMAL:
+        this.setSprite(new Sprite({
+          resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
+          startCoordinates: { x: 0, y: 0 },
+          size: { width: 36, height: 35 },
+          animationSpeed: 13,
+          animationFrames: [ 0, 1 ]
+        }),);
+        break;
+      case SHIP_STATUS.DAMAGE:
+        this.setSprite(new Sprite({
+          resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
+          startCoordinates: { x: 0, y: 0 },
+          size: { width: 36, height: 35 },
+          animationSpeed: 13,
+          animationFrames: [ 0, 2 ]
+        }),);
+        break;
+      default:
+        break;
+    }
+  }
+
+  setStatusToDamage(): void {
+    this.changeStatus(SHIP_STATUS.DAMAGE);
+  }
+
+  setStatusToNormal(): void {
+    this.changeStatus(SHIP_STATUS.NORMAL);
   }
 }

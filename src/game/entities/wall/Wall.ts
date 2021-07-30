@@ -8,7 +8,7 @@ export default class Wall extends Entity {
       initialPosition,
       new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
-        startCoordinates: { x: 0, y: 34 },
+        startCoordinates: { x: 0, y: 36 },
         size: { width: 85, height: 95 }
       }),
       GAME_SETTINGS.WALL_BASE_SPEED,
