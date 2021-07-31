@@ -26,6 +26,7 @@ export default class GameMain {
   ship: SpaceShip | null;
 
   pixelCount: number;
+  isShipDestroyed: boolean;
   score: number;
   col: number;
 
@@ -65,6 +66,7 @@ export default class GameMain {
     this.ship = null;
 
     this.pixelCount = 0;
+    this.isShipDestroyed = false;
     this.score = 0;
     this.col = 0;
 
@@ -96,7 +98,7 @@ export default class GameMain {
 
   handleKeyControls = (event: KeyboardEvent): void => {
     if (event.code === GAME_CONTROLS.SHIFT) {
-      if (!this.isGamePaused) {
+      if (!this.isGamePaused && !this.isShipDestroyed) {
         this.ship!.actionShift();
       }
     } else if (event.code === GAME_CONTROLS.PAUSE) {
@@ -127,13 +129,18 @@ export default class GameMain {
     const wallSpriteHeight = 95;
 
     const numberOfWalls = Math.ceil(this.canvas.height / wallSpriteHeight) + 1;
+    const wallLoopStartShift = (numberOfWalls * wallSpriteHeight) - this.canvas.height - wallSpriteHeight;
+
     for (let i = 1; i <= numberOfWalls; i++) {
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
         [
           new Wall({
             x: 0 - GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
-            y: this.canvas.height - i * wallSpriteHeight })
+            y: this.canvas.height - i * wallSpriteHeight
+          },
+          wallLoopStartShift
+          )
         ]);
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
@@ -141,7 +148,9 @@ export default class GameMain {
           new Wall({
             x: this.canvas.width - wallSpriteWidth + GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
             y: this.canvas.height - i * wallSpriteHeight
-          })
+          },
+          wallLoopStartShift
+          )
         ]);
     }
   }
@@ -181,6 +190,7 @@ export default class GameMain {
     this.setGameOverStatus(this.isGameOver);
 
     this.gameTime = 0;
+    this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
 
@@ -200,14 +210,7 @@ export default class GameMain {
 
   render(): void {
     this.stage!.renderBackgroundPattern(this.canvas.width, this.canvas.height);
-
-    // Render the player if the game isn't over
-    if (!this.isGameOver) {
-      this.stage!.renderEntities(GAME_SETTINGS.SPACESHIP_ENTITY_KEY);
-    }
-
-    this.stage!.renderEntities(GAME_SETTINGS.WALLS_ENTITIES_KEY);
-    this.stage!.renderEntities(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
+    this.stage!.renderEntities();
   }
 
   updateEntities(dt: number): void {
@@ -237,11 +240,15 @@ export default class GameMain {
       const size = obstacle.getSize();
 
       if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
-        this.col++;
+        if (!this.isShipDestroyed) {
+          this.col++;
+        }
         if (this.ship!.status === SHIP_STATUS.NORMAL) {
           this.ship!.setStatusToDamage();
           setTimeout(() => {
-            this.ship!.setStatusToNormal();
+            if (!this.isGameOver && this.ship!.status === SHIP_STATUS.DESTROYED) {
+              this.ship!.setStatusToNormal();
+            }
           }, 500);
         }
         if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
@@ -265,13 +272,18 @@ export default class GameMain {
 
       this.updateEntities(dt);
       this.generateObstacles(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
-      if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT) {
+      if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT && !this.isShipDestroyed) {
         this.score++;
         this.pixelCount = 0;
       }
 
       if (this.col >= this.ship!.hullStrength) {
-        if (!this.isGameOver) {
+        if (this.ship!.status !== SHIP_STATUS.DESTROYED) {
+          console.log(this.ship!.status);
+          this.isShipDestroyed = true;
+          this.ship!.setStatusToDestroyed();
+        }
+        if (this.ship!.sprite.animationDone && !this.isGameOver) {
           this.isGameOver = true;
           this.setGameOverStatus(this.isGameOver);
         }
