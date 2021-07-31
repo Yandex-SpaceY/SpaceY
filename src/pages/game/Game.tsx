@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addToLeaderboard } from 'api/leaderboardApi';
-import { GameCanvas, GameOver, Menu, PageMeta, TMenuItem } from 'components';
+import { GameCanvas, GameOver, Menu, MenuHamburger, PageMeta, TMenuItem } from 'components';
 import {
   gameIsGameStartedSelector,
   gameIsGamePausedSelector,
@@ -34,6 +34,10 @@ const Game: FC = (): ReactElement => {
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
   const [ isMenuWithTitle, setIsMenuWithTitle ] = useState<boolean>(true);
   const [ isSoundOnPrev, setIsSoundOnPrev ] = useState<boolean>(isSoundOn);
+
+  useEffect(() => {
+    dispatch(setIsGamePaused(true));
+  }, []);
 
   useEffect(() => {
     if (!isWindowActive) {
@@ -81,6 +85,10 @@ const Game: FC = (): ReactElement => {
     setMenuAction(null);
   };
 
+  const handleHamburgerOnClick = () => {
+    dispatch(setIsGamePaused(true));
+  };
+
   return (
     <div className='main game'>
       <PageMeta />
@@ -100,6 +108,7 @@ const Game: FC = (): ReactElement => {
           isWithTitle={isMenuWithTitle}
           modifier={{ sound: isSoundOn, vibration: isVibrationOn }}
         />
+        <MenuHamburger isShown={isGameStarted && !isGamePaused && !isGameOver} onClick={handleHamburgerOnClick}/>
       </div>
     </div>
   );

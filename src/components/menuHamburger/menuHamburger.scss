@@ -1,0 +1,30 @@
+@import 'style/variables';
+
+.menu-hamburger {
+  position: absolute;
+  top: 35px;
+  right: 25px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.menu-hamburger span,
+.menu-hamburger span::before,
+.menu-hamburger span::after {
+  position: absolute;
+  display: block;
+  width: 35px;
+  height: 5px;
+  background: $text_main_color;
+  border-radius: 1px;
+  content: '';
+}
+
+.menu-hamburger span::before {
+  top: -10px;
+}
+
+.menu-hamburger span::after {
+  bottom: -10px;
+}
