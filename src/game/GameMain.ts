@@ -197,7 +197,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
-    this.speedModifierRefernce.speedModifier = 1;
+    this.speedModifierRefernce.speedModifier = GAME_SETTINGS.BASE_SPEED_MODIFIER;
 
     this.setHull(this.ship!.hullStrength);
 
@@ -273,13 +273,17 @@ export default class GameMain {
   update(dt: number): void {
     if (!this.isGamePaused) {
       this.gameTime += dt;
-      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * dt;
+      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * GAME_SETTINGS.BASE_SPEED_MODIFIER * dt;
 
       this.updateEntities(dt);
       this.generateObstacles(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
       if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT && !this.isShipDestroyed) {
         this.score++;
         this.pixelCount = 0;
+
+        if (this.score % GAME_SETTINGS.DISTANCE_TO_INCREASE_SPEED === 0 && this.pixelCount === 0) {
+          this.speedModifierRefernce.speedModifier += GAME_SETTINGS.SPEED_MODIFIER_INCREMENT;
+        }
       }
 
       if (this.col >= this.ship!.hullStrength) {

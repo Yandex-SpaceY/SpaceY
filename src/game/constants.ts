@@ -5,7 +5,10 @@ export const GAME_SETTINGS = {
   MAIN_STAGE_BACKGROUND_PATH: './assets/bg.png',
   MAIN_MUSIC_PATH: './assets/music.mp3',
   MAIN_MUSIC_VOLUME: 0.2,
-  PIXELS_PER_DISTANCE_UNIT: 10,
+  PIXELS_PER_DISTANCE_UNIT: 10, // Number of pixel passed to increase score distance
+  BASE_SPEED_MODIFIER: 1,
+  SPEED_MODIFIER_INCREMENT: 0.1,
+  DISTANCE_TO_INCREASE_SPEED: 200, // Number of distance passed to increase speed modifier
   SPACESHIP_ENTITY_KEY: 'ship',
   SPACESHIP_BASE_SPEED: 300,
   SPACESHIP_MARGIN_FROM_BOTTOM: 120,

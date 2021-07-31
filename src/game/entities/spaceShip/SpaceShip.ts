@@ -1,6 +1,6 @@
 import { GAME_SETTINGS } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates } from 'game/core/types';
+import { TCoordinates, TSpeedModifierRefernce } from 'game/core/types';
 
 export enum SHIP_STATE {
   FLIGHT = 'flight',
@@ -24,7 +24,7 @@ export default class SpaceShip extends Entity {
   status: SHIP_STATUS;
   hullStrength: number;
 
-  constructor(initialPosition: TCoordinates) {
+  constructor(initialPosition: TCoordinates, speedModifier?: TSpeedModifierRefernce) {
     super(
       initialPosition,
       new Sprite({
@@ -35,6 +35,7 @@ export default class SpaceShip extends Entity {
         animationFrames: [ 0, 1 ]
       }),
       GAME_SETTINGS.SPACESHIP_BASE_SPEED,
+      speedModifier
     );
 
     this.side = SHIP_SIDE.LEFT;
@@ -48,13 +49,19 @@ export default class SpaceShip extends Entity {
       if (this.position.x
         < (canvasWidth - GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE - this.getSize().width)
       ) {
-        this.position.x += this.speed! * dt;
+        this.position.x
+          += this.speed!
+          * dt
+          * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
       } else {
         this.state = SHIP_STATE.FLIGHT;
       }
     } else if (this.side === SHIP_SIDE.LEFT && this.state === SHIP_STATE.SHIFT) {
       if (this.position.x > GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE) {
-        this.position.x -= this.speed! * dt;
+        this.position.x
+          -= this.speed!
+          * dt
+          * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
       } else {
         this.state = SHIP_STATE.FLIGHT;
       }
