@@ -244,7 +244,7 @@ export default class GameMain {
       const pos = obstacle.position;
       const size = obstacle.getSize();
 
-      if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
+      if (boxCollides(pos, size, this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize())) {
         if (!this.isShipDestroyed) {
           this.col++;
         }

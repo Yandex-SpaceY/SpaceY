@@ -6,17 +6,26 @@ export default class Entity {
   position: TCoordinates;
   speed: number | null;
   speedModifierRefernce?: TSpeedModifierRefernce;
+  hitBoxStartPoint?: TCoordinates | null;
+  hitBoxSize?: TSize | null;
 
-  constructor(
+  constructor(props: {
     initialPosition: TCoordinates,
-    sprite: Sprite, speed?: number,
-    speedModifierRefernce?: TSpeedModifierRefernce
+    sprite: Sprite,
+    speed?: number,
+    speedModifierRefernce?: TSpeedModifierRefernce,
+    hitBoxStartPoint?: TCoordinates,
+    hitBoxSize?: TSize,
+  }
   ) {
-    this.sprite = sprite;
+    this.sprite = props.sprite;
 
-    this.position = initialPosition;
-    this.speed = speed || null;
-    this.speedModifierRefernce = speedModifierRefernce || { speedModifier: 1 };
+    this.position = props.initialPosition;
+    this.speed = props.speed || null;
+    this.speedModifierRefernce = props.speedModifierRefernce || { speedModifier: 1 };
+
+    this.hitBoxStartPoint = props.hitBoxStartPoint || null;
+    this.hitBoxSize = props.hitBoxSize || null;
   }
 
   setSprite(sprite: Sprite): void {
@@ -25,6 +34,25 @@ export default class Entity {
 
   getSize(): TSize {
     return this.sprite.size;
+  }
+
+  getHitBoxSize(): TSize {
+    if (this.hitBoxSize) {
+      return this.hitBoxSize;
+    } else {
+      return this.sprite.size;
+    }
+  }
+
+  getHitBoxPosition(): TCoordinates {
+    if (this.hitBoxStartPoint) {
+      return {
+        x: this.position.x + this.hitBoxStartPoint.x,
+        y: this.position.y + this.hitBoxStartPoint.y
+      };
+    } else {
+      return this.position;
+    }
   }
 
   render(stage: Stage): void {

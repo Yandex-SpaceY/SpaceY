@@ -24,19 +24,21 @@ export default class SpaceShip extends Entity {
   status: SHIP_STATUS;
   hullStrength: number;
 
-  constructor(initialPosition: TCoordinates, speedModifier?: TSpeedModifierRefernce) {
-    super(
+  constructor(initialPosition: TCoordinates, speedModifierRefernce?: TSpeedModifierRefernce) {
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 0 },
         size: { width: 36, height: 35 },
         animationSpeed: 13,
         animationFrames: [ 0, 1 ]
       }),
-      GAME_SETTINGS.SPACESHIP_BASE_SPEED,
-      speedModifier
-    );
+      speed: GAME_SETTINGS.SPACESHIP_BASE_SPEED,
+      speedModifierRefernce,
+      hitBoxStartPoint: { x: 1, y: 1 },
+      hitBoxSize: { width: 33, height: 31 }
+    });
 
     this.side = SHIP_SIDE.LEFT;
     this.state = SHIP_STATE.FLIGHT;

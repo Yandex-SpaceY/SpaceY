@@ -3,17 +3,17 @@ import { Entity, Sprite } from 'game/core';
 import { TCoordinates, TSpeedModifierRefernce } from 'game/core/types';
 
 export default class Obstacle extends Entity {
-  constructor(initialPosition: TCoordinates, speedModifier?: TSpeedModifierRefernce) {
-    super(
+  constructor(initialPosition: TCoordinates, speedModifierRefernce?: TSpeedModifierRefernce) {
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 133 },
         size: { width: 187, height: 84 }
       }),
-      GAME_SETTINGS.OBSTACLE_BASE_SPEED,
-      speedModifier
-    );
+      speed: GAME_SETTINGS.OBSTACLE_BASE_SPEED,
+      speedModifierRefernce
+    });
   }
 
   update(dt: number): void {

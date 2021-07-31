@@ -10,16 +10,16 @@ export default class Wall extends Entity {
     wallLoopStartPoint?: number,
     speedModifierRefernce?: TSpeedModifierRefernce
   ) {
-    super(
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 36 },
         size: { width: 85, height: 95 }
       }),
-      GAME_SETTINGS.WALL_BASE_SPEED,
+      speed: GAME_SETTINGS.WALL_BASE_SPEED,
       speedModifierRefernce
-    );
+    });
 
     if (wallLoopStartPoint) {
       this.wallLoopStartShift = wallLoopStartPoint;
