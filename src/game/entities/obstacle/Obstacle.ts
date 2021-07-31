@@ -1,9 +1,9 @@
 import { GAME_SETTINGS } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates } from 'game/core/types';
+import { TCoordinates, TSpeedModifierRefernce } from 'game/core/types';
 
 export default class Obstacle extends Entity {
-  constructor(initialPosition: TCoordinates) {
+  constructor(initialPosition: TCoordinates, speedModifier?: TSpeedModifierRefernce) {
     super(
       initialPosition,
       new Sprite({
@@ -12,11 +12,11 @@ export default class Obstacle extends Entity {
         size: { width: 187, height: 84 }
       }),
       GAME_SETTINGS.OBSTACLE_BASE_SPEED,
+      speedModifier
     );
   }
 
   update(dt: number): void {
-    this.position.y += this.speed! * dt;
-    this.updateSpriteAnimation(dt);
+    this.position.y += this.speed! * dt * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
   }
 }

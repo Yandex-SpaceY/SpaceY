@@ -1,16 +1,22 @@
-import { TCoordinates, TSize } from 'game/core/types';
+import { TCoordinates, TSize, TSpeedModifierRefernce } from 'game/core/types';
 import { Stage, Sprite } from 'game/core';
 
 export default class Entity {
   sprite: Sprite;
   position: TCoordinates;
-  speed: number | null
+  speed: number | null;
+  speedModifierRefernce?: TSpeedModifierRefernce;
 
-  constructor(initialPosition: TCoordinates, sprite: Sprite, speed?: number) {
+  constructor(
+    initialPosition: TCoordinates,
+    sprite: Sprite, speed?: number,
+    speedModifierRefernce?: TSpeedModifierRefernce
+  ) {
     this.sprite = sprite;
 
     this.position = initialPosition;
     this.speed = speed || null;
+    this.speedModifierRefernce = speedModifierRefernce || { speedModifier: 1 };
   }
 
   setSprite(sprite: Sprite): void {

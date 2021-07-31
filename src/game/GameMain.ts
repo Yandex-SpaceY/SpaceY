@@ -29,6 +29,7 @@ export default class GameMain {
   isShipDestroyed: boolean;
   score: number;
   col: number;
+  speedModifierRefernce: { speedModifier: number }
 
   stage: Stage | null;
 
@@ -69,6 +70,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.score = 0;
     this.col = 0;
+    this.speedModifierRefernce = { speedModifier: 1 };
 
     this.stage = null;
     this.bgMusic = new Sound(GAME_SETTINGS.MAIN_MUSIC_PATH);
@@ -128,8 +130,8 @@ export default class GameMain {
     const wallSpriteWidth = 85;
     const wallSpriteHeight = 95;
 
-    const numberOfWalls = Math.ceil(this.canvas.height / wallSpriteHeight) + 1;
-    const wallLoopStartShift = (numberOfWalls * wallSpriteHeight) - this.canvas.height - wallSpriteHeight;
+    const numberOfWalls = Math.ceil(this.canvas.height / wallSpriteHeight) + 2;
+    const wallLoopStartShift = ((numberOfWalls - 1) * wallSpriteHeight);
 
     for (let i = 1; i <= numberOfWalls; i++) {
       this.stage!.addEntitiesToKey(
@@ -139,7 +141,8 @@ export default class GameMain {
             x: 0 - GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
             y: this.canvas.height - i * wallSpriteHeight
           },
-          wallLoopStartShift
+          wallLoopStartShift,
+          this.speedModifierRefernce
           )
         ]);
       this.stage!.addEntitiesToKey(
@@ -149,7 +152,8 @@ export default class GameMain {
             x: this.canvas.width - wallSpriteWidth + GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
             y: this.canvas.height - i * wallSpriteHeight
           },
-          wallLoopStartShift
+          wallLoopStartShift,
+          this.speedModifierRefernce
           )
         ]);
     }
@@ -173,13 +177,13 @@ export default class GameMain {
         if (obstacles[obstacles.length - 1].position.y > obstacleSpriteHeight) {
           this.stage!.addEntitiesToKey(
             obstaclesEntitiesKey,
-            [new Obstacle(position)]
+            [new Obstacle(position, this.speedModifierRefernce)]
           );
         }
       } else {
         this.stage!.addEntitiesToKey(
           obstaclesEntitiesKey,
-          [new Obstacle(position)]
+          [new Obstacle(position, this.speedModifierRefernce)]
         );
       }
     }
@@ -193,6 +197,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
+    this.speedModifierRefernce.speedModifier = 1;
 
     this.setHull(this.ship!.hullStrength);
 
