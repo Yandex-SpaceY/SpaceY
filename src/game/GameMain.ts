@@ -246,7 +246,7 @@ export default class GameMain {
         if (this.ship!.status === SHIP_STATUS.NORMAL) {
           this.ship!.setStatusToDamage();
           setTimeout(() => {
-            if (!this.isGameOver && this.ship!.status === SHIP_STATUS.DESTROYED) {
+            if (!this.isGameOver && this.ship!.status !== SHIP_STATUS.DESTROYED) {
               this.ship!.setStatusToNormal();
             }
           }, 500);
@@ -279,7 +279,6 @@ export default class GameMain {
 
       if (this.col >= this.ship!.hullStrength) {
         if (this.ship!.status !== SHIP_STATUS.DESTROYED) {
-          console.log(this.ship!.status);
           this.isShipDestroyed = true;
           this.ship!.setStatusToDestroyed();
         }
