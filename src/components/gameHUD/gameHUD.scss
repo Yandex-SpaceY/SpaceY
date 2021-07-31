@@ -18,4 +18,8 @@
   .game-hud-label::after {
     content: ': ';
   }
+
+  .game-hud-strength.danger {
+    color: $error_main_color;
+  }
 }
