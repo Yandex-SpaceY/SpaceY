@@ -139,7 +139,7 @@ export default class GameMain {
         [
           new Wall({
             x: 0 - GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
-            y: this.canvas.height - i * wallSpriteHeight
+            y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
           },
           wallLoopStartShift,
           this.speedModifierRefernce
@@ -150,7 +150,7 @@ export default class GameMain {
         [
           new Wall({
             x: this.canvas.width - wallSpriteWidth + GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
-            y: this.canvas.height - i * wallSpriteHeight
+            y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
           },
           wallLoopStartShift,
           this.speedModifierRefernce
@@ -164,7 +164,9 @@ export default class GameMain {
     const obstacleSpriteWidth = 187;
     const obstacleSpriteHeight = 85;
 
-    if (Math.random() < 1 - Math.pow(0.993, this.gameTime)) {
+    if (
+      (Math.random() < 1 - Math.pow(0.993, this.gameTime))
+      && this.score > 20) {
       const position: TCoordinates = { x: 0, y: 0 };
       if (Math.random() < 0.5) {
         position.x = GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE;
