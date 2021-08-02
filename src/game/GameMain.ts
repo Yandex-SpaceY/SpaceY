@@ -85,6 +85,7 @@ export default class GameMain {
 
   setControls(): void {
     document.addEventListener('keydown', this.handleKeyControls);
+    this.canvas.addEventListener('touchstart', this.handleTouch, false);
   }
 
   clear(): void {
@@ -108,6 +109,12 @@ export default class GameMain {
       this.setGamePauseStatus(this.isGamePaused);
     }
   };
+
+  handleTouch = (): void => {
+    if (!this.isGamePaused && !this.isShipDestroyed) {
+      this.ship!.actionShift();
+    }
+  }
 
   setSoundStatus(status: boolean): void {
     this.isSoundOn = status;
