@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { boxCollides } from 'game/core/utils';
-import { GAME_CONTROLS, GAME_SETTINGS } from 'game/constants';
+import { GAME_CONTROLS, GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
 import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
 import { Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
@@ -166,37 +166,89 @@ export default class GameMain {
     }
   }
 
-  generateObstacles(obstaclesEntitiesKey: string): void {
-    const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
-    const obstacleSpriteWidth = 187;
-    const obstacleSpriteHeight = 85;
+  generateObstaclesWithOneSideCounter(obstaclesEntitiesKey: string): () => void {
+    // Closure for counting obstacles on one side in a row
+    let oneSideCounter = 0;
+    let isLeft = false;
+    let isLeftPrev = false;
+    let prevObstacleGap = OBSTACLE_TYPES.TYPE1.gap;
 
-    if (
-      (Math.random() < 1 - Math.pow(0.993, this.gameTime))
+    return (): void => {
+      const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
+
+      if (
+        (Math.random() < 1 - Math.pow(0.993, this.gameTime))
       && this.score > 20) {
-      const position: TCoordinates = { x: 0, y: 0 };
-      if (Math.random() < 0.5) {
-        position.x = GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE;
-        position.y = -obstacleSpriteHeight;
-      } else {
-        position.x = this.canvas.width - GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE - obstacleSpriteWidth;
-        position.y = -obstacleSpriteHeight;
-      }
-      if (obstacles.length > 0) {
-        if (obstacles[obstacles.length - 1].position.y > obstacleSpriteHeight) {
-          this.stage!.addEntitiesToKey(
-            obstaclesEntitiesKey,
-            [new Obstacle(position, this.speedModifierRefernce)]
-          );
+        const position: TCoordinates = { x: 0, y: 0 };
+        const seed = Math.random();
+
+        let obstacleType = OBSTACLE_TYPES.TYPE1.name;
+        let obstacleWidth = OBSTACLE_TYPES.TYPE1.width;
+        let obstacleGap = OBSTACLE_TYPES.TYPE1.gap;
+
+        if (seed > 0.333 && seed <= 0.666) {
+          obstacleType = OBSTACLE_TYPES.TYPE2.name;
+          obstacleWidth = OBSTACLE_TYPES.TYPE2.width;
+          obstacleGap = OBSTACLE_TYPES.TYPE2.gap;
+        } else
+        if (seed > 0.666) {
+          obstacleType = OBSTACLE_TYPES.TYPE3.name;
+          obstacleWidth = OBSTACLE_TYPES.TYPE3.width;
+          obstacleGap = OBSTACLE_TYPES.TYPE3.gap;
         }
-      } else {
+
+        const leftPosition = GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE;
+        const rightPosition = this.canvas.width - GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE - obstacleWidth;
+
+        if (Math.random() < 0.5) {
+          position.x = leftPosition;
+          position.y = -obstacleGap;
+          isLeft = true;
+        } else {
+          position.x = rightPosition;
+          position.y = -obstacleGap;
+          isLeft = false;
+        }
+
+        if (obstacles.length > 0) {
+          if (obstacles[obstacles.length - 1].position.y > prevObstacleGap) {
+
+            if (isLeft === isLeftPrev) {
+              oneSideCounter++;
+            } else {
+              oneSideCounter = 1;
+            }
+
+            if (oneSideCounter > GAME_SETTINGS.MAXIMUM_OBSTACLES_PER_SIDE) {
+              // Switch obstacle position to avoid long sequence obtacles on one side
+              if (isLeft) {
+                position.x = rightPosition;
+              } else {
+                position.x = leftPosition;
+              }
+
+              oneSideCounter = 0;
+            }
+
+            this.stage!.addEntitiesToKey(
+              obstaclesEntitiesKey,
+              [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
+            );
+
+            isLeftPrev = isLeft;
+            prevObstacleGap = obstacleGap;
+          }
+        } else {
         this.stage!.addEntitiesToKey(
           obstaclesEntitiesKey,
-          [new Obstacle(position, this.speedModifierRefernce)]
+          [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
         );
+        }
       }
-    }
+    };
   }
+
+  generateObstacles = this.generateObstaclesWithOneSideCounter(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
   reset(): void {
     this.isGameOver = false;
@@ -285,7 +337,7 @@ export default class GameMain {
       this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * GAME_SETTINGS.BASE_SPEED_MODIFIER * dt;
 
       this.updateEntities(dt);
-      this.generateObstacles(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
+      this.generateObstacles();
       if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT && !this.isShipDestroyed) {
         this.score++;
         this.pixelCount = 0;

@@ -16,10 +16,29 @@ export const GAME_SETTINGS = {
   OBSTACLES_ENTITIES_KEY: 'obstacles',
   OBSTACLE_BASE_SPEED: 100,
   OBSTACLE_MARGIN_FROM_SIDE: 42,
+  MAXIMUM_OBSTACLES_PER_SIDE: 5, // Maximum number of obstacles in a raw on one side
   WALLS_ENTITIES_KEY: 'walls',
   WALL_BASE_SPEED: 100,
   WALL_VISIBLE_PART_FROM_SIDE: 42,
   SHIP_HULL_STRENGTH: 100,
+};
+
+export const OBSTACLE_TYPES = {
+  TYPE1: {
+    name: 'TYPE1',
+    width: 187,
+    gap: 85,
+  },
+  TYPE2: {
+    name: 'TYPE2',
+    width: 187,
+    gap: 65,
+  },
+  TYPE3: {
+    name: 'TYPE3',
+    width: 84,
+    gap: 56,
+  },
 };
 
 export enum GAME_KEYS {
