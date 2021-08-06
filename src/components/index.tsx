@@ -10,3 +10,4 @@ export { default as Oops } from 'components/oops/Oops';
 export { default as Pagination } from 'components/pagination/Pagination';
 export { default as PageMeta } from 'components/pageMeta/PageMeta';
 export { default as Spinner } from 'components/spinner/Spinner';
+export { default as NotificationModal } from 'components/notificationModal/NotificationModal';
