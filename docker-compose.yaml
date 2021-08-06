@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  space-y-server:
+    build:
+      context: .
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_URL: ${POSTGRES_URL}
+      NODE_ENV: ${NODE_ENV}
+      PORT: ${PORT}
+    ports:
+      - '5000:${PORT}'
+    restart: always
+    networks:
+      - space-y-net
+
+  postgres:
+    container_name: pg-server
+    image: postgres:11
+    ports:
+      - '54322:${POSTGRES_PORT}'
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    networks:
+      - space-y-net
+
+networks:
+  space-y-net:
+    driver: bridge
