@@ -56,7 +56,8 @@ const GameCanvas: FC<IGameCanvas> = (
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const windowSize = useWindowSize();
-  const [ canvasHeight, setCanvasHeight ] = useState<number|undefined>(windowSize.height);
+
+  const [ canvasHeight, setCanvasHeight ] = useState<number | undefined>(windowSize.height);
   const [ hull, setHull ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
 

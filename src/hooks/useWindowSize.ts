@@ -25,11 +25,10 @@ const useWindowSize = ():TWindowSize => {
   useEffect(() => {
     const handleResize = () => {
 
-      setWindowSize(prevState => ({
-        ...prevState,
+      setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
-      }));
+      });
     };
 
     if (!isServer) {

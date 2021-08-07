@@ -9,13 +9,10 @@ interface IMenuHamburger {
   isShown?: boolean;
 }
 
-const MenuHamburger: FC<IMenuHamburger> = ({ onClick, className, isShown = false }): ReactElement => {
-
-  return (
-    <div className={cn('menu-hamburger', className, (!isShown && 'hidden'))} onClick={onClick}>
-      <span></span>
-    </div>
-  );
-};
+const MenuHamburger: FC<IMenuHamburger> = ({ onClick, className, isShown = false }): ReactElement => (
+  <div className={cn('menu-hamburger', className, (!isShown && 'hidden'))} onClick={onClick}>
+    <span></span>
+  </div>
+);
 
 export default MenuHamburger;

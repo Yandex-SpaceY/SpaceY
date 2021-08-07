@@ -60,9 +60,7 @@ export default class SpaceShip extends Entity {
       }
     } else if (this.side === SHIP_SIDE.LEFT && this.state === SHIP_STATE.SHIFT) {
       if (this.position.x > GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE) {
-        this.position.x
-          -= this.speed!
-          * dt
+        this.position.x -= this.speed! * dt
           * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
       } else {
         this.state = SHIP_STATE.FLIGHT;

@@ -39,9 +39,9 @@ export default class Entity {
   getHitBoxSize(): TSize {
     if (this.hitBoxSize) {
       return this.hitBoxSize;
-    } else {
-      return this.sprite.size;
     }
+
+    return this.sprite.size;
   }
 
   getHitBoxPosition(): TCoordinates {
