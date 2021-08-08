@@ -9,16 +9,18 @@ export const findOrCreateUser = async (
   res: Response
 ): Promise<Response> => {
   const { id, login } = req.body;
-  const transaction = await sequelize.transaction();
+  let transaction;
 
   try {
     let user = await User.findByPk(id, {
       include: [Setting]
     });
+
     if (user) {
       return res.status(200).json({ payload: user });
     }
 
+    transaction = await sequelize.transaction();
     const setting = await Setting.create({}, { transaction });
     user = await User.create({ id, login, settingId: setting.id }, { transaction });
 
@@ -26,7 +28,9 @@ export const findOrCreateUser = async (
 
     return res.status(200).json({ payload: { ...user.get({ plain: true }), setting } });
   } catch (error) {
-    await transaction.rollback();
+    if (transaction) {
+      await transaction.rollback();
+    }
 
     return res.status(500).json({ error });
   }

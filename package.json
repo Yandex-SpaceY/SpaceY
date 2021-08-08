@@ -9,7 +9,7 @@
     "start:server": "wait-on dist/server.js && node dist/server.js",
     "start": "npm run clean && npm-run-all --print-label --parallel start:*",
     "build": "npm run clean  && cross-env NODE_ENV=production && webpack --mode production",
-    "watch:server": "nodemon \"./dist/server.js\" --watch \"./dist\"",
+    "watch:server": "nodemon ./dist/server.js --watch ./dist",
     "watch:build": "cross-env NODE_ENV=development && webpack --mode production --watch",
     "watch:start": "npm-run-all --parallel watch:build watch:server",
     "lint": "eslint . --fix --ext .ts,.tsx,.js && stylelint --fix **/*.scss",
