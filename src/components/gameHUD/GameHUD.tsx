@@ -14,7 +14,7 @@ interface IGameHUD {
 const Button: FC<IGameHUD> = ({ hullStrength, distance, className }): ReactElement => (
   <div className={cn('game-hud', className)}>
     <ul>
-      <li className={cn('game-hud-line', 'game-hud-strength', (hullStrength < 35 && 'danger'))}>
+      <li className={cn('game-hud-line', 'game-hud-strength', (hullStrength < 35 && 'game-hud-danger'))}>
         <span className='game-hud-label'>{GAME_OPTIONS.HULL_STRENGTH_LABLE}</span>
         {hullStrength}
       </li>

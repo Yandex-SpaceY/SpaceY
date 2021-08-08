@@ -8,6 +8,6 @@ export type TSize = {
   height: number,
 };
 
-export type TSpeedModifierRefernce = {
+export type TSpeedModifierReference = {
   speedModifier: number,
 }

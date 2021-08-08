@@ -1,23 +1,24 @@
-import { TCoordinates, TSize, TSpeedModifierRefernce } from 'game/core/types';
+import { TCoordinates, TSize, TSpeedModifierReference } from 'game/core/types';
 import { Stage, Sprite } from 'game/core';
+
+interface EntityProps {
+  initialPosition: TCoordinates;
+  sprite: Sprite;
+  speed?: number;
+  speedModifierRefernce?: TSpeedModifierReference;
+  hitBoxStartPoint?: TCoordinates;
+  hitBoxSize?: TSize;
+}
 
 export default class Entity {
   sprite: Sprite;
   position: TCoordinates;
   speed: number | null;
-  speedModifierRefernce?: TSpeedModifierRefernce;
+  speedModifierRefernce?: TSpeedModifierReference;
   hitBoxStartPoint?: TCoordinates | null;
   hitBoxSize?: TSize | null;
 
-  constructor(props: {
-    initialPosition: TCoordinates,
-    sprite: Sprite,
-    speed?: number,
-    speedModifierRefernce?: TSpeedModifierRefernce,
-    hitBoxStartPoint?: TCoordinates,
-    hitBoxSize?: TSize,
-  }
-  ) {
+  constructor(props: EntityProps) {
     this.sprite = props.sprite;
 
     this.position = props.initialPosition;
@@ -50,9 +51,9 @@ export default class Entity {
         x: this.position.x + this.hitBoxStartPoint.x,
         y: this.position.y + this.hitBoxStartPoint.y
       };
-    } else {
-      return this.position;
     }
+
+    return this.position;
   }
 
   render(stage: Stage): void {

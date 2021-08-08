@@ -101,9 +101,7 @@ export default class GameMain {
 
   handleKeyControls = (event: KeyboardEvent): void => {
     if (event.code === GAME_CONTROLS.SHIFT) {
-      if (!this.isGamePaused && !this.isShipDestroyed) {
-        this.ship!.actionShift();
-      }
+      this.handleTouch();
     } else if (event.code === GAME_CONTROLS.PAUSE) {
       this.togglePauseStatus();
       this.setGamePauseStatus(this.isGamePaused);
@@ -305,7 +303,9 @@ export default class GameMain {
       const pos = obstacle.position;
       const size = obstacle.getSize();
 
-      if (boxCollides(pos, size, this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize())) {
+      const isCollision = boxCollides(pos, size, this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize());
+
+      if (isCollision) {
         if (!this.isShipDestroyed) {
           this.col++;
         }
@@ -338,6 +338,7 @@ export default class GameMain {
 
       this.updateEntities(dt);
       this.generateObstacles();
+
       if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT && !this.isShipDestroyed) {
         this.score++;
         this.pixelCount = 0;

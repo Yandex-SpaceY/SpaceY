@@ -9,9 +9,9 @@
   cursor: pointer;
 }
 
-.menu-hamburger span,
-.menu-hamburger span::before,
-.menu-hamburger span::after {
+.menu-hamburger .menu-hamburger-icon,
+.menu-hamburger .menu-hamburger-icon::before,
+.menu-hamburger .menu-hamburger-icon::after {
   position: absolute;
   display: block;
   width: 35px;
@@ -21,10 +21,10 @@
   content: '';
 }
 
-.menu-hamburger span::before {
+.menu-hamburger .menu-hamburger-icon::before {
   top: -10px;
 }
 
-.menu-hamburger span::after {
+.menu-hamburger .menu-hamburger-icon::after {
   bottom: -10px;
 }

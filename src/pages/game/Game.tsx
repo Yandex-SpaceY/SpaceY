@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addToLeaderboard } from 'api/leaderboardApi';
@@ -85,9 +85,9 @@ const Game: FC = (): ReactElement => {
     setMenuAction(null);
   };
 
-  const handleHamburgerOnClick = () => {
+  const handleHamburgerOnClick = useCallback(() => {
     dispatch(setIsGamePaused(true));
-  };
+  }, []);
 
   return (
     <div className='main game'>

@@ -24,7 +24,6 @@ const useWindowSize = ():TWindowSize => {
 
   useEffect(() => {
     const handleResize = () => {
-
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,

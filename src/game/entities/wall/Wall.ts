@@ -1,6 +1,6 @@
 import { GAME_SETTINGS } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates, TSpeedModifierRefernce } from 'game/core/types';
+import { TCoordinates, TSpeedModifierReference } from 'game/core/types';
 
 export default class Wall extends Entity {
   wallLoopStartShift?: number;
@@ -8,7 +8,7 @@ export default class Wall extends Entity {
   constructor(
     initialPosition: TCoordinates,
     wallLoopStartPoint?: number,
-    speedModifierRefernce?: TSpeedModifierRefernce
+    speedModifierRefernce?: TSpeedModifierReference
   ) {
     super({
       initialPosition,
@@ -31,7 +31,7 @@ export default class Wall extends Entity {
 
     // Transfer to start if offscreen for loop
     if (this.position.y > canvasHeight) {
-      this.position.y -= (this.wallLoopStartShift ? this.wallLoopStartShift : 0);
+      this.position.y -= (this.wallLoopStartShift || 0);
     }
   }
 }

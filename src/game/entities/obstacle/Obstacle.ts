@@ -1,11 +1,11 @@
 import { GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates, TSize, TSpeedModifierRefernce } from 'game/core/types';
+import { TCoordinates, TSize, TSpeedModifierReference } from 'game/core/types';
 
 export default class Obstacle extends Entity {
   constructor(
     initialPosition: TCoordinates,
-    speedModifierRefernce?: TSpeedModifierRefernce,
+    speedModifierRefernce?: TSpeedModifierReference,
     obstacleType: string = OBSTACLE_TYPES.TYPE1.name
   ) {
     let startCoordinates: TCoordinates = { x: 0, y: 133 };
@@ -25,6 +25,7 @@ export default class Obstacle extends Entity {
           break;
       }
     }
+
     super({
       initialPosition,
       sprite: new Sprite({
@@ -38,6 +39,7 @@ export default class Obstacle extends Entity {
   }
 
   update(dt: number): void {
-    this.position.y += this.speed! * dt * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
+    const speedModifierReference = this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1;
+    this.position.y += this.speed! * dt * (speedModifierReference);
   }
 }
