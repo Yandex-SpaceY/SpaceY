@@ -11,15 +11,29 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { signupSchema } from 'schemas';
+import { useDispatch } from 'react-redux';
+import { setAlert } from 'store/user/actions';
+import { ALERT_TEXTS } from 'constants/avatarConstarts';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const dispatch = useDispatch();
+
   const saveData = async (values: SIGNUP_TYPE) => {
     try {
       await signup(values);
-
+      const alert = {
+        title: ALERT_TEXTS.SIGNUP,
+      };
+      dispatch(setAlert(alert));
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: ALERT_TEXTS.SIGNUP,
+        text,
+        type: 'error'
+      };
+      dispatch(setAlert(alert));
     }
   };
 

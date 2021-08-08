@@ -6,11 +6,12 @@ const initialState = {
   pending: false,
   userData: {},
   error: null,
+  alert: null,
 };
 
 export const userReducer = (
   state = initialState,
-  { type, payload }: TActionProps<string, TUserState>
+  { type, payload }: TActionProps<string, TUserState>,
 ): Record<string, unknown> => {
   switch (type) {
     case USER_ACTIONS.SET_USER_DATA: {
@@ -18,6 +19,9 @@ export const userReducer = (
     }
     case USER_ACTIONS.ERROR: {
       return { ...state, error: payload };
+    }
+    case USER_ACTIONS.ALERT: {
+      return { ...state, alert: payload };
     }
     case USER_ACTIONS.PENDING: {
       return { ...state, pending: payload };

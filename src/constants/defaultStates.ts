@@ -38,3 +38,13 @@ export const DEFAULT_PASSWORD_STATE = {
 };
 
 export type PASSWORD_TYPE = typeof DEFAULT_PASSWORD_STATE;
+
+// alert
+export const DEFAULT_ALERT_STATE = {
+  type: 'success',
+  title: '',
+  text: 'Completed Successfully',
+  timeout: 3000,
+};
+
+export type ALERT_TYPE = typeof DEFAULT_ALERT_STATE;

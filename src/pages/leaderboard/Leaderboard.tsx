@@ -10,11 +10,12 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS, REQUEST_DATA } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { Avatar, PageMeta } from 'components';
-import { setUserPending } from 'store/user/actions';
+import { setAlert, setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
 
 import './leaderboard.scss';
+import { ALERT_TEXTS } from 'constants/avatarConstarts';
 
 interface ILeaders {
   id: number,
@@ -41,6 +42,10 @@ const Leaderboard: FC = (): ReactElement => {
           cursor: 0,
           limit: REQUEST_DATA.LIMIT,
         });
+        const alert = {
+          title: ALERT_TEXTS.LEADERBOARD,
+        };
+        dispatch(setAlert(alert));
         data = data.map((item: Record<string, ILeaders[]>) => item.data);
 
         if (data.length) {
@@ -54,11 +59,16 @@ const Leaderboard: FC = (): ReactElement => {
           } else {
             dataToRender = data.slice(0, REQUEST_DATA.LIMIT_PER_PAGE);
           }
-
           setLeaders(dataToRender);
         }
       } catch (err) {
-        console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+        const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+        const alert = {
+          title: ALERT_TEXTS.LEADERBOARD,
+          text,
+          type: 'error'
+        };
+        dispatch(setAlert(alert));
       } finally {
         dispatch(setUserPending(false));
       }

@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { signIn } from 'api/authApi';
 import { getServiceId } from 'api/oAuthApi';
 import { loginSchema } from 'schemas';
-import { getUserDataFromServer } from 'store/user/actions';
+import { getUserDataFromServer, setAlert } from 'store/user/actions';
 import { userAuthSelector } from 'store/user/selectors';
 import { Button, Input, PageMeta } from 'components';
 import { GAME_NAME, GAME_URL, PAGE_NAMES } from 'constants/commonConstants';
@@ -17,6 +17,7 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 import './login.scss';
+import { ALERT_TEXTS } from 'constants/avatarConstarts';
 
 const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
@@ -35,22 +36,40 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const saveData = async (values: LOGIN_TYPE) => {
     try {
       await signIn(values);
-
+      const alert = {
+        title: ALERT_TEXTS.LOGIN,
+      };
+      dispatch(setAlert(alert));
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: ALERT_TEXTS.LOGIN,
+        text,
+        type: 'error'
+      };
+      dispatch(setAlert(alert));
     }
   };
 
   const authYandex = async () => {
     try {
       const { data } = await getServiceId(GAME_URL);
-
+      const alert = {
+        title: 'Yandex Auth',
+      };
+      dispatch(setAlert(alert));
       if (data?.service_id) {
         location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${GAME_URL}`;
       }
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: 'Yandex Auth',
+        text,
+        type: 'error'
+      };
+      dispatch(setAlert(alert));
     }
   };
 

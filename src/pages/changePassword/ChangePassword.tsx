@@ -10,18 +10,31 @@ import { DEFAULT_PASSWORD_STATE, PASSWORD_TYPE } from 'constants/defaultStates';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { ALERT_TEXTS } from 'constants/avatarConstarts';
 import { passwordSchema } from 'schemas';
 
 import './changePassword.scss';
+import { useDispatch } from 'react-redux';
+import { setAlert } from 'store/user/actions';
 
 const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const dispatch = useDispatch();
   const saveData = async (values: PASSWORD_TYPE) => {
     try {
       await changePassword(values);
-
+      const alert = {
+        title: ALERT_TEXTS.CHANGE_PASSWORD,
+      };
+      dispatch(setAlert(alert));
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: ALERT_TEXTS.CHANGE_PASSWORD,
+        text,
+        type: 'error'
+      };
+      dispatch(setAlert(alert));
     }
   };
 
