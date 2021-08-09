@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { boxCollides } from 'game/core/utils';
-import { GAME_CONTROLS, GAME_SETTINGS } from 'game/constants';
+import { GAME_CONTROLS, GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
 import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
-import { Obstacle, SpaceShip, Wall } from 'game/entities';
+import { Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
 import { VibrationController } from 'game/core/';
 
@@ -25,8 +25,11 @@ export default class GameMain {
 
   ship: SpaceShip | null;
 
+  pixelCount: number;
+  isShipDestroyed: boolean;
   score: number;
   col: number;
+  speedModifierRefernce: { speedModifier: number }
 
   stage: Stage | null;
 
@@ -63,8 +66,11 @@ export default class GameMain {
 
     this.ship = null;
 
+    this.pixelCount = 0;
+    this.isShipDestroyed = false;
     this.score = 0;
     this.col = 0;
+    this.speedModifierRefernce = { speedModifier: 1 };
 
     this.stage = null;
     this.bgMusic = new Sound(GAME_SETTINGS.MAIN_MUSIC_PATH);
@@ -79,27 +85,34 @@ export default class GameMain {
 
   setControls(): void {
     document.addEventListener('keydown', this.handleKeyControls);
+    this.canvas.addEventListener('touchstart', this.handleTouch, false);
   }
 
-  unsetControlsAndSubscriptions(): void {
+  clear(): void {
     document.removeEventListener('keydown', this.handleKeyControls);
 
     this.setHull(0);
     this.setScore(0);
     this.setGameOverStatus(false);
     this.setGamePauseStatus(false);
+
+    this.bgMusic.remove();
   }
 
   handleKeyControls = (event: KeyboardEvent): void => {
     if (event.code === GAME_CONTROLS.SHIFT) {
-      if (!this.isGamePaused) {
-        this.ship!.actionShift();
-      }
+      this.handleTouch();
     } else if (event.code === GAME_CONTROLS.PAUSE) {
       this.togglePauseStatus();
       this.setGamePauseStatus(this.isGamePaused);
     }
   };
+
+  handleTouch = (): void => {
+    if (!this.isGamePaused && !this.isShipDestroyed) {
+      this.ship!.actionShift();
+    }
+  }
 
   setSoundStatus(status: boolean): void {
     this.isSoundOn = status;
@@ -119,52 +132,131 @@ export default class GameMain {
   }
 
   initWalls(wallsEntitiesKey: string): void {
-    const numberOfWalls = Math.ceil(this.canvas.height / 96) + 1;
+    const wallSpriteWidth = 85;
+    const wallSpriteHeight = 95;
+
+    const numberOfWalls = Math.ceil(this.canvas.height / wallSpriteHeight) + 2;
+    const wallLoopStartShift = ((numberOfWalls - 1) * wallSpriteHeight);
+
     for (let i = 1; i <= numberOfWalls; i++) {
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: 0 - 42, y: this.canvas.height - i * 96 })]);
+        [
+          new Wall({
+            x: 0 - GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
+            y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
+          },
+          wallLoopStartShift,
+          this.speedModifierRefernce
+          )
+        ]);
       this.stage!.addEntitiesToKey(
         wallsEntitiesKey,
-        [new Wall({ x: this.canvas.width - 85 + 42, y: this.canvas.height - i * 96 })]);
+        [
+          new Wall({
+            x: this.canvas.width - wallSpriteWidth + GAME_SETTINGS.WALL_VISIBLE_PART_FROM_SIDE,
+            y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
+          },
+          wallLoopStartShift,
+          this.speedModifierRefernce
+          )
+        ]);
     }
   }
 
-  generateObstacles(obstaclesEntitiesKey: string): void {
-    const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
+  generateObstaclesWithOneSideCounter(obstaclesEntitiesKey: string): () => void {
+    // Closure for counting obstacles on one side in a row
+    let oneSideCounter = 0;
+    let isLeft = false;
+    let isLeftPrev = false;
+    let prevObstacleGap = OBSTACLE_TYPES.TYPE1.gap;
 
-    if (Math.random() < 1 - Math.pow(0.993, this.gameTime)) {
-      const position: TCoordinates = { x: 0, y: 0 };
-      if (Math.random() < 0.5) {
-        position.x = 42;
-        position.y = -85;
-      } else {
-        position.x = this.canvas.width - 42 - 187;
-        position.y = -85;
-      }
-      if (obstacles.length > 0) {
-        if (obstacles[obstacles.length - 1].position.y > 84) {
-          this.stage!.addEntitiesToKey(
-            obstaclesEntitiesKey,
-            [new Obstacle(position)]
-          );
+    return (): void => {
+      const obstacles = this.stage!.getEntitiesByKey(obstaclesEntitiesKey);
+
+      if (
+        (Math.random() < 1 - Math.pow(0.993, this.gameTime))
+      && this.score > 20) {
+        const position: TCoordinates = { x: 0, y: 0 };
+        const seed = Math.random();
+
+        let obstacleType = OBSTACLE_TYPES.TYPE1.name;
+        let obstacleWidth = OBSTACLE_TYPES.TYPE1.width;
+        let obstacleGap = OBSTACLE_TYPES.TYPE1.gap;
+
+        if (seed > 0.333 && seed <= 0.666) {
+          obstacleType = OBSTACLE_TYPES.TYPE2.name;
+          obstacleWidth = OBSTACLE_TYPES.TYPE2.width;
+          obstacleGap = OBSTACLE_TYPES.TYPE2.gap;
+        } else
+        if (seed > 0.666) {
+          obstacleType = OBSTACLE_TYPES.TYPE3.name;
+          obstacleWidth = OBSTACLE_TYPES.TYPE3.width;
+          obstacleGap = OBSTACLE_TYPES.TYPE3.gap;
         }
-      } else {
+
+        const leftPosition = GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE;
+        const rightPosition = this.canvas.width - GAME_SETTINGS.OBSTACLE_MARGIN_FROM_SIDE - obstacleWidth;
+
+        if (Math.random() < 0.5) {
+          position.x = leftPosition;
+          position.y = -obstacleGap;
+          isLeft = true;
+        } else {
+          position.x = rightPosition;
+          position.y = -obstacleGap;
+          isLeft = false;
+        }
+
+        if (obstacles.length > 0) {
+          if (obstacles[obstacles.length - 1].position.y > prevObstacleGap) {
+
+            if (isLeft === isLeftPrev) {
+              oneSideCounter++;
+            } else {
+              oneSideCounter = 1;
+            }
+
+            if (oneSideCounter > GAME_SETTINGS.MAXIMUM_OBSTACLES_PER_SIDE) {
+              // Switch obstacle position to avoid long sequence obtacles on one side
+              if (isLeft) {
+                position.x = rightPosition;
+              } else {
+                position.x = leftPosition;
+              }
+
+              oneSideCounter = 0;
+            }
+
+            this.stage!.addEntitiesToKey(
+              obstaclesEntitiesKey,
+              [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
+            );
+
+            isLeftPrev = isLeft;
+            prevObstacleGap = obstacleGap;
+          }
+        } else {
         this.stage!.addEntitiesToKey(
           obstaclesEntitiesKey,
-          [new Obstacle(position)]
+          [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
         );
+        }
       }
-    }
+    };
   }
+
+  generateObstacles = this.generateObstaclesWithOneSideCounter(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
   reset(): void {
     this.isGameOver = false;
     this.setGameOverStatus(this.isGameOver);
 
     this.gameTime = 0;
+    this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
+    this.speedModifierRefernce.speedModifier = GAME_SETTINGS.BASE_SPEED_MODIFIER;
 
     this.setHull(this.ship!.hullStrength);
 
@@ -173,21 +265,16 @@ export default class GameMain {
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY);
     this.stage!.clearEntitiesByKey(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
 
-    this.ship!.position = { x: this.canvas.width / 2 - 102 - 17, y: this.canvas.height - 120 };
+    this.ship!.position = {
+      x: GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE,
+      y: (this.canvas.height / 2) + (GAME_SETTINGS.GAME_AREA_HEIGHT / 2) - GAME_SETTINGS.SPACESHIP_MARGIN_FROM_BOTTOM };
 
     this.initWalls(GAME_SETTINGS.WALLS_ENTITIES_KEY);
   }
 
   render(): void {
     this.stage!.renderBackgroundPattern(this.canvas.width, this.canvas.height);
-
-    // Render the player if the game isn't over
-    if (!this.isGameOver) {
-      this.stage!.renderEntities(GAME_SETTINGS.SPACESHIP_ENTITY_KEY);
-    }
-
-    this.stage!.renderEntities(GAME_SETTINGS.WALLS_ENTITIES_KEY);
-    this.stage!.renderEntities(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
+    this.stage!.renderEntities();
   }
 
   updateEntities(dt: number): void {
@@ -216,8 +303,20 @@ export default class GameMain {
       const pos = obstacle.position;
       const size = obstacle.getSize();
 
-      if (boxCollides(pos, size, this.ship!.position, this.ship!.getSize())) {
-        this.col++;
+      const isCollision = boxCollides(pos, size, this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize());
+
+      if (isCollision) {
+        if (!this.isShipDestroyed) {
+          this.col++;
+        }
+        if (this.ship!.status === SHIP_STATUS.NORMAL) {
+          this.ship!.setStatusToDamage();
+          setTimeout(() => {
+            if (!this.isGameOver && this.ship!.status !== SHIP_STATUS.DESTROYED) {
+              this.ship!.setStatusToNormal();
+            }
+          }, 500);
+        }
         if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
           this.vibrationController.startPersistentVibrate([200], 100);
         }
@@ -235,14 +334,26 @@ export default class GameMain {
   update(dt: number): void {
     if (!this.isGamePaused) {
       this.gameTime += dt;
+      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * GAME_SETTINGS.BASE_SPEED_MODIFIER * dt;
 
       this.updateEntities(dt);
-      this.generateObstacles(GAME_SETTINGS.OBSTACLES_ENTITIES_KEY);
+      this.generateObstacles();
 
-      this.score++;
+      if (this.pixelCount >= GAME_SETTINGS.PIXELS_PER_DISTANCE_UNIT && !this.isShipDestroyed) {
+        this.score++;
+        this.pixelCount = 0;
+
+        if (this.score % GAME_SETTINGS.DISTANCE_TO_INCREASE_SPEED === 0 && this.pixelCount === 0) {
+          this.speedModifierRefernce.speedModifier += GAME_SETTINGS.SPEED_MODIFIER_INCREMENT;
+        }
+      }
 
       if (this.col >= this.ship!.hullStrength) {
-        if (!this.isGameOver) {
+        if (this.ship!.status !== SHIP_STATUS.DESTROYED) {
+          this.isShipDestroyed = true;
+          this.ship!.setStatusToDestroyed();
+        }
+        if (this.ship!.sprite.animationDone && !this.isGameOver) {
           this.isGameOver = true;
           this.setGameOverStatus(this.isGameOver);
         }

@@ -1,22 +1,45 @@
-import { GAME_SETTINGS } from 'game/constants';
+import { GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates } from 'game/core/types';
+import { TCoordinates, TSize, TSpeedModifierReference } from 'game/core/types';
 
 export default class Obstacle extends Entity {
-  constructor(initialPosition: TCoordinates) {
-    super(
+  constructor(
+    initialPosition: TCoordinates,
+    speedModifierRefernce?: TSpeedModifierReference,
+    obstacleType: string = OBSTACLE_TYPES.TYPE1.name
+  ) {
+    let startCoordinates: TCoordinates = { x: 0, y: 133 };
+    let size: TSize = { width: 187, height: 84 };
+
+    if (obstacleType) {
+      switch (obstacleType) {
+        case OBSTACLE_TYPES.TYPE2.name:
+          startCoordinates = { x: 188, y: 197 };
+          size = { width: 187, height: 18 };
+          break;
+        case OBSTACLE_TYPES.TYPE3.name:
+          startCoordinates = { x: 375, y: 161 };
+          size = { width: 84, height: 56 };
+          break;
+        default:
+          break;
+      }
+    }
+
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
-        startCoordinates: { x: 0, y: 130 },
-        size: { width: 187, height: 85 }
+        startCoordinates,
+        size
       }),
-      GAME_SETTINGS.OBSTACLE_BASE_SPEED,
-    );
+      speed: GAME_SETTINGS.OBSTACLE_BASE_SPEED,
+      speedModifierRefernce
+    });
   }
 
   update(dt: number): void {
-    this.position.y += this.speed! * dt;
-    this.updateSpriteAnimation(dt);
+    const speedModifierReference = this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1;
+    this.position.y += this.speed! * dt * (speedModifierReference);
   }
 }
