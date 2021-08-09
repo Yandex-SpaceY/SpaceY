@@ -2,10 +2,10 @@ import path from 'path';
 import express from 'express';
 import compression from 'compression';
 
-import { DIST_DIR, IS_DEV, SRC_DIR } from '../webpack/constants';
-import { serverRenderer, hotReload } from './middlewares';
 import { sequelize } from './sequelize/models';
 import apiRoutes from './sequelize/routes';
+import { serverRenderer, hotReload } from './middlewares';
+import { DIST_DIR, IS_DEV, SRC_DIR } from '../webpack/constants';
 
 const { PORT = 3000 } = process.env;
 const app = express();
