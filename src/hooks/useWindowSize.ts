@@ -8,18 +8,18 @@ type TWindowSize = {
 };
 
 const useWindowSize = ():TWindowSize => {
-  const [ windowSize, setWindowSize ] = useState<TWindowSize> ( ():TWindowSize => {
+  const [ windowSize, setWindowSize ] = useState<TWindowSize>(():TWindowSize => {
     if (!isServer) {
       return {
         width: window.innerWidth,
         height: window.innerHeight,
       };
-    } else {
-      return {
-        width: undefined,
-        height: undefined,
-      };
     }
+
+    return {
+      width: undefined,
+      height: undefined,
+    };
   });
 
   useEffect(() => {
