@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import { changePassword } from 'api/userApi';
 import { Button, Input, PageMeta } from 'components';
@@ -10,12 +11,11 @@ import { DEFAULT_PASSWORD_STATE, PASSWORD_TYPE } from 'constants/defaultStates';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { ALERT_TEXTS } from 'constants/avatarConstarts';
+import { ALERT_TEXTS } from 'constants/alertConstants';
+import { setAlert } from 'store/user/actions';
 import { passwordSchema } from 'schemas';
 
 import './changePassword.scss';
-import { useDispatch } from 'react-redux';
-import { setAlert } from 'store/user/actions';
 
 const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();

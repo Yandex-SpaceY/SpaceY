@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
 
-import './notificationModal.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { userAlertSelector } from 'store/user/selectors';
-import { ALERT_TYPE, DEFAULT_ALERT_STATE } from 'constants/defaultStates';
 import { setAlert } from 'store/user/actions';
+import { ALERT_TYPE, DEFAULT_ALERT_STATE } from 'constants/defaultStates';
+
+import './notificationModal.scss';
 
 interface INotificationProps {
   type?: string;
@@ -15,19 +16,17 @@ interface INotificationProps {
 }
 
 const NotificationModal: FC<INotificationProps> = () => {
-  const [state, setState] = useState<ALERT_TYPE>(DEFAULT_ALERT_STATE);
+  const [ state, setState ] = useState<ALERT_TYPE>(DEFAULT_ALERT_STATE);
   const alert = useSelector(userAlertSelector);
   const dispatch = useDispatch();
+  const { type, title, text } = state;
 
   useEffect(() => {
     if (alert) {
-      const newState = { ...state, ...alert };
-      setState(newState);
+      setState(prevState => ({ ...prevState, ...alert }));
       setTimeout(() => dispatch(setAlert(null)), state.timeout);
     }
   }, [alert]);
-
-  const { type, title, text } = state;
 
   return alert ? (
     <div className={cn('notification-wrapper', type)}>

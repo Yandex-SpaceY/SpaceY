@@ -9,13 +9,13 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { LEADER_CONSTANTS, REQUEST_DATA } from 'constants/leaderConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
+import { ALERT_TEXTS } from 'constants/alertConstants';
 import { Avatar, PageMeta } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
 
 import './leaderboard.scss';
-import { ALERT_TEXTS } from 'constants/avatarConstarts';
 
 interface ILeaders {
   id: number,
@@ -42,10 +42,6 @@ const Leaderboard: FC = (): ReactElement => {
           cursor: 0,
           limit: REQUEST_DATA.LIMIT,
         });
-        const alert = {
-          title: ALERT_TEXTS.LEADERBOARD,
-        };
-        dispatch(setAlert(alert));
         data = data.map((item: Record<string, ILeaders[]>) => item.data);
 
         if (data.length) {

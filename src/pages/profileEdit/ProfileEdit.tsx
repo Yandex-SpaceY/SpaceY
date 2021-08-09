@@ -12,10 +12,10 @@ import { PROFILE_TYPE } from 'constants/defaultStates';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { profileSchema } from 'schemas';
+import { ALERT_TEXTS } from 'constants/alertConstants';
 import { setAlert, setUserData } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
-import { ALERT_TEXTS } from 'constants/avatarConstarts';
+import { profileSchema } from 'schemas';
 
 const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();

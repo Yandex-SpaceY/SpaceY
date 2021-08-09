@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import { signup } from 'api/authApi';
 import { Button, Input, PageMeta } from 'components';
@@ -10,10 +11,9 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
-import { signupSchema } from 'schemas';
-import { useDispatch } from 'react-redux';
+import { ALERT_TEXTS } from 'constants/alertConstants';
 import { setAlert } from 'store/user/actions';
-import { ALERT_TEXTS } from 'constants/avatarConstarts';
+import { signupSchema } from 'schemas';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
