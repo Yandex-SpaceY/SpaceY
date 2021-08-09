@@ -11,7 +11,9 @@ import { store } from 'store/store';
 import { TAppState } from 'store/types';
 import { CLIENT_BUNDLE_NAME, IS_DEV } from '../../webpack/constants';
 
-const hash = IS_DEV ? '' : '.WEBPACK_HASH';
+declare const COMMITHASH: string;
+
+const hash = IS_DEV ? '' : '.' + COMMITHASH;
 
 const getHtml = (
   reactHtml: string,
