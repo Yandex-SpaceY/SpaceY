@@ -9,7 +9,9 @@ import App from '../../src/App';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { store } from 'store/store';
 import { TAppState } from 'store/types';
-import { CLIENT_BUNDLE_NAME } from '../../webpack/constants';
+import { CLIENT_BUNDLE_NAME, IS_DEV } from '../../webpack/constants';
+
+const hash = IS_DEV ? '' : '.WEBPACK_HASH';
 
 const getHtml = (
   reactHtml: string,
@@ -21,7 +23,7 @@ const getHtml = (
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-            <link rel="stylesheet" href="${CLIENT_BUNDLE_NAME}.css">
+            <link rel="stylesheet" href="${CLIENT_BUNDLE_NAME}${hash}.css">
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
         </head>
@@ -30,7 +32,7 @@ const getHtml = (
             <script>
               window.__INITIAL_STATE__ = ${JSON.stringify(state)}
             </script>
-            <script src="/${CLIENT_BUNDLE_NAME}.js"></script>
+            <script src="/${CLIENT_BUNDLE_NAME}${hash}.js"></script>
         </body>
       </html>
     `;

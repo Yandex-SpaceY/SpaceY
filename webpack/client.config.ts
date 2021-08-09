@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { Configuration, HotModuleReplacementPlugin } from 'webpack';
+import { Configuration, DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
@@ -17,27 +17,38 @@ if (IS_DEV) {
   entry.push('css-hot-loader/hotModuleReplacement');
 }
 
-const filename = (ext: string): string => (`${CLIENT_BUNDLE_NAME}.${ext}`);
+const filename = (ext: string): string =>
+  (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.[fullhash].${ext}`);
+
+const plugins = [
+  new MiniCssExtractPlugin({
+    filename: filename('css'),
+  }),
+  new CssoWebpackPlugin(),
+  new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: `${SRC_DIR}/game/assets`,
+        to: `${DIST_DIR}/assets`,
+      }
+    ]
+  }),
+  IS_DEV && new HotModuleReplacementPlugin(),
+];
+
+if (!IS_DEV) {
+  plugins.push(
+    new DefinePlugin({
+      WEBPACK_HASH: JSON.stringify('[fullhash]'),
+    })
+  );
+}
 
 const clientConfig: Configuration = {
   name: 'client',
   target: 'web',
   entry,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: filename('css'),
-    }),
-    new CssoWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: `${SRC_DIR}/game/assets`,
-          to: `${DIST_DIR}/assets`,
-        }
-      ]
-    }),
-    IS_DEV && new HotModuleReplacementPlugin(),
-  ].filter(Boolean),
+  plugins: plugins.filter(Boolean),
   output: {
     path: DIST_DIR,
     filename: filename('js'),
