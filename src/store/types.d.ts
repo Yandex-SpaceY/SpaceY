@@ -11,6 +11,13 @@ export type TUserData = {
   phone: string;
 };
 
+export type TUserSettings = {
+  id: number;
+  theme: string;
+  sound: boolean;
+  vibration: boolean;
+}
+
 export type TUserState = {
   isAuthorized: boolean;
   pending: boolean;
