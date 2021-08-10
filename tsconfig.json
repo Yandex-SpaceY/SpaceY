@@ -17,6 +17,8 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "declaration": false,
     "sourceMap": false,

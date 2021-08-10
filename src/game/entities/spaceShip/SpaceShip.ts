@@ -1,6 +1,6 @@
 import { GAME_SETTINGS } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates } from 'game/core/types';
+import { TCoordinates, TSpeedModifierReference } from 'game/core/types';
 
 export enum SHIP_STATE {
   FLIGHT = 'flight',
@@ -12,39 +12,54 @@ export enum SHIP_SIDE {
   RIGHT = 'right',
 }
 
+export enum SHIP_STATUS {
+  NORMAL = 'normal',
+  DAMAGE = 'damage',
+  DESTROYED = 'destroyed',
+}
+
 export default class SpaceShip extends Entity {
-  state: SHIP_STATE;
   side: SHIP_SIDE;
+  state: SHIP_STATE;
+  status: SHIP_STATUS;
   hullStrength: number;
 
-  constructor(initialPosition: TCoordinates) {
-    super(
+  constructor(initialPosition: TCoordinates, speedModifierRefernce?: TSpeedModifierReference) {
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
         startCoordinates: { x: 0, y: 0 },
-        size: { width: 34, height: 34 },
+        size: { width: 36, height: 35 },
         animationSpeed: 13,
         animationFrames: [ 0, 1 ]
       }),
-      GAME_SETTINGS.SPACESHIP_BASE_SPEED,
-    );
+      speed: GAME_SETTINGS.SPACESHIP_BASE_SPEED,
+      speedModifierRefernce,
+      hitBoxStartPoint: { x: 1, y: 1 },
+      hitBoxSize: { width: 33, height: 31 }
+    });
 
-    this.state = SHIP_STATE.FLIGHT;
     this.side = SHIP_SIDE.LEFT;
+    this.state = SHIP_STATE.FLIGHT;
+    this.status = SHIP_STATUS.NORMAL;
     this.hullStrength = GAME_SETTINGS.SHIP_HULL_STRENGTH;
   }
 
   update(dt: number, canvasWidth: number): void {
     if (this.side === SHIP_SIDE.RIGHT && this.state === SHIP_STATE.SHIFT) {
-      if (this.position.x < canvasWidth / 2 + 102 - 17) {
-        this.position.x += this.speed! * dt;
+      if (this.position.x < (canvasWidth - GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE - this.getSize().width)) {
+        this.position.x
+          += this.speed!
+          * dt
+          * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
       } else {
         this.state = SHIP_STATE.FLIGHT;
       }
     } else if (this.side === SHIP_SIDE.LEFT && this.state === SHIP_STATE.SHIFT) {
-      if (this.position.x > canvasWidth / 2 - 102 - 17) {
-        this.position.x -= this.speed! * dt;
+      if (this.position.x > GAME_SETTINGS.SPACESHIP_MARGIN_FROM_SIDE) {
+        const speedModifierReference = this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1;
+        this.position.x -= this.speed! * speedModifierReference * dt;
       } else {
         this.state = SHIP_STATE.FLIGHT;
       }
@@ -60,5 +75,55 @@ export default class SpaceShip extends Entity {
       this.side = SHIP_SIDE.RIGHT;
       this.state = SHIP_STATE.SHIFT;
     }
+  }
+
+  changeStatus(status: SHIP_STATUS): void {
+    switch (status) {
+      case SHIP_STATUS.NORMAL:
+        this.setSprite(new Sprite({
+          resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
+          startCoordinates: { x: 0, y: 0 },
+          size: { width: 36, height: 35 },
+          animationSpeed: 13,
+          animationFrames: [ 0, 1 ]
+        }),);
+        this.status = SHIP_STATUS.NORMAL;
+        break;
+      case SHIP_STATUS.DAMAGE:
+        this.setSprite(new Sprite({
+          resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
+          startCoordinates: { x: 0, y: 0 },
+          size: { width: 36, height: 35 },
+          animationSpeed: 13,
+          animationFrames: [ 0, 2 ]
+        }),);
+        this.status = SHIP_STATUS.DAMAGE;
+        break;
+      case SHIP_STATUS.DESTROYED:
+        this.setSprite(new Sprite({
+          resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
+          startCoordinates: { x: 0, y: 218 },
+          size: { width: 39, height: 39 },
+          animationSpeed: 16,
+          animationFrames: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
+          animationOnce: true,
+        }),);
+        this.status = SHIP_STATUS.DESTROYED;
+        break;
+      default:
+        break;
+    }
+  }
+
+  setStatusToDamage(): void {
+    this.changeStatus(SHIP_STATUS.DAMAGE);
+  }
+
+  setStatusToDestroyed(): void {
+    this.changeStatus(SHIP_STATUS.DESTROYED);
+  }
+
+  setStatusToNormal(): void {
+    this.changeStatus(SHIP_STATUS.NORMAL);
   }
 }

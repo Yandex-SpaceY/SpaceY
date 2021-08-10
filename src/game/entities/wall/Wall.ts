@@ -1,27 +1,37 @@
 import { GAME_SETTINGS } from 'game/constants';
 import { Entity, Sprite } from 'game/core';
-import { TCoordinates } from 'game/core/types';
+import { TCoordinates, TSpeedModifierReference } from 'game/core/types';
 
 export default class Wall extends Entity {
-  constructor(initialPosition: TCoordinates) {
-    super(
+  wallLoopStartShift?: number;
+
+  constructor(
+    initialPosition: TCoordinates,
+    wallLoopStartPoint?: number,
+    speedModifierRefernce?: TSpeedModifierReference
+  ) {
+    super({
       initialPosition,
-      new Sprite({
+      sprite: new Sprite({
         resourceURL: GAME_SETTINGS.OBJECT_SPRITES_PATH,
-        startCoordinates: { x: 0, y: 34 },
-        size: { width: 85, height: 96 }
+        startCoordinates: { x: 0, y: 36 },
+        size: { width: 85, height: 95 }
       }),
-      GAME_SETTINGS.WALL_BASE_SPEED,
-    );
+      speed: GAME_SETTINGS.WALL_BASE_SPEED,
+      speedModifierRefernce
+    });
+
+    if (wallLoopStartPoint) {
+      this.wallLoopStartShift = wallLoopStartPoint;
+    }
   }
 
   update(dt: number, canvasHeight: number): void {
-    this.position.y += this.speed! * dt;
-    this.updateSpriteAnimation(dt);
+    this.position.y += this.speed! * dt * (this.speedModifierRefernce ? this.speedModifierRefernce.speedModifier : 1);
 
     // Transfer to start if offscreen for loop
     if (this.position.y > canvasHeight) {
-      this.position.y = 0 - 96;
+      this.position.y -= (this.wallLoopStartShift || 0);
     }
   }
 }

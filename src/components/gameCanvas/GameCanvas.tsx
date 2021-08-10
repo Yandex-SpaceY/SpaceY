@@ -19,6 +19,7 @@ import {
 import { GameHUD } from 'components';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 import { MENU_ACTIONS } from 'constants/menuConstants';
+import { useWindowSize } from 'hooks';
 
 import './gameCanvas.scss';
 
@@ -54,6 +55,9 @@ const GameCanvas: FC<IGameCanvas> = (
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const windowSize = useWindowSize();
+
+  const [ canvasHeight, setCanvasHeight ] = useState<number | undefined>(windowSize.height);
   const [ hull, setHull ] = useState<number>(0);
   const [ score, setScore ] = useState<number>(0);
 
@@ -72,9 +76,16 @@ const GameCanvas: FC<IGameCanvas> = (
     gameMain.togglePauseStatus();
 
     return () => {
-      gameMain.unsetControlsAndSubscriptions();
+      gameMain.clear();
     };
   }, []);
+
+  useEffect(() => {
+    if (canvasHeight !== windowSize.height) {
+      setCanvasHeight(windowSize.height);
+      reinitGame();
+    }
+  }, [windowSize]);
 
   useEffect(() => {
     switch (menuAction) {
@@ -140,6 +151,10 @@ const GameCanvas: FC<IGameCanvas> = (
     gameMain.setPauseStatus(false);
   }, []);
 
+  const reinitGame = useCallback(() => {
+    gameMain.init();
+  }, []);
+
   const setGameSoundStatus = useCallback((status: boolean) => {
     gameMain.setSoundStatus(status);
   }, []);
@@ -150,7 +165,7 @@ const GameCanvas: FC<IGameCanvas> = (
 
   return (
     <div className='game-canvas-wrapper'>
-      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.CANVAS_WIDTH} height={GAME_OPTIONS.CANVAS_HEIGHT} />
+      <canvas ref={canvasRef} className={cn('game-canvas', className)} width={GAME_OPTIONS.GAME_AREA_WIDTH} height={canvasHeight} />
       <GameHUD hullStrength={hull} distance={score} />
     </div>
 

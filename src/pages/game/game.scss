@@ -1,3 +1,11 @@
+@import 'style/variables';
+
 .game .content-wrapper {
   width: auto;
+}
+
+.main.game {
+  @media screen and (max-width: $max_content_width) {
+    padding-top: 0;
+  }
 }
