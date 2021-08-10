@@ -1,7 +1,8 @@
-import { TOGGLE_ITEMS } from 'constants/commonConstants';
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+
 import { TMenuItem } from './Menu';
+import { TOGGLE_ITEMS } from 'constants/commonConstants';
 
 interface IProps {
   item: TMenuItem;

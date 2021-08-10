@@ -1,11 +1,11 @@
 import React, { FC, ReactElement } from 'react';
 import cn from 'classnames';
 
+import MenuItem from './MenuItem';
 import { GAME_NAME } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
 
 import './menu.scss';
-import MenuItem from './MenuItem';
 
 export type TMenuItem = {
   title: string;
