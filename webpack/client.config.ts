@@ -2,6 +2,7 @@ import path from 'path';
 
 import { Configuration, HotModuleReplacementPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import { ALIAS, CLIENT_BUNDLE_NAME, DIST_DIR, IS_DEV, SRC_DIR } from './constants';
@@ -11,33 +12,43 @@ import { fontLoader, imageLoader, scssLoader, tsLoader } from './loaders';
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 
 const entry: string[] = [path.resolve(SRC_DIR, 'index.tsx')];
+const gitRevisionPlugin = new GitRevisionPlugin();
 
 if (IS_DEV) {
   entry.push('webpack-hot-middleware/client');
   entry.push('css-hot-loader/hotModuleReplacement');
 }
 
-const filename = (ext: string): string => (`${CLIENT_BUNDLE_NAME}.${ext}`);
+const filename = (ext: string): string =>
+  (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.${gitRevisionPlugin.commithash()}.${ext}`);
+
+const plugins = [
+  new MiniCssExtractPlugin({
+    filename: filename('css'),
+  }),
+  new CssoWebpackPlugin(),
+  new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: `${SRC_DIR}/game/assets`,
+        to: `${DIST_DIR}/assets`,
+      }
+    ]
+  }),
+  IS_DEV && new HotModuleReplacementPlugin(),
+];
+
+if (!IS_DEV) {
+  plugins.push(
+    gitRevisionPlugin,
+  );
+}
 
 const clientConfig: Configuration = {
   name: 'client',
   target: 'web',
   entry,
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: filename('css'),
-    }),
-    new CssoWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: `${SRC_DIR}/game/assets`,
-          to: `${DIST_DIR}/assets`,
-        }
-      ]
-    }),
-    IS_DEV && new HotModuleReplacementPlugin(),
-  ].filter(Boolean),
+  plugins: plugins.filter(Boolean),
   output: {
     path: DIST_DIR,
     filename: filename('js'),
