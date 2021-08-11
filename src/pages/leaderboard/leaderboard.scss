@@ -10,11 +10,11 @@
   }
 
   .content {
-    padding: $content-padding-big;
+    padding: $content_padding_big;
 
     @media screen and (max-width: $max_content_width) {
       width: $content_width;
-      padding: $content-padding-small;
+      padding: $content_padding_small;
     }
 
     h2 {
@@ -63,7 +63,7 @@
     }
 
     .current-user {
-      color: $yellow-color;
+      color: $yellow_color;
     }
 
     .content-links {
