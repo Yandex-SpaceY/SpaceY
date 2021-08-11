@@ -7,9 +7,9 @@ export const getMessages = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const { topicId } = req.params;
-  const limit = Number(req.params.limit) || 5;
-  const page = Number(req.params.page) || 1;
+  const { topicId } = req.query;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 3;
   const offset = limit * (page - 1);
 
   try {

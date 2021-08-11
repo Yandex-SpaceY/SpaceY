@@ -7,6 +7,7 @@ export { default as GameOver } from 'components/gameOver/GameOver';
 export { default as Input } from 'components/input/Input';
 export { default as Menu, TMenuItem } from 'components/menu/Menu';
 export { default as MenuHamburger } from 'components/menuHamburger/MenuHamburger';
+export { default as Modal } from 'components/modal/Modal';
 export { default as Oops } from 'components/oops/Oops';
 export { default as Pagination } from 'components/pagination/Pagination';
 export { default as PageMeta } from 'components/pageMeta/PageMeta';
