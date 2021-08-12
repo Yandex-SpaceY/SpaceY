@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import { signup } from 'api/authApi';
 import { Button, Input, PageMeta } from 'components';
@@ -10,16 +11,31 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
+import { ALERT_TEXTS } from 'constants/alertConstants';
+import { setAlert } from 'store/user/actions';
 import { signupSchema } from 'schemas';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
+  const dispatch = useDispatch();
+
   const saveData = async (values: SIGNUP_TYPE) => {
     try {
       await signup(values);
+      const alert = {
+        title: ALERT_TEXTS.SIGNUP,
+      };
 
+      dispatch(setAlert(alert));
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: ALERT_TEXTS.SIGNUP,
+        message,
+        type: 'error'
+      };
+
+      dispatch(setAlert(alert));
     }
   };
 

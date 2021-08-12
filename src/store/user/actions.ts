@@ -2,13 +2,20 @@ import { ThunkAction } from 'redux-thunk';
 
 import { getUserInfo } from 'api/authApi';
 import { getUserSetting } from 'api/userApi';
-import { TAppState, TActionProps, TUserData, TUserSettings } from 'store/types.d';
+import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
 
-export const setUserError = (error: Error| null): TActionProps<string, Error | null> => (
+export const setUserError = (error: Error | null): TActionProps<string, Error | null> => (
   {
     type: USER_ACTIONS.ERROR,
     payload: error,
+  }
+);
+
+export const setAlert = (alert: IAlert | null): TActionProps<string, IAlert | null> => (
+  {
+    type: USER_ACTIONS.ALERT,
+    payload: alert,
   }
 );
 
@@ -47,7 +54,7 @@ export const setUserSetting = (setting: TUserSettings): TActionProps => (
   }
 );
 
-export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
+export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps> => {
   return async dispatch => {
     try {
       dispatch(setUserError(null));
