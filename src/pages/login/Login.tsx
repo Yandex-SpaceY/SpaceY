@@ -38,12 +38,13 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
       await signIn(values);
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
-      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
       const alert = {
         title: ALERT_TEXTS.LOGIN,
-        text,
+        message,
         type: 'error'
       };
+
       dispatch(setAlert(alert));
     }
   };
@@ -55,12 +56,13 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
         location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${GAME_URL}`;
       }
     } catch (err) {
-      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
       const alert = {
         title: ALERT_TEXTS.YANDEX_LOGIN,
-        text,
+        message,
         type: 'error'
       };
+
       dispatch(setAlert(alert));
     }
   };

@@ -8,18 +8,11 @@ import { ALERT_TYPE, DEFAULT_ALERT_STATE } from 'constants/defaultStates';
 
 import './notificationModal.scss';
 
-interface INotificationProps {
-  type?: string;
-  text?: string;
-  title?: string;
-  timeout?: number;
-}
-
-const NotificationModal: FC<INotificationProps> = () => {
+const NotificationModal: FC = () => {
   const [ state, setState ] = useState<ALERT_TYPE>(DEFAULT_ALERT_STATE);
   const alert = useSelector(userAlertSelector);
   const dispatch = useDispatch();
-  const { type, title, text } = state;
+  const { type, title, message } = state;
 
   useEffect(() => {
     if (alert) {
@@ -31,7 +24,7 @@ const NotificationModal: FC<INotificationProps> = () => {
   return alert ? (
     <div className={cn('notification-wrapper', type)}>
       <div className='notification-title'>{title}</div>
-      <div className='notification-text'>{text}</div>
+      <div className='notification-message'>{message}</div>
     </div>
   ) : null;
 };

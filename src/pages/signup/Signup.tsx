@@ -24,15 +24,17 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
       const alert = {
         title: ALERT_TEXTS.SIGNUP,
       };
+
       dispatch(setAlert(alert));
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
-      const text = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
       const alert = {
         title: ALERT_TEXTS.SIGNUP,
-        text,
+        message,
         type: 'error'
       };
+
       dispatch(setAlert(alert));
     }
   };

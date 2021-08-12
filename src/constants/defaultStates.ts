@@ -43,7 +43,7 @@ export type PASSWORD_TYPE = typeof DEFAULT_PASSWORD_STATE;
 export const DEFAULT_ALERT_STATE = {
   type: 'success',
   title: '',
-  text: 'Completed Successfully',
+  message: 'Completed successfully',
   timeout: 3000,
 };
 

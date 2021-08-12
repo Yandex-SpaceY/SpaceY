@@ -42,7 +42,7 @@ declare global {
 }
 
 export interface IAlert {
-  text?: string;
   title?: string;
+  message?: string;
   type?: string;
 }
