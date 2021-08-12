@@ -5,6 +5,8 @@ export const GAME_SETTINGS = {
   MAIN_STAGE_BACKGROUND_PATH: './assets/bg.png',
   MAIN_MUSIC_PATH: './assets/music.mp3',
   MAIN_MUSIC_VOLUME: 0.2,
+  REPAIR_SOUND_PATH: './assets/repair.mp3',
+  REPAIR_SOUND_VOLUME: 0.6,
   PIXELS_PER_DISTANCE_UNIT: 10, // Number of pixel passed to increase score distance
   BASE_SPEED_MODIFIER: 1,
   SPEED_MODIFIER_INCREMENT: 0.1,
@@ -20,6 +22,8 @@ export const GAME_SETTINGS = {
   WALLS_ENTITIES_KEY: 'walls',
   WALL_BASE_SPEED: 100,
   WALL_VISIBLE_PART_FROM_SIDE: 42,
+  REPAIR_ENTITY_KEY: 'repair',
+  REPAIR_MARGIN_FROM_SIDE: 70,
   SHIP_HULL_STRENGTH: 100,
 };
 
