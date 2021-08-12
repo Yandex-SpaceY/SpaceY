@@ -31,7 +31,7 @@ export default class Repair extends Entity {
     });
 
     this.status = REPAIR_STATUS.NOT_ACTIVE;
-    this.repairStrength = 25;
+    this.repairStrength = GAME_SETTINGS.REPAIR_STRENGTH;
     this.position.y = -100;
   }
 
