@@ -1,23 +1,10 @@
 import path from 'path';
 
-import { Configuration, DefinePlugin  } from 'webpack';
-import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
+import { Configuration  } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-import {  ALIAS, DIST_DIR, IS_DEV, SERVER_BUNDLE_NAME, SERVER_DIR } from './constants';
+import { ALIAS, DIST_DIR, SERVER_BUNDLE_NAME, SERVER_DIR } from './constants';
 import { fontLoader, imageLoader, scssLoader, tsLoader } from './loaders';
-
-const plugins = [];
-const gitRevisionPlugin = new GitRevisionPlugin();
-
-if (!IS_DEV) {
-  plugins.push(
-    gitRevisionPlugin,
-    new DefinePlugin({
-      COMMITHASH: JSON.stringify(gitRevisionPlugin.commithash()),
-    })
-  );
-}
 
 const serverConfig: Configuration = {
   name: 'server',
@@ -32,7 +19,6 @@ const serverConfig: Configuration = {
       imageLoader.server,
     ]
   },
-  plugins: plugins.filter(Boolean),
   output: {
     filename: `${SERVER_BUNDLE_NAME}.js`,
     path: DIST_DIR,
