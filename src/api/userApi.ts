@@ -18,3 +18,7 @@ export const changePassword = (payload: Record<string, FormDataEntryValue>): Pro
 export const getUserSetting = (payload: Record<string, string>): Promise<AxiosResponse> => (
   api.post('/api/users', payload)
 );
+
+export const updateUser = (payload: Record<string, number>): Promise<AxiosResponse> => (
+  api.put('/api/users', payload)
+);

@@ -6,4 +6,5 @@ export const ALERT_TEXTS = {
   PROFILE: 'Get user data',
   SIGNUP: 'Profile creating',
   PROFILE_EDIT: 'Profile edit',
+  TOPIC: 'Topic',
 };

@@ -1,0 +1,49 @@
+@import 'style/variables';
+
+@import 'style/mixins';
+
+h2 {
+  text-align: center;
+}
+
+.message {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+
+  .avatar-small {
+    width: 10%;
+    min-width: 60px;
+    margin-right: 20px;
+  }
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+.message-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  color: $secondary_color;
+  font-size: $link_font_size;
+}
+
+.message-button {
+  margin-top: 50px;
+
+  &.reply {
+    margin-top: 20px;
+  }
+}
+
+.links-topic {
+  @include flex-center;
+
+  .link-disabled:hover {
+    color: $header_link_color;
+  }
+}

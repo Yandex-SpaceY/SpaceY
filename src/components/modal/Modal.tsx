@@ -35,12 +35,12 @@ const Modal: FC<IModal> = ({
   return (
     visible
       ? <div className={cn('modal', className)}>
-        <div className='overlay' onClick={handleClear} />
-        <div className='modal-content'>
-          <div className='description'>{description}</div>
-          <div className='action-buttons'>{actions}</div>
+          <div className='overlay' onClick={handleClear} />
+          <div className='modal-content'>
+            <div className='description'>{description}</div>
+            <div className='action-buttons'>{actions}</div>
+          </div>
         </div>
-      </div>
       : null
   );
 };
