@@ -2,8 +2,8 @@ import path from 'path';
 
 import { Configuration, HotModuleReplacementPlugin } from 'webpack';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { WebpackManifestPlugin } from 'webpack-manifest-plugin';
 
 import { ALIAS, CLIENT_BUNDLE_NAME, DIST_DIR, IS_DEV, SRC_DIR } from './constants';
 import { fontLoader, imageLoader, scssLoader, tsLoader } from './loaders';
@@ -12,7 +12,6 @@ import { fontLoader, imageLoader, scssLoader, tsLoader } from './loaders';
 const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 
 const entry: string[] = [path.resolve(SRC_DIR, 'index.tsx')];
-const gitRevisionPlugin = new GitRevisionPlugin();
 
 if (IS_DEV) {
   entry.push('webpack-hot-middleware/client');
@@ -20,7 +19,7 @@ if (IS_DEV) {
 }
 
 const filename = (ext: string): string =>
-  (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.${gitRevisionPlugin.commithash()}.${ext}`);
+  (IS_DEV ? `${CLIENT_BUNDLE_NAME}.${ext}` : `${CLIENT_BUNDLE_NAME}.[fullhash].${ext}`);
 
 const plugins = [
   new MiniCssExtractPlugin({
@@ -40,7 +39,7 @@ const plugins = [
 
 if (!IS_DEV) {
   plugins.push(
-    gitRevisionPlugin,
+    new WebpackManifestPlugin({}),
   );
 }
 
