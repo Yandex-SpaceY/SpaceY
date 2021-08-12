@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import { getTopics, createTopic } from 'api/forumApi';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
@@ -12,7 +13,7 @@ import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { Button, Input, Modal, PageMeta, Pagination } from 'components';
 import { setUserPending } from 'store/user/actions';
-import { userUserDataSelector } from 'store/user/selectors';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers, formatDate } from 'utils';
 
 import './forum.scss';
@@ -29,6 +30,7 @@ type TopicState = ITopic[] | []
 const Forum: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { id } = useSelector(userUserDataSelector);
+  const theme = useSelector(userSettingSelector).theme;
 
   const [ topics, setTopics ] = useState<TopicState>([]);
   const [ totalRecords, setTotalRecords ] = useState<number>(0);
@@ -104,7 +106,7 @@ const Forum: FC = (): ReactElement => {
   };
 
   return (
-    <div className='main'>
+    <div className={cn('main', theme)}>
       <PageMeta title={PAGE_NAMES.FORUM} />
       <div className='content-wrapper double'>
         <div className='content'>

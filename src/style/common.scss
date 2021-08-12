@@ -70,6 +70,51 @@ body {
   }
 }
 
+.link {
+  margin-top: 24px;
+  color: $header_link_color;
+  font-size: $link_font_size;
+
+  &:hover {
+    color: $header_hover_link_color;
+  }
+}
+
+.secondary {
+
+  .content {
+    color: $text_secondary_color;
+
+    .content-links {
+
+      .content-links-game {
+        color: $success_main_color;
+      }
+    }
+  }
+
+  .one-input-block {
+    color: $text_secondary_color;
+
+    .input {
+      color: $text_secondary_color;
+    }
+  }
+
+  .one-button {
+    color: $secondary_color;
+
+    &:hover,
+    &:active {
+      background-color: $yellow-color;
+    }
+  }
+
+  .link {
+    color: $yellow-color;
+  }
+}
+
 .content-wrapper {
   width: $content_width;
 
@@ -132,16 +177,6 @@ h1 {
 
   @media screen and (max-width: $max_content_width) {
     margin-bottom: 30px;
-  }
-}
-
-.link {
-  margin-top: 24px;
-  color: $header_link_color;
-  font-size: $link_font_size;
-
-  &:hover {
-    color: $header_hover_link_color;
   }
 }
 

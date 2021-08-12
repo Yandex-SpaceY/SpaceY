@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC, ReactElement, useEffect, useState } from 'react
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
+import cn from 'classnames';
 
 import { changeProfile, changeProfileAvatar } from 'api/userApi';
 import { Avatar, Button, Input, PageMeta } from 'components';
@@ -14,12 +15,13 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
 import { setAlert, setUserData } from 'store/user/actions';
-import { userUserDataSelector } from 'store/user/selectors';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
 import { profileSchema } from 'schemas';
 
 const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector) as PROFILE_TYPE;
+  const theme = useSelector(userSettingSelector).theme;
 
   const [ avatar, setAvatar ] = useState<string>('');
   const [ avatarError, setAvatarError ] = useState<string>('');
@@ -81,7 +83,7 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
 
   return (
-    <div className='main'>
+    <div className={cn('main', theme)}>
       <PageMeta title={PAGE_NAMES.PROFILE_EDIT} />
       <div className='content-wrapper double'>
         <form className='content' onSubmit={handleSubmit}>

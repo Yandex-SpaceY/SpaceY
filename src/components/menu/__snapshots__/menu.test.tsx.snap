@@ -2,7 +2,7 @@
 
 exports[`check render component Menu 1`] = `
 <div
-  className="menu"
+  className="menu primary"
 >
   <h1>
     SpaceY
@@ -23,6 +23,7 @@ exports[`check render component Menu 1`] = `
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }
@@ -32,15 +33,19 @@ exports[`check render component Menu 1`] = `
       item={
         Object {
           "action": "GAME_SOUND_SWITCH",
+          "options": Object {
+            "OFF": "OFF",
+            "ON": "ON",
+          },
           "route": null,
           "title": "sound",
-          "withModifier": true,
         }
       }
       key="sound"
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }
@@ -51,15 +56,19 @@ exports[`check render component Menu 1`] = `
         Object {
           "action": "GAME_VIBRATION_SWITCH",
           "mobileOnly": true,
+          "options": Object {
+            "OFF": "OFF",
+            "ON": "ON",
+          },
           "route": null,
           "title": "vibration",
-          "withModifier": true,
         }
       }
       key="vibration"
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }
@@ -77,6 +86,7 @@ exports[`check render component Menu 1`] = `
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }
@@ -94,6 +104,7 @@ exports[`check render component Menu 1`] = `
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }
@@ -111,6 +122,25 @@ exports[`check render component Menu 1`] = `
       modifier={
         Object {
           "sound": true,
+          "theme": "primary",
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": "GAME_THEME_SWITCH",
+          "route": null,
+          "title": "theme",
+        }
+      }
+      key="theme"
+      modifier={
+        Object {
+          "sound": true,
+          "theme": "primary",
           "vibration": true,
         }
       }

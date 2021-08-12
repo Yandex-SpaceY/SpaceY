@@ -16,6 +16,8 @@ import {
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
 } from 'store/game/selectors';
+import { TUserSettings } from 'store/types';
+import { updateUserSettingsToServer } from 'store/user/actions';
 import { GameHUD } from 'components';
 import { GAME_OPTIONS } from 'constants/gameConstants';
 import { MENU_ACTIONS } from 'constants/menuConstants';
@@ -27,12 +29,13 @@ interface IGameCanvas {
   className?: string;
   menuAction?: string | null;
   resetMenuAction?: () => void;
+  settings: TUserSettings;
   isSoundOn: boolean;
   isVibrationOn: boolean;
 }
 
 const GameCanvas: FC<IGameCanvas> = (
-  { className, isSoundOn, isVibrationOn, menuAction, resetMenuAction }
+  { className, isSoundOn, isVibrationOn, settings, menuAction, resetMenuAction }
 ): ReactElement => {
   const dispatch = useDispatch();
 
@@ -107,10 +110,19 @@ const GameCanvas: FC<IGameCanvas> = (
         break;
       case MENU_ACTIONS.GAME_SOUND_SWITCH:
         dispatch(setIsSoundOn(!isSoundOn));
+        dispatch(updateUserSettingsToServer({ ...settings, sound: !isSoundOn }));
         break;
       case MENU_ACTIONS.GAME_VIBRATION_SWITCH:
         dispatch(setIsVibrationOn(!isVibrationOn));
+        dispatch(updateUserSettingsToServer({ ...settings, vibration: !isVibrationOn }));
         break;
+      case MENU_ACTIONS.GAME_THEME_SWITCH:
+      {
+        const { theme } = settings;
+        const nextTheme = theme === 'primary' ? 'secondary' : 'primary';
+        dispatch(updateUserSettingsToServer({ ...settings, theme: nextTheme }));
+        break;
+      }
       default:
         break;
     }

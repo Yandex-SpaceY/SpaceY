@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
 
 import { addToLeaderboard } from 'api/leaderboardApi';
 import { GameCanvas, GameOver, Menu, MenuHamburger, PageMeta, TMenuItem } from 'components';
@@ -14,7 +15,7 @@ import {
 import { REQUEST_DATA } from 'constants/leaderConstants';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ITEMS_GAME_OVER, MENU_ACTIONS } from 'constants/menuConstants';
 import { setIsGamePaused, setIsSoundOn } from 'store/game/actions';
-import { userUserDataSelector } from 'store/user/selectors';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
 import { useWindowActive } from 'hooks';
 
 import './game.scss';
@@ -29,6 +30,8 @@ const Game: FC = (): ReactElement => {
   const isVibrationOn = useSelector(gameIsVibrationOnSelector);
   const lastScore = useSelector(gameLastScoreSelector);
   const { id, avatar, login } = useSelector(userUserDataSelector);
+  const settings = useSelector(userSettingSelector);
+  const { theme } = settings;
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
@@ -90,12 +93,13 @@ const Game: FC = (): ReactElement => {
   }, []);
 
   return (
-    <div className='main game'>
+    <div className={cn('main game', theme)}>
       <PageMeta />
       <div className='content-wrapper'>
         <GameCanvas
           isSoundOn={isSoundOn}
           isVibrationOn={isVibrationOn}
+          settings={settings}
           menuAction={menuAction}
           resetMenuAction={resetMenuAction}
         />
@@ -106,9 +110,9 @@ const Game: FC = (): ReactElement => {
           handleAction={handleMenuAction}
           className={isMenuWithTitle ? '' : 'game-over-menu'}
           isWithTitle={isMenuWithTitle}
-          modifier={{ sound: isSoundOn, vibration: isVibrationOn }}
+          modifier={{ sound: isSoundOn, vibration: isVibrationOn, theme }}
         />
-        <MenuHamburger isShown={isGameStarted && !isGamePaused && !isGameOver} onClick={handleHamburgerOnClick}/>
+        <MenuHamburger isShown={isGameStarted && !isGamePaused && !isGameOver} onClick={handleHamburgerOnClick} />
       </div>
     </div>
   );
