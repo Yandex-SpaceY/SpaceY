@@ -1,9 +1,9 @@
 import path from 'path';
 
-import { Configuration } from 'webpack';
+import { Configuration  } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 
-import {  ALIAS, DIST_DIR, SERVER_BUNDLE_NAME, SERVER_DIR } from './constants';
+import { ALIAS, DIST_DIR, SERVER_BUNDLE_NAME, SERVER_DIR } from './constants';
 import { fontLoader, imageLoader, scssLoader, tsLoader } from './loaders';
 
 const serverConfig: Configuration = {

@@ -10,46 +10,111 @@ exports[`check render component Menu 1`] = `
   <div
     className="menu-items"
   >
-    <span
-      className="menu-item"
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": "GAME_START",
+          "route": null,
+          "title": "start",
+        }
+      }
       key="start"
-      onClick={[Function]}
-    >
-      start
-    </span>
-    <span
-      className="menu-item"
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": "GAME_SOUND_SWITCH",
+          "route": null,
+          "title": "sound",
+          "withModifier": true,
+        }
+      }
       key="sound"
-      onClick={[Function]}
-    >
-      sound:
-      <span
-        className="menu-item_mode_on"
-      >
-        ON
-      </span>
-    </span>
-    <Link
-      className="menu-item"
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": "GAME_VIBRATION_SWITCH",
+          "mobileOnly": true,
+          "route": null,
+          "title": "vibration",
+          "withModifier": true,
+        }
+      }
+      key="vibration"
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": null,
+          "route": "/profile",
+          "title": "my profile",
+        }
+      }
       key="my profile"
-      to="/profile"
-    >
-      my profile
-    </Link>
-    <Link
-      className="menu-item"
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": null,
+          "route": "/leaderboard",
+          "title": "best players",
+        }
+      }
       key="best players"
-      to="/leaderboard"
-    >
-      best players
-    </Link>
-    <Link
-      className="menu-item"
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": null,
+          "route": "/forum",
+          "title": "forum",
+        }
+      }
       key="forum"
-      to="/forum"
-    >
-      forum
-    </Link>
+      modifier={
+        Object {
+          "sound": true,
+          "vibration": true,
+        }
+      }
+    />
   </div>
 </div>
 `;

@@ -1,8 +1,10 @@
+import path from 'path';
 import React from 'react';
 import { Helmet, HelmetData } from 'react-helmet';
 import { Provider as ReduxProvider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { Request, Response } from 'express';
+import * as fs from 'fs';
 import { StaticRouter } from 'react-router-dom';
 
 import App from '../../src/App';
@@ -10,6 +12,19 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { store } from 'store/store';
 import { TAppState } from 'store/types';
 import { CLIENT_BUNDLE_NAME } from '../../webpack/constants';
+
+let manifestData: string | null;
+
+try {
+  manifestData = fs.readFileSync(path.resolve(__dirname, 'manifest.json'), 'utf8');
+} catch {
+  manifestData = null;
+}
+
+const manifest: Record<string, string> | null = manifestData ? JSON.parse(manifestData) : null;
+
+const styleFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.css`] : `/${CLIENT_BUNDLE_NAME}.css`;
+const scriptFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.js`] : `/${CLIENT_BUNDLE_NAME}.js`;
 
 const getHtml = (
   reactHtml: string,
@@ -21,7 +36,7 @@ const getHtml = (
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-            <link rel="stylesheet" href="${CLIENT_BUNDLE_NAME}.css">
+            <link rel="stylesheet" href="${styleFileName}">
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
         </head>
@@ -30,7 +45,7 @@ const getHtml = (
             <script>
               window.__INITIAL_STATE__ = ${JSON.stringify(state)}
             </script>
-            <script src="/${CLIENT_BUNDLE_NAME}.js"></script>
+            <script src="${scriptFileName}"></script>
         </body>
       </html>
     `;

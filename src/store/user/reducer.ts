@@ -7,6 +7,7 @@ const initialState = {
   userData: {},
   error: null,
   alert: null,
+  setting: {},
 };
 
 export const userReducer = (
@@ -27,10 +28,13 @@ export const userReducer = (
       return { ...state, pending: payload };
     }
     case USER_ACTIONS.CLEAR_USER_DATA: {
-      return { ...state, userData: {}, isAuthorized: null };
+      return { ...state, userData: {}, isAuthorized: null, settings: {} };
     }
     case USER_ACTIONS.SET_IS_AUTH: {
       return { ...state, isAuthorized: payload };
+    }
+    case USER_ACTIONS.SET_USER_SETTINGS: {
+      return { ...state, setting: payload };
     }
     default: {
       return state;
