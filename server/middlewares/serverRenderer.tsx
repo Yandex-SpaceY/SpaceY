@@ -23,8 +23,8 @@ try {
 
 const manifest: Record<string, string> | null = manifestData ? JSON.parse(manifestData) : null;
 
-const styleFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.css`] : `${CLIENT_BUNDLE_NAME}.css`;
-const scriptFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.js`] : `${CLIENT_BUNDLE_NAME}.js`;
+const styleFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.css`] : `/${CLIENT_BUNDLE_NAME}.css`;
+const scriptFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.js`] : `/${CLIENT_BUNDLE_NAME}.js`;
 
 const getHtml = (
   reactHtml: string,
