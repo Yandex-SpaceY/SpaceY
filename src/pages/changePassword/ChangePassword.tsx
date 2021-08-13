@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
 
 import { changePassword } from 'api/userApi';
 import { Button, Input, PageMeta } from 'components';
@@ -12,21 +12,26 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
-import { setAlert } from 'store/user/actions';
 import { passwordSchema } from 'schemas';
+import { setAlert, setUserPending } from 'store/user/actions';
 
 import './changePassword.scss';
 
 const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
+
   const saveData = async (values: PASSWORD_TYPE) => {
     try {
+      dispatch(setUserPending(true));
+
       await changePassword(values);
       const alert = {
         title: ALERT_TEXTS.CHANGE_PASSWORD,
       };
 
+      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
+
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
@@ -36,6 +41,7 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
         type: 'error'
       };
 
+      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
     }
   };
