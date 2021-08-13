@@ -29,7 +29,7 @@ import { User } from './user.model';
   include: [
     {
       model: User,
-      attributes: [ 'login', 'avatar' ],
+      attributes: ['login'],
     }
   ],
   order: [[ 'createdAt', 'DESC' ]]

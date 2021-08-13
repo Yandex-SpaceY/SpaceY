@@ -17,7 +17,7 @@ import { User } from './user.model';
 @DefaultScope(() => ({
   include: {
     model: User,
-    attributes: ['login']
+    attributes: [ 'login', 'avatar' ]
   },
   order: [[ 'createdAt', 'DESC' ]],
 }))
