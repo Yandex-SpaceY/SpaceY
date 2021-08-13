@@ -4,7 +4,7 @@ import { boxCollides } from 'game/core/utils';
 import { GAME_CONTROLS, GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
 import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
-import { Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
+import { Repair, REPAIR_STATUS, Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
 import { TCoordinates } from 'game/core/types';
 import { VibrationController } from 'game/core/';
 
@@ -22,8 +22,10 @@ export default class GameMain {
   gameTime: number;
 
   bgMusic: Sound;
+  repairSound: Sound;
 
   ship: SpaceShip | null;
+  repair: Repair | null;
 
   pixelCount: number;
   isShipDestroyed: boolean;
@@ -59,12 +61,14 @@ export default class GameMain {
       GAME_SETTINGS.OBJECT_SPRITES_PATH,
       GAME_SETTINGS.MAIN_STAGE_BACKGROUND_PATH,
       GAME_SETTINGS.MAIN_MUSIC_PATH,
+      GAME_SETTINGS.REPAIR_SOUND_PATH,
     ]);
     this.resources.onReady(this.init);
 
     this.gameTime = 0;
 
     this.ship = null;
+    this.repair = null;
 
     this.pixelCount = 0;
     this.isShipDestroyed = false;
@@ -76,6 +80,9 @@ export default class GameMain {
     this.bgMusic = new Sound(GAME_SETTINGS.MAIN_MUSIC_PATH);
     this.bgMusic.setIsLopped(true);
     this.bgMusic.setVolume(GAME_SETTINGS.MAIN_MUSIC_VOLUME);
+    this.repairSound = new Sound(GAME_SETTINGS.REPAIR_SOUND_PATH);
+    this.repairSound.setIsLopped(false);
+    this.repairSound.setVolume(GAME_SETTINGS.REPAIR_SOUND_VOLUME);
 
     this.setHull = props.setHull;
     this.setScore = props.setScore;
@@ -97,6 +104,7 @@ export default class GameMain {
     this.setGamePauseStatus(false);
 
     this.bgMusic.remove();
+    this.repairSound.remove();
   }
 
   handleKeyControls = (event: KeyboardEvent): void => {
@@ -233,6 +241,20 @@ export default class GameMain {
               [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
             );
 
+            if (seed > 0.7) {
+
+              if (this.repair!.status === REPAIR_STATUS.NOT_ACTIVE) {
+                this.repair!.switchStatus();
+
+                if (isLeft) {
+                  this.repair!.position.x = GAME_SETTINGS.REPAIR_MARGIN_FROM_SIDE;
+                } else {
+                  this.repair!.position.x
+                    = this.canvas.width - GAME_SETTINGS.REPAIR_MARGIN_FROM_SIDE - this.repair!.getSize().width;
+                }
+              }
+            }
+
             isLeftPrev = isLeft;
             prevObstacleGap = obstacleGap;
           }
@@ -279,6 +301,7 @@ export default class GameMain {
 
   updateEntities(dt: number): void {
     this.ship!.update(dt, this.canvas.width);
+    this.repair!.update(dt, this.canvas.height);
 
     this.stage!.getEntitiesByKey(GAME_SETTINGS.WALLS_ENTITIES_KEY).forEach(wall => {
       //TODO: Do something with types conversion
@@ -329,6 +352,30 @@ export default class GameMain {
         }, 500);
       }
     });
+
+    if (!this.isShipDestroyed) {
+      const isRepair = boxCollides(
+      this.repair!.getHitBoxPosition(), this.repair!.getHitBoxSize(),
+      this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize()
+      );
+
+      if (isRepair) {
+
+        if (this.isSoundOn) {
+          this.repairSound.play();
+        }
+
+        const afterRepair = this.col - this.repair!.repairStrength;
+
+        if (afterRepair < 0) {
+          this.col = 0;
+        } else {
+          this.col = afterRepair;
+        }
+
+      this.repair!.switchStatus();
+      }
+    }
   }
 
   update(dt: number): void {
@@ -385,8 +432,16 @@ export default class GameMain {
       this.bgMusic.play();
     }
 
-    this.stage.addEntitiesToKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY, [new SpaceShip({ x: 0, y: 0 })]);
+    this.stage.addEntitiesToKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY, [
+      new SpaceShip({ x: 0, y: 0 },
+        this.speedModifierRefernce)
+    ]);
     this.ship = this.stage.getEntitiesByKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY)[0] as SpaceShip;
+    this.stage.addEntitiesToKey(GAME_SETTINGS.REPAIR_ENTITY_KEY, [
+      new Repair({ x: 0, y: 0 },
+        this.speedModifierRefernce)
+    ]);
+    this.repair = this.stage.getEntitiesByKey(GAME_SETTINGS.REPAIR_ENTITY_KEY)[0] as Repair;
     this.setControls();
 
     this.reset();
