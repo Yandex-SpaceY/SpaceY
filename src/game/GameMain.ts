@@ -242,8 +242,10 @@ export default class GameMain {
             );
 
             if (seed > 0.7) {
+
               if (this.repair!.status === REPAIR_STATUS.NOT_ACTIVE) {
                 this.repair!.switchStatus();
+
                 if (isLeft) {
                   this.repair!.position.x = GAME_SETTINGS.REPAIR_MARGIN_FROM_SIDE;
                 } else {
@@ -351,22 +353,28 @@ export default class GameMain {
       }
     });
 
-    const isRepair = boxCollides(
+    if (!this.isShipDestroyed) {
+      const isRepair = boxCollides(
       this.repair!.getHitBoxPosition(), this.repair!.getHitBoxSize(),
       this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize()
-    );
-    if (isRepair) {
-      if (this.isSoundOn) {
-        this.repairSound.play();
-      }
-      const afterRepair = this.col - this.repair!.repairStrength;
-      if (afterRepair < 0) {
-        this.col = 0;
-      } else {
-        this.col = afterRepair;
-      }
+      );
+
+      if (isRepair) {
+
+        if (this.isSoundOn) {
+          this.repairSound.play();
+        }
+
+        const afterRepair = this.col - this.repair!.repairStrength;
+
+        if (afterRepair < 0) {
+          this.col = 0;
+        } else {
+          this.col = afterRepair;
+        }
 
       this.repair!.switchStatus();
+      }
     }
   }
 
