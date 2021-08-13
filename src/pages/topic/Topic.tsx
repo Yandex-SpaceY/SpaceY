@@ -15,7 +15,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { Avatar, Button, Textarea, Modal, PageMeta, Pagination } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
-import { formatDate, DATE_FORMAT } from 'utils';
+import { formatDate, DATE_FORMAT, getImageUrl } from 'utils';
 
 import './topic.scss';
 
@@ -23,10 +23,10 @@ interface IMessage {
   id: number;
   text: string;
   login: string;
-  avatar: string;
   createdAt: number;
   user: {
     login: string;
+    avatar: string;
   }
 }
 
@@ -81,15 +81,15 @@ const Topic: FC<RouteComponentProps<IDetailedParams>> = ({ history, match }): Re
   };
 
   const showMessages = () => (
-    messages.map(({ id, text, user, avatar, createdAt: date }) => {
+    messages.map(({ id, text, user: { login, avatar }, createdAt: date }) => {
       const formattedDate = formatDate(date, DATE_FORMAT.FULL_DATE);
 
       return (
         <div key={id} className='message'>
-          <Avatar src={avatar || ''} className='avatar-small' />
+          <Avatar src={getImageUrl(avatar)} className='avatar-small' />
           <div className='message-content'>
             <div className='message-info'>
-              <span>{user.login}</span>
+              <span>{login}</span>
               <span>{formattedDate}</span>
             </div>
             <span>{text}</span>
