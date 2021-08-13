@@ -2,7 +2,7 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -94,10 +94,10 @@ body {
   }
 
   .one-input-block {
-    color: $text_secondary_color;
+    color: $yellow-color;
 
     .input {
-      color: $text_secondary_color;
+      color: $yellow-color;
     }
   }
 
@@ -110,7 +110,8 @@ body {
     }
   }
 
-  .link {
+  .link,
+  .link-disabled:hover {
     color: $yellow-color;
   }
 }
