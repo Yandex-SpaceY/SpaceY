@@ -6,11 +6,13 @@ const initialState = {
   pending: false,
   userData: {},
   error: null,
+  alert: null,
+  setting: {},
 };
 
 export const userReducer = (
   state = initialState,
-  { type, payload }: TActionProps<string, TUserState>
+  { type, payload }: TActionProps<string, TUserState>,
 ): Record<string, unknown> => {
   switch (type) {
     case USER_ACTIONS.SET_USER_DATA: {
@@ -19,14 +21,20 @@ export const userReducer = (
     case USER_ACTIONS.ERROR: {
       return { ...state, error: payload };
     }
+    case USER_ACTIONS.ALERT: {
+      return { ...state, alert: payload };
+    }
     case USER_ACTIONS.PENDING: {
       return { ...state, pending: payload };
     }
     case USER_ACTIONS.CLEAR_USER_DATA: {
-      return { ...state, userData: {}, isAuthorized: null };
+      return { ...state, userData: {}, isAuthorized: null, settings: {} };
     }
     case USER_ACTIONS.SET_IS_AUTH: {
       return { ...state, isAuthorized: payload };
+    }
+    case USER_ACTIONS.SET_USER_SETTINGS: {
+      return { ...state, setting: payload };
     }
     default: {
       return state;

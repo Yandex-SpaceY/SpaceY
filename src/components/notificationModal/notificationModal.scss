@@ -1,0 +1,31 @@
+@import 'style/variables';
+
+.notification-wrapper {
+  position: fixed;
+  z-index: 10;
+  top: 3%;
+  right: 2%;
+  width: 300px;
+  padding: 15px;
+  border-radius: 10px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 0 12px $shadow_main_color;
+  box-shadow: 0 0 12px $shadow_main_color;
+  color: $text_main_color;
+  font-size: 12px;
+  opacity: 0.9;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+.notification-title {
+  margin-bottom: 10px;
+}
+
+.success {
+  background-color: $success_main_color;
+}
+
+.error {
+  background-color: $error_main_color;
+}

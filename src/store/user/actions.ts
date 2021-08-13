@@ -1,13 +1,21 @@
 import { ThunkAction } from 'redux-thunk';
 
 import { getUserInfo } from 'api/authApi';
-import { TAppState, TActionProps, TUserData } from 'store/types.d';
+import { getUserSetting } from 'api/userApi';
+import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
 
-export const setUserError = (error: Error| null): TActionProps<string, Error | null> => (
+export const setUserError = (error: Error | null): TActionProps<string, Error | null> => (
   {
     type: USER_ACTIONS.ERROR,
     payload: error,
+  }
+);
+
+export const setAlert = (alert: IAlert | null): TActionProps<string, IAlert | null> => (
+  {
+    type: USER_ACTIONS.ALERT,
+    payload: alert,
   }
 );
 
@@ -39,16 +47,25 @@ export const setisAuthorized = (isAuthorized: boolean | null): TActionProps => (
   }
 );
 
-export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps>  => {
+export const setUserSetting = (setting: TUserSettings): TActionProps => (
+  {
+    type: USER_ACTIONS.SET_USER_SETTINGS,
+    payload: setting,
+  }
+);
+
+export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps> => {
   return async dispatch => {
     try {
       dispatch(setUserError(null));
       dispatch(setUserPending(true));
 
-      const data = await getUserInfo();
+      const { data } = await getUserInfo();
+      const { data: { payload } } = await getUserSetting(data);
 
-      dispatch(setUserData(data.data));
+      dispatch(setUserData(data));
       dispatch(setisAuthorized(true));
+      dispatch(setUserSetting(payload.setting));
     } catch (error) {
       dispatch(setUserError(error));
       dispatch(setisAuthorized(false));

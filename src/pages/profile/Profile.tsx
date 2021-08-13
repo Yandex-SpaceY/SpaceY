@@ -9,7 +9,8 @@ import { PAGE_NAMES } from 'constants/commonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { clearUserData, getUserDataFromServer } from 'store/user/actions';
+import { ALERT_TEXTS } from 'constants/alertConstants';
+import { clearUserData, getUserDataFromServer, setAlert } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { getImageUrl } from 'utils';
 
@@ -24,10 +25,16 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
       await logout();
       dispatch(getUserDataFromServer());
       dispatch(clearUserData());
-
       history.push(ROUTE_CONSTANTS.LOGIN);
     } catch (err) {
-      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+      const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
+      const alert = {
+        title: ALERT_TEXTS.PROFILE,
+        message,
+        type: 'error'
+      };
+
+      dispatch(setAlert(alert));
     }
   };
 

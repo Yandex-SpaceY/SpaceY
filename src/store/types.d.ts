@@ -11,11 +11,19 @@ export type TUserData = {
   phone: string;
 };
 
+export type TUserSettings = {
+  id: number;
+  theme: string;
+  sound: boolean;
+  vibration: boolean;
+}
+
 export type TUserState = {
   isAuthorized: boolean;
   pending: boolean;
   error: Error | null;
   userData: TUserData;
+  alert: IAlert;
 };
 
 export type TGameState = {
@@ -38,4 +46,10 @@ declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION__?: typeof compose;
   }
+}
+
+export interface IAlert {
+  title?: string;
+  message?: string;
+  type?: string;
 }
