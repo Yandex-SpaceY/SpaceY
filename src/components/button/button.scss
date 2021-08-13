@@ -10,10 +10,16 @@
   cursor: pointer;
   font-size: $base_font_size;
 
-  &:hover,
+  &:hover {
+    background-color: $secondary_color;
+    box-shadow: 8px 10px 0 $shadow_main_color;
+    transform: translate(-1px, -1px);
+  }
+
   &:active {
     background-color: $secondary_color;
-    box-shadow: 7px 9px 0 $shadow_main_color;
+    box-shadow: 6px 8px 0 $shadow_main_color;
+    transform: translate(1px, 1px);
   }
 
   &:disabled {
