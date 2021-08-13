@@ -81,7 +81,7 @@ const Leaderboard: FC = (): ReactElement => {
       const formattedScore = formatBigNumbers(spaceScore);
 
       return (
-        <div key={id} className={cn('leader', id === userId && 'current-user')}>
+        <div key={formattedPlace} className={cn('leader', id === userId && 'current-user')}>
           <div className='leader-info'>
             <span className='leader-info-place' title={formattedPlace}>{formattedPlace}</span>
             <Avatar src={getImageUrl(avatar)} className='avatar-small' />
