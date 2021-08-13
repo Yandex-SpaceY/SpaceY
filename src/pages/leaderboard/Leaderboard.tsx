@@ -13,7 +13,7 @@ import { ALERT_TEXTS } from 'constants/alertConstants';
 import { Avatar, PageMeta } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
-import { formatBigNumbers } from 'utils';
+import { formatBigNumbers, getImageUrl } from 'utils';
 
 import './leaderboard.scss';
 
@@ -83,7 +83,7 @@ const Leaderboard: FC = (): ReactElement => {
         <div key={id} className={cn('leader', id === userId && 'current-user')}>
           <div className='leader-info'>
             <span className='leader-info-place' title={formattedPlace}>{formattedPlace}</span>
-            <Avatar src={avatar || ''} className='avatar-small' />
+            <Avatar src={getImageUrl(avatar)} className='avatar-small' />
           </div>
           <div className='leader-data'>
             <span className='leader-data-name' title={login}>{login}</span>
