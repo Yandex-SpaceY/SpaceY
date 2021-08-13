@@ -24,6 +24,7 @@ export type TUserState = {
   error: Error | null;
   userData: TUserData;
   alert: IAlert;
+  setting: TUserSettings;
 };
 
 export type TGameState = {

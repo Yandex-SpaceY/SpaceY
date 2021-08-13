@@ -1,9 +1,10 @@
 import { ThunkAction } from 'redux-thunk';
 
 import { getUserInfo } from 'api/authApi';
-import { getUserSetting } from 'api/userApi';
+import { getUserSetting, updateUserSetting } from 'api/userApi';
 import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
+import { setIsSoundOn, setIsVibrationOn } from 'store/game/actions';
 
 export const setUserError = (error: Error | null): TActionProps<string, Error | null> => (
   {
@@ -54,6 +55,18 @@ export const setUserSetting = (setting: TUserSettings): TActionProps => (
   }
 );
 
+export const updateUserSettingsToServer = (newSetting: TUserSettings):
+  ThunkAction<void, TAppState, unknown, TActionProps> => {
+  return async dispatch => {
+    try {
+      await updateUserSetting(newSetting);
+      dispatch(setUserSetting(newSetting));
+    } catch (error) {
+      dispatch(setUserError(error));
+    }
+  };
+};
+
 export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, TActionProps> => {
   return async dispatch => {
     try {
@@ -62,10 +75,13 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
 
       const { data } = await getUserInfo();
       const { data: { payload } } = await getUserSetting(data);
+      const { vibration, sound } = payload.setting;
 
       dispatch(setUserData(data));
       dispatch(setisAuthorized(true));
       dispatch(setUserSetting(payload.setting));
+      dispatch(setIsSoundOn(sound));
+      dispatch(setIsVibrationOn(vibration));
     } catch (error) {
       dispatch(setUserError(error));
       dispatch(setisAuthorized(false));

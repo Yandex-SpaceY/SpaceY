@@ -12,7 +12,7 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
 import { Avatar, PageMeta } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
-import { userUserDataSelector } from 'store/user/selectors';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers } from 'utils';
 
 import './leaderboard.scss';
@@ -29,6 +29,7 @@ type LeaderState = ILeaders[] | []
 const Leaderboard: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { id: userId } = useSelector(userUserDataSelector);
+  const theme = useSelector(userSettingSelector).theme;
 
   const [ leaders, setLeaders ] = useState<LeaderState>([]);
 
@@ -95,7 +96,7 @@ const Leaderboard: FC = (): ReactElement => {
   );
 
   return (
-    <div className='main'>
+    <div className={cn('main', theme)}>
       <PageMeta title={PAGE_NAMES.LEADERBOARD} />
       <div className='content-wrapper-leaderboard'>
         <div className='content'>

@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import cn from 'classnames';
 
 import { logout } from 'api/authApi';
 import { Avatar, Button, Input, PageMeta } from 'components';
@@ -11,7 +12,7 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
 import { clearUserData, getUserDataFromServer, setAlert } from 'store/user/actions';
-import { userUserDataSelector } from 'store/user/selectors';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
 import { getImageUrl } from 'utils';
 
 import './profile.scss';
@@ -19,6 +20,7 @@ import './profile.scss';
 const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector);
+  const theme = useSelector(userSettingSelector).theme;
 
   const logoutAndRedirect = async () => {
     try {
@@ -39,7 +41,7 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
   };
 
   return (
-    <div className='main'>
+    <div className={cn('main', theme)}>
       <PageMeta title={PAGE_NAMES.PROFILE} />
       <div className='content-wrapper double'>
         <form className='content'>

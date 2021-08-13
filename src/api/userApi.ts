@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { BASE_URL } from 'constants/commonConstants';
+import { TUserSettings } from 'store/types';
 import api from './api';
 
 export const changeProfile = (payload: Record<string, FormDataEntryValue>): Promise<AxiosResponse> => (
@@ -21,4 +22,8 @@ export const getUserSetting = (payload: Record<string, string>): Promise<AxiosRe
 
 export const updateUser = (payload: Record<string, number>): Promise<AxiosResponse> => (
   api.put('/api/users', payload)
+);
+
+export const updateUserSetting = (payload: TUserSettings): Promise<TUserSettings> => (
+  api.put('/api/settings', payload)
 );
