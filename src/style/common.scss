@@ -53,7 +53,7 @@ body {
   color: $text_main_color;
 
   @media screen and (max-width: $max_content_width) {
-    padding: $content-padding-small;
+    padding: $content_padding_small;
     margin-top: 0;
   }
 
@@ -131,11 +131,11 @@ body {
     width: 828px;
 
     .content {
-      padding: $content-padding-big;
+      padding: $content_padding_big;
 
       @media screen and (max-width: $max_content_width) {
         width: $content_width;
-        padding: $content-padding-small;
+        padding: $content_padding_small;
       }
 
       h2 {
