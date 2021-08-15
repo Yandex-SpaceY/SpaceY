@@ -34,6 +34,9 @@ class User extends Model {
   @Column(DataType.INTEGER)
   settingId: number;
 
+  @Column(DataType.STRING)
+  avatar: string;
+
   @BelongsTo(() => Setting)
   setting: Setting
 

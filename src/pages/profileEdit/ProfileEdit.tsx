@@ -4,7 +4,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 import cn from 'classnames';
 
-import { changeProfile, changeProfileAvatar } from 'api/userApi';
+import { changeProfile, changeProfileAvatar, updateUser } from 'api/userApi';
 import { Avatar, Button, Input, PageMeta } from 'components';
 import { getImageUrl } from 'utils';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
@@ -14,8 +14,8 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
-import { setAlert, setUserData } from 'store/user/actions';
 import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
+import { setAlert, setUserData, setUserPending } from 'store/user/actions';
 import { profileSchema } from 'schemas';
 
 const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
@@ -34,8 +34,11 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
   const saveData = async (values: PROFILE_TYPE) => {
     try {
+      dispatch(setUserPending(true));
+
       const response = await changeProfile(values);
       response && dispatch(setUserData(response.data));
+
       const alert = {
         title: ALERT_TEXTS.PROFILE_EDIT,
       };
@@ -51,6 +54,8 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
       };
 
       dispatch(setAlert(alert));
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 
@@ -61,16 +66,22 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
     formData.append('avatar', event.currentTarget!.files![0]);
 
     try {
+      dispatch(setUserPending(true));
+
       const response = await changeProfileAvatar(formData);
 
       if (response) {
         const newAvatar = response.data?.avatar;
+
         setAvatar(getImageUrl(newAvatar));
         dispatch(setUserData(response.data));
         setAvatarError('');
+        await updateUser({ id: response.data.id, avatar: newAvatar });
       }
     } catch (err) {
       setAvatarError(ERROR_CONSTANTS.CHOOSE_ANOTHER_FILE);
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 

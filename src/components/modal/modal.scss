@@ -33,28 +33,3 @@
   background-color: $third_color;
   box-shadow: 10px 10px 0 0 $shadow_main_color;
 }
-
-.description {
-  margin-top: 20px;
-}
-
-.action-buttons {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 40px;
-
-  @media screen and (max-width: 1100px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    button {
-      padding: 20px 0;
-      text-align: center;
-
-      &:first-child {
-        margin-bottom: 20px;
-      }
-    }
-  }
-}

@@ -28,7 +28,7 @@ export const userReducer = (
       return { ...state, pending: payload };
     }
     case USER_ACTIONS.CLEAR_USER_DATA: {
-      return { ...state, userData: {}, isAuthorized: null, settings: {} };
+      return { ...state, userData: {}, isAuthorized: null, setting: {} };
     }
     case USER_ACTIONS.SET_IS_AUTH: {
       return { ...state, isAuthorized: payload };

@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
 
 import { signup } from 'api/authApi';
 import { Button, Input, PageMeta } from 'components';
@@ -12,15 +12,17 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
-import { setAlert } from 'store/user/actions';
 import { signupSchema } from 'schemas';
+import { setAlert, setUserPending } from 'store/user/actions';
 
 const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
 
   const saveData = async (values: SIGNUP_TYPE) => {
     try {
+      dispatch(setUserPending(true));
       await signup(values);
+
       const alert = {
         title: ALERT_TEXTS.SIGNUP,
       };
@@ -36,6 +38,8 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
       };
 
       dispatch(setAlert(alert));
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 

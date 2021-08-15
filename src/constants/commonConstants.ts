@@ -14,6 +14,7 @@ export const PAGE_NAMES = {
   PROFILE: 'PROFILE',
   PROFILE_EDIT: 'PROFILE EDIT',
   REGISTRATION: 'REGISTRATION',
+  TOPIC: 'TOPIC',
 };
 
 export const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
