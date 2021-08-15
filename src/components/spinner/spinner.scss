@@ -12,7 +12,8 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  background: $spinner-overlay-color;
+  background: $spinner_overlay_color;
+  color: $text_main_color;
 }
 
 .spinner-item {

@@ -22,6 +22,7 @@ export const getUserSetting = (payload: Record<string, string>): Promise<AxiosRe
 
 export const updateUserSetting = (payload: TUserSettings): Promise<TUserSettings> => (
   api.put('/api/settings', payload)
+);
 
 export const updateUser = (payload: Record<string, number>): Promise<AxiosResponse> => (
   api.put('/api/users', payload)
