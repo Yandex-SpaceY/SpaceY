@@ -54,10 +54,8 @@ export default class Repair extends Entity {
   }
 
   switchStatus(): void {
-    if (this.status === REPAIR_STATUS.ACTIVE) {
-      this.changeStatus(REPAIR_STATUS.NOT_ACTIVE);
-    } else {
-      this.changeStatus(REPAIR_STATUS.ACTIVE);
-    }
+    const nextStatus = this.status === REPAIR_STATUS.ACTIVE ? REPAIR_STATUS.NOT_ACTIVE : REPAIR_STATUS.ACTIVE;
+
+    this.changeStatus(nextStatus);
   }
 }

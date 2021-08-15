@@ -31,7 +31,7 @@ export default class GameMain {
   isShipDestroyed: boolean;
   score: number;
   col: number;
-  speedModifierRefernce: { speedModifier: number }
+  speedModifierReference: { speedModifier: number }
 
   stage: Stage | null;
 
@@ -74,7 +74,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.score = 0;
     this.col = 0;
-    this.speedModifierRefernce = { speedModifier: 1 };
+    this.speedModifierReference = { speedModifier: 1 };
 
     this.stage = null;
     this.bgMusic = new Sound(GAME_SETTINGS.MAIN_MUSIC_PATH);
@@ -155,7 +155,7 @@ export default class GameMain {
             y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
           },
           wallLoopStartShift,
-          this.speedModifierRefernce
+          this.speedModifierReference
           )
         ]);
       this.stage!.addEntitiesToKey(
@@ -166,7 +166,7 @@ export default class GameMain {
             y: this.canvas.height - i * wallSpriteHeight - (wallLoopStartShift - wallSpriteHeight)
           },
           wallLoopStartShift,
-          this.speedModifierRefernce
+          this.speedModifierReference
           )
         ]);
     }
@@ -238,7 +238,7 @@ export default class GameMain {
 
             this.stage!.addEntitiesToKey(
               obstaclesEntitiesKey,
-              [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
+              [new Obstacle(position, this.speedModifierReference, obstacleType)]
             );
 
             if (seed > 0.7) {
@@ -261,7 +261,7 @@ export default class GameMain {
         } else {
         this.stage!.addEntitiesToKey(
           obstaclesEntitiesKey,
-          [new Obstacle(position, this.speedModifierRefernce, obstacleType)]
+          [new Obstacle(position, this.speedModifierReference, obstacleType)]
         );
         }
       }
@@ -278,7 +278,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
-    this.speedModifierRefernce.speedModifier = GAME_SETTINGS.BASE_SPEED_MODIFIER;
+    this.speedModifierReference.speedModifier = GAME_SETTINGS.BASE_SPEED_MODIFIER;
 
     this.setHull(this.ship!.hullStrength);
 
@@ -355,12 +355,11 @@ export default class GameMain {
 
     if (!this.isShipDestroyed) {
       const isRepair = boxCollides(
-      this.repair!.getHitBoxPosition(), this.repair!.getHitBoxSize(),
-      this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize()
+        this.repair!.getHitBoxPosition(), this.repair!.getHitBoxSize(),
+        this.ship!.getHitBoxPosition(), this.ship!.getHitBoxSize()
       );
 
       if (isRepair) {
-
         if (this.isSoundOn) {
           this.repairSound.play();
         }
@@ -391,7 +390,7 @@ export default class GameMain {
         this.pixelCount = 0;
 
         if (this.score % GAME_SETTINGS.DISTANCE_TO_INCREASE_SPEED === 0 && this.pixelCount === 0) {
-          this.speedModifierRefernce.speedModifier += GAME_SETTINGS.SPEED_MODIFIER_INCREMENT;
+          this.speedModifierReference.speedModifier += GAME_SETTINGS.SPEED_MODIFIER_INCREMENT;
         }
       }
 
@@ -434,12 +433,12 @@ export default class GameMain {
 
     this.stage.addEntitiesToKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY, [
       new SpaceShip({ x: 0, y: 0 },
-        this.speedModifierRefernce)
+        this.speedModifierReference)
     ]);
     this.ship = this.stage.getEntitiesByKey(GAME_SETTINGS.SPACESHIP_ENTITY_KEY)[0] as SpaceShip;
     this.stage.addEntitiesToKey(GAME_SETTINGS.REPAIR_ENTITY_KEY, [
       new Repair({ x: 0, y: 0 },
-        this.speedModifierRefernce)
+        this.speedModifierReference)
     ]);
     this.repair = this.stage.getEntitiesByKey(GAME_SETTINGS.REPAIR_ENTITY_KEY)[0] as Repair;
     this.setControls();
