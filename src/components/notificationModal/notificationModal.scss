@@ -16,16 +16,16 @@
   opacity: 0.9;
   overflow-x: hidden;
   text-align: center;
+
+  &.success {
+    background-color: $success_main_color;
+  }
+
+  &.error {
+    background-color: $error_main_color;
+  }
 }
 
 .notification-title {
   margin-bottom: 10px;
-}
-
-.success {
-  background-color: $success_main_color;
-}
-
-.error {
-  background-color: $error_main_color;
 }

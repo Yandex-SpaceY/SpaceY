@@ -12,8 +12,8 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
 import { Avatar, PageMeta } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
-import { userUserDataSelector } from 'store/user/selectors';
-import { formatBigNumbers } from 'utils';
+import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
+import { formatBigNumbers, getImageUrl } from 'utils';
 
 import './leaderboard.scss';
 
@@ -29,6 +29,7 @@ type LeaderState = ILeaders[] | []
 const Leaderboard: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { id: userId } = useSelector(userUserDataSelector);
+  const { theme } = useSelector(userSettingSelector);
 
   const [ leaders, setLeaders ] = useState<LeaderState>([]);
 
@@ -80,10 +81,10 @@ const Leaderboard: FC = (): ReactElement => {
       const formattedScore = formatBigNumbers(spaceScore);
 
       return (
-        <div key={id} className={cn('leader', id === userId && 'current-user')}>
+        <div key={formattedPlace} className={cn('leader', id === userId && 'current-user')}>
           <div className='leader-info'>
             <span className='leader-info-place' title={formattedPlace}>{formattedPlace}</span>
-            <Avatar src={avatar || ''} className='avatar-small' />
+            <Avatar src={getImageUrl(avatar)} className='avatar-small' />
           </div>
           <div className='leader-data'>
             <span className='leader-data-name' title={login}>{login}</span>
@@ -95,7 +96,7 @@ const Leaderboard: FC = (): ReactElement => {
   );
 
   return (
-    <div className='main'>
+    <div className={cn('main', theme)}>
       <PageMeta title={PAGE_NAMES.LEADERBOARD} />
       <div className='content-wrapper-leaderboard'>
         <div className='content'>

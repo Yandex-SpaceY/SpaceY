@@ -1,11 +1,12 @@
 import { Router } from 'express';
 
-import { addTopic, getTopics } from '../controllers/topicsController';
+import { addTopic, getTopics, getCurrentTopic } from '../controllers/topicsController';
 
 const topicsRoutes = Router();
 
 topicsRoutes
   .post('/', addTopic)
-  .get('/', getTopics);
+  .get('/', getTopics)
+  .get('/:id', getCurrentTopic);
 
 export default topicsRoutes;

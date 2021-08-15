@@ -1,18 +1,18 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
+import { IModifier } from 'store/types';
 import { TMenuItem } from './Menu';
-import { TOGGLE_ITEMS } from 'constants/commonConstants';
 
 interface IProps {
   item: TMenuItem;
-  modifier:  { [key: string]: boolean };
+  modifier: IModifier;
   isMobile: boolean;
   handleAction?: (action: string) => void;
 }
 
 const MenuItem: FC<IProps> = ({ item, modifier, isMobile, handleAction }): ReactElement | null => {
-  const { title, route, action, mobileOnly, withModifier } = item;
+  const { title, route, action, mobileOnly, options } = item;
 
   if (mobileOnly && !isMobile) {
     return null;
@@ -23,6 +23,17 @@ const MenuItem: FC<IProps> = ({ item, modifier, isMobile, handleAction }): React
       handleAction(action);
     }
   };
+
+  if (title === 'theme' && typeof modifier[title] === 'string') {
+    const mode = modifier[title].toString();
+
+    return (
+      <span key={title} className='menu-item' onClick={callback}>
+        {`${title}:`}
+        <span className='menu-item_theme'>{mode.toUpperCase()}</span>
+      </span>
+    );
+  }
 
   if (route) {
     return (
@@ -37,9 +48,9 @@ const MenuItem: FC<IProps> = ({ item, modifier, isMobile, handleAction }): React
 
     return (
       <span key={title} className='menu-item' onClick={callback}>
-        {`${title}${withModifier ? ':' : ''}`}
-        {withModifier
-          && <span className={`menu-item_mode_${mode.toLowerCase()}`}>{TOGGLE_ITEMS[mode]}</span>
+        {`${title}${options ? ':' : ''}`}
+        {options
+          && <span className={`menu-item_mode_${mode.toLowerCase()}`}>{options[mode]}</span>
         }
       </span>
     );

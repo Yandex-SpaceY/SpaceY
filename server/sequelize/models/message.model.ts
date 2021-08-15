@@ -4,6 +4,7 @@ import {
   Column,
   CreatedAt,
   DataType,
+  DefaultScope,
   ForeignKey,
   Model,
   Table,
@@ -12,6 +13,14 @@ import {
 
 import { Topic } from './topic.model';
 import { User } from './user.model';
+
+@DefaultScope(() => ({
+  include: {
+    model: User,
+    attributes: [ 'login', 'avatar' ]
+  },
+  order: [[ 'createdAt', 'DESC' ]],
+}))
 
 @Table({
   tableName: 'messages',
