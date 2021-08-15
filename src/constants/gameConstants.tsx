@@ -8,3 +8,8 @@ export const GAME_OPTIONS = {
   GAME_OVER_TITLE: 'You\'ve crashed',
   GAME_OVER_SCORE_TITLE: 'Distance passed:',
 };
+
+export const THEME_OPTIONS = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary'
+} as const;

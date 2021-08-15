@@ -1,4 +1,5 @@
 import { Action as ReduxAction, compose } from 'redux';
+import { THEME_OPTIONS } from 'constants/gameConstants';
 
 export type TUserData = {
   id: number;
@@ -13,7 +14,7 @@ export type TUserData = {
 
 export type TUserSettings = {
   id: number;
-  theme: string;
+  theme: ValueOfTheme;
   sound: boolean;
   vibration: boolean;
 }
@@ -24,6 +25,7 @@ export type TUserState = {
   error: Error | null;
   userData: TUserData;
   alert: IAlert;
+  setting: TUserSettings;
 };
 
 export type TGameState = {
@@ -31,7 +33,7 @@ export type TGameState = {
   isGameOver: boolean;
   isGamePaused: boolean;
   isSoundOn: boolean;
-  isVibrationOn: boolean;
+  vibration: boolean;
   lastScore: number;
 };
 
@@ -52,4 +54,10 @@ export interface IAlert {
   title?: string;
   message?: string;
   type?: string;
+}
+
+type Keys = keyof typeof THEME_OPTIONS;
+export type ValueOfTheme = typeof THEME_OPTIONS[Keys]; //
+export interface IModifier {
+   [key: string]: boolean | ValueOfTheme
 }

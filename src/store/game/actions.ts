@@ -21,11 +21,6 @@ export const setIsSoundOn = (isSoundOn: boolean): TActionProps<string, boolean> 
   payload: isSoundOn,
 });
 
-export const setIsVibrationOn = (isVibrationOn: boolean): TActionProps<string, boolean> => ({
-  type: GAME_ACTIONS.SET_IS_VIBRATION_ON,
-  payload: isVibrationOn,
-});
-
 export const setLastScore = (lastScore: number): TActionProps<string, number> => ({
   type: GAME_ACTIONS.SET_LAST_SCORE,
   payload: lastScore,
