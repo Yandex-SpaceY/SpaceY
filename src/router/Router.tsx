@@ -11,21 +11,23 @@ import {
   NotFound,
   Profile,
   ProfileEdit,
-  Signup
+  Signup,
+  Topic
 } from 'pages';
 import { WithAuthPrivateRoute } from 'hocs';
 
 const Router: React.FC = () => (
   <Switch>
-    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.GAME} exact component={Game} />
+    <WithAuthPrivateRoute exact path={ROUTE_CONSTANTS.GAME} component={Game} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.CHANGE_PASSWORD} component={ChangePassword} />
-    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.FORUM} component={Forum} />
+    <WithAuthPrivateRoute exact path={ROUTE_CONSTANTS.FORUM} component={Forum} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.LEADERBOARD} component={Leaderboard} />
     <Route path={ROUTE_CONSTANTS.LOGIN} component={Login} />
     <Route path={ROUTE_CONSTANTS.NOT_FOUND} component={NotFound} />
     <WithAuthPrivateRoute path={ROUTE_CONSTANTS.PROFILE_EDIT} component={ProfileEdit} />
     <WithAuthPrivateRoute exact path={ROUTE_CONSTANTS.PROFILE} component={Profile} />
-    <Route path={ROUTE_CONSTANTS.SIGNUP} component={Signup} />
+    <Route exact path={ROUTE_CONSTANTS.SIGNUP} component={Signup} />
+    <WithAuthPrivateRoute path={ROUTE_CONSTANTS.TOPIC} component={Topic} />
     <Redirect to={ROUTE_CONSTANTS.NOT_FOUND} />
   </Switch>
 );

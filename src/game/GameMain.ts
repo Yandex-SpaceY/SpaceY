@@ -17,7 +17,7 @@ export default class GameMain {
   isGameOver: boolean;
   isGamePaused: boolean;
   isSoundOn: boolean;
-  isVibrationOn: boolean;
+  vibration: boolean;
   vibrationController: VibrationController;
   gameTime: number;
 
@@ -52,7 +52,7 @@ export default class GameMain {
     this.isGameOver = false;
     this.isGamePaused = false;
     this.isSoundOn = true;
-    this.isVibrationOn = true;
+    this.vibration = true;
     this.vibrationController = new VibrationController();
     this.resources = new Resources();
     this.resources.load([
@@ -120,7 +120,7 @@ export default class GameMain {
   }
 
   setVibrationStatus(status: boolean): void {
-    this.isVibrationOn = status;
+    this.vibration = status;
   }
 
   setPauseStatus(status: boolean): void {
@@ -317,7 +317,7 @@ export default class GameMain {
             }
           }, 500);
         }
-        if (!this.vibrationController.checkInterval() && this.isVibrationOn) {
+        if (!this.vibrationController.checkInterval() && this.vibration) {
           this.vibrationController.startPersistentVibrate([200], 100);
         }
       } else if (this.vibrationController.checkInterval()) {

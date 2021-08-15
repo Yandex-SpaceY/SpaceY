@@ -4,6 +4,7 @@ import cn from 'classnames';
 import MenuItem from './MenuItem';
 import { GAME_NAME } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
+import { IModifier } from 'store/types';
 
 import './menu.scss';
 
@@ -11,7 +12,7 @@ export type TMenuItem = {
   title: string;
   route: string | null;
   action: string | null;
-  withModifier?: boolean;
+  options?: { [key: string]: string }
   mobileOnly?: boolean;
 }
 
@@ -20,7 +21,7 @@ interface IMenu {
   isShown?: boolean;
   isWithTitle?: boolean;
   className?: string;
-  modifier: { [key: string]: boolean }
+  modifier: IModifier;
   isTest?: boolean;
   handleAction?: (action: string) => void;
 }
@@ -35,13 +36,14 @@ const Menu: FC<IMenu> = ({
   handleAction
 }): ReactElement => {
   let isMobile = false;
+  const theme = modifier.theme;
 
   if (!isTest && window) {
     isMobile = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(window.navigator.userAgent);
   }
 
   return (
-    <div className={cn('menu', className, (!isShown && 'hidden'))}>
+    <div className={cn('menu', className, (!isShown && 'hidden'), theme)}>
       {isWithTitle && <h1>{GAME_NAME}</h1>}
       <div className='menu-items'>
         {

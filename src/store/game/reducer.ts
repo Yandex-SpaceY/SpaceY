@@ -6,7 +6,6 @@ const initialState = {
   isGameOver: false,
   isGamePaused: false,
   isSoundOn: true,
-  isVibrationOn: true,
   lastScore: 0,
 };
 
@@ -26,9 +25,6 @@ export const gameReducer = (
     }
     case GAME_ACTIONS.SET_IS_SOUND_ON: {
       return { ...state, isSoundOn: payload };
-    }
-    case GAME_ACTIONS.SET_IS_VIBRATION_ON: {
-      return { ...state, isVibrationOn: payload };
     }
     case GAME_ACTIONS.SET_LAST_SCORE: {
       return { ...state, lastScore: payload };

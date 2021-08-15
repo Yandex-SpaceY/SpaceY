@@ -31,6 +31,11 @@
       display: inline-block;
       width: 74px;
 
+      &.menu-item_theme {
+        width: auto;
+        color: $secondary_color;
+      }
+
       &.menu-item_mode_on {
         color: $secondary_color;
       }
@@ -46,5 +51,23 @@
     bottom: 70px;
     color: $text_main_color;
     text-shadow: 3px 4px 0 $shadow_main_color;
+  }
+}
+
+.secondary {
+
+  .menu-item {
+    color: $text_secondary_color;
+
+    span {
+
+      &.menu-item_mode_on {
+        color: $success_main_color;
+      }
+
+      &.menu-item_mode_off {
+        color: $error_main_color;
+      }
+    }
   }
 }

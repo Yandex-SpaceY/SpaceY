@@ -7,3 +7,4 @@ export { default as NotFound } from 'pages/notFound/NotFound';
 export { default as Profile } from 'pages/profile/Profile';
 export { default as ProfileEdit } from 'pages/profileEdit/ProfileEdit';
 export { default as Signup } from 'pages/signup/Signup';
+export { default as Topic } from 'pages/topic/Topic';

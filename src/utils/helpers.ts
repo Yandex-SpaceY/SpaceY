@@ -2,10 +2,11 @@ import moment, { Moment } from 'moment';
 
 import { BASE_URL } from 'constants/commonConstants';
 
-enum DATE_FORMAT {
+export enum DATE_FORMAT {
   TODAY = 'HH:mm',
   MONTH = 'DD/MM',
   YEAR = 'MM/YY',
+  FULL_DATE = 'DD/MM/YYYY HH:mm',
 }
 
 const _defineFormat = (date: Moment) => {
