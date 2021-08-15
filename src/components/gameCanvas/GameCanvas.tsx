@@ -9,7 +9,6 @@ import {
   setIsGameOver,
   setLastScore,
   setIsSoundOn,
-  setIsVibrationOn
 } from 'store/game/actions';
 import {
   gameIsGameStartedSelector,
@@ -19,7 +18,7 @@ import {
 import { TUserSettings } from 'store/types';
 import { updateUserSettingsToServer } from 'store/user/actions';
 import { GameHUD } from 'components';
-import { GAME_OPTIONS } from 'constants/gameConstants';
+import { GAME_OPTIONS, THEME_OPTIONS } from 'constants/gameConstants';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { useWindowSize } from 'hooks';
 
@@ -31,14 +30,13 @@ interface IGameCanvas {
   resetMenuAction?: () => void;
   settings: TUserSettings;
   isSoundOn: boolean;
-  isVibrationOn: boolean;
 }
 
-const GameCanvas: FC<IGameCanvas> = (
-  { className, isSoundOn, isVibrationOn, settings, menuAction, resetMenuAction }
-): ReactElement => {
+const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
+  const { className, isSoundOn, settings, menuAction, resetMenuAction } = props;
   const dispatch = useDispatch();
 
+  const { vibration } = settings;
   const isGameStarted = useSelector(gameIsGameStartedSelector);
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
@@ -113,13 +111,12 @@ const GameCanvas: FC<IGameCanvas> = (
         dispatch(updateUserSettingsToServer({ ...settings, sound: !isSoundOn }));
         break;
       case MENU_ACTIONS.GAME_VIBRATION_SWITCH:
-        dispatch(setIsVibrationOn(!isVibrationOn));
-        dispatch(updateUserSettingsToServer({ ...settings, vibration: !isVibrationOn }));
+        dispatch(updateUserSettingsToServer({ ...settings, vibration: !vibration }));
         break;
       case MENU_ACTIONS.GAME_THEME_SWITCH:
       {
         const { theme } = settings;
-        const nextTheme = theme === 'primary' ? 'secondary' : 'primary';
+        const nextTheme = theme === THEME_OPTIONS.PRIMARY ? THEME_OPTIONS.SECONDARY : THEME_OPTIONS.PRIMARY;
         dispatch(updateUserSettingsToServer({ ...settings, theme: nextTheme }));
         break;
       }
@@ -141,8 +138,8 @@ const GameCanvas: FC<IGameCanvas> = (
   }, [isSoundOn]);
 
   useEffect(() => {
-    setGameVibrationStatus(isVibrationOn);
-  }, [isVibrationOn]);
+    setGameVibrationStatus(vibration);
+  }, [vibration]);
 
   useEffect(() => {
     if (isGameStarted) {

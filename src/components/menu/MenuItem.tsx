@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
+import { IModifier } from 'store/types';
 import { TMenuItem } from './Menu';
 
 interface IProps {
   item: TMenuItem;
-  modifier: { [key: string]: boolean | string };
+  modifier: IModifier;
   isMobile: boolean;
   handleAction?: (action: string) => void;
 }

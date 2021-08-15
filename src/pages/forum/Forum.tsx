@@ -30,7 +30,7 @@ type TopicState = ITopic[] | []
 const Forum: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { id } = useSelector(userUserDataSelector);
-  const theme = useSelector(userSettingSelector).theme;
+  const { theme } = useSelector(userSettingSelector);
 
   const [ topics, setTopics ] = useState<TopicState>([]);
   const [ totalRecords, setTotalRecords ] = useState<number>(0);

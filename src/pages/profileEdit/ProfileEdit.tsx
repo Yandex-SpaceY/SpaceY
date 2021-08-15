@@ -21,7 +21,7 @@ import { profileSchema } from 'schemas';
 const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector) as PROFILE_TYPE;
-  const theme = useSelector(userSettingSelector).theme;
+  const { theme } = useSelector(userSettingSelector);
 
   const [ avatar, setAvatar ] = useState<string>('');
   const [ avatarError, setAvatarError ] = useState<string>('');

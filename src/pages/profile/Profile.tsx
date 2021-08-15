@@ -20,7 +20,7 @@ import './profile.scss';
 const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector);
-  const theme = useSelector(userSettingSelector).theme;
+  const { theme } = useSelector(userSettingSelector);
 
   const logoutAndRedirect = async () => {
     try {

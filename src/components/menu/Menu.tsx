@@ -4,6 +4,7 @@ import cn from 'classnames';
 import MenuItem from './MenuItem';
 import { GAME_NAME } from 'constants/commonConstants';
 import { MENU_ITEMS } from 'constants/menuConstants';
+import { IModifier } from 'store/types';
 
 import './menu.scss';
 
@@ -20,7 +21,7 @@ interface IMenu {
   isShown?: boolean;
   isWithTitle?: boolean;
   className?: string;
-  modifier: { [key: string]: boolean | string }
+  modifier: IModifier;
   isTest?: boolean;
   handleAction?: (action: string) => void;
 }
@@ -35,7 +36,7 @@ const Menu: FC<IMenu> = ({
   handleAction
 }): ReactElement => {
   let isMobile = false;
-  const theme = modifier['theme'];
+  const theme = modifier.theme;
 
   if (!isTest && window) {
     isMobile = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(window.navigator.userAgent);

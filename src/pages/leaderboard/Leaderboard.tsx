@@ -29,7 +29,7 @@ type LeaderState = ILeaders[] | []
 const Leaderboard: FC = (): ReactElement => {
   const dispatch = useDispatch();
   const { id: userId } = useSelector(userUserDataSelector);
-  const theme = useSelector(userSettingSelector).theme;
+  const { theme } = useSelector(userSettingSelector);
 
   const [ leaders, setLeaders ] = useState<LeaderState>([]);
 
