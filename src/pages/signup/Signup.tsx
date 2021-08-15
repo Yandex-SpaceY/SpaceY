@@ -21,16 +21,13 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const saveData = async (values: SIGNUP_TYPE) => {
     try {
       dispatch(setUserPending(true));
-
       await signup(values);
 
       const alert = {
         title: ALERT_TEXTS.SIGNUP,
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
-
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
@@ -40,8 +37,9 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
         type: 'error'
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 

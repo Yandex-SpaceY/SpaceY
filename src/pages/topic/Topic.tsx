@@ -12,7 +12,7 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Avatar, Button, Textarea, Modal, PageMeta, Pagination } from 'components';
+import { Avatar, Button, Textarea, Modal, ModalContent, PageMeta, Pagination } from 'components';
 import { setAlert, setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatDate, DATE_FORMAT, getImageUrl } from 'utils';
@@ -159,25 +159,28 @@ const Topic: FC<RouteComponentProps<IDetailedParams>> = ({ history, match }): Re
           <Modal
             visible={isModalOpen}
             handleClear={handleClear}
-            description={
-              <>
-                <h2>{topicTitle}</h2>
-                <Textarea
-                  value={messageText}
-                  name='message'
-                  placeholder={FORUM_CONSTANTS.ADD_TEXT}
-                  rows={10}
-                  onChange={e => setMessageText(e.target.value)}
-                />
-              </>
-            }
-            actions={
-              <>
-                <Button children={BUTTON_TEXTS.POST} onClick={addMessage} />
-                <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
-              </>
-            }
-          />
+          >
+            <ModalContent
+              description={
+                <>
+                  <h2>{topicTitle}</h2>
+                  <Textarea
+                    value={messageText}
+                    name='message'
+                    placeholder={FORUM_CONSTANTS.ADD_TEXT}
+                    rows={10}
+                    onChange={e => setMessageText(e.target.value)}
+                  />
+                </>
+              }
+              actions={
+                <>
+                  <Button children={BUTTON_TEXTS.POST} onClick={addMessage} />
+                  <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
+                </>
+              }
+            />
+          </Modal>
         </div>
       </div>
     </div>

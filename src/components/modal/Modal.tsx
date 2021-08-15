@@ -6,17 +6,15 @@ import { GAME_CONTROLS } from 'game/constants';
 import './modal.scss';
 
 interface IModal {
-  actions?: ReactElement;
+  children: ReactElement;
   className?: string;
-  description?: ReactElement;
   handleClear: () => void;
   visible?: boolean;
 }
 
 const Modal: FC<IModal> = ({
-  actions,
+  children,
   className,
-  description,
   handleClear,
   visible
 }): ReactElement | null => {
@@ -34,14 +32,14 @@ const Modal: FC<IModal> = ({
 
   return (
     visible
-      ? <div className={cn('modal', className)}>
+      ? (
+        <div className={cn('modal', className)}>
           <div className='overlay' onClick={handleClear} />
           <div className='modal-content'>
-            <div className='description'>{description}</div>
-            <div className='action-buttons'>{actions}</div>
+            {children}
           </div>
         </div>
-      : null
+      ) : null
   );
 };
 

@@ -23,15 +23,13 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const saveData = async (values: PASSWORD_TYPE) => {
     try {
       dispatch(setUserPending(true));
-
       await changePassword(values);
+
       const alert = {
         title: ALERT_TEXTS.CHANGE_PASSWORD,
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
-
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
@@ -41,8 +39,9 @@ const ChangePassword: FC<RouteComponentProps> = ({ history }): ReactElement => {
         type: 'error'
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 

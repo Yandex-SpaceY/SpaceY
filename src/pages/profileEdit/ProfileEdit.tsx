@@ -36,13 +36,12 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
 
       const response = await changeProfile(values);
       response && dispatch(setUserData(response.data));
+
       const alert = {
         title: ALERT_TEXTS.PROFILE_EDIT,
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
-
       history.push(ROUTE_CONSTANTS.PROFILE);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
@@ -52,8 +51,9 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
         type: 'error'
       };
 
-      dispatch(setUserPending(false));
       dispatch(setAlert(alert));
+    } finally {
+      dispatch(setUserPending(false));
     }
   };
 

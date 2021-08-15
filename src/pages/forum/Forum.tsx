@@ -10,7 +10,7 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { FORUM_CONSTANTS } from 'constants/forumConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Button, Input, Modal, PageMeta, Pagination } from 'components';
+import { Button, Input, Modal, ModalContent, PageMeta, Pagination } from 'components';
 import { setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers, formatDate } from 'utils';
@@ -137,22 +137,25 @@ const Forum: FC<RouteComponentProps> = ({ history }): ReactElement => {
           <Modal
             visible={isModalOpen}
             handleClear={handleClear}
-            description={
-              <Input
-                value={topicTitle}
-                name='topic'
-                title='topic title'
-                className='max-width'
-                onChange={e => setTopicTitle(e.target.value)}
-              />
-            }
-            actions={
-              <>
-                <Button children={BUTTON_TEXTS.SAVE} onClick={createNewTopic} />
-                <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
-              </>
-            }
-          />
+          >
+            <ModalContent
+              description={
+                <Input
+                  value={topicTitle}
+                  name='topic'
+                  title='topic title'
+                  className='max-width'
+                  onChange={e => setTopicTitle(e.target.value)}
+                />
+              }
+              actions={
+                <>
+                  <Button children={BUTTON_TEXTS.SAVE} onClick={createNewTopic} />
+                  <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
+                </>
+              }
+            />
+          </Modal>
         </div>
       </div>
     </div>

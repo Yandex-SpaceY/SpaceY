@@ -19,6 +19,7 @@ export const getCurrentTopic = async (
         {
           model: Message,
           limit,
+          // Includable interface dosn't include the offset propperty, but sequelize itself provides such ability. It seems to be an issue
           // eslint-disable-next-line
           // @ts-ignore-next-line
           offset,
