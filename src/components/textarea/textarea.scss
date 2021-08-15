@@ -1,0 +1,14 @@
+@import 'style/variables';
+
+.textarea {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border-bottom: 3px solid $text_main_color;
+  background-color: $secondary_color;
+  caret-color: $text_main_color;
+  color: $text_main_color;
+  font-size: $base_font_size;
+  line-height: 1.5;
+  outline: none;
+}

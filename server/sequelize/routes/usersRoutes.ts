@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
-import { findOrCreateUser } from '../controllers/usersController';
+import { findOrCreateUser, updateUser } from '../controllers/usersController';
 
 const usersRoutes = Router();
 
 usersRoutes
-  .post('/', findOrCreateUser);
+  .post('/', findOrCreateUser)
+  .put('/', updateUser);
 
 export default usersRoutes;

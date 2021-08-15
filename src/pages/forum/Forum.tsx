@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { getTopics, createTopic } from 'api/forumApi';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
@@ -10,27 +10,27 @@ import { LINK_TEXTS } from 'constants/linkConstants';
 import { FORUM_CONSTANTS } from 'constants/forumConstants';
 import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
-import { Button, Input, Modal, PageMeta, Pagination } from 'components';
+import { Button, Input, Modal, ModalContent, PageMeta, Pagination } from 'components';
 import { setUserPending } from 'store/user/actions';
 import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers, formatDate } from 'utils';
 
 import './forum.scss';
 
-export interface ITopic {
+interface ITopic {
   id: number;
   title: string,
   messagesCount: number,
   createdAt: number,
 }
 
-type TopicState = ITopic[] | []
+type ForumState = ITopic[]
 
-const Forum: FC = (): ReactElement => {
+const Forum: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
-  const { id } = useSelector(userUserDataSelector);
+  const { id: userId } = useSelector(userUserDataSelector);
 
-  const [ topics, setTopics ] = useState<TopicState>([]);
+  const [ topics, setTopics ] = useState<ForumState>([]);
   const [ totalRecords, setTotalRecords ] = useState<number>(0);
   const [ currentPage, setCurrentPage ] = useState<number>(1);
   const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
@@ -39,6 +39,10 @@ const Forum: FC = (): ReactElement => {
   useEffect(() => {
     getForumTopics();
   }, []);
+
+  const onTopicClick = (id: number) => {
+    history.push(`forum/${id}`);
+  };
 
   const getForumTopics = async (page = currentPage, limit = PAGE_SIZE): Promise<void> => {
     try {
@@ -65,7 +69,7 @@ const Forum: FC = (): ReactElement => {
 
       return (
         <div key={id} className='topic'>
-          <div className='topic-info' onClick={() => console.log('add redirection to the topic here')}>
+          <div className='topic-info' onClick={() => onTopicClick(id)}>
             <span className='topic-info-title uppercase'>{title}</span>
             <span className='topic-info-count'>({formattedCount})</span>
           </div>
@@ -96,11 +100,14 @@ const Forum: FC = (): ReactElement => {
   };
 
   const createNewTopic = async () => {
-    await createTopic({ userId: id, title: topicTitle });
-    setIsModalOpen(false);
-    setTopicTitle('');
-    setCurrentPage(1);
-    await getForumTopics(1);
+    try {
+      await createTopic({ userId, title: topicTitle });
+      handleClear();
+      setCurrentPage(1);
+      await getForumTopics(1);
+    } catch (err) {
+      console.error(err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR);
+    }
   };
 
   return (
@@ -130,26 +137,29 @@ const Forum: FC = (): ReactElement => {
           <Modal
             visible={isModalOpen}
             handleClear={handleClear}
-            description={
-              <Input
-                value={topicTitle}
-                name='topic'
-                title='topic title'
-                className='max-width'
-                onChange={e => setTopicTitle(e.target.value)}
-              />
-            }
-            actions={
-              <>
-                <Button children={BUTTON_TEXTS.SAVE} onClick={createNewTopic} />
-                <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
-              </>
-            }
-          />
+          >
+            <ModalContent
+              description={
+                <Input
+                  value={topicTitle}
+                  name='topic'
+                  title='topic title'
+                  className='max-width'
+                  onChange={e => setTopicTitle(e.target.value)}
+                />
+              }
+              actions={
+                <>
+                  <Button children={BUTTON_TEXTS.SAVE} onClick={createNewTopic} />
+                  <Button children={BUTTON_TEXTS.CANCEL} onClick={handleClear} />
+                </>
+              }
+            />
+          </Modal>
         </div>
       </div>
     </div>
   );
 };
 
-export default Forum;
+export default withRouter(Forum);

@@ -8,4 +8,5 @@ export const ROUTE_CONSTANTS = {
   PROFILE: '/profile',
   PROFILE_EDIT: '/profile-edit',
   SIGNUP: '/signup',
+  TOPIC: '/forum/:id',
 };
