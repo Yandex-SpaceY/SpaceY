@@ -29,23 +29,25 @@ const scriptFileName = manifest ? manifest[`${CLIENT_BUNDLE_NAME}.js`] : `/${CLI
 const getHtml = (
   reactHtml: string,
   state: TAppState,
-  helmetData: HelmetData
+  helmetData: HelmetData,
+  nonce: string,
 ): string => `
       <!DOCTYPE html>
       <html lang="en">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+            <meta property="csp-nonce" content="${nonce}">
             <link rel="stylesheet" href="${styleFileName}">
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
         </head>
         <body>
             <div id="root">${reactHtml}</div>
-            <script>
+            <script nonce="${nonce}">
               window.__INITIAL_STATE__ = ${JSON.stringify(state)}
             </script>
-            <script src="${scriptFileName}"></script>
+            <script nonce="${nonce}" src="${scriptFileName}"></script>
         </body>
       </html>
     `;
@@ -80,7 +82,7 @@ const serverRender = (
 
   res
     .status(pageIsAvailable ? 200 : 404)
-    .send(getHtml(reactHtml, state, helmetData));
+    .send(getHtml(reactHtml, state, helmetData, res.locals.cspNonce));
 };
 
 export default serverRender;
