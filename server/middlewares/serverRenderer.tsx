@@ -6,6 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { Request, Response } from 'express';
 import * as fs from 'fs';
 import { StaticRouter } from 'react-router-dom';
+import serialize from 'serialize-javascript';
 
 import App from '../../src/App';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
@@ -45,7 +46,7 @@ const getHtml = (
         <body>
             <div id="root">${reactHtml}</div>
             <script nonce="${nonce}">
-              window.__INITIAL_STATE__ = ${JSON.stringify(state)}
+              window.__INITIAL_STATE__ = ${serialize(state, { isJSON: true })}
             </script>
             <script nonce="${nonce}" src="${scriptFileName}"></script>
         </body>

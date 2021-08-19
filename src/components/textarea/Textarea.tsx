@@ -1,5 +1,6 @@
 import React, { FC, ReactElement, ChangeEvent } from 'react';
 import cn from 'classnames';
+import sanitizeHtml from 'sanitize-html';
 
 import './textarea.scss';
 
@@ -22,6 +23,12 @@ const Textarea: FC<ITextarea> = (props): ReactElement => {
     onChange,
   } = props;
 
+  const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.value = sanitizeHtml(e.target.value);
+
+    onChange && onChange(e);
+  };
+
   return (
     <textarea
       className={cn('textarea', className)}
@@ -29,7 +36,7 @@ const Textarea: FC<ITextarea> = (props): ReactElement => {
       placeholder={placeholder}
       rows={rows}
       value={value}
-      onChange={onChange}
+      onChange={onTextareaChange}
     />
   );
 };
