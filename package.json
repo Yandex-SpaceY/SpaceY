@@ -46,6 +46,9 @@
     "@types/react-helmet": "6.1.2",
     "@types/react-redux": "7.1.16",
     "@types/redux": "3.6.0",
+    "@types/sanitize-html": "2.3.2",
+    "@types/serialize-javascript": "5.0.1",
+    "@types/uuid": "8.3.1",
     "@types/webpack-dev-middleware": "5.0.1",
     "@types/webpack-hot-middleware": "2.25.5",
     "@types/webpack-node-externals": "2.5.2",
@@ -101,6 +104,7 @@
     "axios": "0.21.1",
     "dotenv": "10.0.0",
     "formik": "2.2.9",
+    "helmet": "4.6.0",
     "moment": "2.29.1",
     "pg": "8.7.1",
     "pg-hstore": "2.3.4",
@@ -113,8 +117,11 @@
     "redux": "4.1.0",
     "redux-thunk": "2.3.0",
     "reflect-metadata": "0.1.13",
+    "sanitize-html": "2.4.0",
     "sequelize": "6.6.5",
     "sequelize-typescript": "2.1.0",
+    "serialize-javascript": "6.0.0",
+    "uuid": "8.3.2",
     "yup": "0.32.9"
   }
 }

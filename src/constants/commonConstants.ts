@@ -17,5 +17,6 @@ export const PAGE_NAMES = {
   TOPIC: 'TOPIC',
 };
 
-export const BASE_URL = 'https://ya-praktikum.tech/api/v2/';
+export const HOST_URL = 'https://ya-praktikum.tech';
+export const BASE_URL = `${HOST_URL}/api/v2`;
 export const GAME_URL = 'https://space-y-game.herokuapp.com/';

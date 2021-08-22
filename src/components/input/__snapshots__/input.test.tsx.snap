@@ -7,6 +7,7 @@ exports[`test Input check render component w/o value 1`] = `
   <input
     className="input"
     disabled={true}
+    onChange={[Function]}
     type="text"
   />
   <span
@@ -15,7 +16,7 @@ exports[`test Input check render component w/o value 1`] = `
 </div>
 `;
 
-exports[`test Input check render component with onChange 1`] = `
+exports[`test Input check render component with onBlur 1`] = `
 <div
   className="one-input-block"
 >
@@ -30,7 +31,8 @@ exports[`test Input check render component with onChange 1`] = `
     disabled={false}
     id="testName"
     name="testName"
-    onChange={[MockFunction]}
+    onBlur={[MockFunction]}
+    onChange={[Function]}
     type="text"
     value="testValue"
   />
@@ -55,6 +57,7 @@ exports[`test Input check render component with title 1`] = `
     disabled={true}
     id="testName"
     name="testName"
+    onChange={[Function]}
     type="text"
     value="testValue"
   />
@@ -71,6 +74,7 @@ exports[`test Input check render component with type 1`] = `
   <input
     className="input"
     disabled={true}
+    onChange={[Function]}
     type="password"
   />
   <span

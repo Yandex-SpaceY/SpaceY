@@ -24,12 +24,14 @@ describe('test Input', () => {
 
     expect(component).toMatchSnapshot();
   });
-  it('check render component with onChange', () => {
+  it('check render component with onBlur', () => {
+    const mockOnBlur = jest.fn();
     const mockOnChange = jest.fn();
     const component = shallow(<Input
       value='testValue'
       name='testName'
       title='testTitle'
+      onBlur={mockOnBlur}
       onChange={mockOnChange}
     />);
 
