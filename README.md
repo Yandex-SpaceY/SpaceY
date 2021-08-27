@@ -42,10 +42,11 @@ https://praktikum.yandex.ru/middle-frontend/
 
 #### 2. Запустите докер контейнер
 ```docker-compose up```
+
 Порты образов по-умолчанию:
-- express: 5000
-- postgres: 54322
-- nginx: 3050 (proxy для express)
+- `express: 5000`
+- `postgres: 54322`
+- `nginx: 3050` (proxy для express)
 
 ### Прогресс
 
