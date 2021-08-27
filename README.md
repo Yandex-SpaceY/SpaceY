@@ -50,7 +50,7 @@ https://praktikum.yandex.ru/middle-frontend/
 
 ### Прогресс
 
-#### Спринт 8
+#### Спринт 9
 
 - Добавлены CSP, защита от XSS
 - Добавлен nginx сервер с плюшками для проксирования Express сервера
