@@ -35,5 +35,5 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.key }}
+          key: ${{ secrets.KEY }}
           script: cd spacey-app && touch hello.txt
