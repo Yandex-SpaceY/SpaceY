@@ -30,15 +30,6 @@ jobs:
       #     file: ./Dockerfile
       #     push: true
       #     tags: supergrovernn/spacey:latest
-      - name: ls -a via ssh
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            cd /spacey-app
-            ls -a
-          host: ${{ secrets.HOST }}
-          user: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY}}
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
