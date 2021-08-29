@@ -4,6 +4,7 @@ services:
   space-y-server:
     build:
       context: .
+    image: space-y-server:latest
     depends_on:
       - postgres
     environment:
