@@ -23,7 +23,8 @@ jobs:
       - run: echo "${{ secrets.deploy_key }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
       # try ssh on ya.cloud
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" ssh booger1@178.154.192.180 cd spacey-app && touch hello.txt
+      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no"
+      - run: ssh -o 'StrictHostKeyChecking no' booger1@178.154.192.180 cd spacey-app && touch hello.txt
       # Build and push Docker image to github
       # - name: Build and push image to Docker Hub
       #   uses: docker/build-push-action@v2
