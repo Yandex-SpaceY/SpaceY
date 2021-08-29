@@ -29,7 +29,7 @@ jobs:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
+          host: 178.154.192.180
+          username: booger1
+          key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDtrRwjEPmIMiiEHaeoWnOn/fza4vCOtJAb63LMmeJFwyPOMps6NWN52HShcWAg5ye0iptHJ7jf3ipzl7mAYm7zGgmKOs2HdgaZ5/P3YkMwYP442JIrhdNVDLKcFRhNSy8km+AFa/jHkQbH3L3ijo/P9aYpP6c6pV5oKc1//PtIzS3UTN1XuoJBGz9sUBhNEptLZXJgvVQNTBvQ0qGdNBk+l+zu4V8inj5+mgY0vNVtPPRQhZ66y+kD8DfamBJRevCDc529nP4fd689NT6/TOP0dglNwFVPcTjSGRbE/AXRBNqCT2ySQvwz/kg3KTt+DN7QINytb/lTXZg5fDvGH2ONNnQhNVIkOJgrHf3A3DrIgOhYOxt5LaFRO59LgEV9OUYbQyjXJ61oqnx6+6d4DRV9G9Mb4alhlEsIqVezc1/7+N/GSwnYrxXRE3snVSetUeGDP7F9gd0DFcyb9KPkLruIPRQraaBw/wpGTqlfyUqpYVyoDADipxNL5T1tmllVQ0= ishipulin@Igors-MacBook-Pro.local
           script: cd app && sudo docker pull registry/image:latest && sudo docker-compose up -d --no-deps app
