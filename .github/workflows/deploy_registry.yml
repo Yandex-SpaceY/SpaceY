@@ -17,18 +17,13 @@ jobs:
           npm ci
           REGISTRY_ID=${{ secrets.REGISTRY_ID }} PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_DB=${{ secrets.POSTGRES_DB }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_URL=${{ secrets.POSTGRES_URL }} docker-compose build
           docker images
-      - name: Yandex Image Registry Action
-        uses: pyropy/yandex-cloud-image-registry@v0.8-alpha
-        with:
-          DOCKER_CONTEXT: .
-          YC_SERVICE_ACCOUNT_KEY_FILE: ${{ secrets.OAUTH_TOKEN }}
-          YC_IMG_REGISTRY_ID: ${{ secrets.REGISTRY_ID }}
-          DOCKER_IMG_NAME: space-y-server
-          DOCKER_IMG_TAG: cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server
+          docker tag space-y-server:latest "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server:latest"
+          docker push "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server:latest"
+
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: docker tag space-y-server "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server" && docker tag postgres "cr.yandex/${{ secrets.REGISTRY_ID }}/postgres" && docker push "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server" && docker push "cr.yandex/${{ secrets.REGISTRY_ID }}/postgres"
+          script: docker images
