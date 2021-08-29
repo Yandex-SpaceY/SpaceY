@@ -21,6 +21,13 @@ jobs:
       - run: mkdir "$HOME/.ssh"
       - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
-            # Build
+      # Build
       - run: npm ci
-      - run: npm run build
+      - run: docker-compose build
+      - run: docker images
+      # Deploy
+      run: |
+        docker tag space-y-server "cr.yandex/$REGISTRY_ID/space-y-server:latest"
+        docker tag postgres "cr.yandex/$REGISTRY_ID/postgres:latest"
+        docker push "cr.yandex/$REGISTRY_ID/space-y-server:latest"
+        docker push "cr.yandex/$REGISTRY_ID/postgres:latest"
