@@ -15,7 +15,7 @@ jobs:
       - name: Build images
         run: | 
           npm ci
-          PORT=${{ secrets.PORT }} POSTGRES_DB=${{ secrets.POSTGRES_DB }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_URL=${{ secrets.POSTGRES_URL }} docker-compose build
+          PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_DB=${{ secrets.POSTGRES_DB }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_URL=${{ secrets.POSTGRES_URL }} docker-compose build
           docker images
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
@@ -23,4 +23,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: docker tag space-y-server "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker tag postgres "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest"
+          script: docker tag spacey_space-y-server "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker tag postgres "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest"
