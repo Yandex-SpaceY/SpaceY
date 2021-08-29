@@ -1,0 +1,25 @@
+name: Deploy_Registry
+
+on:
+  push:
+    branches:
+      - test-deploy
+
+jobs:
+  push-docker-image:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Build images
+        run: | 
+          npm ci
+          docker-compose build
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: docker tag space-y-server "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker tag postgres "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/space-y-server:latest" && docker push "cr.yandex/crp5og6tv1lc2eh7a02r/postgres:latest"
