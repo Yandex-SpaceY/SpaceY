@@ -6,6 +6,7 @@ services:
       context: .
     depends_on:
       - postgres
+    image: cr.yandex/${REGISTRY_ID}/space-y-server
     environment:
       POSTGRES_URL: ${POSTGRES_URL}
       NODE_ENV: 'production'
