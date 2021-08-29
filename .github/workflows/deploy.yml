@@ -17,26 +17,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-      # Setup key
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.deploy_key }}" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
-      # try ssh on ya.cloud
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no"
-      - run: ssh -o 'StrictHostKeyChecking no' booger1@178.154.192.180 cd spacey-app && touch hello.txt
-      # Build and push Docker image to github
-      # - name: Build and push image to Docker Hub
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./
-      #     file: ./Dockerfile
-      #     push: true
-      #     tags: supergrovernn/spacey:latest
+      - name: Build and push image to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: cr.yandex/crp5og6tv1lc2eh7a02r/spacey:latest
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          script: cd spacey-app && touch hello.txt
+          script: cd spacey-app && sudo docker pull supergrovernn/spacey:latest && sudo docker-compose up -d --no-deps spacey-app
