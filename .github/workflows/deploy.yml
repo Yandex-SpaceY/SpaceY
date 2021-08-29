@@ -23,7 +23,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: cr.yandex/crp5og6tv1lc2eh7a02r/spacey:latest
+          tags: supergrovernn/spacey:latest
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
