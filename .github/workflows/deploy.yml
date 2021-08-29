@@ -11,6 +11,12 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
+        POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        PORT: ${{ secrets.PORT }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -23,7 +29,7 @@ jobs:
       - run: chmod 600 "$HOME/.ssh/key"
       # Build
       - run: npm ci
-      - run: PORT=${{secrets.PORT}} POSTGRES_DB=${{secrets.POSTGRES_DB}} POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}  POSTGRES_PORT=${{secrets.POSTGRES_PORT}} POSTGRES_USER=${{secrets.POSTGRES_USER}}  POSTGRES_URL=${{secrets.POSTGRES_URL}}  docker-compose build
+      - run: PORT=$PORT POSTGRES_DB=$POSTGRES_DB POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_PORT=$POSTGRES_PORT POSTGRES_USER=$POSTGRES_USER POSTGRES_URL=$POSTGRES_URL  docker-compose build
       - run: docker images
       # Deploy
       # run: |
