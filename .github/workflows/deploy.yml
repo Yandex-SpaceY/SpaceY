@@ -26,8 +26,8 @@ jobs:
       - run: docker-compose build
       - run: docker images
       # Deploy
-      run: |
-        docker tag space-y-server "cr.yandex/$REGISTRY_ID/space-y-server:latest"
-        docker tag postgres "cr.yandex/$REGISTRY_ID/postgres:latest"
-        docker push "cr.yandex/$REGISTRY_ID/space-y-server:latest"
-        docker push "cr.yandex/$REGISTRY_ID/postgres:latest"
+      # run: |
+      #   docker tag space-y-server "cr.yandex/$REGISTRY_ID/space-y-server:latest"
+      #   docker tag postgres "cr.yandex/$REGISTRY_ID/postgres:latest"
+      #   docker push "cr.yandex/$REGISTRY_ID/space-y-server:latest"
+      #   docker push "cr.yandex/$REGISTRY_ID/postgres:latest"
