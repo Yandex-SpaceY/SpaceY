@@ -3,11 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-<<<<<<< HEAD
       - [ main, test-deploy ]
-=======
-      - test-deploy
->>>>>>> ae0d1cfb631a96d6199f8dc33e17423a8545cd3e
 
 jobs:
   push-docker-image:
