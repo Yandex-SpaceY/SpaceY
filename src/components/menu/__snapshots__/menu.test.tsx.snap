@@ -2,7 +2,7 @@
 
 exports[`check render component Menu 1`] = `
 <div
-  className="menu primary"
+  className="menu earth"
 >
   <h1>
     SpaceY
