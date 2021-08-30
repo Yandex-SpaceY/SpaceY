@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { IModifier } from 'store/types';
 import { TMenuItem } from './Menu';
+import { GAME_OPTIONS, THEME_OPTIONS_TEXT } from 'constants/gameConstants';
 
 interface IProps {
   item: TMenuItem;
@@ -24,8 +25,8 @@ const MenuItem: FC<IProps> = ({ item, modifier, isMobile, handleAction }): React
     }
   };
 
-  if (title === 'theme' && typeof modifier[title] === 'string') {
-    const mode = modifier[title].toString();
+  if (title === GAME_OPTIONS.THEME_TITLE && typeof modifier[title] === 'string') {
+    const mode = THEME_OPTIONS_TEXT[modifier[title].toString()];
 
     return (
       <span key={title} className='menu-item' onClick={callback}>
