@@ -7,6 +7,7 @@ const initialState = {
   isGamePaused: false,
   isSoundOn: true,
   lastScore: 0,
+  skillLevel: 1,
 };
 
 export const gameReducer = (
@@ -28,6 +29,9 @@ export const gameReducer = (
     }
     case GAME_ACTIONS.SET_LAST_SCORE: {
       return { ...state, lastScore: payload };
+    }
+    case GAME_ACTIONS.SET_SKILL_LEVEL: {
+      return { ...state, skillLevel: payload };
     }
     default: {
       return state;

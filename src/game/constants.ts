@@ -8,8 +8,6 @@ export const GAME_SETTINGS = {
   REPAIR_SOUND_PATH: './assets/repair.mp3',
   REPAIR_SOUND_VOLUME: 0.6,
   PIXELS_PER_DISTANCE_UNIT: 10, // Number of pixel passed to increase score distance
-  BASE_SPEED_MODIFIER: 1,
-  SPEED_MODIFIER_INCREMENT: 0.1,
   DISTANCE_TO_INCREASE_SPEED: 200, // Number of distance passed to increase speed modifier
   SPACESHIP_ENTITY_KEY: 'ship',
   SPACESHIP_BASE_SPEED: 300,
@@ -26,6 +24,12 @@ export const GAME_SETTINGS = {
   REPAIR_STRENGTH: 25,
   REPAIR_MARGIN_FROM_SIDE: 70,
   SHIP_HULL_STRENGTH: 100,
+};
+
+export const SKILL_LEVEL_SETTINGS = {
+  SPEED_MODIFIER: [ 1, 1.3, 1.5 ],
+  SPEED_MODIFIER_INCREMENT: [ 0.1, 0.3, 0.4 ],
+  REPAIR_PROBABILITY_DECREMENT: [ 0, 0.3, 0.6 ]
 };
 
 export const OBSTACLE_TYPES = {

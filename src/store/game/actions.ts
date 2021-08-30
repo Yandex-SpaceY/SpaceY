@@ -25,3 +25,8 @@ export const setLastScore = (lastScore: number): TActionProps<string, number> =>
   type: GAME_ACTIONS.SET_LAST_SCORE,
   payload: lastScore,
 });
+
+export const setSkillLevel = (skillLevel: number): TActionProps<string, number> => ({
+  type: GAME_ACTIONS.SET_SKILL_LEVEL,
+  payload: skillLevel,
+});

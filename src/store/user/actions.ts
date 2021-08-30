@@ -4,7 +4,7 @@ import { getUserInfo } from 'api/authApi';
 import { getUserSetting, updateUserSetting } from 'api/userApi';
 import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
-import { setIsSoundOn } from 'store/game/actions';
+import { setIsSoundOn, setSkillLevel } from 'store/game/actions';
 
 export const setUserError = (error: Error | null): TActionProps<string, Error | null> => (
   {
@@ -75,12 +75,13 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
 
       const { data } = await getUserInfo();
       const { data: { payload } } = await getUserSetting(data);
-      const { sound } = payload.setting;
+      const { skill, sound } = payload.setting;
 
       dispatch(setUserData(data));
       dispatch(setisAuthorized(true));
       dispatch(setUserSetting(payload.setting));
       dispatch(setIsSoundOn(sound));
+      dispatch(setSkillLevel(skill));
     } catch (error) {
       dispatch(setUserError(error));
       dispatch(setisAuthorized(false));

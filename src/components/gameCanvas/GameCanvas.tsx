@@ -9,6 +9,7 @@ import {
   setIsGameOver,
   setLastScore,
   setIsSoundOn,
+  setSkillLevel
 } from 'store/game/actions';
 import {
   gameIsGameStartedSelector,
@@ -30,10 +31,11 @@ interface IGameCanvas {
   resetMenuAction?: () => void;
   settings: TUserSettings;
   isSoundOn: boolean;
+  skillLevel: number;
 }
 
 const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
-  const { className, isSoundOn, settings, menuAction, resetMenuAction } = props;
+  const { className, isSoundOn, skillLevel, settings, menuAction, resetMenuAction } = props;
   const dispatch = useDispatch();
 
   const { vibration } = settings;
@@ -125,6 +127,8 @@ const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
         const { skill } = settings;
         const nextSkill = skill === Object.keys(SKILL_OPTIONS).length ? 1 : skill + 1;
         dispatch(updateUserSettingsToServer({ ...settings, skill: nextSkill }));
+        dispatch(setSkillLevel(nextSkill));
+        reinitGame();
         break;
       }
       default:
@@ -143,6 +147,10 @@ const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
   useEffect(() => {
     setGameSoundStatus(isSoundOn);
   }, [isSoundOn]);
+
+  useEffect(() => {
+    setGameSkillLevel(skillLevel);
+  }, [skillLevel]);
 
   useEffect(() => {
     setGameVibrationStatus(vibration);
@@ -173,6 +181,10 @@ const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
 
   const setGameSoundStatus = useCallback((status: boolean) => {
     gameMain.setSoundStatus(status);
+  }, []);
+
+  const setGameSkillLevel = useCallback((level: number) => {
+    gameMain.setSkillLevel(level);
   }, []);
 
   const setGameVibrationStatus = useCallback((status: boolean) => {

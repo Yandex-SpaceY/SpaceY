@@ -33,6 +33,7 @@ export type TGameState = {
   isGameStarted: boolean;
   isGameOver: boolean;
   isGamePaused: boolean;
+  skillLevel: number;
   isSoundOn: boolean;
   vibration: boolean;
   lastScore: number;
