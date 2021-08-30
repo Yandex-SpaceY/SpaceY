@@ -31,6 +31,10 @@ const plugins = [
       {
         from: `${SRC_DIR}/game/assets`,
         to: `${DIST_DIR}/assets`,
+      },
+      {
+        from: `${SRC_DIR}/assets/images`,
+        to: `${DIST_DIR}/images`,
       }
     ]
   }),
