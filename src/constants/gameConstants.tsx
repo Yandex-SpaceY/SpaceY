@@ -10,6 +10,6 @@ export const GAME_OPTIONS = {
 };
 
 export const THEME_OPTIONS = {
-  PRIMARY: 'primary',
-  SECONDARY: 'secondary'
+  PRIMARY: 'earth',
+  SECONDARY: 'mars'
 } as const;

@@ -91,7 +91,7 @@ const Game: FC = (): ReactElement => {
   }, []);
 
   return (
-    <div className={cn('main game', theme)}>
+    <div className={cn('main', 'game')}>
       <PageMeta />
       <div className='content-wrapper'>
         <GameCanvas

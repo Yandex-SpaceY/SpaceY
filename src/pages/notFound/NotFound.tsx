@@ -4,7 +4,7 @@ import { PageMeta } from 'components';
 import { PAGE_NAMES } from 'constants/commonConstants';
 
 const NotFound: FC = (): ReactElement => (
-  <div className='main'>
+  <div className='main not-found'>
     <PageMeta title={PAGE_NAMES.PAGE_NOT_FOUND} />
     <h1>No-o-o-o-o-o-o-o-o</h1>
   </div>

@@ -8,6 +8,8 @@ import {
   Table
 } from 'sequelize-typescript';
 
+import { THEME_OPTIONS } from 'constants/gameConstants';
+
 import { User } from './user.model';
 
 @Table({
@@ -18,7 +20,7 @@ import { User } from './user.model';
 
 class Setting extends Model {
   @AllowNull(false)
-  @Default('primary')
+  @Default(THEME_OPTIONS.PRIMARY)
   @Column(DataType.STRING)
   theme: string;
 
