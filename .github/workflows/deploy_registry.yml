@@ -1,0 +1,35 @@
+name: Deploy_Registry
+
+on:
+  push:
+    branches:
+      - test-deploy
+
+jobs:
+  push-docker-image:
+    name: Build and push images to yandex registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      # Setup key
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+      # Build
+      - name: Build images
+        run: | 
+          npm ci
+          REGISTRY_ID=${{ secrets.REGISTRY_ID }} PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_DB=${{ secrets.POSTGRES_DB }} POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} POSTGRES_PORT=${{ secrets.POSTGRES_PORT }} POSTGRES_USER=${{ secrets.POSTGRES_USER }} POSTGRES_URL=${{ secrets.POSTGRES_URL }} docker-compose build
+          docker images
+          docker tag space-y-server:latest "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server:latest"
+          docker push "cr.yandex/${{ secrets.REGISTRY_ID }}/space-y-server:latest"
+
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: docker images
