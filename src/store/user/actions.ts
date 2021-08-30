@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { getUserInfo } from 'api/authApi';
+import { getUserInfo, apiPostgresSignIn } from 'api/authApi';
 import { getUserSetting, updateUserSetting } from 'api/userApi';
 import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
@@ -41,7 +41,7 @@ export const clearUserData = (): TActionProps => (
   }
 );
 
-export const setisAuthorized = (isAuthorized: boolean | null): TActionProps => (
+export const setIsAuthorized = (isAuthorized: boolean | null): TActionProps => (
   {
     type: USER_ACTIONS.SET_IS_AUTH,
     payload: isAuthorized,
@@ -74,16 +74,17 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
       dispatch(setUserPending(true));
 
       const { data } = await getUserInfo();
+      await apiPostgresSignIn({ userId: data.id, password: 'sad lemur' });
       const { data: { payload } } = await getUserSetting(data);
       const { sound } = payload.setting;
 
       dispatch(setUserData(data));
-      dispatch(setisAuthorized(true));
+      dispatch(setIsAuthorized(true));
       dispatch(setUserSetting(payload.setting));
       dispatch(setIsSoundOn(sound));
     } catch (error) {
       dispatch(setUserError(error));
-      dispatch(setisAuthorized(false));
+      dispatch(setIsAuthorized(false));
     }
 
     dispatch(setUserPending(false));

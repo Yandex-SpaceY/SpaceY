@@ -14,3 +14,7 @@ export const signIn = (payload: Record<string, FormDataEntryValue>): Promise<Axi
 export const getUserInfo = (): Promise<AxiosResponse> => api.get(`${BASE_URL}/auth/user`);
 
 export const logout = (): Promise<AxiosResponse> => api.post(`${BASE_URL}/auth/logout`);
+
+export const apiPostgresSignIn = (payload: Record<string, string | number>): Promise<AxiosResponse> => (
+  api.post('api/auth', payload)
+);
