@@ -1,5 +1,5 @@
 export const GAME_SETTINGS = {
-  GAME_AREA_WIDTH: 375,
+  GAME_AREA_WIDTH: 360,
   GAME_AREA_HEIGHT: 667,
   OBJECT_SPRITES_PATH: './assets/sprites.png',
   MAIN_STAGE_BACKGROUND_PATH: './assets/bg.png',

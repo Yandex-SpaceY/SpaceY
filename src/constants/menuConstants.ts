@@ -35,5 +35,7 @@ export const MENU_ITEMS_PAUSE: TMenuItem[] = [
 
 export const MENU_ITEMS_GAME_OVER: TMenuItem[] = [
   { title: 'retry', route: null, action: MENU_ACTIONS.GAME_RESTART },
-  { title: 'main menu', route: null, action: MENU_ACTIONS.SHOW_MAIN_MENU }
+  { title: 'main menu', route: null, action: MENU_ACTIONS.SHOW_MAIN_MENU },
 ];
+
+export const MENU_ITEMS_NOT_FOUND: TMenuItem[] = [{ title: 'flight back', route: ROUTE_CONSTANTS.GAME, action: null }];
