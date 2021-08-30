@@ -12,6 +12,7 @@ export default {
     '\\.(css|less|scss)$': '<rootDir>/styleMock.js',
     '^constants/(.*)$': '<rootDir>/src/constants/$1',
     '^components': '<rootDir>/src/components',
+    '^game/(.*)$': '<rootDir>/src/game/$1',
     '^utils': '<rootDir>/src/utils',
     '^api/(.*)$': '<rootDir>/src/api/$1',
     '^types': '<rootDir>/src/types',

@@ -31,6 +31,7 @@ export const SKILL_OPTIONS = {
   SECOND_LEVEL: 2,
   THIRD_LEVEL: 3,
 };
+
 export const SKILL_OPTIONS_TEXT = {
   [SKILL_OPTIONS.FIRST_LEVEL]: 'novice',
   [SKILL_OPTIONS.SECOND_LEVEL]: 'advanced',
