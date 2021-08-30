@@ -3,8 +3,12 @@ name: Deploy
 on:
   push:
     branches:
-      - [ main, test-deploy ]
-
+      - test-deploy
+      - feat-add-ci-cd
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   push-docker-image:
     name: Push Docker image to Docker Hub
@@ -31,3 +35,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: cd spacey-app && sudo docker pull supergrovernn/spacey:latest && sudo docker-compose up -d --no-deps
+          
