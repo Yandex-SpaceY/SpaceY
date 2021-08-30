@@ -8,7 +8,7 @@ import {
   Table
 } from 'sequelize-typescript';
 
-import { THEME_OPTIONS } from 'constants/gameConstants';
+import { SKILL_OPTIONS, THEME_OPTIONS } from 'constants/gameConstants';
 
 import { User } from './user.model';
 
@@ -23,6 +23,11 @@ class Setting extends Model {
   @Default(THEME_OPTIONS.PRIMARY)
   @Column(DataType.STRING)
   theme: string;
+
+  @AllowNull(false)
+  @Default(SKILL_OPTIONS.FIRST_LEVEL)
+  @Column(DataType.INTEGER)
+  skill: string;
 
   @AllowNull(false)
   @Default(true)

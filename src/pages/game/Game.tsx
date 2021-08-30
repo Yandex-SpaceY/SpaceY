@@ -29,7 +29,7 @@ const Game: FC = (): ReactElement => {
   const lastScore = useSelector(gameLastScoreSelector);
   const { id, avatar, login } = useSelector(userUserDataSelector);
   const settings = useSelector(userSettingSelector);
-  const { theme, vibration } = settings;
+  const { theme, vibration, skill } = settings;
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
@@ -107,7 +107,7 @@ const Game: FC = (): ReactElement => {
           handleAction={handleMenuAction}
           className={isMenuWithTitle ? '' : 'game-over-menu'}
           isWithTitle={isMenuWithTitle}
-          modifier={{ sound: isSoundOn, vibration, theme }}
+          modifier={{ sound: isSoundOn, vibration, theme, skill }}
         />
         <MenuHamburger isShown={isGameStarted && !isGamePaused && !isGameOver} onClick={handleHamburgerOnClick} />
       </div>

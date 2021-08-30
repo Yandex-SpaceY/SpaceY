@@ -37,14 +37,13 @@ const Menu: FC<IMenu> = ({
   handleAction
 }): ReactElement => {
   let isMobile = false;
-  const theme = modifier.theme;
 
   if (!isTest && !isServer) {
     isMobile = /Android|webOS|iPhone|iPad|iPod|Opera Mini/i.test(window.navigator.userAgent);
   }
 
   return (
-    <div className={cn('menu', className, (!isShown && 'hidden'), theme)}>
+    <div className={cn('menu', className, (!isShown && 'hidden'))}>
       {isWithTitle && <h1>{GAME_NAME}</h1>}
       <div className='menu-items'>
         {

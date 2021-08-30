@@ -32,7 +32,8 @@
       display: inline-block;
       width: 74px;
 
-      &.menu-item_theme {
+      &.menu-item-theme,
+      &.menu-item-skill {
         width: auto;
         color: $secondary_color;
       }

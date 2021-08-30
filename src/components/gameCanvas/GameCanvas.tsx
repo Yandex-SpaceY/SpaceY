@@ -18,7 +18,7 @@ import {
 import { TUserSettings } from 'store/types';
 import { updateUserSettingsToServer } from 'store/user/actions';
 import { GameHUD } from 'components';
-import { GAME_OPTIONS, THEME_OPTIONS } from 'constants/gameConstants';
+import { GAME_OPTIONS, SKILL_OPTIONS, THEME_OPTIONS } from 'constants/gameConstants';
 import { MENU_ACTIONS } from 'constants/menuConstants';
 import { useWindowSize } from 'hooks';
 
@@ -118,6 +118,13 @@ const GameCanvas: FC<IGameCanvas> = (props): ReactElement => {
         const { theme } = settings;
         const nextTheme = theme === THEME_OPTIONS.PRIMARY ? THEME_OPTIONS.SECONDARY : THEME_OPTIONS.PRIMARY;
         dispatch(updateUserSettingsToServer({ ...settings, theme: nextTheme }));
+        break;
+      }
+      case MENU_ACTIONS.GAME_SKILL_SWITCH:
+      {
+        const { skill } = settings;
+        const nextSkill = skill === Object.keys(SKILL_OPTIONS).length ? 1 : skill + 1;
+        dispatch(updateUserSettingsToServer({ ...settings, skill: nextSkill }));
         break;
       }
       default:
