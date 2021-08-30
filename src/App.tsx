@@ -14,7 +14,7 @@ const App: FC = (): ReactElement => {
 
   return (
     <ErrorBoundary>
-      <div className={cn('app-wrapper', 'theme-' + THEME_OPTIONS_CLASS[theme])}>
+      <div className={cn('app-wrapper', theme && 'theme-' + THEME_OPTIONS_CLASS[theme])}>
         <Router />
         <Spinner />
         <NotificationModal />
