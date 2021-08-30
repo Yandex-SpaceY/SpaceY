@@ -57,7 +57,7 @@ export interface IAlert {
 }
 
 type Keys = keyof typeof THEME_OPTIONS;
-export type ValueOfTheme = typeof THEME_OPTIONS[Keys]; //
+export type ValueOfTheme = typeof THEME_OPTIONS[Keys];
 export interface IModifier {
-   [key: string]: boolean | ValueOfTheme
+  [key: string]: boolean | ValueOfTheme
 }
