@@ -27,7 +27,7 @@ class Setting extends Model {
   @AllowNull(false)
   @Default(SKILL_OPTIONS.FIRST_LEVEL)
   @Column(DataType.INTEGER)
-  skill: string;
+  skill: number;
 
   @AllowNull(false)
   @Default(true)
