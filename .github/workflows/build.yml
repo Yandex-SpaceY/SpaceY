@@ -1,9 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - feat-add-ci-cd
   pull_request:
     branches:
       - main
