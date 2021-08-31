@@ -38,6 +38,7 @@ const getHtml = (
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+            <meta property="csp-nonce" content="${nonce}">
             <link rel="stylesheet" href="${styleFileName}">
             ${helmetData.title.toString()}
             ${helmetData.meta.toString()}
