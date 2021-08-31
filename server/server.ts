@@ -45,6 +45,7 @@ app
               scriptSrc: [ '\'self\'', (req, res) => `'nonce-${(<Response>res).locals.cspNonce}'`, IS_DEV ? '\'unsafe-eval\'' : '' ],
               connectSrc: [ '\'self\'', `${HOST_URL}` ],
               imgSrc: [ '\'self\'', `${HOST_URL}` ],
+              fontSrc: [ '\'self\'', `${HOST_URL}` ],
             },
           }
         });
