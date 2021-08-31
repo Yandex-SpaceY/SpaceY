@@ -3,14 +3,10 @@ name: Deploy
 on:
   push:
     branches:
-      - test-deploy
-      - main
-  pull_request:
-    branches:
       - main
 jobs:
   push-docker-image:
-    name: Push Docker image to Docker Hub
+    name: Build and Push Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
