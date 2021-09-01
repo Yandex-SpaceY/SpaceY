@@ -32,7 +32,9 @@ const Input: FC<IInput> = (props): ReactElement => {
   } = props;
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.value = sanitizeHtml(e.target.value);
+    if (e.target.type !== 'file') {
+      e.target.value = sanitizeHtml(e.target.value);
+    }
 
     onChange && onChange(e);
   };

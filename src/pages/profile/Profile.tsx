@@ -5,6 +5,7 @@ import cn from 'classnames';
 
 import { logout } from 'api/authApi';
 import { Avatar, Button, Input, PageMeta } from 'components';
+import { API_CONSTANTS } from 'constants/apiConstants';
 import { BUTTON_TEXTS } from 'constants/buttonConstants';
 import { PAGE_NAMES } from 'constants/commonConstants';
 import { ERROR_CONSTANTS } from 'constants/errorConstants';
@@ -25,8 +26,11 @@ const Profile: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const logoutAndRedirect = async () => {
     try {
       await logout();
+
+      document.cookie = `${API_CONSTANTS.COOKIE_NAME}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
       dispatch(getUserDataFromServer());
       dispatch(clearUserData());
+
       history.push(ROUTE_CONSTANTS.LOGIN);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;

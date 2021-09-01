@@ -2,6 +2,7 @@ import React, { FC, useEffect, ReactElement, ElementType } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { apiPostgresSignIn } from 'api/authApi';
 import { signInYandex } from 'api/oAuthApi';
 import { GAME_URL } from 'constants/commonConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
@@ -24,6 +25,7 @@ const WithAuthPrivateRoute: FC<IRoute> = ({ component: ChildComponent, ...rest }
 
       if (code) {
         await signInYandex({ code, redirect_uri: GAME_URL });
+        await apiPostgresSignIn();
       }
 
       if (!isAuthorized) {
