@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { getUserInfo, apiPostgresSignIn } from 'api/authApi';
+import { getUserInfo } from 'api/authApi';
 import { getUserSetting, updateUserSetting } from 'api/userApi';
 import { TAppState, TActionProps, TUserData, TUserSettings, IAlert } from 'store/types.d';
 import { USER_ACTIONS } from 'constants/storeConstants';
@@ -74,7 +74,6 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
       dispatch(setUserPending(true));
 
       const { data } = await getUserInfo();
-      await apiPostgresSignIn({ userId: data.id, password: 'sad lemur' });
       const { data: { payload } } = await getUserSetting(data);
       const { sound } = payload.setting;
 

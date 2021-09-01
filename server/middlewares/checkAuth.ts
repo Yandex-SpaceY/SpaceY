@@ -4,9 +4,9 @@ import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 
 export const checkAuth = (req: Request, res: Response, next: NextFunction): void => {
   const publicRoutes = [ ROUTE_CONSTANTS.LOGIN, ROUTE_CONSTANTS.SIGNUP, ROUTE_CONSTANTS.NOT_FOUND ];
-  const { cookie } = req.headers;
+  const { cookies } = req;
 
-  if (cookie?.includes('authCookie') && cookie?.includes('uuid')) {
+  if (cookies?.includes('authCookie') && cookies?.includes('uuid')) {
     next();
   }
 

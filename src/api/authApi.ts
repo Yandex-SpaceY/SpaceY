@@ -15,6 +15,4 @@ export const getUserInfo = (): Promise<AxiosResponse> => api.get(`${BASE_URL}/au
 
 export const logout = (): Promise<AxiosResponse> => api.post(`${BASE_URL}/auth/logout`);
 
-export const apiPostgresSignIn = (payload: Record<string, string | number>): Promise<AxiosResponse> => (
-  api.post('api/auth', payload)
-);
+export const apiPostgresSignIn = (): Promise<AxiosResponse> => api.get('api/auth');

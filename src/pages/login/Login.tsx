@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useFormik } from 'formik';
 
-import { signIn } from 'api/authApi';
+import { signIn, apiPostgresSignIn } from 'api/authApi';
 import { getServiceId } from 'api/oAuthApi';
 import { loginSchema } from 'schemas';
 import { getUserDataFromServer, setAlert } from 'store/user/actions';
@@ -36,6 +36,8 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const saveData = async (values: LOGIN_TYPE) => {
     try {
       await signIn(values);
+      await apiPostgresSignIn();
+
       history.push(ROUTE_CONSTANTS.GAME);
     } catch (err) {
       const message = err?.response?.data?.reason || err?.message || ERROR_CONSTANTS.DEFAULT_ERROR;
@@ -52,6 +54,7 @@ const Login: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const authYandex = async () => {
     try {
       const { data } = await getServiceId(GAME_URL);
+
       if (data?.service_id) {
         location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${data.service_id}&redirect_uri=${GAME_URL}`;
       }
