@@ -26,12 +26,13 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
 
   nginx:
+    image: nginx
     depends_on:
       - space-y-server
       - postgres
     restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "3050:80"
+      - 80:80
+      - 443:443
