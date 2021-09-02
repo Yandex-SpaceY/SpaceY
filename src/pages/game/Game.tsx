@@ -55,10 +55,12 @@ const Game: FC = (): ReactElement => {
   }, [isWindowActive]);
 
   useEffect(() => {
-    addToLeaderboard({
-      data: { id, avatar, login, spaceScore: lastScore },
-      ratingFieldName: REQUEST_DATA.SCORE_FIELD
-    });
+    if (lastScore) {
+      addToLeaderboard({
+        data: { id, avatar, login, spaceScore: lastScore },
+        ratingFieldName: REQUEST_DATA.SCORE_FIELD
+      });
+    }
   }, [lastScore]);
 
   useEffect(() => {

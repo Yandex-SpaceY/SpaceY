@@ -3,7 +3,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 
-import { signup } from 'api/authApi';
+import { signup, apiPostgresSignIn } from 'api/authApi';
 import { Button, Input, PageMeta } from 'components';
 import { GAME_NAME, PAGE_NAMES } from 'constants/commonConstants';
 import { DEFAULT_SIGNUP_STATE, SIGNUP_TYPE } from 'constants/defaultStates';
@@ -22,6 +22,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
     try {
       dispatch(setUserPending(true));
       await signup(values);
+      await apiPostgresSignIn();
 
       const alert = {
         title: ALERT_TEXTS.SIGNUP,

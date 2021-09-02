@@ -41,7 +41,7 @@ export const clearUserData = (): TActionProps => (
   }
 );
 
-export const setisAuthorized = (isAuthorized: boolean | null): TActionProps => (
+export const setIsAuthorized = (isAuthorized: boolean | null): TActionProps => (
   {
     type: USER_ACTIONS.SET_IS_AUTH,
     payload: isAuthorized,
@@ -78,13 +78,13 @@ export const getUserDataFromServer = (): ThunkAction<void, TAppState, unknown, T
       const { skill, sound } = payload.setting;
 
       dispatch(setUserData(data));
-      dispatch(setisAuthorized(true));
+      dispatch(setIsAuthorized(true));
       dispatch(setUserSetting(payload.setting));
       dispatch(setIsSoundOn(sound));
       dispatch(setSkillLevel(skill));
     } catch (error) {
       dispatch(setUserError(error));
-      dispatch(setisAuthorized(false));
+      dispatch(setIsAuthorized(false));
     }
 
     dispatch(setUserPending(false));
