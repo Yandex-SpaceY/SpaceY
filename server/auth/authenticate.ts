@@ -9,7 +9,7 @@ dotenv.config();
 export const authenticate = (req: Request, res: Response): void => {
   const { API_SECRET } = process.env;
 
-  const token = jwt.sign({}, <jwt.Secret>API_SECRET, {
+  const token = jwt.sign({}, <jwt.Secret>API_SECRET+'', {
     issuer: API_CONSTANTS.ISSUER,
   });
 
