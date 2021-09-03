@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 
 import { sequelize } from './sequelize/models';
 import apiRoutes from './sequelize/routes';
-import { serverRenderer, hotReload, nonce, csp, /* checkAuth */ } from './middlewares';
+import { serverRenderer, hotReload, nonce, csp, checkAuth } from './middlewares';
 import { DIST_DIR, IS_DEV, SRC_DIR } from '../webpack/constants';
 
 const { PORT = 3000 } = process.env;
@@ -27,9 +27,11 @@ app
   .use(compression())
   .use(express.static(path.resolve(DIST_DIR)))
   .use(cookieParser())
-  //TODO: uncomment after yandex cloud deployment
-  // .use(checkAuth)
   .use('/api', apiRoutes);
+
+if ('YANDEX_CLOUD' in process.env) {
+  app.use(checkAuth);
+}
 
 if (IS_DEV) {
   app.get('/*', [...hotReload()]);
