@@ -1,0 +1,15 @@
+@import 'style/variables';
+
+.not-found {
+  max-width: 370px;
+  margin: auto;
+
+  h1 {
+    margin-bottom: 60px;
+    margin-left: 10px;
+    color: $text_main_color;
+    font-size: 28px;
+    line-height: 1.4;
+    text-align: left;
+  }
+}

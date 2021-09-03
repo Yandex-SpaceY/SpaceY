@@ -2,7 +2,7 @@
 
 exports[`check render component Menu 1`] = `
 <div
-  className="menu primary"
+  className="menu"
 >
   <h1>
     SpaceY
@@ -22,6 +22,26 @@ exports[`check render component Menu 1`] = `
       key="start"
       modifier={
         Object {
+          "skill": 1,
+          "sound": true,
+          "theme": "primary",
+          "vibration": true,
+        }
+      }
+    />
+    <MenuItem
+      isMobile={false}
+      item={
+        Object {
+          "action": "GAME_SKILL_SWITCH",
+          "route": null,
+          "title": "skill",
+        }
+      }
+      key="skill"
+      modifier={
+        Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -44,6 +64,7 @@ exports[`check render component Menu 1`] = `
       key="sound"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -67,6 +88,7 @@ exports[`check render component Menu 1`] = `
       key="vibration"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -85,6 +107,7 @@ exports[`check render component Menu 1`] = `
       key="my profile"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -103,6 +126,7 @@ exports[`check render component Menu 1`] = `
       key="best players"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -121,6 +145,7 @@ exports[`check render component Menu 1`] = `
       key="forum"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,
@@ -139,6 +164,7 @@ exports[`check render component Menu 1`] = `
       key="theme"
       modifier={
         Object {
+          "skill": 1,
           "sound": true,
           "theme": "primary",
           "vibration": true,

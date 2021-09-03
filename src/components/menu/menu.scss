@@ -6,11 +6,12 @@
   left: 0;
   display: flex;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: $overlay_color;
+  user-select: none;
 
   .menu-items {
     display: flex;
@@ -31,7 +32,8 @@
       display: inline-block;
       width: 74px;
 
-      &.menu-item_theme {
+      &.menu-item-theme,
+      &.menu-item-skill {
         width: auto;
         color: $secondary_color;
       }
@@ -46,6 +48,10 @@
     }
   }
 
+  .menu-item:hover {
+    animation: glitch 2.5s infinite;
+  }
+
   .footer-item {
     position: absolute;
     bottom: 70px;
@@ -54,20 +60,79 @@
   }
 }
 
-.secondary {
+.menu.not-found-menu {
+  top: auto;
+  bottom: 0;
+  height: auto;
+  min-height: auto;
+  background: none;
+  text-shadow: $shadow_main_color $text_shadow;
+}
 
-  .menu-item {
-    color: $text_secondary_color;
+@keyframes glitch {
 
-    span {
+  0% {
+    opacity: 1;
+    transform: none;
+  }
 
-      &.menu-item_mode_on {
-        color: $success_main_color;
-      }
+  7% {
+    opacity: 0.75;
+    transform: skew(-0.5deg, -0.9deg);
+  }
 
-      &.menu-item_mode_off {
-        color: $error_main_color;
-      }
-    }
+  10% {
+    opacity: 1;
+    transform: none;
+  }
+
+  27% {
+    opacity: 1;
+    transform: none;
+  }
+
+  30% {
+    opacity: 0.75;
+    transform: skew(0.8deg, -0.1deg);
+  }
+
+  35% {
+    opacity: 1;
+    transform: none;
+  }
+
+  52% {
+    opacity: 1;
+    transform: none;
+  }
+
+  55% {
+    opacity: 0.75;
+    transform: skew(-1deg, 0.2deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+
+  72% {
+    opacity: 1;
+    transform: none;
+  }
+
+  75% {
+    opacity: 0.75;
+    transform: skew(0.4deg, 1deg);
+  }
+
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
   }
 }

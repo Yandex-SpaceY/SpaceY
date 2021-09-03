@@ -127,7 +127,7 @@ const Topic: FC<RouteComponentProps<IDetailedParams>> = ({ history, match }): Re
   };
 
   return (
-    <div className='main'>
+    <div className='main forum-topic'>
       <PageMeta title={PAGE_NAMES.TOPIC} />
       <div className='content-wrapper double'>
         <div className='content'>

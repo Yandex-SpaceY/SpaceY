@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { IModifier } from 'store/types';
 import { TMenuItem } from './Menu';
+import { GAME_OPTIONS, SKILL_OPTIONS_TEXT, THEME_OPTIONS_TEXT } from 'constants/gameConstants';
 
 interface IProps {
   item: TMenuItem;
@@ -24,13 +25,24 @@ const MenuItem: FC<IProps> = ({ item, modifier, isMobile, handleAction }): React
     }
   };
 
-  if (title === 'theme' && typeof modifier[title] === 'string') {
-    const mode = modifier[title].toString();
+  if (title === GAME_OPTIONS.THEME_TITLE && typeof modifier[title] === 'string') {
+    const mode = THEME_OPTIONS_TEXT[modifier[title].toString()];
 
     return (
       <span key={title} className='menu-item' onClick={callback}>
         {`${title}:`}
-        <span className='menu-item_theme'>{mode.toUpperCase()}</span>
+        <span className='menu-item-theme'>{mode.toUpperCase()}</span>
+      </span>
+    );
+  }
+
+  if (title === GAME_OPTIONS.SKILL_TITLE && typeof modifier[title] === 'number') {
+    const mode = SKILL_OPTIONS_TEXT[modifier[title]];
+
+    return (
+      <span key={title} className='menu-item' onClick={callback}>
+        {`${title}:`}
+        <span className='menu-item-skill'>{mode.toUpperCase()}</span>
       </span>
     );
   }

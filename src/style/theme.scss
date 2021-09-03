@@ -1,0 +1,32 @@
+:root {
+  --bg-image: url('images/main_bg.jpg');
+  --primary_color: #36535b;
+  --secondary_color: #769ea2;
+  --third_color: #1d3540;
+  --shadow_main_color: #000;
+  --text_main_color: #fff;
+  --text_secondary_color: rgb(255, 126, 126);
+  --success_main_color: #1e551e;
+  --error_main_color: #db4e3f;
+  --header_link_color: #8659ab;
+  --header_hover_link_color: #6d3f94;
+  --overlay_color: rgba(29, 53, 64, 0.62);
+  --spinner_overlay_color: rgba(4, 8, 9, 0.62);
+  --yellow_color: #fcee2c;
+}
+
+:root .theme-mars {
+  --bg-image: url('images/main_bg_mars.jpg');
+  --primary_color: #87393d;
+  --secondary_color: #b85c55;
+  --third_color: #682630;
+  --shadow_main_color: #000;
+  --text_main_color: #fff;
+  --success_main_color: #1e551e;
+  --error_main_color: #db4e3f;
+  --header_link_color: #c75217;
+  --header_hover_link_color: #d27f57;
+  --overlay_color: rgba(29, 53, 64, 0.62);
+  --spinner_overlay_color: rgba(4, 8, 9, 0.62);
+  --yellow_color: #fcee2c;
+}

@@ -53,7 +53,7 @@ const Signup: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
 
   return (
-    <div className='main'>
+    <div className='main register'>
       <PageMeta title={PAGE_NAMES.REGISTRATION} />
       <div className='content-wrapper double'>
         <h1>{GAME_NAME}</h1>

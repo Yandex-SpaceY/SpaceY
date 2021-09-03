@@ -5,9 +5,12 @@ body,
   height: 100%;
 }
 
-body {
-  background: url('images/main_bg.jpg') no-repeat;
+.app-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-image) no-repeat;
   background-attachment: fixed;
+  background-position: center;
   background-size: cover;
 }
 
@@ -23,7 +26,7 @@ body {
 .main {
   display: flex;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
 
@@ -81,42 +84,6 @@ body {
   }
 }
 
-.secondary {
-
-  .content {
-    color: $text_secondary_color;
-
-    .content-links {
-
-      .content-links-game {
-        color: $success_main_color;
-      }
-    }
-  }
-
-  .one-input-block {
-    color: $yellow-color;
-
-    .input {
-      color: $yellow-color;
-    }
-  }
-
-  .one-button {
-    color: $secondary_color;
-
-    &:hover,
-    &:active {
-      background-color: $yellow-color;
-    }
-  }
-
-  .link,
-  .link-disabled:hover {
-    color: $yellow-color;
-  }
-}
-
 .content-wrapper {
   width: $content_width;
 
@@ -125,6 +92,17 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  @media screen and (max-width: $max_content_width) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: $max_content_width) and (max-height: $height_to_zoom_out_content) {
+    zoom: $zoom_out_ratio;
   }
 
   &.double {

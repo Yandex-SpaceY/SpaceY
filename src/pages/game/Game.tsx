@@ -9,7 +9,8 @@ import {
   gameIsGamePausedSelector,
   gameIsGameOverSelector,
   gameIsSoundOnSelector,
-  gameLastScoreSelector
+  gameLastScoreSelector,
+  gameSkillLevelSelector
 } from 'store/game/selectors';
 import { REQUEST_DATA } from 'constants/leaderConstants';
 import { MENU_ITEMS, MENU_ITEMS_PAUSE, MENU_ITEMS_GAME_OVER, MENU_ACTIONS } from 'constants/menuConstants';
@@ -26,10 +27,11 @@ const Game: FC = (): ReactElement => {
   const isGamePaused = useSelector(gameIsGamePausedSelector);
   const isGameOver = useSelector(gameIsGameOverSelector);
   const isSoundOn = useSelector(gameIsSoundOnSelector);
+  const skillLevel = useSelector(gameSkillLevelSelector);
   const lastScore = useSelector(gameLastScoreSelector);
   const { id, avatar, login } = useSelector(userUserDataSelector);
   const settings = useSelector(userSettingSelector);
-  const { theme, vibration } = settings;
+  const { theme, vibration, skill } = settings;
 
   const [ menuItems, setMenuItems ] = useState<TMenuItem[]>(MENU_ITEMS);
   const [ menuAction, setMenuAction ] = useState<string | null>(null);
@@ -93,11 +95,12 @@ const Game: FC = (): ReactElement => {
   }, []);
 
   return (
-    <div className={cn('main game', theme)}>
+    <div className={cn('main', 'game')}>
       <PageMeta />
       <div className='content-wrapper'>
         <GameCanvas
           isSoundOn={isSoundOn}
+          skillLevel={skillLevel}
           settings={settings}
           menuAction={menuAction}
           resetMenuAction={resetMenuAction}
@@ -109,7 +112,7 @@ const Game: FC = (): ReactElement => {
           handleAction={handleMenuAction}
           className={isMenuWithTitle ? '' : 'game-over-menu'}
           isWithTitle={isMenuWithTitle}
-          modifier={{ sound: isSoundOn, vibration, theme }}
+          modifier={{ sound: isSoundOn, vibration, theme, skill }}
         />
         <MenuHamburger isShown={isGameStarted && !isGamePaused && !isGameOver} onClick={handleHamburgerOnClick} />
       </div>
