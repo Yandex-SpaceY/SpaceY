@@ -58,7 +58,7 @@ https://praktikum.yandex.ru/middle-frontend/
 
 - `express: 5000`
 - `postgres: 54322`
-- `nginx: 3050` (proxy для express)
+- `nginx: 80` (proxy для express)
 
 ##### 3. Режим разработки
 
@@ -86,7 +86,7 @@ https://praktikum.yandex.ru/middle-frontend/
   - создайте в рабочей папке облака файл `docker-compose.yaml` и скопируйте в него содержимое файла `docker-compose-cloud.yaml` из репозитория
   - измените в файле `docker-compose.yaml` облака имя тега docker-хаба на необходимый
   - создайте в рабочей папке облака папку `nginx`
-  - создайте в ней файл `default.conf` и скопируйте в него содержимое файла `default-cloud.conf` из репозитория
+  - создайте в ней файл `nginx.conf` и скопируйте в него содержимое файла `nginx-cloud.conf` из репозитория
   - скопируйте в эту же папку созданные вами SSL ключи со следующими названиями файлов: `cert.pem` - файл сертификата, `key.pem` - файл публичного ключа
   - создайте в рабочей папке файл `.env` и скопируйте в него содержимое файла `.env`, который вы создали ранее локально
   - `sudo docker pull <тег docker-хаба>:latest` - получите образы из хаба
