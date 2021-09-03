@@ -13,7 +13,7 @@ import { PAGE_SIZE } from 'constants/paginationConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { Button, Input, Modal, ModalContent, PageMeta, Pagination } from 'components';
 import { setUserPending } from 'store/user/actions';
-import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
+import { userUserDataSelector } from 'store/user/selectors';
 import { formatBigNumbers, formatDate } from 'utils';
 
 import './forum.scss';
@@ -29,7 +29,6 @@ type ForumState = ITopic[]
 
 const Forum: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
-  const { theme } = useSelector(userSettingSelector);
   const { id: userId } = useSelector(userUserDataSelector);
 
   const [ topics, setTopics ] = useState<ForumState>([]);
@@ -113,7 +112,7 @@ const Forum: FC<RouteComponentProps> = ({ history }): ReactElement => {
   };
 
   return (
-    <div className={cn('main', theme)}>
+    <div className={cn('main', 'forum')}>
       <PageMeta title={PAGE_NAMES.FORUM} />
       <div className='content-wrapper double'>
         <div className='content'>

@@ -14,14 +14,13 @@ import { ERROR_CONSTANTS } from 'constants/errorConstants';
 import { LINK_TEXTS } from 'constants/linkConstants';
 import { ROUTE_CONSTANTS } from 'constants/routeConstants';
 import { ALERT_TEXTS } from 'constants/alertConstants';
-import { userSettingSelector, userUserDataSelector } from 'store/user/selectors';
+import { userUserDataSelector } from 'store/user/selectors';
 import { setAlert, setUserData, setUserPending } from 'store/user/actions';
 import { profileSchema } from 'schemas';
 
 const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const dispatch = useDispatch();
   const userData = useSelector(userUserDataSelector) as PROFILE_TYPE;
-  const { theme } = useSelector(userSettingSelector);
 
   const [ avatar, setAvatar ] = useState<string>('');
   const [ avatarError, setAvatarError ] = useState<string>('');
@@ -94,7 +93,7 @@ const ProfileEdit: FC<RouteComponentProps> = ({ history }): ReactElement => {
   const { errors, touched, values, handleChange, handleBlur, handleSubmit } = formik;
 
   return (
-    <div className={cn('main', theme)}>
+    <div className={cn('main', 'profile-edit')}>
       <PageMeta title={PAGE_NAMES.PROFILE_EDIT} />
       <div className='content-wrapper double'>
         <form className='content' onSubmit={handleSubmit}>

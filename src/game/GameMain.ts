@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { boxCollides } from 'game/core/utils';
-import { GAME_CONTROLS, GAME_SETTINGS, OBSTACLE_TYPES } from 'game/constants';
+import { GAME_CONTROLS, GAME_SETTINGS, OBSTACLE_TYPES, SKILL_LEVEL_SETTINGS } from 'game/constants';
 import { MainStage } from 'game/stages';
 import { Resources, Sound, Stage } from 'game/core';
 import { Repair, REPAIR_STATUS, Obstacle, SpaceShip, SHIP_STATUS, Wall } from 'game/entities';
@@ -16,6 +16,7 @@ export default class GameMain {
 
   isGameOver: boolean;
   isGamePaused: boolean;
+  skillLevel: number;
   isSoundOn: boolean;
   vibration: boolean;
   vibrationController: VibrationController;
@@ -53,6 +54,7 @@ export default class GameMain {
     this.lastTime = Date.now();
     this.isGameOver = false;
     this.isGamePaused = false;
+    this.skillLevel = 1;
     this.isSoundOn = true;
     this.vibration = true;
     this.vibrationController = new VibrationController();
@@ -125,6 +127,10 @@ export default class GameMain {
   setSoundStatus(status: boolean): void {
     this.isSoundOn = status;
     status ? this.bgMusic.play(): this.bgMusic.stop();
+  }
+
+  setSkillLevel(level: number): void {
+    this.skillLevel = level;
   }
 
   setVibrationStatus(status: boolean): void {
@@ -241,7 +247,10 @@ export default class GameMain {
               [new Obstacle(position, this.speedModifierReference, obstacleType)]
             );
 
-            if (seed > 0.7) {
+            if (
+              seed > 0.7
+              && Math.random() > (1 - (1 - SKILL_LEVEL_SETTINGS.REPAIR_PROBABILITY_DECREMENT[this.skillLevel - 1]))
+            ) {
 
               if (this.repair!.status === REPAIR_STATUS.NOT_ACTIVE) {
                 this.repair!.switchStatus();
@@ -278,7 +287,7 @@ export default class GameMain {
     this.isShipDestroyed = false;
     this.col = 0;
     this.score = 0;
-    this.speedModifierReference.speedModifier = GAME_SETTINGS.BASE_SPEED_MODIFIER;
+    this.speedModifierReference.speedModifier = SKILL_LEVEL_SETTINGS.SPEED_MODIFIER[this.skillLevel - 1];
 
     this.setHull(this.ship!.hullStrength);
 
@@ -380,7 +389,7 @@ export default class GameMain {
   update(dt: number): void {
     if (!this.isGamePaused) {
       this.gameTime += dt;
-      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * GAME_SETTINGS.BASE_SPEED_MODIFIER * dt;
+      this.pixelCount += GAME_SETTINGS.WALL_BASE_SPEED * SKILL_LEVEL_SETTINGS.SPEED_MODIFIER[this.skillLevel - 1] * dt;
 
       this.updateEntities(dt);
       this.generateObstacles();
@@ -390,7 +399,8 @@ export default class GameMain {
         this.pixelCount = 0;
 
         if (this.score % GAME_SETTINGS.DISTANCE_TO_INCREASE_SPEED === 0 && this.pixelCount === 0) {
-          this.speedModifierReference.speedModifier += GAME_SETTINGS.SPEED_MODIFIER_INCREMENT;
+          this.speedModifierReference.speedModifier
+            += SKILL_LEVEL_SETTINGS.SPEED_MODIFIER_INCREMENT[this.skillLevel - 1];
         }
       }
 

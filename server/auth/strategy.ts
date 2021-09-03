@@ -16,7 +16,7 @@ export const strategy = new CookieStrategy(cookieOptions, (
   token: string, next: (a: null, b: boolean) => void
 ) => {
   try {
-    jwt.verify(token, <jwt.Secret>API_SECRET, {
+    jwt.verify(token, <jwt.Secret>API_SECRET + '', {
       issuer: API_CONSTANTS.ISSUER,
     });
 

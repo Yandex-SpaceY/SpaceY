@@ -15,6 +15,7 @@ export type TUserData = {
 export type TUserSettings = {
   id: number;
   theme: ValueOfTheme;
+  skill: ValueOfSkill;
   sound: boolean;
   vibration: boolean;
 }
@@ -32,6 +33,7 @@ export type TGameState = {
   isGameStarted: boolean;
   isGameOver: boolean;
   isGamePaused: boolean;
+  skillLevel: number;
   isSoundOn: boolean;
   vibration: boolean;
   lastScore: number;
@@ -56,8 +58,11 @@ export interface IAlert {
   type?: string;
 }
 
-type Keys = keyof typeof THEME_OPTIONS;
-export type ValueOfTheme = typeof THEME_OPTIONS[Keys]; //
+type ThemeKeys = keyof typeof THEME_OPTIONS;
+export type ValueOfTheme = typeof THEME_OPTIONS[ThemeKeys];
+
+type SkillKeys = keyof typeof SKILL_OPTIONS;
+export type ValueOfSkill = typeof SKILL_OPTIONS[SkillKeys];
 export interface IModifier {
-   [key: string]: boolean | ValueOfTheme
+  [key: string]: boolean | ValueOfTheme | ValueOfSkill
 }
