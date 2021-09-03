@@ -1,7 +1,7 @@
 {
   "name": "space-y",
   "version": "1.0.0",
-  "description": "Space Y game",
+  "description": "SpaceY Game",
   "main": "server/index.ts",
   "scripts": {
     "clean": "rimraf dist",

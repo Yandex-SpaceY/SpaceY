@@ -19,7 +19,7 @@ https://praktikum.yandex.ru/middle-frontend/
 
 #### Стек
 
-![html@5](https://img.shields.io/badge/html-5-E34F26?style=for-the-badge&logo=html5) ![sass@1.3](https://img.shields.io/badge/sass-1.3-CC6699?style=for-the-badge&logo=sass) ![node.js@12](https://img.shields.io/badge/node.js-12-339933?style=for-the-badge&logo=nodedotjs) ![typescript@4](https://img.shields.io/badge/typescript-4-3178C6?style=for-the-badge&logo=typescript) ![reactjs@17](https://img.shields.io/badge/Reactjs-17-61DAFB?style=for-the-badge&logo=react) ![webpack@5](https://img.shields.io/badge/webpack-5-8dd6f9?style=for-the-badge&logo=webpack)
+![html@5](https://img.shields.io/badge/html-5-E34F26?style=for-the-badge&logo=html5) ![sass@1.3](https://img.shields.io/badge/sass-1.3-CC6699?style=for-the-badge&logo=sass) ![node.js@12](https://img.shields.io/badge/node.js-12-339933?style=for-the-badge&logo=nodedotjs) ![typescript@4](https://img.shields.io/badge/typescript-4-3178C6?style=for-the-badge&logo=typescript) ![reactjs@17](https://img.shields.io/badge/Reactjs-17-61DAFB?style=for-the-badge&logo=react) ![webpack@5](https://img.shields.io/badge/webpack-5-8dd6f9?style=for-the-badge&logo=webpack) ![express@4.1](https://img.shields.io/badge/express-4.1-000000?style=for-the-badge&logo=express) ![postgresql@8.7](https://img.shields.io/badge/PostgreSQL-8.7-4169E1?style=for-the-badge&logo=postgresql) ![nginx@1.2](https://img.shields.io/badge/nginx-1.2-009639?style=for-the-badge&logo=nginx)
 
 #### CI/CD
 
