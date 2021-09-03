@@ -19,6 +19,7 @@ https://praktikum.yandex.ru/middle-frontend/
 
 ![html@5](https://img.shields.io/badge/html-5-E34F26?style=for-the-badge&logo=html5) ![sass@1.3](https://img.shields.io/badge/sass-1.3-CC6699?style=for-the-badge&logo=sass) ![node.js@12](https://img.shields.io/badge/node.js-12-339933?style=for-the-badge&logo=nodedotjs) ![typescript@4](https://img.shields.io/badge/typescript-4-3178C6?style=for-the-badge&logo=typescript) ![reactjs@17](https://img.shields.io/badge/Reactjs-17-61DAFB?style=for-the-badge&logo=react) ![webpack@5](https://img.shields.io/badge/webpack-5-8dd6f9?style=for-the-badge&logo=webpack)
 
+[![Deploy](https://github.com/Yandex-SpaceY/SpaceY/actions/workflows/deploy.yml/badge.svg)](https://github.com/Yandex-SpaceY/SpaceY/actions/workflows/deploy.yml)
 ---
 Установка и использование:
 
