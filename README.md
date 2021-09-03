@@ -25,6 +25,11 @@ https://praktikum.yandex.ru/middle-frontend/
 
 ![github@deploy](https://img.shields.io/github/workflow/status/Yandex-SpaceY/SpaceY/Deploy?style=for-the-badge&logo=github&label=deploy)
 
+#### Ссылки на рабочие деплои
+
+- [https://space-y-game.herokuapp.com/](https://space-y-game.herokuapp.com/) - дейплой образа приложения без proxy-сервера на Heroku с использованием Heroku PostgreSQL Add-on
+- [https://antananariva-spacey-06.ya-praktikum.tech/](https://antananariva-spacey-06.ya-praktikum.tech/) - деплой с proxy-сервером в Yandex Cloud с корректной работой cookies ([см. ниже](#cookies))
+
 ---
 
 ### Установка и настройка
@@ -92,7 +97,7 @@ https://praktikum.yandex.ru/middle-frontend/
   - `sudo docker pull <тег docker-хаба>:latest` - получите образы из хаба
   - `sudo docker-compose up -d --no-deps` - запуск образов
 
-Нужно учитывать, что приложение завязано на использовании API от домена `ya-praktikum.tech` и пользователь получает `cookies` именно от этого домена, поэтому наиболее корректная работа авторизации и SSR "внутренних" страниц будет происходить на сервере, который расположен в поддомене `ya-praktikum.tech`.
+<a name="cookies"></a>Нужно учитывать, что приложение завязано на использовании API от домена `ya-praktikum.tech` и пользователь получает `cookies` именно от этого домена, поэтому наиболее корректная работа авторизации и SSR "внутренних" страниц будет происходить на сервере, который расположен в поддомене `ya-praktikum.tech`.
 
 ---
 
